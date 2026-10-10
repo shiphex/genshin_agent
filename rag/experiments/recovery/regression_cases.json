@@ -1,0 +1,2523 @@
+{
+  "schema_version": 1,
+  "status": "handoff_fixtures_not_fixed_parser_output",
+  "input_root": "E:\\Workplace\\Learn_project\\genshin_agent\\data\\raw\\genshin_wiki_data_20260605",
+  "snapshot_fingerprint_sha256": "4762fe135bb110b9d5f9333e0c186acbb40cbfc0b5be5a411c44308ed1a7b816",
+  "observed_crawler_commit": "fb801552c4125614e324d4b5e676c87ba7c86b6f",
+  "fixture_count": 19,
+  "fixtures": [
+    {
+      "case_id": "case_01",
+      "family": "plot_template",
+      "page_title": "月夜，泊船码头",
+      "page_id": 48826,
+      "namespace": 0,
+      "raw_file": "pages/月夜，泊船码头__b6d8d4261e.json",
+      "file_sha256": "966dec30a15201e66e28a229757b9b4714a1fb706f619ff7f856a4899ab39de7",
+      "wikitext_sha256": "b1a81b8cdd54cd7620504f31a069ff9ae203d85f5880e96ef69a866efe3117ae",
+      "wikitext_characters": 1692,
+      "wikitext_json_pointer": "/query/pages/48826/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "plot_template": [
+          {
+            "start": 287,
+            "end": 291,
+            "matched": "{{剧情"
+          }
+        ],
+        "big_tag": [
+          {
+            "start": 945,
+            "end": 950,
+            "matched": "<big>"
+          },
+          {
+            "start": 967,
+            "end": 973,
+            "matched": "</big>"
+          },
+          {
+            "start": 1374,
+            "end": 1379,
+            "matched": "<big>"
+          },
+          {
+            "start": 1387,
+            "end": 1393,
+            "matched": "</big>"
+          }
+        ]
+      },
+      "expected_checks": [
+        "恢复剧情容器中的真实对白、选项与原文位置，不能以零对话验收"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run",
+      "literal_quote_anchors": [
+        {
+          "text": "能在这里见到你，真叫人高兴。",
+          "start": 535,
+          "end": 549
+        },
+        {
+          "text": "好吧，这顿我请，行了吧？",
+          "start": 731,
+          "end": 743
+        }
+      ]
+    },
+    {
+      "case_id": "case_02",
+      "family": "same_display_title",
+      "page_title": "幕间小憩·第一日",
+      "page_id": 157520,
+      "namespace": 0,
+      "raw_file": "pages/幕间小憩·第一日__72c533858c.json",
+      "file_sha256": "fcf6c9c3aff53952cbd0922f05a54c65c221ebe4702e3e36e2a685982e01bdf6",
+      "wikitext_sha256": "86f155ddaf18182f6098d8fc28b829a889042b380065c7c69f404ada3835f880",
+      "wikitext_characters": 968,
+      "wikitext_json_pointer": "/query/pages/157520/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "plot_options": [
+          {
+            "start": 541,
+            "end": 547,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 652,
+            "end": 658,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 765,
+            "end": 771,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 921,
+            "end": 927,
+            "matched": "{{剧情选项"
+          }
+        ],
+        "color_template": [
+          {
+            "start": 515,
+            "end": 519,
+            "matched": "{{颜色"
+          }
+        ],
+        "display_title": [
+          {
+            "start": 0,
+            "end": 14,
+            "matched": "{{DISPLAYTITLE"
+          }
+        ]
+      },
+      "expected_checks": [
+        "与其余三日分别保存原页面身份，不用任务显示名作唯一键"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run",
+      "same_display_title_group": "幕间小憩"
+    },
+    {
+      "case_id": "case_03",
+      "family": "same_display_title",
+      "page_title": "幕间小憩·第二日",
+      "page_id": 157524,
+      "namespace": 0,
+      "raw_file": "pages/幕间小憩·第二日__b41aeb1d85.json",
+      "file_sha256": "2286edee1ca1603779c8d6e5ee6462f9a668515e34635f53ec6f5d8abd6568a6",
+      "wikitext_sha256": "2ba3c69dae2545e42d6469e91b2d7dcea273d79613664404363144b1998ee40d",
+      "wikitext_characters": 998,
+      "wikitext_json_pointer": "/query/pages/157524/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "plot_options": [
+          {
+            "start": 530,
+            "end": 536,
+            "matched": "{{剧情选项"
+          }
+        ],
+        "color_template": [
+          {
+            "start": 504,
+            "end": 508,
+            "matched": "{{颜色"
+          }
+        ],
+        "display_title": [
+          {
+            "start": 0,
+            "end": 14,
+            "matched": "{{DISPLAYTITLE"
+          }
+        ]
+      },
+      "expected_checks": [
+        "与其余三日分别保存；按原文确认所有候选节点而非接受当前少量对白"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run",
+      "same_display_title_group": "幕间小憩"
+    },
+    {
+      "case_id": "case_04",
+      "family": "same_display_title",
+      "page_title": "幕间小憩·第三日",
+      "page_id": 157550,
+      "namespace": 0,
+      "raw_file": "pages/幕间小憩·第三日__ae97882789.json",
+      "file_sha256": "b46fb5aba2d6155825983974fdadb92670a1650d7904ee4b2077fe936ad0ac58",
+      "wikitext_sha256": "d7b8f6b8d578a9673e08d508a6e346cc2888cf70698547b256f4d29be7cbb8e3",
+      "wikitext_characters": 1290,
+      "wikitext_json_pointer": "/query/pages/157550/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "plot_options": [
+          {
+            "start": 440,
+            "end": 446,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 722,
+            "end": 728,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 912,
+            "end": 918,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 1020,
+            "end": 1026,
+            "matched": "{{剧情选项"
+          }
+        ],
+        "tabber": [
+          {
+            "start": 570,
+            "end": 583,
+            "matched": "{{#tag:tabber"
+          }
+        ],
+        "color_template": [
+          {
+            "start": 407,
+            "end": 411,
+            "matched": "{{颜色"
+          }
+        ],
+        "display_title": [
+          {
+            "start": 0,
+            "end": 14,
+            "matched": "{{DISPLAYTITLE"
+          }
+        ]
+      },
+      "expected_checks": [
+        "分别保存；保留原文tabber或选项条件归属"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run",
+      "same_display_title_group": "幕间小憩"
+    },
+    {
+      "case_id": "case_05",
+      "family": "same_display_title",
+      "page_title": "幕间小憩·第四日",
+      "page_id": 157576,
+      "namespace": 0,
+      "raw_file": "pages/幕间小憩·第四日__4b77319115.json",
+      "file_sha256": "19b34d5301ebe77ecb2d86b20d5db211f9fdb794b9c8ac857ad1ef97c742c636",
+      "wikitext_sha256": "d779da25d602e3acf19e5f97b9d79d4b2f966a8caf2827533299a11e908dded9",
+      "wikitext_characters": 1845,
+      "wikitext_json_pointer": "/query/pages/157576/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "plot_options": [
+          {
+            "start": 526,
+            "end": 532,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 696,
+            "end": 702,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 792,
+            "end": 798,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 1302,
+            "end": 1308,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 1568,
+            "end": 1574,
+            "matched": "{{剧情选项"
+          }
+        ],
+        "tabber": [
+          {
+            "start": 546,
+            "end": 559,
+            "matched": "{{#tag:tabber"
+          },
+          {
+            "start": 1150,
+            "end": 1163,
+            "matched": "{{#tag:tabber"
+          }
+        ],
+        "color_template": [
+          {
+            "start": 962,
+            "end": 966,
+            "matched": "{{颜色"
+          }
+        ],
+        "display_title": [
+          {
+            "start": 0,
+            "end": 14,
+            "matched": "{{DISPLAYTITLE"
+          }
+        ]
+      },
+      "expected_checks": [
+        "分别保存；保留原文tabber或选项条件归属"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run",
+      "same_display_title_group": "幕间小憩"
+    },
+    {
+      "case_id": "case_06",
+      "family": "disambiguated_title",
+      "page_title": "后日谈（食梦者的忧郁）",
+      "page_id": 139642,
+      "namespace": 0,
+      "raw_file": "pages/后日谈（食梦者的忧郁）__00f0324080.json",
+      "file_sha256": "9e3827d6c1f08f4fbb0237670c082ed6b196d7cf6fc24c2554fdaefcbe6ba2d0",
+      "wikitext_sha256": "d576df5fcf9c6046dc464b4b8c9cd380167111b6d9a7175d283bdb4ef6051aa1",
+      "wikitext_characters": 1668,
+      "wikitext_json_pointer": "/query/pages/139642/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "plot_options": [
+          {
+            "start": 750,
+            "end": 756,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 965,
+            "end": 971,
+            "matched": "{{剧情选项"
+          }
+        ],
+        "display_title": [
+          {
+            "start": 0,
+            "end": 14,
+            "matched": "{{DISPLAYTITLE"
+          }
+        ]
+      },
+      "expected_checks": [
+        "完整页面标题与显示名称分开，原页引用准确"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run"
+    },
+    {
+      "case_id": "case_07",
+      "family": "task_vs_series",
+      "page_title": "基尼奇的交易（任务）",
+      "page_id": 127714,
+      "namespace": 0,
+      "raw_file": "pages/基尼奇的交易（任务）__74a27c6cb4.json",
+      "file_sha256": "4fb737484aaa161b28c697824d148dbbd6f7795b838b9546bed6dd48fdb9cef4",
+      "wikitext_sha256": "234a494d0cc76aab1f176d398322a02bc0426351921c07e1eb4ec18a62fbc401",
+      "wikitext_characters": 4818,
+      "wikitext_json_pointer": "/query/pages/127714/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "plot_options": [
+          {
+            "start": 450,
+            "end": 456,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 892,
+            "end": 898,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 965,
+            "end": 971,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 1216,
+            "end": 1222,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 1372,
+            "end": 1378,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 1653,
+            "end": 1659,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 1945,
+            "end": 1951,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 2408,
+            "end": 2414,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 2705,
+            "end": 2711,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 2775,
+            "end": 2781,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 3311,
+            "end": 3317,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 3423,
+            "end": 3429,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 4060,
+            "end": 4066,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 4413,
+            "end": 4419,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 4666,
+            "end": 4672,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 4710,
+            "end": 4716,
+            "matched": "{{剧情选项"
+          }
+        ],
+        "color_template": [
+          {
+            "start": 810,
+            "end": 814,
+            "matched": "{{颜色"
+          }
+        ],
+        "display_title": [
+          {
+            "start": 0,
+            "end": 14,
+            "matched": "{{DISPLAYTITLE"
+          }
+        ]
+      },
+      "expected_checks": [
+        "不与同名系列页混淆，解析正确任务原页面"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run"
+    },
+    {
+      "case_id": "case_08",
+      "family": "display_wrappers",
+      "page_title": "所织与所斩",
+      "page_id": 124299,
+      "namespace": 0,
+      "raw_file": "pages/所织与所斩__6a586c4ae4.json",
+      "file_sha256": "a727bea3e48116e500a2bf441ecea25a42db92b89a5545cb4374a22b6ba2cb53",
+      "wikitext_sha256": "54d61d583221540374876c2b88913af10a6b036172ad0bb50c39bc1a1e713bd8",
+      "wikitext_characters": 7195,
+      "wikitext_json_pointer": "/query/pages/124299/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "plot_options": [
+          {
+            "start": 3357,
+            "end": 3363,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 3490,
+            "end": 3496,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 5994,
+            "end": 6000,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 6524,
+            "end": 6530,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 6859,
+            "end": 6865,
+            "matched": "{{剧情选项"
+          }
+        ],
+        "big_tag": [
+          {
+            "start": 4474,
+            "end": 4479,
+            "matched": "<big>"
+          },
+          {
+            "start": 4487,
+            "end": 4493,
+            "matched": "</big>"
+          }
+        ],
+        "color_template": [
+          {
+            "start": 3558,
+            "end": 3562,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 3735,
+            "end": 3739,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 4499,
+            "end": 4503,
+            "matched": "{{颜色"
+          }
+        ]
+      },
+      "expected_checks": [
+        "big标签只清显示不丢内部流程，正文和来源完整"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run"
+    },
+    {
+      "case_id": "case_09",
+      "family": "color_wrappers",
+      "page_title": "赤沙旧事",
+      "page_id": 130537,
+      "namespace": 0,
+      "raw_file": "pages/赤沙旧事__d62c7313a2.json",
+      "file_sha256": "c216cdab8b394416e0ddea2efe08f81e82d88e7f85ef9cf536c8a40285f707f0",
+      "wikitext_sha256": "50ad6bd925060bdefc9c445486967e48cb474985b500296ffd8e2a8b310e772b",
+      "wikitext_characters": 9257,
+      "wikitext_json_pointer": "/query/pages/130537/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "plot_options": [
+          {
+            "start": 1456,
+            "end": 1462,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 2042,
+            "end": 2048,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 2393,
+            "end": 2399,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 2459,
+            "end": 2465,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 4440,
+            "end": 4446,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 4754,
+            "end": 4760,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 6892,
+            "end": 6898,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 7121,
+            "end": 7127,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 8096,
+            "end": 8102,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 8411,
+            "end": 8417,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 8880,
+            "end": 8886,
+            "matched": "{{剧情选项"
+          }
+        ],
+        "color_template": [
+          {
+            "start": 675,
+            "end": 679,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 692,
+            "end": 696,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 1313,
+            "end": 1317,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 2770,
+            "end": 2774,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 4988,
+            "end": 4992,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 5074,
+            "end": 5078,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 5089,
+            "end": 5093,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 5297,
+            "end": 5301,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 5314,
+            "end": 5318,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 5545,
+            "end": 5549,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 6429,
+            "end": 6433,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 6520,
+            "end": 6524,
+            "matched": "{{颜色"
+          }
+        ]
+      },
+      "expected_checks": [
+        "颜色模板不成为流程名乱码，也不使整组对白被丢弃"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run"
+    },
+    {
+      "case_id": "case_10",
+      "family": "display_wrappers",
+      "page_title": "御神使的风姿",
+      "page_id": 89156,
+      "namespace": 0,
+      "raw_file": "pages/御神使的风姿__3ccfbe2ea7.json",
+      "file_sha256": "fd25f0a5def7db415ebb0470b9f261abb2635191e71a1dd8aead096e536df3bd",
+      "wikitext_sha256": "d4bdff6047839571f81a042ebabdfd2f2ef6023596d990db40d48f52abdf193a",
+      "wikitext_characters": 3037,
+      "wikitext_json_pointer": "/query/pages/89156/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "plot_options": [
+          {
+            "start": 807,
+            "end": 813,
+            "matched": "{{剧情选项"
+          }
+        ],
+        "big_tag": [
+          {
+            "start": 336,
+            "end": 341,
+            "matched": "<big>"
+          },
+          {
+            "start": 350,
+            "end": 356,
+            "matched": "</big>"
+          },
+          {
+            "start": 1054,
+            "end": 1059,
+            "matched": "<big>"
+          },
+          {
+            "start": 1066,
+            "end": 1072,
+            "matched": "</big>"
+          }
+        ],
+        "color_template": [
+          {
+            "start": 438,
+            "end": 442,
+            "matched": "{{颜色"
+          }
+        ]
+      },
+      "expected_checks": [
+        "流程显示标签不丢对白，原文选项及后续回应可追溯"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run"
+    },
+    {
+      "case_id": "case_11",
+      "family": "display_wrappers",
+      "page_title": "意外争斗",
+      "page_id": 88949,
+      "namespace": 0,
+      "raw_file": "pages/意外争斗__e873fff4e1.json",
+      "file_sha256": "5610babca4cda7a855bb443bedc0461ce33f885847d6f0c64e9018532bb6d4f7",
+      "wikitext_sha256": "2ec217f0e182928700b16c08929bdc2e493496467b5c9d63b5b15acc99fd96a1",
+      "wikitext_characters": 6865,
+      "wikitext_json_pointer": "/query/pages/88949/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "plot_options": [
+          {
+            "start": 1283,
+            "end": 1289,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 1496,
+            "end": 1502,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 2167,
+            "end": 2173,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 2633,
+            "end": 2639,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 5307,
+            "end": 5313,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 5476,
+            "end": 5482,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 5881,
+            "end": 5887,
+            "matched": "{{剧情选项"
+          }
+        ],
+        "big_tag": [
+          {
+            "start": 432,
+            "end": 437,
+            "matched": "<big>"
+          },
+          {
+            "start": 446,
+            "end": 452,
+            "matched": "</big>"
+          },
+          {
+            "start": 757,
+            "end": 762,
+            "matched": "<big>"
+          },
+          {
+            "start": 765,
+            "end": 771,
+            "matched": "</big>"
+          },
+          {
+            "start": 838,
+            "end": 843,
+            "matched": "<big>"
+          },
+          {
+            "start": 851,
+            "end": 857,
+            "matched": "</big>"
+          },
+          {
+            "start": 1693,
+            "end": 1698,
+            "matched": "<big>"
+          },
+          {
+            "start": 1709,
+            "end": 1715,
+            "matched": "</big>"
+          },
+          {
+            "start": 3181,
+            "end": 3186,
+            "matched": "<big>"
+          },
+          {
+            "start": 3197,
+            "end": 3203,
+            "matched": "</big>"
+          },
+          {
+            "start": 4871,
+            "end": 4876,
+            "matched": "<big>"
+          },
+          {
+            "start": 4881,
+            "end": 4887,
+            "matched": "</big>"
+          },
+          {
+            "start": 5783,
+            "end": 5788,
+            "matched": "<big>"
+          },
+          {
+            "start": 5796,
+            "end": 5802,
+            "matched": "</big>"
+          },
+          {
+            "start": 5809,
+            "end": 5814,
+            "matched": "<big>"
+          },
+          {
+            "start": 5819,
+            "end": 5825,
+            "matched": "</big>"
+          }
+        ],
+        "color_template": [
+          {
+            "start": 5674,
+            "end": 5678,
+            "matched": "{{颜色"
+          }
+        ]
+      },
+      "expected_checks": [
+        "场景和对白正确，清显示标签而非整组删除"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run"
+    },
+    {
+      "case_id": "case_12",
+      "family": "display_wrappers",
+      "page_title": "演武传心",
+      "page_id": 89155,
+      "namespace": 0,
+      "raw_file": "pages/演武传心__54e2a13b0f.json",
+      "file_sha256": "a0e0b824a6e51e103fe83900b2f7c86dc2ae8e91ec518ca0f93d62ad53e997dc",
+      "wikitext_sha256": "2a760cd623ce95f7e78adee3445168e4b0b902f8dbe4d1ea1c7378ef52d65b36",
+      "wikitext_characters": 4327,
+      "wikitext_json_pointer": "/query/pages/89155/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "plot_options": [
+          {
+            "start": 888,
+            "end": 894,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 1025,
+            "end": 1031,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 1433,
+            "end": 1439,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 1874,
+            "end": 1880,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 2416,
+            "end": 2422,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 3506,
+            "end": 3512,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 3745,
+            "end": 3751,
+            "matched": "{{剧情选项"
+          }
+        ],
+        "big_tag": [
+          {
+            "start": 440,
+            "end": 445,
+            "matched": "<big>"
+          },
+          {
+            "start": 455,
+            "end": 461,
+            "matched": "</big>"
+          },
+          {
+            "start": 1160,
+            "end": 1165,
+            "matched": "<big>"
+          },
+          {
+            "start": 1182,
+            "end": 1188,
+            "matched": "</big>"
+          },
+          {
+            "start": 1243,
+            "end": 1248,
+            "matched": "<big>"
+          },
+          {
+            "start": 1255,
+            "end": 1261,
+            "matched": "</big>"
+          },
+          {
+            "start": 2172,
+            "end": 2177,
+            "matched": "<big>"
+          },
+          {
+            "start": 2182,
+            "end": 2188,
+            "matched": "</big>"
+          },
+          {
+            "start": 2777,
+            "end": 2782,
+            "matched": "<big>"
+          },
+          {
+            "start": 2791,
+            "end": 2797,
+            "matched": "</big>"
+          },
+          {
+            "start": 2864,
+            "end": 2869,
+            "matched": "<big>"
+          },
+          {
+            "start": 2877,
+            "end": 2883,
+            "matched": "</big>"
+          }
+        ],
+        "color_template": [
+          {
+            "start": 1773,
+            "end": 1777,
+            "matched": "{{颜色"
+          }
+        ]
+      },
+      "expected_checks": [
+        "场景和对白正确，玩法元信息不当人物台词"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run"
+    },
+    {
+      "case_id": "case_13",
+      "family": "display_wrappers",
+      "page_title": "荒泷极意堂堂斗虫大试合！",
+      "page_id": 89321,
+      "namespace": 0,
+      "raw_file": "pages/荒泷极意堂堂斗虫大试合！__0b633c2909.json",
+      "file_sha256": "9a5ed6f51a9ed4df4527dfc9148b52ceb287b3f8016dbb176c206a6411e7f8d3",
+      "wikitext_sha256": "70232b95181ad0ded1dcf7c44b47ecd45af946d84e6b714abcb1ac42e59423f4",
+      "wikitext_characters": 9922,
+      "wikitext_json_pointer": "/query/pages/89321/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "plot_options": [
+          {
+            "start": 2123,
+            "end": 2129,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 2277,
+            "end": 2283,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 2746,
+            "end": 2752,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 3316,
+            "end": 3322,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 4001,
+            "end": 4007,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 4342,
+            "end": 4348,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 5574,
+            "end": 5580,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 6082,
+            "end": 6088,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 6434,
+            "end": 6440,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 6872,
+            "end": 6878,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 7706,
+            "end": 7712,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 8224,
+            "end": 8230,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 8960,
+            "end": 8966,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 9500,
+            "end": 9506,
+            "matched": "{{剧情选项"
+          }
+        ],
+        "big_tag": [
+          {
+            "start": 471,
+            "end": 476,
+            "matched": "<big>"
+          },
+          {
+            "start": 484,
+            "end": 490,
+            "matched": "</big>"
+          },
+          {
+            "start": 573,
+            "end": 578,
+            "matched": "<big>"
+          },
+          {
+            "start": 587,
+            "end": 593,
+            "matched": "</big>"
+          },
+          {
+            "start": 2896,
+            "end": 2901,
+            "matched": "<big>"
+          },
+          {
+            "start": 2914,
+            "end": 2920,
+            "matched": "</big>"
+          },
+          {
+            "start": 2927,
+            "end": 2932,
+            "matched": "<big>"
+          },
+          {
+            "start": 2940,
+            "end": 2946,
+            "matched": "</big>"
+          },
+          {
+            "start": 4943,
+            "end": 4948,
+            "matched": "<big>"
+          },
+          {
+            "start": 4958,
+            "end": 4964,
+            "matched": "</big>"
+          },
+          {
+            "start": 5417,
+            "end": 5422,
+            "matched": "<big>"
+          },
+          {
+            "start": 5431,
+            "end": 5437,
+            "matched": "</big>"
+          },
+          {
+            "start": 5444,
+            "end": 5449,
+            "matched": "<big>"
+          },
+          {
+            "start": 5459,
+            "end": 5465,
+            "matched": "</big>"
+          },
+          {
+            "start": 6533,
+            "end": 6538,
+            "matched": "<big>"
+          },
+          {
+            "start": 6548,
+            "end": 6554,
+            "matched": "</big>"
+          }
+        ],
+        "color_template": [
+          {
+            "start": 2835,
+            "end": 2839,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 2988,
+            "end": 2992,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 6560,
+            "end": 6564,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 7384,
+            "end": 7388,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 8096,
+            "end": 8100,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 8605,
+            "end": 8609,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 9324,
+            "end": 9328,
+            "matched": "{{颜色"
+          }
+        ]
+      },
+      "expected_checks": [
+        "流程和选项对白正确，机制攻略单独处置"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run"
+    },
+    {
+      "case_id": "case_14",
+      "family": "speaker_and_branches",
+      "page_title": "在夜的阴影中",
+      "page_id": 150350,
+      "namespace": 0,
+      "raw_file": "pages/在夜的阴影中__0239b99091.json",
+      "file_sha256": "b6c258bc0be6e85a7a673a91176eb6af946f88f670cccd0c641def22851b2019",
+      "wikitext_sha256": "9d78858278d8d318ec3623a618148c1c397e1750bd706c39a81ee23b24f98263",
+      "wikitext_characters": 22853,
+      "wikitext_json_pointer": "/query/pages/150350/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "plot_options": [
+          {
+            "start": 1375,
+            "end": 1381,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 2059,
+            "end": 2065,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 2750,
+            "end": 2756,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 3253,
+            "end": 3259,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 3632,
+            "end": 3638,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 3708,
+            "end": 3714,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 4953,
+            "end": 4959,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 4973,
+            "end": 4979,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 5050,
+            "end": 5056,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 5218,
+            "end": 5224,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 5238,
+            "end": 5244,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 5557,
+            "end": 5563,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 5701,
+            "end": 5707,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 6032,
+            "end": 6038,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 6245,
+            "end": 6251,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 6389,
+            "end": 6395,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 6409,
+            "end": 6415,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 6872,
+            "end": 6878,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 7204,
+            "end": 7210,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 7882,
+            "end": 7888,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 8052,
+            "end": 8058,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 8260,
+            "end": 8266,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 9806,
+            "end": 9812,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 10043,
+            "end": 10049,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 10092,
+            "end": 10098,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 10317,
+            "end": 10323,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 10417,
+            "end": 10423,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 10437,
+            "end": 10443,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 10512,
+            "end": 10518,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 10791,
+            "end": 10797,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 11253,
+            "end": 11259,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 11948,
+            "end": 11954,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 12112,
+            "end": 12118,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 13688,
+            "end": 13694,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 17724,
+            "end": 17730,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 19606,
+            "end": 19612,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 19719,
+            "end": 19725,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 19875,
+            "end": 19881,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 20207,
+            "end": 20213,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 20365,
+            "end": 20371,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 20431,
+            "end": 20437,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 20558,
+            "end": 20564,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 20963,
+            "end": 20969,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 21206,
+            "end": 21212,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 21767,
+            "end": 21773,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 21895,
+            "end": 21901,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 21956,
+            "end": 21962,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 22236,
+            "end": 22242,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 22513,
+            "end": 22519,
+            "matched": "{{剧情选项"
+          },
+          {
+            "start": 22599,
+            "end": 22605,
+            "matched": "{{剧情选项"
+          }
+        ],
+        "tabber": [
+          {
+            "start": 4050,
+            "end": 4063,
+            "matched": "{{#tag:tabber"
+          },
+          {
+            "start": 5599,
+            "end": 5612,
+            "matched": "{{#tag:tabber"
+          },
+          {
+            "start": 6731,
+            "end": 6744,
+            "matched": "{{#tag:tabber"
+          }
+        ],
+        "color_template": [
+          {
+            "start": 1145,
+            "end": 1149,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 1442,
+            "end": 1446,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 1599,
+            "end": 1603,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 3273,
+            "end": 3277,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 4143,
+            "end": 4147,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 4190,
+            "end": 4194,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 4245,
+            "end": 4249,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 4299,
+            "end": 4303,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 4353,
+            "end": 4357,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 4407,
+            "end": 4411,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 4461,
+            "end": 4465,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 4530,
+            "end": 4534,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 4553,
+            "end": 4557,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 4609,
+            "end": 4613,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 5179,
+            "end": 5183,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 5265,
+            "end": 5269,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 5319,
+            "end": 5323,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 5360,
+            "end": 5364,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 5396,
+            "end": 5400,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 6146,
+            "end": 6150,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 6267,
+            "end": 6271,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 6319,
+            "end": 6323,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 6433,
+            "end": 6437,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 6471,
+            "end": 6475,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 6622,
+            "end": 6626,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 6697,
+            "end": 6701,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 6914,
+            "end": 6918,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 7281,
+            "end": 7285,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 7436,
+            "end": 7440,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 7607,
+            "end": 7611,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 8004,
+            "end": 8008,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 8333,
+            "end": 8337,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 8623,
+            "end": 8627,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 9014,
+            "end": 9018,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 9172,
+            "end": 9176,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 9280,
+            "end": 9284,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 9513,
+            "end": 9517,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 9539,
+            "end": 9543,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 9638,
+            "end": 9642,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 9681,
+            "end": 9685,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 9725,
+            "end": 9729,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 9751,
+            "end": 9755,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 10008,
+            "end": 10012,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 10117,
+            "end": 10121,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 10168,
+            "end": 10172,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 10347,
+            "end": 10351,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 10459,
+            "end": 10463,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 10606,
+            "end": 10610,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 11490,
+            "end": 11494,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 11567,
+            "end": 11571,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 11597,
+            "end": 11601,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 11648,
+            "end": 11652,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 11698,
+            "end": 11702,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 11764,
+            "end": 11768,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 11821,
+            "end": 11825,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 11859,
+            "end": 11863,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 12166,
+            "end": 12170,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 13187,
+            "end": 13191,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 14898,
+            "end": 14902,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 14952,
+            "end": 14956,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 15263,
+            "end": 15267,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 15346,
+            "end": 15350,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 15729,
+            "end": 15733,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 15872,
+            "end": 15876,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 15899,
+            "end": 15903,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 15949,
+            "end": 15953,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 15991,
+            "end": 15995,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 16041,
+            "end": 16045,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 16144,
+            "end": 16148,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 16311,
+            "end": 16315,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 16349,
+            "end": 16353,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 16472,
+            "end": 16476,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 16893,
+            "end": 16897,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 16965,
+            "end": 16969,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 17059,
+            "end": 17063,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 17632,
+            "end": 17636,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 17849,
+            "end": 17853,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 18089,
+            "end": 18093,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 18183,
+            "end": 18187,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 18927,
+            "end": 18931,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 19229,
+            "end": 19233,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 19521,
+            "end": 19525,
+            "matched": "{{颜色"
+          }
+        ]
+      },
+      "expected_checks": [
+        "模板不当作说话者，tabber和选项分支保留，不因清理丢真实台词"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run"
+    },
+    {
+      "case_id": "case_15",
+      "family": "book_wrappers",
+      "page_title": "古老的考察日志",
+      "page_id": 143172,
+      "namespace": 0,
+      "raw_file": "pages/古老的考察日志__55e5732f26.json",
+      "file_sha256": "e645d774a0081bb59c9c68ca26c249c5c01887f1ef4ebbc96e5fa86bb2b07903",
+      "wikitext_sha256": "ce06a0b6759430d5b95cd661ebf47975cc6901beaa28b81ecd37f5459534cf2d",
+      "wikitext_characters": 2490,
+      "wikitext_json_pointer": "/query/pages/143172/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "color_template": [
+          {
+            "start": 518,
+            "end": 522,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 741,
+            "end": 745,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 1003,
+            "end": 1007,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 1110,
+            "end": 1114,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 1386,
+            "end": 1390,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 1910,
+            "end": 1914,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 1970,
+            "end": 1974,
+            "matched": "{{颜色"
+          }
+        ]
+      },
+      "expected_checks": [
+        "三卷正文及嵌套显示内容保留，未知原块登记而非删除后判完整"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run"
+    },
+    {
+      "case_id": "case_16",
+      "family": "voice_dependency_owner",
+      "page_title": "七七",
+      "page_id": 769,
+      "namespace": 0,
+      "raw_file": "pages/七七__b6e346b671.json",
+      "file_sha256": "c7645c79c9cb9808d5d5b048c465d3cf3c788ec469b8777b447c040555b79855",
+      "wikitext_sha256": "40c4973d39c52983d56dd1a906fe69471ae23cb422cfd967b13765ee67bc4dfc",
+      "wikitext_characters": 11293,
+      "wikitext_json_pointer": "/query/pages/769/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "big_tag": [
+          {
+            "start": 10774,
+            "end": 10779,
+            "matched": "<big>"
+          },
+          {
+            "start": 10789,
+            "end": 10795,
+            "matched": "</big>"
+          },
+          {
+            "start": 10856,
+            "end": 10861,
+            "matched": "<big>"
+          },
+          {
+            "start": 10871,
+            "end": 10877,
+            "matched": "</big>"
+          }
+        ],
+        "color_template": [
+          {
+            "start": 3665,
+            "end": 3669,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 3724,
+            "end": 3728,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 3825,
+            "end": 3829,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 3886,
+            "end": 3890,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 4175,
+            "end": 4179,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 4214,
+            "end": 4218,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 4256,
+            "end": 4260,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 6146,
+            "end": 6150,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 6170,
+            "end": 6174,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 6281,
+            "end": 6285,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 7875,
+            "end": 7879,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 7899,
+            "end": 7903,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 9257,
+            "end": 9261,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 9491,
+            "end": 9495,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 10477,
+            "end": 10481,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 10531,
+            "end": 10535,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 10601,
+            "end": 10605,
+            "matched": "{{颜色"
+          },
+          {
+            "start": 10633,
+            "end": 10637,
+            "matched": "{{颜色"
+          }
+        ]
+      },
+      "expected_checks": [
+        "明确登记七七语音辅助页的消费，合并单元有真实原页来源"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run"
+    },
+    {
+      "case_id": "case_17",
+      "family": "voice_dependency",
+      "page_title": "七七语音",
+      "page_id": 4088,
+      "namespace": 0,
+      "raw_file": "pages/七七语音__e9e34b3b2b.json",
+      "file_sha256": "5a924575706db7e424c8872d65a307f27843ce77b766ca2f828c1af168e8f5ba",
+      "wikitext_sha256": "8d950ae182341b82adff028b0d84533e0ef443062701d0d13bb5e4b1dfd55082",
+      "wikitext_characters": 20439,
+      "wikitext_json_pointer": "/query/pages/4088/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {
+        "voice_template": [
+          {
+            "start": 995,
+            "end": 1002,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 1293,
+            "end": 1300,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 1636,
+            "end": 1643,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 1933,
+            "end": 1940,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 2232,
+            "end": 2239,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 2559,
+            "end": 2566,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 2851,
+            "end": 2858,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 3084,
+            "end": 3091,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 3388,
+            "end": 3395,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 3624,
+            "end": 3631,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 3892,
+            "end": 3899,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 4138,
+            "end": 4145,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 4376,
+            "end": 4383,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 4654,
+            "end": 4661,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 4941,
+            "end": 4948,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 5286,
+            "end": 5293,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 5665,
+            "end": 5672,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 6059,
+            "end": 6066,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 6385,
+            "end": 6392,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 6720,
+            "end": 6727,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 7021,
+            "end": 7028,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 7282,
+            "end": 7289,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 7537,
+            "end": 7544,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 7781,
+            "end": 7788,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 7971,
+            "end": 7978,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 8209,
+            "end": 8216,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 8596,
+            "end": 8603,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 8823,
+            "end": 8830,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 9323,
+            "end": 9330,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 9745,
+            "end": 9752,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 10593,
+            "end": 10600,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 11363,
+            "end": 11370,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 11655,
+            "end": 11662,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 11966,
+            "end": 11973,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 12269,
+            "end": 12276,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 12498,
+            "end": 12505,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 12672,
+            "end": 12679,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 12769,
+            "end": 12776,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 12897,
+            "end": 12904,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 13525,
+            "end": 13532,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 13841,
+            "end": 13848,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 14214,
+            "end": 14221,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 14650,
+            "end": 14657,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 15071,
+            "end": 15078,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 15284,
+            "end": 15291,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 15496,
+            "end": 15503,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 15689,
+            "end": 15696,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 15923,
+            "end": 15930,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 16169,
+            "end": 16176,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 16410,
+            "end": 16417,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 16686,
+            "end": 16693,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 16768,
+            "end": 16775,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 16903,
+            "end": 16910,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 17089,
+            "end": 17096,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 17282,
+            "end": 17289,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 17480,
+            "end": 17487,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 17738,
+            "end": 17745,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 17843,
+            "end": 17850,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 18004,
+            "end": 18011,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 18243,
+            "end": 18250,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 18439,
+            "end": 18446,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 18662,
+            "end": 18669,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 18883,
+            "end": 18890,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 19078,
+            "end": 19085,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 19307,
+            "end": 19314,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 19513,
+            "end": 19520,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 19731,
+            "end": 19738,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 20002,
+            "end": 20009,
+            "matched": "{{角色/语音"
+          },
+          {
+            "start": 20223,
+            "end": 20230,
+            "matched": "{{角色/语音"
+          }
+        ]
+      },
+      "expected_checks": [
+        "辅助页中文台词逐项归属，已消费不得重复算作未解析漏页"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run"
+    },
+    {
+      "case_id": "case_18",
+      "family": "redirect_dependency",
+      "page_title": "旅行者/岩语音",
+      "page_id": 84946,
+      "namespace": 0,
+      "raw_file": "pages/旅行者_岩语音__75eb503894.json",
+      "file_sha256": "8c6c05b79ee91a0cb3235fe3267febfa148cc2c662773e221cfc30e8bf826b4b",
+      "wikitext_sha256": "6ed7ccbaf1a26887b8c121db7a1dfc5cbd29ced9f664fc4584404693d262b72e",
+      "wikitext_characters": 14,
+      "wikitext_json_pointer": "/query/pages/84946/revisions/0/slots/main/*",
+      "revision_id": null,
+      "api_missing": false,
+      "marker_locations": {},
+      "expected_checks": [
+        "只从缓存解析重定向；目标缺失则needs_source，循环或歧义明确报告"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run"
+    },
+    {
+      "case_id": "case_19",
+      "family": "missing_dependency",
+      "page_title": "模板:旅行者/通用语音",
+      "page_id": null,
+      "namespace": 10,
+      "raw_file": "pages/模板_旅行者_通用语音__d58238bcaa.json",
+      "file_sha256": "d89390935c65556c35d6ea16f5e402fb1ddd07099b36276f8da27051a2cbd629",
+      "wikitext_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wikitext_characters": 0,
+      "wikitext_json_pointer": null,
+      "revision_id": null,
+      "api_missing": true,
+      "marker_locations": {},
+      "expected_checks": [
+        "快照API payload标为missing且无正文，报告needs_source，不能凭空导出语音"
+      ],
+      "acceptance_status": "planned_upstream_tests_not_run"
+    }
+  ],
+  "synthetic_tests_required": [
+    "重复台词多次出现且位置不同",
+    "嵌套选择与性别条件",
+    "依赖缺失不得联网",
+    "重定向循环",
+    "业务同名不同页ID",
+    "未知模板原块保留",
+    "非剧情与合法空值不误报"
+  ]
+}

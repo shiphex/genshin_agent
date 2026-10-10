@@ -1,0 +1,8 @@
+{
+  "base_url": "http://127.0.0.1:8000/v1",
+  "model": null,
+  "api_key_env": null,
+  "timeout": 180,
+  "max_tokens": 1536,
+  "top_k": 5
+}

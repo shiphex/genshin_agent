@@ -1,1 +1,31 @@
+# Shared snapshots and local caches stay on disk, outside version control.
 /data/
+/.cache/
+.venv/
+__pycache__/
+*.py[cod]
+
+# RAG is opt-in: retain implementation and small development inputs only.
+/rag/*
+!/rag/README.md
+!/rag/context.md
+!/rag/scripts/
+!/rag/tests/
+!/rag/experiments/
+
+/rag/scripts/*
+!/rag/scripts/*.py
+/rag/tests/*
+!/rag/tests/*.py
+
+/rag/experiments/**
+!/rag/experiments/**/
+!/rag/experiments/**/*.md
+!/rag/experiments/mvp/selection.json
+!/rag/experiments/mvp/questions.jsonl
+!/rag/experiments/mvp/local_api.json
+!/rag/experiments/full/questions.jsonl
+!/rag/experiments/recovery/regression_cases.json
+
+# Corpora, answers, audits, coverage reports and hash manifests are local artifacts.
+/rag/data/
