@@ -1,5 +1,11 @@
 # RAG 开发上下文
 
+## Hugging Face 全量派生语料发布（2026-10-10）
+
+用户批准发布 `rag-full-20260605-v1` 到 <https://huggingface.co/datasets/shiphex/genshin_agent_RAG>，但范围仅为当前 `data/full/genshin_wiki_data_20260605/` 的 `corpus.jsonl`、`audit.json`、`exclusions.jsonl` 和 `coverage.md`，加上远端 manifest、Dataset Card和LFS规则。`rag/data/` 其余模型回答、审阅 ZIP/解压副本、Git bundle、缓存以及项目共享原始快照都不发布。
+
+新增标准库 `scripts/export_hf_dataset.py` 生成新的 staging 并校验固定白名单、22,822条 JSONL、必需来源字段和 SHA-256；拒绝已有输出、坏行、哈希/行数篡改或未批准文件，且不上传或修改源语料。新测试4项先失败后通过，RAG 全部64项测试通过。Dataset Card 使用 `license: other`，不声称对原神或 Wiki 文本授予 MIT；MIT 仅可用于发布者原创的脚本、清单和说明。staging 已本地验证并上传，远端 revision 为 `592d198a9cde390005323a9f849c0d3981fb5a33`；已用未登录 HTTP 下载全部发布文件、重算哈希并确认22,822条记录和LFS对象可访问，发布状态为 `available`。
+
 ## 精简公开案例与发布历史（2026-10-10）
 
 用户选择GitHub只保留关键错误摘录与诊断，完整版保留云盘；并要求清除b904a87等提交里的大报告。以970c114为边界合并后三次发布及本轮修改，不丢诊断代码／测试／小型输入。旧历史已用忽略目录下的Git bundle完整备份并独立恢复验证，不创建推送备份分支，不执行gc／prune。v2包与原哈希保持原样；旧源码哈希属于重写前历史，公开仓库不承诺可访问。

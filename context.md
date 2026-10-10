@@ -10,9 +10,16 @@
 - [24题结果](rag/reports/full_validation_20261010_105700/summary.md)：48次正式调用中47stop、1length；旧题Top5找齐6/9、新题0/10，参考不穷尽，不能代表答案正确率。
 - [六题诊断](rag/reports/generation_diagnosis_20261010_145424/summary.md)：48次stop；人工原文改善部分答案，仍有身份、主体、比例和时序误读，校准参数未稳定修复。未证明量化／运行时故障或4B永久能力上限。
 - [RAG说明](rag/README.md)和[模块上下文](rag/context.md)：具体实现、原文验证、历史与未解决问题。当前冻结语料22,822片段，未切换数据、重建语料或修改检索。
-- [数据与发布步骤](rag/reports/data_access.md)：重点分析包和完整复现包由uv标准库脚本生成，同一bundle_id／源码commit。实际GitHub／Drive地址待登记，pending_upload；没有remote、未推送、未上传。包源码版本与后续链接索引分别记录。
+- [Hugging Face RAG语料集](https://huggingface.co/datasets/shiphex/genshin_agent_RAG)：`rag-full-20260605-v1` 的四个派生语料文件已公开；许可、哈希、revision与匿名下载校验见[数据获取](rag/reports/data_access.md)。
+- [数据与发布步骤](rag/reports/data_access.md)：重点分析包和完整复现包由uv标准库脚本生成，同一bundle_id／源码commit。审阅包的GitHub／Drive地址仍待登记、pending_upload；包源码版本与后续链接索引分别记录。
 
 用户认为前轮错误“极其多”，这是总体反馈，不等于逐题验收。全部初审仍待用户确认；独立用户题目尚未收到。
+
+## Hugging Face 语料发布（2026-10-10）
+
+用户批准先发布当前全量派生 RAG 语料，不发布 `rag/data/` 整体、原始快照、模型回答、审阅 ZIP、Git bundle或缓存。新增 `rag/scripts/export_hf_dataset.py` 只从 `rag/data/full/genshin_wiki_data_20260605/` 导出四个批准文件、manifest、Dataset Card和LFS规则；它不上传、不会修改源数据。实际 staging 已验证22,822条记录和全部哈希，64项 RAG 测试通过。
+
+Dataset Card 标为 `license: other`，不将原神或 Wiki 文本宣称为 MIT；MIT 仅适用于发布者原创的脚本、清单和说明。目标数据集已 **available**：远端 revision 为 `592d198a9cde390005323a9f849c0d3981fb5a33`，已从该公开 revision 进行未登录 HTTP 下载并重算哈希、解析 JSONL、确认22,822条记录与LFS对象可访问。完整审阅包的 Google Drive 策略不变，继续独立于语料集。
 
 ## 工作边界
 

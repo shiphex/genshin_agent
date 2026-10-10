@@ -1,6 +1,21 @@
 # 数据获取与发布状态
 
-当前发布版本为review-20261010-v3。GitHub和Google Drive真实地址尚未登记，状态 **pending_upload**。GitHub提供精简诊断，完整记录由两种ZIP保留。
+当前有两类独立发布物：Hugging Face 数据集用于全量派生 RAG 语料；`review-20261010-v3` 审阅资料包用于完整实验记录。GitHub提供精简诊断。两份审阅 ZIP 的外部地址尚未登记，状态仍为 **pending_upload**。
+
+## Hugging Face 派生语料
+
+目标仓库为 <https://huggingface.co/datasets/shiphex/genshin_agent_RAG>，首版为 `rag-full-20260605-v1`。它只包含 `rag/data/full/genshin_wiki_data_20260605/` 的以下派生文件：
+
+| 文件 | 字节数 | SHA-256 |
+|---|---:|---|
+| `corpus.jsonl` | 33,087,738 | `1fafb904a22126b1fa757d1f6a2c119f1fa10f5637d5d75bcccfb9425c6efed3` |
+| `audit.json` | 1,073,603 | `7aec9fc7e7ec6d12c625d75e20168b33e6e18d38dc2e54d178866e6732d75a58` |
+| `exclusions.jsonl` | 438,694 | `39079f6248bf8ed8fe227eb52c4b4906793740b1b35c3bb43145967c5228c269` |
+| `coverage.md` | 58,645 | `1dd52c27ccd5db96165b5a588a28e7f67f969478ee4335f63300c086c3bf3aa6` |
+
+语料为22,822条可回查片段；远端 `manifest.json` 记录同一版本、输入快照标识、行数、文件大小和哈希。Dataset Card 使用 `license: other`：原神及 Wiki 文本没有通过本仓库获得再许可，MIT 仅适用于发布者原创的脚本、清单与说明。发布不含原始快照、模型回答、审阅 ZIP、Git bundle、缓存或其他 `rag/data/` 内容；必须另行提供同一冻结快照才能重建或按 Pointer 回查。
+
+本地 staging 已用 `rag/scripts/export_hf_dataset.py` 生成并校验，文件白名单、JSONL字段、行数和哈希均通过。远端状态为 **available**，revision 为 `592d198a9cde390005323a9f849c0d3981fb5a33`。已从该公开 revision 以未登录 HTTP 下载全部七个发布文件到新目录，并重算 manifest 哈希、解析 JSONL、确认22,822条记录和LFS对象可访问；验证时间为2026-10-10。
 
 | 包 | 内容 | 状态 |
 |---|---|---|
@@ -15,10 +30,10 @@
 
 v2两包与其哈希保持原样，源码030acd91bf43950cf054ef429d8a5a5dedd65bcf属于重写前历史；其代码和完整报告在v2 ZIP或本地Git bundle中恢复，不保证这个旧commit在公开GitHub可访问。v1候选包仍不作为交付。请优先上传v3。
 
-## 上传与登记
+## 审阅资料包上传与登记
 
 1. 创建公开GitHub仓库，检查分支／标签及候选文件后配置remote，首次推送清理后的分支，无需强制推送。原数据、ZIP、缓存和Git bundle保持忽略。
-2. 从rag/data/publication/review-20261010-v3上传两份ZIP、bundle_index.json及SHA256SUMS.txt到Google Drive。验证解压目录与本地历史备份不上传。
+2. 从rag/data/publication/review-20261010-v3上传两份ZIP、bundle_index.json及SHA256SUMS.txt到Google Drive。验证解压目录与本地历史备份不上传。Hugging Face 语料发布不包含这些文件。
 3. 设置“持链接者可查看”，允许下载，见[Google Drive共享说明](https://support.google.com/drive/answer/7166529?hl=en)。用未登录窗口下载并核对哈希；通过后才标available。
 4. 登记真实GitHub URL、两包链接和未登录测试时间，更新此页及manifest；未提供地址继续pending_upload。目标模型无法直接读取ZIP时，下载附加或分批提供资料。
 

@@ -7,6 +7,7 @@
 ## 审阅入口
 
 - [公开报告与外部模型分析任务](rag/reports/README.md)：不需本地数据即可阅读关键错误原句、必要原文和初审；完整回答／上下文在云盘包。
+- [Hugging Face RAG 语料集](https://huggingface.co/datasets/shiphex/genshin_agent_RAG)：`rag-full-20260605-v1` 是当前全量派生语料的正式发布入口；语料发布状态、哈希和下载校验见[数据获取](rag/reports/data_access.md)。
 - [24题双组诊断摘要](rag/reports/full_validation_20261010_105700/summary.md)：覆盖48份正式回答，保留调用状态与关键错误原句。
 - [六题全部条件／种子](rag/reports/generation_diagnosis_20261010_145424/summary.md)：覆盖48份回答的全部条件与种子；六题为前轮子集。
 - [数据获取与上传步骤](rag/reports/data_access.md)、[版本／校验清单](rag/reports/manifest.json)：v3两种资料包本地准备；v2保留为重写前历史，GitHub／Google Drive地址待登记，pending_upload。
@@ -25,7 +26,7 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 
 ## Git与数据
 
-Git保存源码、测试、开发文档、小型输入和批准报告副本；data/、rag/data/、ZIP、模型权重及缓存不提交。原快照和历史实验不由导出修改。新克隆可直接阅读案例；深度分析下载重点包，完整覆盖／复现下载完整包，见 [数据说明](rag/reports/data_access.md)。没有资料包时可另行提供同一冻结快照再生成语料；历史模型回答与人工复核无法靠重建恢复，Git不能代替备份。
+Git保存源码、测试、开发文档、小型输入和批准报告副本；data/、rag/data/、ZIP、模型权重及缓存不提交。全量派生语料由独立 Hugging Face 数据集分发，原快照和历史实验不由导出修改。新克隆可直接阅读案例；深度分析下载重点包，完整覆盖／复现下载完整包，见 [数据说明](rag/reports/data_access.md)。使用发布语料时仍须自行提供同一冻结快照才能重建或按 Pointer 回查；历史模型回答与人工复核无法靠重建恢复，Git不能代替备份。
 
 两种包使用同一源码commit，之后登记链接只更新索引，以包内source_commit为准。未自动上传或推送，也未虚构地址。
 

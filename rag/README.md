@@ -2,9 +2,18 @@
 
 ## 公开审阅与发布资料
 
-[公开审阅入口](reports/README.md)提供24题双组摘要及六题全部条件／种子的关键摘录；新克隆可读错误原句、必要原文和初审，完整上下文／回答在云盘包。[数据获取](reports/data_access.md)与[发布清单](reports/manifest.json)记录云盘包、版本和校验；真实地址尚未提供，pending_upload。
+[公开审阅入口](reports/README.md)提供24题双组摘要及六题全部条件／种子的关键摘录；新克隆可读错误原句、必要原文和初审，完整上下文／回答仍属于独立审阅资料包。当前全量派生语料发布到[Hugging Face 数据集](https://huggingface.co/datasets/shiphex/genshin_agent_RAG)；版本、哈希、下载校验和审阅包状态见[数据获取](reports/data_access.md)与[发布清单](reports/manifest.json)。
 
-原数据和历史实验继续忽略；只有批准的rag/reports副本进入Git。本文后续data/链接是历史本地产物，取得完整包后可用，不作为公开阅读的必要入口。前期“未调用模型”属于构建历史；当前已运行两轮对照，错误仍未修复，逐题验收待完成。
+原数据和历史实验继续忽略；只有批准的rag/reports副本进入Git。Hugging Face 只含 `rag-full-20260605-v1` 的四个派生语料文件与清单，不含原始快照、模型回答、审阅 ZIP 或缓存。本文后续data/链接是历史本地产物，取得完整包后可用，不作为公开阅读的必要入口。前期“未调用模型”属于构建历史；当前已运行两轮对照，错误仍未修复，逐题验收待完成。
+
+从项目根目录生成新的 Hugging Face staging（目录必须不存在），再进行本地校验；脚本只使用标准库，不上传或修改源语料：
+
+```powershell
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/export_hf_dataset.py build --output <新的staging目录>
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/export_hf_dataset.py verify <staging目录>
+```
+
+staging 固定包含 `README.md`、`.gitattributes` 与 `data/full/genshin_wiki_data_20260605/` 下的 `corpus.jsonl`、`audit.json`、`exclusions.jsonl`、`coverage.md`、`manifest.json`。Dataset Card 采用 `license: other`：原神及 Wiki 文本不在本仓库获得再许可；只有发布者原创脚本、清单和说明可按 MIT 使用。下载后先校验 manifest；相同冻结快照仍需由使用者另行提供，才能重建或按来源坐标回查。
 
 先维护概要、分析任务及人工选择的excerpts.json（原回答／原字段的零基半开字符位置与哈希），再从项目根运行：
 
