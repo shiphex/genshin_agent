@@ -1,30 +1,32 @@
 # 原神剧情分析与解读 Agent
 
-项目目标是设计能够以主角／派蒙身份参与剧情讨论、分析和解读的 Agent。当前已完成本地快照的全量剧情 MVP RAG，最终角色 Agent、对话界面和玩家进度分析尚未实现。
+项目目标是设计能够以主角／派蒙身份参与剧情讨论、分析和解读的Agent。目前实现了本地冻结快照的剧情RAG和评测工具；最终角色Agent、对话界面、玩家进度分析和防剧透尚未实现。
 
-## 开发入口
+**当前回答存在严重错误。** 本地Qwen3.5-4B的24题无检索／RAG对照已实际运行，用户反馈错误“极其多”。后续六题证据 × 参数诊断发现，补齐原文改善了部分机制说明，但人物身份、主体、时间与比例误读仍存在；校准采样未稳定修复。检索成功和调用正常结束都不表示答案正确，结果仍待用户逐题验收。
 
-- [开发指引](AGENTS.md)：项目长期约束和上下文读取要求。
-- [项目上下文](context.md)：当前阶段、模块导航与待定事项。
-- [RAG 模块](rag/README.md)：数据提取、检索、评测的运行方式。
-- [RAG 上下文](rag/context.md)：已验证结果、用户反馈和下一轮问题。
+## 审阅入口
 
-RAG 专属代码、实验配置、测试、语料与历史结果统一位于 `rag/`。原始爬虫快照作为共享数据保留在 `data/raw/`；uv 缓存继续共用 `.cache/uv/`。
+- [公开报告与外部模型分析任务](rag/reports/README.md)：不需本地数据即可阅读关键错误原句、必要原文和初审；完整回答／上下文在云盘包。
+- [24题双组诊断摘要](rag/reports/full_validation_20261010_105700/summary.md)：覆盖48份正式回答，保留调用状态与关键错误原句。
+- [六题全部条件／种子](rag/reports/generation_diagnosis_20261010_145424/summary.md)：覆盖48份回答的全部条件与种子；六题为前轮子集。
+- [数据获取与上传步骤](rag/reports/data_access.md)、[版本／校验清单](rag/reports/manifest.json)：v3两种资料包本地准备；v2保留为重写前历史，GitHub／Google Drive地址待登记，pending_upload。
 
-## Git 与本地数据
+当前语料22,822片段，扫描5,474份parsed文件；检索为词面IDF加权Top5。Wiki摘录与编纂分别标注；过滤目标排除数值强度和攻略，但实测仍有机制与玩法漏项。资料来自Wiki冻结快照，不自动等同于官方事实。详见 [RAG运行说明](rag/README.md) 和 [模块上下文](rag/context.md)。
 
-Git 保留代码、测试、README、上下文和必要的小型实验输入。`rag/` 使用默认忽略、显式保留的规则；`data/`、`rag/data/`、缓存及新增的 RAG 产物默认不提交。本地现有数据和历史结果仍完整保留。
+## 开发与离线检查
 
-重新克隆后，先自行提供冻结快照到 `data/raw/genshin_wiki_data_20260605/`，再按 [RAG 运行说明](rag/README.md) 生成样本或全量语料。本文链接的覆盖报告、模型回答等位于被忽略的本地产物中，未提供或生成时不可用；历史模型输出和人工复核需另外备份。
+[AGENTS.md](AGENTS.md)记录工作约定；开始工作先读 [项目上下文](context.md)。Python操作通过uv运行，目前脚本只使用标准库。先安装uv并准备Python3.11；离线命令要求本机已有解释器。
 
-冻结快照恢复的 [爬虫 AI 交接任务](rag/experiments/recovery/crawler_handoff.md) 和回归清单纳入 Git，实际爬虫修复尚未执行；当前窗口不修改爬虫项目代码。
+```powershell
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -m unittest discover -s rag/tests
+```
 
-## 当前实验结果
+单元测试无需模型服务或完整快照。提取、检索、模型评测和发布导出命令见 [RAG README](rag/README.md)。
 
-当前全量数据扫描全部5,474个parsed文件，生成22,822个可追溯片段，保留Wiki编纂来源标注、过滤非剧情机制并记录问题。全量纯检索回归中，9道有参考证据的题有6道在Top5找齐，三个跨来源问题仍有缺口；语义质量仍待人工检查。本轮不调用模型。
+## Git与数据
 
-全量入口见 [RAG运行说明](rag/README.md)，产物与来源抽检见 [全量覆盖报告](rag/data/full/genshin_wiki_data_20260605/coverage.md)，实测及已知问题见 [全量观察](rag/experiments/full/observations.md)。
+Git保存源码、测试、开发文档、小型输入和批准报告副本；data/、rag/data/、ZIP、模型权重及缓存不提交。原快照和历史实验不由导出修改。新克隆可直接阅读案例；深度分析下载重点包，完整覆盖／复现下载完整包，见 [数据说明](rag/reports/data_access.md)。没有资料包时可另行提供同一冻结快照再生成语料；历史模型回答与人工复核无法靠重建恢复，Git不能代替备份。
 
-原30片段、12题和本地Qwen无检索／RAG对照完整保留。此前小样本中9道可答题证据均进入Top5，24次模型调用正常结束；它们不是全库语义质量证明。检索成功和调用成功都不等于答案正确。
+两种包使用同一源码commit，之后登记链接只更新索引，以包内source_commit为准。未自动上传或推送，也未虚构地址。
 
-完整报告见 [模型对照复核报告](rag/data/mvp/model_comparison/review.md)，具体模型问题见 [实验观察](rag/experiments/mvp/observations.md)。这些生成结果保存在本地，默认不进入版本控制。
+冻结快照恢复的 [爬虫AI交接任务](rag/experiments/recovery/crawler_handoff.md) 单独保留，本项目未修改爬虫或接入新版数据。事实抽取、更强模型对照和多来源检索是待验证的修复方向，尚未实现。

@@ -1,14 +1,44 @@
 # 原神剧情 RAG：全量 MVP 与历史样本
 
+## 公开审阅与发布资料
+
+[公开审阅入口](reports/README.md)提供24题双组摘要及六题全部条件／种子的关键摘录；新克隆可读错误原句、必要原文和初审，完整上下文／回答在云盘包。[数据获取](reports/data_access.md)与[发布清单](reports/manifest.json)记录云盘包、版本和校验；真实地址尚未提供，pending_upload。
+
+原数据和历史实验继续忽略；只有批准的rag/reports副本进入Git。本文后续data/链接是历史本地产物，取得完整包后可用，不作为公开阅读的必要入口。前期“未调用模型”属于构建历史；当前已运行两轮对照，错误仍未修复，逐题验收待完成。
+
+先维护概要、分析任务及人工选择的excerpts.json（原回答／原字段的零基半开字符位置与哈希），再从项目根运行：
+
+```powershell
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/export_review_bundle.py views
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/export_review_bundle.py check-views
+```
+
+检查测试、薄Git链接和候选文件后，固定本地源码commit，保持工作树干净，生成新的本地输出目录：
+
+```powershell
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/export_review_bundle.py bundles --output rag/data/publication/review-20261010-v3
+```
+
+脚本只使用标准库，无模型／网络调用，不重建语料。两份ZIP使用同一源码commit和bundle_id，保留历史执行runner与当前修正代码；包内bundle_manifest.json记录每个文件的路径、大小、SHA-256，旁置清单、bundle_index.json和SHA256SUMS.txt。批准的数据目录与文件类型形成明确打包清单，排除缓存、环境文件、个人配置和模型权重。
+
+生成时验证整个ZIP并在新目录解压，完整包读取冻结语料与原文坐标，重点包校验publication/selected_source_fields.jsonl的原字段／说话者。旧封存绝对路径原样保留，恢复按项目相对路径定位。完整包不用重建即可复核历史；重点包含两轮完整回答、请求、必要原字段及证据记录，但不含完整快照／语料。v2包及其源码哈希保留为历史，不因Git重写而修改。uv、Python3.11、模型权重及服务另行准备；离线uv命令需要已有解释器。
+
+后续仅登记链接的索引版本可以不同于包内source_commit。实际推送／上传由用户操作，未经未登录下载检查保持pending_upload。校验／解压命令见[数据说明](reports/data_access.md)。
+
+
 当前数据集为本地快照的全量剧情 MVP，历史 30 片段样本完整保留。两条离线脚本入口与一个全量提取辅助模块均只使用 Python 标准库，通过 uv 运行；没有 Python 应用框架、第三方依赖、数据库、Embedding 或知识图谱。
 
 本次实际运行的结果和具体错误示例见 [实验观察](experiments/mvp/observations.md)。检索成功、模型正常结束与事实正确分别记录。
 
 后续开发请先读 [模块上下文](context.md)。原始爬虫快照位于项目共享的 `data/raw/`；RAG 专属脚本、配置、测试和结果均位于本模块。
 
+2026-10-10已运行本地Qwen4B全量24题模型对照，见[实验说明](experiments/full_validation_20261010/README.md)与[双组回答、出处及逐题初审](data/full_validation/20261010_105700/report.md)。48次正式调用中47次正常结束、1次无检索截断；已发现检索遗漏、身份混淆、错引及机制语料漏项。模型完成状态与用户事实验收分开记录；用户新题尚未收到。后文“本轮未运行模型”等描述属于全量构建阶段，最新验证以此入口和模块上下文为准。
+
 当前已准备 [冻结快照剧情恢复交接任务](experiments/recovery/crawler_handoff.md) 和 [19 页回归清单](experiments/recovery/regression_cases.json)，供爬虫项目的独立 AI 会话实施。用户明确要求本窗口不修改爬虫代码；新解析和恢复导出尚未实现，当前 RAG 数据集未切换。
 
 ## 版本控制与恢复运行
+
+最新完成六题四组、48次“证据 × 参数”受控诊断，见[执行说明](experiments/generation_diagnosis/README.md)与[诊断报告及全部回答](data/generation_diagnosis/20261010_145424/report.md)。48次均正常结束；人工原文改善部分要点，但主体／时序等错误仍在，校准参数未稳定修复。默认评测不变，新增独立诊断入口；语义初审仍待用户验收。
 
 `rag/` 默认不跟踪新增内容，显式保留 `scripts/*.py`、`tests/*.py`、README／上下文、实验说明 Markdown，以及 `.gitignore` 中列出的选择清单、题目、无密钥模型配置和恢复回归清单。新增需要版本控制的目录或实验输入时应同步调整忽略规则。
 

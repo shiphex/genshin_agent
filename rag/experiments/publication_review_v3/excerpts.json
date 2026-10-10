@@ -1,0 +1,2003 @@
+{
+  "schema_version": 1,
+  "selection_status": "editorial_excerpts_pending_user_acceptance",
+  "cases": [
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "q01",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "6cbabb310ae80b849007c95fc191090c5d5f1ca0a945c67780c05a7201f25786",
+          "excerpts": [
+            {
+              "start": 642,
+              "end": 791,
+              "sha256": "75b684e2160a032c8eee082bcf1d6fff7ac3d490d493d88cea66e15d4412829e"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "627d6395ed5d410f6e268e13bd51d96f4840c9c9967008721896b0d8f49b7d31",
+          "excerpts": [
+            {
+              "start": 33,
+              "end": 206,
+              "sha256": "f5b1887ddd570be77dbfd96b6a0cf1edef9675df70733b4b55dbd2dfbad8eb7f"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 50,
+          "end": 210,
+          "sha256": "e1f2ebb4274b79a8d169ba8286299a5144a0b2c8790d45e81482346a54dad299",
+          "source_file": "parsed/characters/钟离__34330e4aba.json",
+          "pointer": "/角色故事/角色故事3",
+          "source_id": "fb3ef9be72404cb78dc797281",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "506a76f011a850e37c345a0fb5ac24aa36c8093c437f7c13d4c51db71db41d60"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "q02",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "866cb12c13cd367e0afd3fd069d0e57ba5248ebd30f9aaf305a9bebb71218dde",
+          "excerpts": [
+            {
+              "start": 76,
+              "end": 120,
+              "sha256": "d16e8c5a3f3b8792fdd9432231176c71d3831becc0bfd04161cca1bb3250ebdb"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "c0ed2f2e482ec46fd9f5a6a624186b564ff163d3dd706a2e2404c7a1ff540d17",
+          "excerpts": [
+            {
+              "start": 22,
+              "end": 72,
+              "sha256": "c5f3777d6b105dd1f470d983697d9d67e554964feb2fd347fc6d11749520767b"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 22,
+          "sha256": "04c259e81e2512ef17223c2f364f934169eadf867b808a7dfd6517734bf6966e",
+          "source_file": "parsed/archon-quests/送仙__12f37a6943.json",
+          "pointer": "/对话/114/内容",
+          "source_id": "f20293ae3754c2c7699588b91",
+          "source_kind": "wiki_excerpt",
+          "speaker": "女士",
+          "source_sha256": "5ae7ec4f73ed9a3a2fd839a076219e3e126c9c7bad8c5f3fa90df0772f55688c"
+        },
+        {
+          "start": 0,
+          "end": 34,
+          "sha256": "5ec74b0906f32149ed3ee0a11a380302de032e558210954304862786e8333dcb",
+          "source_file": "parsed/archon-quests/送仙__12f37a6943.json",
+          "pointer": "/对话/125/内容",
+          "source_id": "f216a75ba280edb5ec9b24fe7",
+          "source_kind": "wiki_excerpt",
+          "speaker": "钟离",
+          "source_sha256": "5ae7ec4f73ed9a3a2fd839a076219e3e126c9c7bad8c5f3fa90df0772f55688c"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "q03",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "042bd4682e5facb66bc06816f5631f73ffed209f1efa150fb001ad6dcfc0bfa2",
+          "excerpts": [
+            {
+              "start": 108,
+              "end": 206,
+              "sha256": "0478fd3616468671f5c78a4532513d6999b60af2033ded5c8c0de1c5c5c39130"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "d959ff092ba8c59a6b375fe5ce8c9eea89c51796145547f71869b90d14fda75a",
+          "excerpts": [
+            {
+              "start": 36,
+              "end": 191,
+              "sha256": "75da04ae07bdaaa9fc8a91aae1de40fa5e428aed1a1a995b77e10c6c05ccaea5"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 146,
+          "end": 302,
+          "sha256": "3791f479d2a1f2869ba3ba7deaa61f46290e2a927185ba8416632540e2ee79a7",
+          "source_file": "parsed/books/石书辑录__139898c274.json",
+          "pointer": "/volumes/0/content",
+          "source_id": "f45e40dba7e2c842aa600681d",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "3e03518cd3fa3f364d1e4f952de0aaa4373333377b41675707c0afa80707d6a1"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "q04",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "59ca546eb1a12d974279a78f01ba9660af56af291b5f02f9726cd8aa83e79e7c",
+          "excerpts": [
+            {
+              "start": 148,
+              "end": 221,
+              "sha256": "c5bce874458746f36025a91ebb0c473b1ce450f63de8daae944a5a59948213e0"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "fbeb64560cb30a9fecb748c03e31c536704fb5a6f3474a94ca52c5db23ac8da5",
+          "excerpts": [
+            {
+              "start": 160,
+              "end": 261,
+              "sha256": "bb499c995422ddc59c68ed23b4f7716b6895453a97fafe65f4885acd26d7108b"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 40,
+          "sha256": "760eb592fddf68d6a0d97c93438d9c3949cdefb49b5bd31c0588f50e1b575560",
+          "source_file": "parsed/character-quests/变乱似流，磐石不转__ce8c05142f.json",
+          "pointer": "/对话/78/内容",
+          "source_id": "f17236ba8d89ace45781af45f",
+          "source_kind": "wiki_excerpt",
+          "speaker": "昆钧",
+          "source_sha256": "a3919df5827d202a44febfbcbbe11db5bbee6ec8cb0edd68a1e7acb001b21296"
+        },
+        {
+          "start": 0,
+          "end": 48,
+          "sha256": "14164cce00e1e4216ff1197030791f4e2199d1e662f636aeee958f914c7d3f0c",
+          "source_file": "parsed/character-quests/变乱似流，磐石不转__ce8c05142f.json",
+          "pointer": "/对话/83/内容",
+          "source_id": "f17236ba8d89ace45781af45f",
+          "source_kind": "wiki_excerpt",
+          "speaker": "昆钧",
+          "source_sha256": "a3919df5827d202a44febfbcbbe11db5bbee6ec8cb0edd68a1e7acb001b21296"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "q05",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "c2118420fa97ae76a568259025f114dc0ca9e59e96011c69127b5e80f1acb632",
+          "excerpts": [
+            {
+              "start": 626,
+              "end": 707,
+              "sha256": "42d5b96d68bafb982ca0560850c298d9105a4735cab8319055241b8574ee0c38"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "6f41179d329feca85b96d672f96363e9a4ebc48192060fbfdb6ee63dd7d69bed",
+          "excerpts": [
+            {
+              "start": 0,
+              "end": 76,
+              "sha256": "3e7cd499867d6b09de1473ae7c320b321589ce81ddab208a353271d405ba7be4"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 60,
+          "sha256": "6cfc014087cdf1efc51b81676853917d69dc65f33a9e5e328614536f81a98dbc",
+          "source_file": "parsed/characters/钟离__34330e4aba.json",
+          "pointer": "/角色语音/有什么想要分享…",
+          "source_id": "f48aec2732806c12af2343d7b",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "506a76f011a850e37c345a0fb5ac24aa36c8093c437f7c13d4c51db71db41d60"
+        },
+        {
+          "start": 0,
+          "end": 46,
+          "sha256": "20fafcc4dd1494e3e558e85652f2b93fe246f906748bed0ff30561494c9f1751",
+          "source_file": "parsed/character-quests/慈盐之末__8bcf204f26.json",
+          "pointer": "/对话/74/内容",
+          "source_id": "f7adfea5851d218bfc18fc310",
+          "source_kind": "wiki_excerpt",
+          "speaker": "钟离",
+          "source_sha256": "8833590e79baa2b6eb35084053e432dfd7f4d947fd68271d7f87e99e9e4fb570"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "q06",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "1d3cd72b8ded4162811175e30ae48011d3e98ea578183935dde687f8b86bde20",
+          "excerpts": [
+            {
+              "start": 773,
+              "end": 866,
+              "sha256": "c3cb72edc15200c6e3a17c47c32420acc52529bd317cc256f47b5ffc77486edb"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "f3fc5ab3f51ad58a715962e21ed15a8f625b026cf24f051139b00e572b440390",
+          "excerpts": [
+            {
+              "start": 778,
+              "end": 858,
+              "sha256": "b63b3c9b6a62e4fbea2929ac1d1dbfd20d7a807036b72c5b766f36d7db6e8766"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 111,
+          "end": 270,
+          "sha256": "d0d93413ba904b44c44df8de0f17f5a20f4381e467020cfe989d74f95ce469dd",
+          "source_file": "parsed/books/石书辑录__139898c274.json",
+          "pointer": "/volumes/0/content",
+          "source_id": "f45e40dba7e2c842aa600681d",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "3e03518cd3fa3f364d1e4f952de0aaa4373333377b41675707c0afa80707d6a1"
+        },
+        {
+          "start": 220,
+          "end": 383,
+          "sha256": "c5c1144b8a4d64b575fa59a4af9d04376ff7b5d7d60f04c52d465c4ff3ace059",
+          "source_file": "parsed/weapons/尘世之锁__9d44ee12a0.json",
+          "pointer": "/故事",
+          "source_id": "fbb330bf4d62c57c6b7b9d5ce",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "cdd5947dbca447171bde95f5f377d30c1daa28df8dc81e339b06d23a47c5d0b0"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "q07",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "6866d7e73c85d2f3343eb936ba58ec630a88cc3eb31e3a3278613593c774dc4e",
+          "excerpts": [
+            {
+              "start": 65,
+              "end": 130,
+              "sha256": "3fe18ffff5b84339cb7726001816eb79dbfd87b40e82c49a9973e3229ca82769"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "f79931c2c6d02378781dcada0b99fd0853456be47a7e00b68954f647d6842e2e",
+          "excerpts": [
+            {
+              "start": 619,
+              "end": 703,
+              "sha256": "7f747b9998047fc869870edab900b704d18912ec383a6315717d2aefe3ba6a3b"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 237,
+          "end": 394,
+          "sha256": "e04546221fb5de60278aa946469205e1392532f1fab1ba0f95bab823018ecefa",
+          "source_file": "parsed/books/璃月风土志__9ad546faf2.json",
+          "pointer": "/volumes/0/content",
+          "source_id": "f33d253694faaad2d191806db",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "0c0895817ae14ae75b79a10aa292686dee04d14d0a32eb90c0a012cc6179ffbc"
+        },
+        {
+          "start": 0,
+          "end": 44,
+          "sha256": "9eaaf7949eca505a5a6e14216c064f99a1f81c8d7df1986bd4dd49b39f741dad",
+          "source_file": "parsed/character-quests/慈盐之末__8bcf204f26.json",
+          "pointer": "/对话/125/内容",
+          "source_id": "fb4706c9d8d4531fad6498f44",
+          "source_kind": "wiki_excerpt",
+          "speaker": "钟离",
+          "source_sha256": "8833590e79baa2b6eb35084053e432dfd7f4d947fd68271d7f87e99e9e4fb570"
+        },
+        {
+          "start": 0,
+          "end": 37,
+          "sha256": "d55db1c9c753587dbcdc2cae3aaa23dbc888c22e37686a6a862316420fec3105",
+          "source_file": "parsed/character-quests/慈盐之末__8bcf204f26.json",
+          "pointer": "/对话/126/内容",
+          "source_id": "fb4706c9d8d4531fad6498f44",
+          "source_kind": "wiki_excerpt",
+          "speaker": "钟离",
+          "source_sha256": "8833590e79baa2b6eb35084053e432dfd7f4d947fd68271d7f87e99e9e4fb570"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "q08",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "2b77e4a95f43b56358e37f7534506990ec8030d5c89da44ba03da692a65b7d1a",
+          "excerpts": [
+            {
+              "start": 107,
+              "end": 279,
+              "sha256": "f6ee1c5ccc2e3974cfd705242647e667dd679e2d8d07cc87204316dfa067fe72"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "a2ad45f3d735a280072787ff73f5295b401e67b183cb688461f2a96a44975adb",
+          "excerpts": [
+            {
+              "start": 0,
+              "end": 38,
+              "sha256": "893dcd8f1984a2e1cd9ac57b0795397b4e0183245113e6a14ec884dab081660a"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 94,
+          "end": 252,
+          "sha256": "54cb4bb85b5c750edcbe2f17c8522573379eb4991ab4c8071dd405abaae7b5df",
+          "source_file": "parsed/characters/钟离__34330e4aba.json",
+          "pointer": "/角色故事/角色故事2",
+          "source_id": "f4fec97e0e247de5bc30bb391",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "506a76f011a850e37c345a0fb5ac24aa36c8093c437f7c13d4c51db71db41d60"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "q09",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "9bfe42d5bae68c55902a3aba3c78e9d6be67e53ce6b4bca84645ce1e1faae368",
+          "excerpts": [
+            {
+              "start": 44,
+              "end": 218,
+              "sha256": "8bad0b2323923616929071df015c4b028a99a4340ed957f97491171b0f50e183"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "0854efc1558126933854c1e76d97c1e80510fc4bc1a28c2d00b59e3d5016258c",
+          "excerpts": [
+            {
+              "start": 295,
+              "end": 329,
+              "sha256": "309b6a55787d2df339c4b20c496b0e84295bd1728855c364f1d654e9419acca9"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 40,
+          "sha256": "760eb592fddf68d6a0d97c93438d9c3949cdefb49b5bd31c0588f50e1b575560",
+          "source_file": "parsed/character-quests/变乱似流，磐石不转__ce8c05142f.json",
+          "pointer": "/对话/78/内容",
+          "source_id": "f17236ba8d89ace45781af45f",
+          "source_kind": "wiki_excerpt",
+          "speaker": "昆钧",
+          "source_sha256": "a3919df5827d202a44febfbcbbe11db5bbee6ec8cb0edd68a1e7acb001b21296"
+        },
+        {
+          "start": 0,
+          "end": 48,
+          "sha256": "14164cce00e1e4216ff1197030791f4e2199d1e662f636aeee958f914c7d3f0c",
+          "source_file": "parsed/character-quests/变乱似流，磐石不转__ce8c05142f.json",
+          "pointer": "/对话/83/内容",
+          "source_id": "f17236ba8d89ace45781af45f",
+          "source_kind": "wiki_excerpt",
+          "speaker": "昆钧",
+          "source_sha256": "a3919df5827d202a44febfbcbbe11db5bbee6ec8cb0edd68a1e7acb001b21296"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "q10",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "461a35c115eacd85c50df712d1461c12fc49430d8c6b655958eaf5cdb38f83eb",
+          "excerpts": [
+            {
+              "start": 235,
+              "end": 316,
+              "sha256": "45e169bbd18cb8bfcd2af4e43304be8ba42c2c8caab06df037e87c2b92b3ef9e"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "81309bf5f82658b2752e1a894e09e347f3309019b8b3a5ac833bff6dd6de8f29",
+          "excerpts": [
+            {
+              "start": 156,
+              "end": 246,
+              "sha256": "65d8a542741374d2767350ace264700f907cdf5b9c47722d672527d8a92f05f8"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 52,
+          "sha256": "26158b3ddb66d85a4a5eec500da4ef5090564b95d0d70f403101c38d30df6c01",
+          "source_file": "parsed/archon-quests/送仙__12f37a6943.json",
+          "pointer": "/对话/173/内容",
+          "source_id": "f5156c315178eab719e0bde30",
+          "source_kind": "wiki_excerpt",
+          "speaker": "钟离",
+          "source_sha256": "5ae7ec4f73ed9a3a2fd839a076219e3e126c9c7bad8c5f3fa90df0772f55688c"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "q11",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "e6ed14c048889c1b310a774d79b3f5c4d63883969f754f545d6563f3761d751e",
+          "excerpts": [
+            {
+              "start": 60,
+              "end": 105,
+              "sha256": "0c740c1b647668ba8d8049cf323228c295a047ce14ae8e7c27c6fc20629a2d7c"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "528caaf27949e769efb31249e2c01649403934035cecd59bdd3dce28e0aa55ac",
+          "excerpts": [
+            {
+              "start": 31,
+              "end": 245,
+              "sha256": "bad27b91071578b0c85a933169c1210cecfcd4e011e7e7e50d89b97c72ef60ce"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 81,
+          "end": 234,
+          "sha256": "df66492f1db83d90204278d343c5a98a887f59c0f3661158d436f7ed6c069b7d",
+          "source_file": "parsed/monsters/历经百战的霜役人·涉血芒锋__4ac0cf18d6.json",
+          "pointer": "/description",
+          "source_id": "fbda24bf7daa2934bba116b9a",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "f4d39bc878bd87fb2239ff88804b6de41d45932750b5957ef299a04b58f35cca"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "q12",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "10d06653d23510e5e0b8fd62592e44ca1781d01f37968857aec8c0722dce0bd8",
+          "excerpts": [
+            {
+              "start": 171,
+              "end": 193,
+              "sha256": "e8daf717e1f93fc3f5ca4f4c9127dc25b2737f0a8fb6be8da67f1f8232b788c7"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "ba02d9d3651eec7854d5c05b57e9bb59c6eeb3f3617351b5e9636bf1a492d4a5",
+          "excerpts": [
+            {
+              "start": 63,
+              "end": 194,
+              "sha256": "7c3f0f4e79749b71af65e39eaa866e411228613680fdf30023f1c179ebc62c5e"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 23,
+          "sha256": "cb43b0af2abdb1b9da0dcca773c89a3264e72c2369332ca47509ee932137f295",
+          "source_file": "parsed/character-quests/命运的题解__1d2e086f03.json",
+          "pointer": "/对话/380/内容",
+          "source_id": "f4498fbb180f0da87a9e99c0a",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "579c91fb8e385ebf149a52546f3ef3e33d9b387f2dcc663ffba5c33e04f3e182"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "n01",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "1094de1608c39a97724f00b4b563322bf3314cad83f6fe2f4b1059eacc1bdb0e",
+          "excerpts": [
+            {
+              "start": 71,
+              "end": 122,
+              "sha256": "be13dfd48a0768a2afb607df9f80f077d8cd0d97ba6cbd5958829f793f80ccd0"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "95f596349bd9af3db4b288dffa80674c32f5237f3137d1b660fa0fee8810b960",
+          "excerpts": [
+            {
+              "start": 117,
+              "end": 159,
+              "sha256": "fb9ed5e2f5cda95807c27a09279ca4e26af8aa7291e7398f45ff7396e55508bf"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 36,
+          "sha256": "b24703ab357246def49464605bb1a75a76775acb168df5c96ff16bec6de60001",
+          "source_file": "parsed/archon-quests/尾声的尾声__e4ed1de066.json",
+          "pointer": "/对话/46/内容",
+          "source_id": "fe665dfd7f6417b1aa8a9c5f9",
+          "source_kind": "wiki_excerpt",
+          "speaker": "派蒙",
+          "source_sha256": "66195703c85146cc7a2827413a020e330c1bdefde4240f2a7ead26fc02838f49"
+        },
+        {
+          "start": 0,
+          "end": 22,
+          "sha256": "04c259e81e2512ef17223c2f364f934169eadf867b808a7dfd6517734bf6966e",
+          "source_file": "parsed/archon-quests/送仙__12f37a6943.json",
+          "pointer": "/对话/114/内容",
+          "source_id": "f20293ae3754c2c7699588b91",
+          "source_kind": "wiki_excerpt",
+          "speaker": "女士",
+          "source_sha256": "5ae7ec4f73ed9a3a2fd839a076219e3e126c9c7bad8c5f3fa90df0772f55688c"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "n02",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "125e4a7f707e98276f5ca8525099e632d37831b7150b35a4bf0d33b0cd49429c",
+          "excerpts": [
+            {
+              "start": 74,
+              "end": 116,
+              "sha256": "ee21db91b9397fdb885a53fea5fc2f28c8bb185bb89c01945b5dfc1aa5fc5043"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "fe964cece7d00b5c82ecada7f4b3f5678781272f03112134206f87b0ed79a62e",
+          "excerpts": [
+            {
+              "start": 36,
+              "end": 85,
+              "sha256": "9a8018b24d3312a26fc08d7fe0c0e6b9f9d916485812dcbae63c076874969c02"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 30,
+          "sha256": "0b735bb33d80ecc4df0a385c3749f5f42e2b52a68ce8cfacace5ff780be7f728",
+          "source_file": "parsed/archon-quests/愿望__f4edc69750.json",
+          "pointer": "/对话/60/内容",
+          "source_id": "fed6d9e930a277db27c04d9d2",
+          "source_kind": "wiki_excerpt",
+          "speaker": "八重神子",
+          "source_sha256": "ecc93cde9f31f81ca45e004003c4f936522267f07ef581ba044ed26409761dad"
+        },
+        {
+          "start": 3,
+          "end": 164,
+          "sha256": "a7ea30a84e35cd0e4cb02027d6dcbb1b9c68a65b852b41217429899ef636b48d",
+          "source_file": "parsed/characters/雷电将军__bb768ff878.json",
+          "pointer": "/角色故事/角色故事3",
+          "source_id": "f1c1db5fc04c5b8265c2f99d6",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "539e40fcb52c966e8a9c77d53693d787e1f5b6c07fe4f61998c30de8cb398ec7"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "n03",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "d15056c0ca058dfc14ba3398a25b8f702a6458b1a642c0b4045e3b13c6ff6899",
+          "excerpts": [
+            {
+              "start": 147,
+              "end": 225,
+              "sha256": "842592a1d39ab763ee34b5201058100cd19d617f88dbb3f8c8ef456cc6b07e58"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "b12b12ca6aa892d3910a7172a64a1743fc0d1efaf6a4759ed779a6ac40e11b0f",
+          "excerpts": [
+            {
+              "start": 70,
+              "end": 163,
+              "sha256": "def128021c2f8f00fc414f264a1a7ae19bdfb59c1521e1ad4e3df02aacd1122d"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 84,
+          "sha256": "d26adf6438658b9997d0b46675df04a74c85b5bc5b50e4be6a3d086155a25ea8",
+          "source_file": "parsed/character-quests/熠熠生辉之樱__45906046b7.json",
+          "pointer": "/对话/129/内容",
+          "source_id": "f26f00f9016eeb232c40355a8",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "2e7aedb4b40c714cc91a588f54a6ba2237cf015aed08da4c0f90ee31bfaa5a9d"
+        },
+        {
+          "start": 0,
+          "end": 53,
+          "sha256": "4d1cb7353f6c2e0793000769e48ec57adc0e7b2df002760979684778aed3fa06",
+          "source_file": "parsed/character-quests/熠熠生辉之樱__45906046b7.json",
+          "pointer": "/对话/185/内容",
+          "source_id": "f1525001dbb560361e656b737",
+          "source_kind": "wiki_excerpt",
+          "speaker": "影",
+          "source_sha256": "2e7aedb4b40c714cc91a588f54a6ba2237cf015aed08da4c0f90ee31bfaa5a9d"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "n04",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "98d39fda7202c995693607d4fd8dd45537f6d93acf8f8d6d5506d53862a818f5",
+          "excerpts": [
+            {
+              "start": 118,
+              "end": 187,
+              "sha256": "b4dba4aec763c1c848443be04134c25a1a744cfb0cae855ae25b0288e88f4b9a"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "d57965341941044a963303ab5832578d77f26ce1ae5c9186d7b1ce281afcab9a",
+          "excerpts": [
+            {
+              "start": 668,
+              "end": 790,
+              "sha256": "97e43594ae5ec374eb1201c58d452f8b1ac8cf0312f22c8d5f2d1588da6e4cb4"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 28,
+          "end": 189,
+          "sha256": "eaab8b4259ff40120ed3d9a7de0a98a263d1c9433f20c3e7b43f931d85e7f1c4",
+          "source_file": "parsed/characters/纳西妲__e4a3fbc3b8.json",
+          "pointer": "/角色故事/角色详细",
+          "source_id": "f520bdfecaa887ec412066efd",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "60776b7a133c89060a3879f8c5a2d1d71acb8703a81051845d3472c19e4c5419"
+        },
+        {
+          "start": 0,
+          "end": 41,
+          "sha256": "66a822fa27c09db1c0b8ea4eb8b73f622ce1037e8315cf8a807d2f8cb4a19e24",
+          "source_file": "parsed/archon-quests/热沙中的秘密__87251f48a1.json",
+          "pointer": "/对话/215/内容",
+          "source_id": "f91ae949fba3c4a5480b407de",
+          "source_kind": "wiki_excerpt",
+          "speaker": "旅行者",
+          "source_sha256": "4e86edbb8ce2aac89d11683789be2b671b968a878b09740d24f15ee01c20149f"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "n05",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "47e050375f374a6eb53003ce75224f3b8002615d826699a71a7df457cb6b97f6",
+          "excerpts": [
+            {
+              "start": 491,
+              "end": 636,
+              "sha256": "9d179dfaf49f1d9ba68ec751b9fe3a40eea270dedf58e6e5aff9d3e0dd8a062a"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "c5213dc29928acff1250f6edde170e56f0834cce005e7fe13964b53def9b63e8",
+          "excerpts": [
+            {
+              "start": 67,
+              "end": 153,
+              "sha256": "7f07fcaee897bdf5cb99d9a4086c7782ec420e8660466f2cbcc737cd0975cc37"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 29,
+          "sha256": "4f81ec03c9f943c31cb21fabecc7ed9794d8704bb4a68035ad521aa5b164d458",
+          "source_file": "parsed/archon-quests/意识之舟所至之处__b75d3f7033.json",
+          "pointer": "/对话/262/内容",
+          "source_id": "f441eaf5f52178f6d70fde30d",
+          "source_kind": "wiki_excerpt",
+          "speaker": "大慈树王",
+          "source_sha256": "9074a7fc83fa88dcc5414aeef250f0876f82e4dc8479c9bb531822663f84210c"
+        },
+        {
+          "start": 0,
+          "end": 47,
+          "sha256": "da61012610929c14f3111f57ee54cf4fb1c9709b44f08bd4b592fab53828ea28",
+          "source_file": "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json",
+          "pointer": "/对话/168/内容",
+          "source_id": "fe3bd68b914dee95d297a3bce",
+          "source_kind": "wiki_excerpt",
+          "speaker": "纳西妲",
+          "source_sha256": "0302b1f5e4dea1a04a039d6451b0afd7c4fb779c6e3edcaedd2c43c8a3f9594b"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "n06",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "79f0ef89bc3150fdd45e66737d8c5b885d983abf9c39606086aa2515c5238c88",
+          "excerpts": [
+            {
+              "start": 133,
+              "end": 254,
+              "sha256": "cec878dcc9cba28e52cfbfb2e6044f87c2a3b1f7d40a54f761752aee75d99692"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "e14f4f21277211f6b58cd9baeeca0e00fabc636cf4f56516408a9147a566b413",
+          "excerpts": [
+            {
+              "start": 277,
+              "end": 343,
+              "sha256": "4da9d055cc556a14ca779f62215dccb4ab62321b36f401e8c60036f6d5414b99"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 34,
+          "sha256": "e6cc57365391772aba870028f78ce7abff8b94ccbd523dec84b93336abf3b5f0",
+          "source_file": "parsed/archon-quests/意识之舟所至之处__b75d3f7033.json",
+          "pointer": "/对话/263/内容",
+          "source_id": "f441eaf5f52178f6d70fde30d",
+          "source_kind": "wiki_excerpt",
+          "speaker": "大慈树王",
+          "source_sha256": "9074a7fc83fa88dcc5414aeef250f0876f82e4dc8479c9bb531822663f84210c"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "n07",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "d298a04c773534879b367469b1614434a7b8ed7e3e5ff5694913366b6f791d1a",
+          "excerpts": [
+            {
+              "start": 267,
+              "end": 366,
+              "sha256": "615098740819d6bf0ed6e2eba9a4b9475570c690ce730d65e233fd1740f22252"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "72f36d86c05f65e3c5f9a9f1118ad893952ab4e94f3962a246b70e1eabdb1f0e",
+          "excerpts": [
+            {
+              "start": 528,
+              "end": 558,
+              "sha256": "fd845bb6d7f8a893b5b2d92521a7bacd534acafe95a0eeb44e16cc2e9030d0fb"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 33,
+          "sha256": "b4831171f046bd12e8c61f1aa94854b01099fc2590b363159487b9516c815467",
+          "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+          "pointer": "/对话/21/内容",
+          "source_id": "fa873a4049baa46fd58228fd4",
+          "source_kind": "wiki_excerpt",
+          "speaker": "芙卡洛斯",
+          "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a"
+        },
+        {
+          "start": 0,
+          "end": 36,
+          "sha256": "54359d3bb0a01affd0b5b23e83b6dcb724d73e47a448f674ee81933c1e0683fd",
+          "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+          "pointer": "/对话/237/内容",
+          "source_id": "fe62e03c272bb7c84efb080f8",
+          "source_kind": "wiki_excerpt",
+          "speaker": "芙卡洛斯",
+          "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a"
+        },
+        {
+          "start": 0,
+          "end": 26,
+          "sha256": "09ce45bdedbec838a820f1da9d35487fd90ebf3f0ef73551847f1bef73503249",
+          "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+          "pointer": "/对话/238/内容",
+          "source_id": "fe62e03c272bb7c84efb080f8",
+          "source_kind": "wiki_excerpt",
+          "speaker": "芙卡洛斯",
+          "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "n08",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "84b4c456b045dde5bd26adc1e58b863967d51fa6547d62524dcf8458905d5e57",
+          "excerpts": [
+            {
+              "start": 192,
+              "end": 307,
+              "sha256": "d8a252ab4a9c95674bf5edfcc098c115d975fcc41dd1578a4bfbe9276f8ec979"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "0c26bee09d8c4e06d16c2cf767344ed9633d7ab5014505f77e2bc0738e7df8c9",
+          "excerpts": [
+            {
+              "start": 79,
+              "end": 137,
+              "sha256": "c9bf5837597053ec15c4c5e787e7013377fe289318d8a161b623784cfd21f20b"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 34,
+          "sha256": "e0715af2a8aefd5f871e66dd4f3cd6ee26d99ef31b82387d4f936b71774a4206",
+          "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+          "pointer": "/对话/245/内容",
+          "source_id": "f02c2400d64d3f65f4fb2b4d9",
+          "source_kind": "wiki_excerpt",
+          "speaker": "芙卡洛斯",
+          "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a"
+        },
+        {
+          "start": 0,
+          "end": 53,
+          "sha256": "c6cc6de39f9b524cdcb256377bca44b4c01ee9662b94c776a9ef2d675cab5e9e",
+          "source_file": "parsed/archon-quests/终幕礼__2832f60895.json",
+          "pointer": "/对话/181/内容",
+          "source_id": "fc412895a8eee4a500faa2675",
+          "source_kind": "wiki_excerpt",
+          "speaker": "那维莱特",
+          "source_sha256": "eb8ad22544c832883cbdb41bb9d3892c76ba148bf66aff4c8164c588205f562e"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "n09",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "b1a0d4fa8da2d33e094d895456a9b56a058b6e23d00ec6001597280022004a7f",
+          "excerpts": [
+            {
+              "start": 266,
+              "end": 333,
+              "sha256": "1e551bc26bc4b79cc76488ec5f60364763f9ee925973544e1161960bf02246a8"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "72f5b37200d9d74678df56e32063cd19cb9a7dc84a2ee86d74e0a3738a0e3a70",
+          "excerpts": [
+            {
+              "start": 123,
+              "end": 156,
+              "sha256": "91212afd38e3cdeaf4058cc56d4167f1f0f147b9cd37dfe4c9c94cbdf346d0ef"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 64,
+          "end": 227,
+          "sha256": "ea43f362d2e4480193d523d180bb2ca1b5ea417fa2931505331e3b7d28fbcb12",
+          "source_file": "parsed/artifacts/如雷的盛怒__963d986348.json",
+          "pointer": "/时之沙/故事",
+          "source_id": "f74aae6621f2b8e258ff43e70",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "87876343c6ae8fc0b2f186bb934ab22effd97aadda02081e4e8eee75648e7f19"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "n10",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "b61fba4c90f8f8341c3346ecdf852b6d2994668f6141427d3c5cdae1dee2e93c",
+          "excerpts": [
+            {
+              "start": 685,
+              "end": 834,
+              "sha256": "0cd5d3e7e0dde4962318147334b501fc127b090abf81e291cb6446b040ff8326"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "23b1dbeadad9dc29564334fa6d973158fdfdbcf6705b116344c9ed2ee63c7c0a",
+          "excerpts": [
+            {
+              "start": 657,
+              "end": 713,
+              "sha256": "bfd75576f2e9ac253da4d66bea26869af427a7be63c789a0b3f73ce7f71da820"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 47,
+          "sha256": "9d561d2f1719ab238fd440c32e07f54ed3335bea3850e43207d37638e3e9c734",
+          "source_file": "parsed/archon-quests/因提瓦特的记忆__c0be4353ba.json",
+          "pointer": "/对话/67/内容",
+          "source_id": "ff812a9f77c7761ab26d4d9c2",
+          "source_kind": "wiki_excerpt",
+          "speaker": "戴因斯雷布",
+          "source_sha256": "c19a09d5f961164ee9c7c4f8068468ebc3bd6afe404136a66018ce47c09c9670"
+        },
+        {
+          "start": 0,
+          "end": 37,
+          "sha256": "2e1862df44b76bb08355b447d934d72eaff9b96d154c7b746be3b44c2fffa168",
+          "source_file": "parsed/archon-quests/不应存在的记忆__5f898278ff.json",
+          "pointer": "/对话/42/内容",
+          "source_id": "f4a0cfe608c27fb36f60308a9",
+          "source_kind": "wiki_excerpt",
+          "speaker": "戴因斯雷布",
+          "source_sha256": "adb4883dc0bd5512fdcb188bdac7c886943106f8f6d6ca1d29225674f662e473"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "n11",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "1041e00bc015ac6a7a703a409a005f43daa2474224a069fec415f0fa4ad26928",
+          "excerpts": [
+            {
+              "start": 1058,
+              "end": 1148,
+              "sha256": "2360ed03040cf43c03eb924d7eff561cb4a7070ee6abf897ad952ad7e681167c"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "e2a7f6e6ce7b7a6d01beb9cf684a3211bb3d36c42f2154bc74afb562e0729e8c",
+          "excerpts": [
+            {
+              "start": 0,
+              "end": 80,
+              "sha256": "e65619b81ee6c02e81f5b955c14a4f60e38f923a121a8b72ea50d81688470650"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 394,
+          "sha256": "e759e6adc9a7764161d77839c09a9bfe3b059a8ac828459fe11bf540099d4349",
+          "source_file": "parsed/characters/雷电将军__bb768ff878.json",
+          "pointer": "/角色故事/角色故事4",
+          "source_id": "f232c1debcad35607dfa902e8",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "539e40fcb52c966e8a9c77d53693d787e1f5b6c07fe4f61998c30de8cb398ec7"
+        },
+        {
+          "start": 0,
+          "end": 32,
+          "sha256": "e5f6555988518932d6609abb5b4925244c050f9fd518a091c9734c665d3c2a35",
+          "source_file": "parsed/character-quests/熠熠生辉之樱__45906046b7.json",
+          "pointer": "/对话/240/内容",
+          "source_id": "f0d644bc51c76b432b8adac94",
+          "source_kind": "wiki_excerpt",
+          "speaker": "影",
+          "source_sha256": "2e7aedb4b40c714cc91a588f54a6ba2237cf015aed08da4c0f90ee31bfaa5a9d"
+        }
+      ]
+    },
+    {
+      "experiment_id": "full_validation_20261010_105700",
+      "question_id": "n12",
+      "calls": [
+        {
+          "condition": "baseline",
+          "seed": 42,
+          "answer_sha256": "ab1c24fa73d20497fa5e92a8741a273a0a10b7c34b2bc561b43e4887a064593a",
+          "excerpts": [
+            {
+              "start": 485,
+              "end": 533,
+              "sha256": "a4c3e032582142a7cf004540d41a04a73c3f8352a8d36400fe3ab84f3a2b5775"
+            }
+          ]
+        },
+        {
+          "condition": "rag",
+          "seed": 42,
+          "answer_sha256": "71ac450b7dbc589ce062b04a7eb75c8e8b228a94dd4c7ed6b689d90965d499f7",
+          "excerpts": [
+            {
+              "start": 174,
+              "end": 306,
+              "sha256": "e7898e0760c7060aa9ad3447f81c9694f7c45a2170a163bb850df4075df67442"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 170,
+          "end": 324,
+          "sha256": "2cbf3932c1260707c6aa358a075b351b84925650d1b1ef35aefda997694298a0",
+          "source_file": "parsed/chronicles/至冬__76e8c41b3d.json",
+          "pointer": "/sections/1/subsections/3/content",
+          "source_id": "f317b2370f40aa80f24a5e0e6",
+          "source_kind": "wiki_compilation",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "22b234d3a0cdc6236ebb671a94de439fd9cde8f2b88e69c74e5e02da48476f72"
+        }
+      ]
+    },
+    {
+      "experiment_id": "generation_diagnosis_20261010_145424",
+      "question_id": "n02",
+      "calls": [
+        {
+          "condition": "R0",
+          "seed": 42,
+          "answer_sha256": "723365960fe0eaedd2e786e5bed0440890f621874f926e7191cdb5c3144e42ea",
+          "excerpts": [
+            {
+              "start": 36,
+              "end": 136,
+              "sha256": "fa1e199ef5e7f8efdd48c9f7c04ecf24ca82e0e5db923ca70e7d57d7f69cb9af"
+            }
+          ]
+        },
+        {
+          "condition": "C0",
+          "seed": 42,
+          "answer_sha256": "e15826e1c204ca26733b0e8a552eedb2b055a6c0022e9b2431f89afd7112269f",
+          "excerpts": [
+            {
+              "start": 376,
+              "end": 457,
+              "sha256": "a009d17a00cafee3533d8588cd4d04e02584d4768ec01ce42a83d82b52d98b3d"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 42,
+          "answer_sha256": "8c92ebf69b72499c0967940af65d3eae1f94c2cd4513ffc83fb9eede5976ded0",
+          "excerpts": [
+            {
+              "start": 38,
+              "end": 221,
+              "sha256": "c88f23e352d711b62011a8b8513a0868cbcf15bf6b7cc22ded158eb6be392937"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 42,
+          "answer_sha256": "45b0a7a654d0e6a6c029e0dc92edf1879f6dcbd2ab3daac559cbfd0d1f111196",
+          "excerpts": [
+            {
+              "start": 332,
+              "end": 475,
+              "sha256": "92ca41202fd65b90bd21a753b65dedb4a3f7b73e282c67750b7db40dbb0c55db"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 43,
+          "answer_sha256": "551591145fb71db011e8020dd17920bc3c50e371c0812d6afa405b1f24661f83",
+          "excerpts": [
+            {
+              "start": 42,
+              "end": 147,
+              "sha256": "38dec966e366536f12eda75c567af4647279b8c4712644ee0540021e2f60924f"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 43,
+          "answer_sha256": "d576db2ce34b0ebd7b22a1e43940554a8c769d93154074dc1d4517a1cb6d2ff9",
+          "excerpts": [
+            {
+              "start": 320,
+              "end": 448,
+              "sha256": "47302cca9c1130a6e998cb5c8c7d8e838f46ce5a6580d82ada96a91e35a25936"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 44,
+          "answer_sha256": "a2ab5cb5be0864f0dcbee5f208d5da69d86452328775ba051e2a3a35ecb5cf9b",
+          "excerpts": [
+            {
+              "start": 150,
+              "end": 256,
+              "sha256": "6e18c4615e297e8aac799af769b2ffad9bcef208aa529c82a14e85668151fd92"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 44,
+          "answer_sha256": "3708ecec1f7aec10d8998ed95210d4e472441913479f48d3e9b8ee8a7ee9cffa",
+          "excerpts": [
+            {
+              "start": 118,
+              "end": 195,
+              "sha256": "3479b0ee4dc48a6f8aec8876a268256d7c04dfda6fe02a0823e1254d850c4996"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 30,
+          "sha256": "0b735bb33d80ecc4df0a385c3749f5f42e2b52a68ce8cfacace5ff780be7f728",
+          "source_file": "parsed/archon-quests/愿望__f4edc69750.json",
+          "pointer": "/对话/60/内容",
+          "source_id": "fed6d9e930a277db27c04d9d2",
+          "source_kind": "wiki_excerpt",
+          "speaker": "八重神子",
+          "source_sha256": "ecc93cde9f31f81ca45e004003c4f936522267f07ef581ba044ed26409761dad"
+        },
+        {
+          "start": 3,
+          "end": 164,
+          "sha256": "a7ea30a84e35cd0e4cb02027d6dcbb1b9c68a65b852b41217429899ef636b48d",
+          "source_file": "parsed/characters/雷电将军__bb768ff878.json",
+          "pointer": "/角色故事/角色故事3",
+          "source_id": "f1c1db5fc04c5b8265c2f99d6",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "539e40fcb52c966e8a9c77d53693d787e1f5b6c07fe4f61998c30de8cb398ec7"
+        }
+      ]
+    },
+    {
+      "experiment_id": "generation_diagnosis_20261010_145424",
+      "question_id": "n05",
+      "calls": [
+        {
+          "condition": "R0",
+          "seed": 42,
+          "answer_sha256": "cc6d5717185246f94fd97628b1f956e2958392366e48bf5ed439bc978a91ace5",
+          "excerpts": [
+            {
+              "start": 66,
+              "end": 187,
+              "sha256": "c1653a6df9d01c420ae207b29996faa91b935e72b1f030bd3cd20f3c0d7c9efa"
+            }
+          ]
+        },
+        {
+          "condition": "C0",
+          "seed": 42,
+          "answer_sha256": "33d6889c27569f4a6562ea43249f402fcdd57e927d0cc2620c6754f6d93e7f8f",
+          "excerpts": [
+            {
+              "start": 77,
+              "end": 177,
+              "sha256": "7e597e72fab2974d26a9ff5aafeceefeaaeac239fee0dcde19c9b7c25683aa27"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 42,
+          "answer_sha256": "a2d6d4a76e6cefc13164736f8a84c265ce224b9aaa017bd1855fdd8fc0585d48",
+          "excerpts": [
+            {
+              "start": 71,
+              "end": 226,
+              "sha256": "05dbe9e9c07254234f20e938a32ccc13a81343c017cd02d2d81a335a4c0dc93a"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 42,
+          "answer_sha256": "66cfa21a3eaba2ae144e9543a4ae60f7c7600338361df0d7e7dd043bdfdecda9",
+          "excerpts": [
+            {
+              "start": 203,
+              "end": 337,
+              "sha256": "1a3b5a8e3f04627874d8998700bde196ec44eda0a0540fb798d31b75c227dd1e"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 43,
+          "answer_sha256": "3d2215baf097580c836109301b0deb45ba6bdb08747a449e118f76e8a17708d7",
+          "excerpts": [
+            {
+              "start": 79,
+              "end": 208,
+              "sha256": "7841d37ddca24169741cf8d832186634f460af3b33cb1cb91c3f8991314f5d50"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 43,
+          "answer_sha256": "0b9d8cdafed1bbc4ee6438f0d6746f90afae047606d73d47f23429009586abd9",
+          "excerpts": [
+            {
+              "start": 299,
+              "end": 426,
+              "sha256": "108c4279ad38acbb48d503b4ec6cc3f1043e8c8491d423e1eaeed347fab0ab87"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 44,
+          "answer_sha256": "a42dc5e0ace2543754bb046c56362165f874674bb9fe99c130d86cf8b78b9bb6",
+          "excerpts": [
+            {
+              "start": 64,
+              "end": 213,
+              "sha256": "c165088c9becd95e7ac71b3b9016b558c85b832cd9c9363f31cd5eb910bd5089"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 44,
+          "answer_sha256": "a4c07517c7bad5b442c3e3c8c8acbb1c761dfd70a7bf3ab3a57473c2304f2869",
+          "excerpts": [
+            {
+              "start": 311,
+              "end": 446,
+              "sha256": "978d79c7457601dd052c7b0abbf955e072facf22562276367ecf35a1cdb232bb"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 29,
+          "sha256": "4f81ec03c9f943c31cb21fabecc7ed9794d8704bb4a68035ad521aa5b164d458",
+          "source_file": "parsed/archon-quests/意识之舟所至之处__b75d3f7033.json",
+          "pointer": "/对话/262/内容",
+          "source_id": "f441eaf5f52178f6d70fde30d",
+          "source_kind": "wiki_excerpt",
+          "speaker": "大慈树王",
+          "source_sha256": "9074a7fc83fa88dcc5414aeef250f0876f82e4dc8479c9bb531822663f84210c"
+        },
+        {
+          "start": 0,
+          "end": 47,
+          "sha256": "da61012610929c14f3111f57ee54cf4fb1c9709b44f08bd4b592fab53828ea28",
+          "source_file": "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json",
+          "pointer": "/对话/168/内容",
+          "source_id": "fe3bd68b914dee95d297a3bce",
+          "source_kind": "wiki_excerpt",
+          "speaker": "纳西妲",
+          "source_sha256": "0302b1f5e4dea1a04a039d6451b0afd7c4fb779c6e3edcaedd2c43c8a3f9594b"
+        }
+      ]
+    },
+    {
+      "experiment_id": "generation_diagnosis_20261010_145424",
+      "question_id": "n07",
+      "calls": [
+        {
+          "condition": "R0",
+          "seed": 42,
+          "answer_sha256": "fd9391e0304e0bd39eae3c071c80b9b2848dbe80e77bf0ad2b8ee1df954ce872",
+          "excerpts": [
+            {
+              "start": 704,
+              "end": 755,
+              "sha256": "0163677ce0a041cfe8d105199ca5f08c7da5b3fd1382066fb89bd8b2d0c2e536"
+            }
+          ]
+        },
+        {
+          "condition": "C0",
+          "seed": 42,
+          "answer_sha256": "0fcf1e52f12d3cf6e1771ee430cfb20edaf6f44a314fe081e366a2ae87451be9",
+          "excerpts": [
+            {
+              "start": 1304,
+              "end": 1437,
+              "sha256": "eea1d9370b8292d91b97df9445a9e510f450b2f7ea05249f6e2fdd4651d89e8b"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 42,
+          "answer_sha256": "f0b301c3b86578bbb2efe643777bf8ab94edad52a5a6947fd65dad513600c9a3",
+          "excerpts": [
+            {
+              "start": 66,
+              "end": 279,
+              "sha256": "ebf01482f1fd0c517a7bd2fd29554928caa0c3a20abd25dd7bd3eb6485bad8c9"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 42,
+          "answer_sha256": "c327bee2afb29069c6bd7e25535be70897b7a7dfdba66d22baff90a5e6bd11dd",
+          "excerpts": [
+            {
+              "start": 406,
+              "end": 524,
+              "sha256": "7e9cb1f9f203cdef9bc6746673121725d75e4c8164ddb4252fd0304e1c8e8f67"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 43,
+          "answer_sha256": "7fc12a1adf3e0db930246436a12d63e3b02cf6ea7ed1242ec160766c385107e0",
+          "excerpts": [
+            {
+              "start": 184,
+              "end": 292,
+              "sha256": "235208d2a8f736589738d5437f6d6e5caeff73a136d5e16552a543c2785e47e0"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 43,
+          "answer_sha256": "3d9340d52c0edab685f43d85f032db1a9d775b587bb4f20fb9d63f986e0fc952",
+          "excerpts": [
+            {
+              "start": 553,
+              "end": 651,
+              "sha256": "be42ee8e0f08cb776a5d52327b0c4ef22c84e37caddf682f7d8e12cac5a29a90"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 44,
+          "answer_sha256": "d058280fa89d237f4e2aef67676f16f76de2b2213cda58e3c0d26babb1bdc411",
+          "excerpts": [
+            {
+              "start": 205,
+              "end": 405,
+              "sha256": "2e7cf70dba70bbdeb830fcf0fb392b40922bc2b264a7e8e5d5da049d19b494b1"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 44,
+          "answer_sha256": "f7b56dc40ecc507b5e72b3bd91fa36a42e032ae65962ff7ab2c1f4938e2ec87f",
+          "excerpts": [
+            {
+              "start": 934,
+              "end": 1070,
+              "sha256": "abdc212373ef37b270cd7efc27ddb31991dda4751b42234ecfde12d5db619c44"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 33,
+          "sha256": "b4831171f046bd12e8c61f1aa94854b01099fc2590b363159487b9516c815467",
+          "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+          "pointer": "/对话/21/内容",
+          "source_id": "fa873a4049baa46fd58228fd4",
+          "source_kind": "wiki_excerpt",
+          "speaker": "芙卡洛斯",
+          "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a"
+        },
+        {
+          "start": 0,
+          "end": 36,
+          "sha256": "54359d3bb0a01affd0b5b23e83b6dcb724d73e47a448f674ee81933c1e0683fd",
+          "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+          "pointer": "/对话/237/内容",
+          "source_id": "fe62e03c272bb7c84efb080f8",
+          "source_kind": "wiki_excerpt",
+          "speaker": "芙卡洛斯",
+          "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a"
+        },
+        {
+          "start": 0,
+          "end": 26,
+          "sha256": "09ce45bdedbec838a820f1da9d35487fd90ebf3f0ef73551847f1bef73503249",
+          "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+          "pointer": "/对话/238/内容",
+          "source_id": "fe62e03c272bb7c84efb080f8",
+          "source_kind": "wiki_excerpt",
+          "speaker": "芙卡洛斯",
+          "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a"
+        }
+      ]
+    },
+    {
+      "experiment_id": "generation_diagnosis_20261010_145424",
+      "question_id": "n08",
+      "calls": [
+        {
+          "condition": "R0",
+          "seed": 42,
+          "answer_sha256": "207220568b209170f3b618ea6614ab3eb009213ff9b9e465a5da361c2eea8c6e",
+          "excerpts": [
+            {
+              "start": 84,
+              "end": 214,
+              "sha256": "7acb43dd73b4ec17b722ef9b35ae11f147e4555b8485b5de4e14ef6f63e8f0aa"
+            }
+          ]
+        },
+        {
+          "condition": "C0",
+          "seed": 42,
+          "answer_sha256": "25616a6b47f5b299f638728a140ad9e672b3b3b0c29bc04aba9e3d2b117c3f47",
+          "excerpts": [
+            {
+              "start": 74,
+              "end": 181,
+              "sha256": "0cc3ebcd14005ee91cf261115d9488182f44524310e65139123e385728f94a98"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 42,
+          "answer_sha256": "c509896e0f0f4a4181453db0c30a068f48abf7f2999f8316ea9b96402eeae71f",
+          "excerpts": [
+            {
+              "start": 0,
+              "end": 63,
+              "sha256": "4722b11b76289f82b97a7a815c7708673ca941544f2af4f70a58c2851d21f2cc"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 42,
+          "answer_sha256": "f5abbc65b44a49bec704f9199f7c19f4219147f558646b48d41c07e308d7b7e3",
+          "excerpts": [
+            {
+              "start": 75,
+              "end": 234,
+              "sha256": "49991d407cdd3518cb8c4f98effbd4a473f42e5c13f8ed30585861b7efef399a"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 43,
+          "answer_sha256": "ece2d5b2d37b83c18f5eab10de195e7aab6c19d986d8d14f034738352f9d4202",
+          "excerpts": [
+            {
+              "start": 427,
+              "end": 551,
+              "sha256": "29acdd0b01cbea1dd6b2e1f809b99635a1e1a6fbcfcb429f34ff6f4f29190843"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 43,
+          "answer_sha256": "012521e8e55a9e72ed6617b69db783fa4f4d50da5e9b44f9a76766ac36499d7b",
+          "excerpts": [
+            {
+              "start": 417,
+              "end": 520,
+              "sha256": "5a20785ad68fc145e759957db05aee0777981792b1ab58584d9a22c6566cea5a"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 44,
+          "answer_sha256": "d7998a3c84ae447438c444501e469e80e95ec93f044bc41c35d2efbd19d10362",
+          "excerpts": [
+            {
+              "start": 171,
+              "end": 301,
+              "sha256": "103cb4fa213ae08672df8229fc817c0e570831203b593fcd81c8bb16bd667480"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 44,
+          "answer_sha256": "cc1b95483697d00a5362e87a272dce3254fd44ffc2de10c083d7b420c2e96901",
+          "excerpts": [
+            {
+              "start": 351,
+              "end": 510,
+              "sha256": "fbff80193d7a09652af647cf566a11039287633247ecec8194685635418f66b3"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 34,
+          "sha256": "e0715af2a8aefd5f871e66dd4f3cd6ee26d99ef31b82387d4f936b71774a4206",
+          "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+          "pointer": "/对话/245/内容",
+          "source_id": "f02c2400d64d3f65f4fb2b4d9",
+          "source_kind": "wiki_excerpt",
+          "speaker": "芙卡洛斯",
+          "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a"
+        },
+        {
+          "start": 0,
+          "end": 53,
+          "sha256": "c6cc6de39f9b524cdcb256377bca44b4c01ee9662b94c776a9ef2d675cab5e9e",
+          "source_file": "parsed/archon-quests/终幕礼__2832f60895.json",
+          "pointer": "/对话/181/内容",
+          "source_id": "fc412895a8eee4a500faa2675",
+          "source_kind": "wiki_excerpt",
+          "speaker": "那维莱特",
+          "source_sha256": "eb8ad22544c832883cbdb41bb9d3892c76ba148bf66aff4c8164c588205f562e"
+        }
+      ]
+    },
+    {
+      "experiment_id": "generation_diagnosis_20261010_145424",
+      "question_id": "n11",
+      "calls": [
+        {
+          "condition": "R0",
+          "seed": 42,
+          "answer_sha256": "3e31f7f70bef529dc58060a64b3c334fb73cd6acfa141844ef1a0f2374936901",
+          "excerpts": [
+            {
+              "start": 0,
+              "end": 80,
+              "sha256": "e65619b81ee6c02e81f5b955c14a4f60e38f923a121a8b72ea50d81688470650"
+            }
+          ]
+        },
+        {
+          "condition": "C0",
+          "seed": 42,
+          "answer_sha256": "f9f2a0f44d460ba533223095bfd9994e1a66372abf5dba558e92558da4daf64b",
+          "excerpts": [
+            {
+              "start": 473,
+              "end": 640,
+              "sha256": "d9e4374d4f12000c9061ad32bd325bf3fc9d4aa701b14e6c4bcd07cde9c86d41"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 42,
+          "answer_sha256": "33464e2c5c9b3033eaa7ce9226160718fdc8f24d74f7d4891a8f6dadf5d00226",
+          "excerpts": [
+            {
+              "start": 0,
+              "end": 95,
+              "sha256": "79c3ebd8ce395cdbef8064c070ff8d8ca85e7144ec67917c8e1e463075131f48"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 42,
+          "answer_sha256": "3c99503fb19e545a0052ba70f26f4d075190c196540953b6385bc4b1abd05b67",
+          "excerpts": [
+            {
+              "start": 342,
+              "end": 505,
+              "sha256": "a5078ea0da840ccd386fcb821f7258699c433377d36e08e408be4c7138957bba"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 43,
+          "answer_sha256": "85ed9c752b0b24694bdd8ca4813a85ecd7bdecd8ebe9f5fc3dea7963d78c4fcc",
+          "excerpts": [
+            {
+              "start": 0,
+              "end": 41,
+              "sha256": "8d6e9faaea00d3468731d1d8e0c250e9f862f9e91d1d090f222b721c9ef6dff2"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 43,
+          "answer_sha256": "f3b01157abd0f24ba3aa9c066b42fc1addad38c9271f67632c940fd5940bf018",
+          "excerpts": [
+            {
+              "start": 325,
+              "end": 437,
+              "sha256": "fdab48fde6a0abddd5e87350c8780fe584b016b9e927b0e7fde3a34736045bd7"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 44,
+          "answer_sha256": "8153df1d983010f143d52ea67323580eb31ea6773135f086dcdf7d1212d691db",
+          "excerpts": [
+            {
+              "start": 153,
+              "end": 234,
+              "sha256": "e4fd3525f15b7118026caf6bec1e70e09e1fe1f5a08c7bec6a2565a3b6dc79c4"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 44,
+          "answer_sha256": "d72bbf035551b0874c6c5e6abaae2b38253f375e3aee98bbe49e6460d9f0f5e2",
+          "excerpts": [
+            {
+              "start": 99,
+              "end": 277,
+              "sha256": "ae1e2ed412e9ad5d77122be9de9b11ac5cc72008065025933c38e214190b1eaa"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 0,
+          "end": 394,
+          "sha256": "e759e6adc9a7764161d77839c09a9bfe3b059a8ac828459fe11bf540099d4349",
+          "source_file": "parsed/characters/雷电将军__bb768ff878.json",
+          "pointer": "/角色故事/角色故事4",
+          "source_id": "f232c1debcad35607dfa902e8",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "539e40fcb52c966e8a9c77d53693d787e1f5b6c07fe4f61998c30de8cb398ec7"
+        },
+        {
+          "start": 0,
+          "end": 32,
+          "sha256": "e5f6555988518932d6609abb5b4925244c050f9fd518a091c9734c665d3c2a35",
+          "source_file": "parsed/character-quests/熠熠生辉之樱__45906046b7.json",
+          "pointer": "/对话/240/内容",
+          "source_id": "f0d644bc51c76b432b8adac94",
+          "source_kind": "wiki_excerpt",
+          "speaker": "影",
+          "source_sha256": "2e7aedb4b40c714cc91a588f54a6ba2237cf015aed08da4c0f90ee31bfaa5a9d"
+        }
+      ]
+    },
+    {
+      "experiment_id": "generation_diagnosis_20261010_145424",
+      "question_id": "q07",
+      "calls": [
+        {
+          "condition": "R0",
+          "seed": 42,
+          "answer_sha256": "f79931c2c6d02378781dcada0b99fd0853456be47a7e00b68954f647d6842e2e",
+          "excerpts": [
+            {
+              "start": 619,
+              "end": 703,
+              "sha256": "7f747b9998047fc869870edab900b704d18912ec383a6315717d2aefe3ba6a3b"
+            }
+          ]
+        },
+        {
+          "condition": "C0",
+          "seed": 42,
+          "answer_sha256": "a9d8b3977673aee56a15a5e041dfbf0aeb97ae1782e28adeea4afd2f0aed258a",
+          "excerpts": [
+            {
+              "start": 652,
+              "end": 735,
+              "sha256": "632a84f820ec05204896f1c6afce24236d5625f1774b20af868d7b5d02ccdace"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 42,
+          "answer_sha256": "eabe4d5ce25ccd6861f6093e9e385f5383ce9dc8e0fe0dd8001bf6df206821b7",
+          "excerpts": [
+            {
+              "start": 248,
+              "end": 308,
+              "sha256": "01c17aa92d86012965d06634e6d953c99ac68b5cfaaa7bcc1928671d1b977a4a"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 42,
+          "answer_sha256": "58fd9a9702fcd9ce5064cfde37a7c49cfe2108ede6efa26ebefd02728829b296",
+          "excerpts": [
+            {
+              "start": 1861,
+              "end": 1907,
+              "sha256": "24856f25a87ec9f3aca0a6dc04af4cc99a8a3be09499c85a1befb3c469de75e0"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 43,
+          "answer_sha256": "6d8adc77671fb624e2ddb50c506afc698dc93439649f58adf1afd33a2eb29122",
+          "excerpts": [
+            {
+              "start": 447,
+              "end": 545,
+              "sha256": "2b3786b4534b64c7b0d673b662bd6dc83aa0f1b123c6da5d8302be3099143a75"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 43,
+          "answer_sha256": "01c13df03008257a254fcbac05935356d2cfda34baca99859a45e64b4816ac6b",
+          "excerpts": [
+            {
+              "start": 715,
+              "end": 788,
+              "sha256": "59c8bdf6be02c62f4e7293cf408eaa93557421952cbee5632896d2a9373ba3cd"
+            }
+          ]
+        },
+        {
+          "condition": "R1",
+          "seed": 44,
+          "answer_sha256": "ab51cfe04b1c979abd54c6b598f9b5e18f22a2796b1cc94cf3bf7404cfdb4caa",
+          "excerpts": [
+            {
+              "start": 373,
+              "end": 472,
+              "sha256": "5481143e0a59b9b77f6808762ce5a51430d878e0cbf86a6a10443a2ec35e692a"
+            }
+          ]
+        },
+        {
+          "condition": "C1",
+          "seed": 44,
+          "answer_sha256": "4f28502af9b1729ef520158e1addd8a381cda615f6f6571faf87f84a6ad27119",
+          "excerpts": [
+            {
+              "start": 275,
+              "end": 390,
+              "sha256": "e87babb467cf07cfe25b0c89952df73837a7ea7eac89ffe091f89c9609cc91fa"
+            }
+          ]
+        }
+      ],
+      "references": [
+        {
+          "start": 237,
+          "end": 394,
+          "sha256": "e04546221fb5de60278aa946469205e1392532f1fab1ba0f95bab823018ecefa",
+          "source_file": "parsed/books/璃月风土志__9ad546faf2.json",
+          "pointer": "/volumes/0/content",
+          "source_id": "f33d253694faaad2d191806db",
+          "source_kind": "wiki_excerpt",
+          "speaker": "未标注；按来源字段核查",
+          "source_sha256": "0c0895817ae14ae75b79a10aa292686dee04d14d0a32eb90c0a012cc6179ffbc"
+        },
+        {
+          "start": 0,
+          "end": 44,
+          "sha256": "9eaaf7949eca505a5a6e14216c064f99a1f81c8d7df1986bd4dd49b39f741dad",
+          "source_file": "parsed/character-quests/慈盐之末__8bcf204f26.json",
+          "pointer": "/对话/125/内容",
+          "source_id": "fb4706c9d8d4531fad6498f44",
+          "source_kind": "wiki_excerpt",
+          "speaker": "钟离",
+          "source_sha256": "8833590e79baa2b6eb35084053e432dfd7f4d947fd68271d7f87e99e9e4fb570"
+        },
+        {
+          "start": 0,
+          "end": 37,
+          "sha256": "d55db1c9c753587dbcdc2cae3aaa23dbc888c22e37686a6a862316420fec3105",
+          "source_file": "parsed/character-quests/慈盐之末__8bcf204f26.json",
+          "pointer": "/对话/126/内容",
+          "source_id": "fb4706c9d8d4531fad6498f44",
+          "source_kind": "wiki_excerpt",
+          "speaker": "钟离",
+          "source_sha256": "8833590e79baa2b6eb35084053e432dfd7f4d947fd68271d7f87e99e9e4fb570"
+        }
+      ]
+    }
+  ]
+}

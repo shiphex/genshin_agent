@@ -142,12 +142,19 @@ def api_request(config, endpoint, payload=None):
         return json.loads(response.read().decode("utf-8"))
 
 
-def chat(config, messages):
-    response = api_request(config, "chat/completions", {
+def chat(config, messages, generation=None):
+    allowed = {"temperature", "seed", "top_p", "top_k", "min_p",
+               "presence_penalty", "frequency_penalty", "repeat_penalty"}
+    overrides = {} if generation is None else dict(generation)
+    if set(overrides) - allowed:
+        raise ValueError("unsupported generation override")
+    payload = {
         "model": config["model"], "messages": messages, "stream": False,
         "temperature": 0, "seed": 42, "max_tokens": config.get("max_tokens", 768),
         "chat_template_kwargs": {"enable_thinking": False},
-    })
+    }
+    payload.update(overrides)
+    response = api_request(config, "chat/completions", payload)
     choice = response["choices"][0]
     content = choice["message"].get("content")
     if not isinstance(content, str) or not content.strip():
