@@ -35,3 +35,16 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 重点包的publication/selected_source_fields.jsonl保存原字段与说话者，selected_evidence_records.jsonl保存必要语料记录，可校验摘要；两轮results.jsonl和诊断trials／requests保留完整上下文及回答。完整包可直接读取冻结语料，历史模型结果无需重建。当前源码与历史runner_executed.py分别标记；模型权重、运行服务、缓存和个人配置另备。
 
 下次发布更新脚本VERSION和白名单，固定新的源码commit、生成新输出目录，保留旧资料包。
+
+## 已验证的v3本地交付
+
+包内源码commit：569175ff73fb3ef9a9f206a9308b627240e44a06。新源码提交已合并旧三次发布工作，之后索引更新独立记录。
+
+| ZIP文件 | 字节数 | SHA-256 |
+|---|---:|---|
+| review-20261010-v3-focused.zip | 2879846 | d428ec5d0af81eaf80f314895d2ff9e2c679c94cebf2200e396eea116fd64d5b |
+| review-20261010-v3-full.zip | 48218582 | f7a19c5102bc92ce6ec0ff131cd71e15d33bf639db817e9b3c27be25a831bd7c |
+
+两包各覆盖30页／96份回答，摘要与原件定位校验通过；完整包读取22,822个片段。60项测试通过，原数据和v2包哈希未变。
+
+本地历史备份：rag/data/publication/history_backup/precompact-cc17b40.bundle，旁置.sha256校验值；bundle verify和独立裸仓库恢复已通过。恢复时可在新目录git clone该bundle，不要推送恢复出的旧历史。

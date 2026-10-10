@@ -185,3 +185,5 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 - 两个真实 CLI 的原始目录输出尝试均被拒绝并返回退出码 1；本地文档链接及旧路径检查通过，独立只读迁移审查未发现交付问题。
 
 v2资料包验证：两种ZIP全部文件哈希及新目录解压通过；各包恢复后96份报告回答核对通过，完整包读取22,822片段语料。包内源码commit为030acd91bf43950cf054ef429d8a5a5dedd65bcf；后续索引更新单独登记，实际分享仍pending_upload。交付路径见[数据获取](reports/data_access.md)。
+
+本轮已验证：以970c114为边界的发布源码合并提交为569175ff73fb3ef9a9f206a9308b627240e44a06；旧完整报告／清单33个blob不再被根仓库分支或标签引用，内部Codex引用和reflog保留未gc。30页110953字节，96份回答均有精确摘录，60项测试通过；11,536个保护文件及21个源码／输入blob未变。v3两包和新Git克隆校验通过，完整包可读22,822片段。最终分享仍pending_upload，版本及哈希见[数据获取](reports/data_access.md)。
