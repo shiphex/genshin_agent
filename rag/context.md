@@ -1,5 +1,19 @@
 # RAG 开发上下文
 
+## 冻结原文评测集 v2 首批（2026-10-12）
+
+Git收尾（2026-10-12）：用户另行授权创建 `feat/story-eval-v2-pilot` 分支、提交并推送此批开发改动。收尾重新验证84项测试通过，正式题库14题、71处来源锚点校验通过；12题出处范围complete、2题partial，用户验收仍全部not_reviewed。仅提交8个白名单文件，完整材料、旧题备份、复核输出与数据继续本地忽略。下文“未提交、推送、上传”描述首批开发结束时的历史状态。
+
+用户批准覆盖[eval/questions.json](eval/questions.json)，先交付14题，再经用户复核扩展110题。schema_version=2，版本2.0.0-pilot，剧情截止2026-06-05；主类fact/causal/worldbuilding/relationship各3题覆盖三档难度，加中等、困难跨故事题各1题。完整配额和字段见[题库说明](eval/README.md)，不沿用旧题核验状态。所有user_review仍为not_reviewed，用户尚未逐题验收。
+
+三个独立生成任务和原文复核使用gpt-6-luna/medium；依据冻结原文联合生成问答、要点和材料引用，程序提取quote、Unicode半开范围、文件SHA-256及原说话者。语义结论与原始出处分离，不绑定chunk ID。14题含71处来源锚点、6道核心辨析题；来源性质、人物解释、传说、内心疑问与推测分别保留。轻量模型出现缺证据、指代/主体错置、遗漏条件、难度不足和重复题材，经多轮修订；独立复核也有误读，父代理按完整原文裁决。结果不是专家金标准，不外推可靠率。
+
+新增标准库 `scripts/prepare_eval_cases.py` 提供materials/review-input/build/validate/install。复核输入只含问题与真实材料，不含生成者自评；input_sha256绑定实际问答、切片及源文件字节，拒绝旧稿复核、未知severity及critical/important未修问题。出处覆盖先重建相关chunk正文，再合并范围；两题literal partial均只缺段间空白（gq2-003/007），实质文字缺口为0。该检查不检索，也不是语义召回或答案评分。没有修改旧runner、检索、提示词或语料。
+
+原100题保留于本地 `data/eval_rebuild/20261011_pilot_v2/questions_v1_original.json`，原SHA-256为86ce871a371cbcc52247e43262e7b0c3eb1130df8b3e132b2be165c3065c0838；安装时另做逐字备份。各轮草稿、封存输入、复核、保护哈希与summary仅本地保留；[复核表](data/eval_rebuild/20261011_pilot_v2/review.md)供用户逐题查看。子代理工具未暴露模型token用量及推理耗时，记录为不可用，不估算费用。实施总耗时自备份起记录，不能视为纯推理耗时。
+
+验证：20项新增测试先失败后通过，64项既有测试通过，共84项；矩阵、引文、哈希、说话者、引用关系、跨chunk与空白缺口、旧复核拒绝、备份及原始路径保护均检查。收尾核对47,098个原始/历史文件全部未变，旧题库备份有效，结果见本地protected_after.json。Git仅新增正式题库、说明和工具/测试白名单，annotations等本地历史继续忽略；未提交、推送、上传，未运行检索Judge或被评测模型。下一步是用户复核14题，再修订并扩展96题；其余题分层抽查至少20题及全部疑难项，未逐题确认者不记为用户通过。
+
 ## Hugging Face 全量派生语料发布（2026-10-10）
 
 用户批准发布 `rag-full-20260605-v1` 到 <https://huggingface.co/datasets/shiphex/genshin_agent_RAG>，但范围仅为当前 `data/full/genshin_wiki_data_20260605/` 的 `corpus.jsonl`、`audit.json`、`exclusions.jsonl` 和 `coverage.md`，加上远端 manifest、Dataset Card和LFS规则。`rag/data/` 其余模型回答、审阅 ZIP/解压副本、Git bundle、缓存以及项目共享原始快照都不发布。

@@ -1,5 +1,11 @@
 # 原神剧情 RAG：全量 MVP 与历史样本
 
+## 固定剧情评测集 v2 小试
+
+[eval/questions.json](eval/questions.json)已按用户批准的原文优先流程重建为14题 `2.0.0-pilot`：问题、参考答案、要点和证据同时设计。全部已完成独立轻量模型原文复核和程序校验，仍待用户逐题确认；确认后再扩展到核心100题与额外10题跨故事题。旧100题逐字备份在本地实验目录，旧12题历史实验输入及报告保持原样。
+
+字段、配额、限制和离线命令见[题库说明](eval/README.md)，本地[14题复核表](data/eval_rebuild/20261011_pilot_v2/review.md)便于查看问题、答案与核验要点。新入口 `scripts/prepare_eval_cases.py` 负责材料导出、封存复核输入、标注核验、出处范围覆盖和备份安装，不接入旧检索runner。新JSON容器和schema不能直接传给仍读取JSONL的 `evaluate_rag_mvp.py`；语义检索Judge另行实施。本轮84项测试通过。
+
 ## 公开审阅与发布资料
 
 [公开审阅入口](reports/README.md)提供24题双组摘要及六题全部条件／种子的关键摘录；新克隆可读错误原句、必要原文和初审，完整上下文／回答仍属于独立审阅资料包。当前全量派生语料发布到[Hugging Face 数据集](https://huggingface.co/datasets/shiphex/genshin_agent_RAG)；版本、哈希、下载校验和审阅包状态见[数据获取](reports/data_access.md)与[发布清单](reports/manifest.json)。

@@ -1,0 +1,57 @@
+# 冻结原文剧情评测集 v2
+
+[questions.json](questions.json)是从冻结原文同时设计问题、参考答案、要点和证据的新版题库。首批版本为 `2.0.0-pilot`，共14题，待用户逐题复核；目标版本 `2.0.0` 共110题。旧题核验认可不自动继承，本题库尚未运行检索Judge或被评测模型。
+
+## 结构与配额
+
+| 核心类型 | 简单 | 中等 | 困难 | 合计 |
+| --- | ---: | ---: | ---: | ---: |
+| fact 事实查询 | 15 | 10 | 5 | 30 |
+| causal 故事因果 | 8 | 12 | 10 | 30 |
+| worldbuilding 世界观推理 | 2 | 7 | 11 | 20 |
+| relationship 人物关系 | 5 | 11 | 4 | 20 |
+| 合计 | 30 | 40 | 30 | 100 |
+
+另有 `group=cross_story` 的10题：中等5题、困难5题，仍标注上述主要类型。首批四类型各含简单、中等、困难各一题，另加中等、困难跨故事题各一题。核心完整集有10题前提纠正或不确定性辨析；同一 `story_topic` 最多6题。难度根据证据跨度、推理和叙述辨析判断，冷门名称不等于困难；标签与难度仍需用户复核。
+
+## 标注语义
+
+- `reference_answer` 是合格回答示例，不要求逐字复述，也不是凭模型记忆补全的百科答案。
+- `key_points` 用稳定ID记录必须覆盖的事实 (`fact`)、推理 (`inference`) 和限定 (`qualification`)，通过 `evidence_ids` 引用依据。允许有依据的不同表达和论证路径；本阶段没有评分权重。
+- `evidence` 固定需要支持的原子语义事实。每项 `sources` 是已核验的一组出处，多段可以共同支撑，不是“找到任意一句就成功”，也不穷尽所有等价来源。
+- 来源坐标为冻结快照下的相对POSIX路径、RFC 6901 Pointer和Python Unicode码点的零基半开区间 `[start,end)`；`quote`、文件SHA-256和说话者由程序提取。
+- `wiki_excerpt` 表示冻结Wiki摘录，`wiki_compilation` 表示Wiki编纂；它们都不是官方真伪认证。人物判断、传说、未知说话者与分支限制须在命题和答案里保留。
+- `annotation_status=source_reviewed` 表示独立模型原文复核和程序校验已完成；`user_review=not_reviewed` 表示尚未获得用户逐题确认，两者不能替代。
+
+## 出处覆盖与未来检索评分
+
+`corpus_anchor_coverage` 检查已标注原文范围是否保留在指定派生语料中。先回查相关chunk正文与原字段重建一致，再合并相同文件／Pointer的范围，因此相邻或重叠chunk可以共同覆盖一个出处。存在缺口记为partial，完全没有覆盖记为missing；修改chunk ID不改变结果。
+
+此检查不执行检索，不判断替代来源，不验证语义推理。它不是检索召回率、答案正确率或完整可答性；complete只表示所标注出处都保留，partial/missing不表示整个语料无法作答。覆盖字段是可重算的派生观察，不要求未来RAG命中这些原位置。
+
+范围缺口保留在missing_ranges中；另用whitespace_only_gaps和non_whitespace_gap_count区分段间空白与实质文本。首批两题的literal partial均只缺段间空白，没有发现已标注文字被遗漏；这仍不是语义检索通过。
+
+未来语义检索Judge将使用问题、语义事实和本轮检索文本，另外记录“证据ID→本轮chunk／原句”的支持关系。题库没有必须命中的chunk ID。换原始快照时必须重新验证出处／哈希，不能沿用旧Pointer冒充新证据。
+
+## 离线工具
+
+在项目根目录，通过uv运行，默认读取2026-06-05冻结快照和当前全量语料：
+
+```powershell
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/prepare_eval_cases.py validate --questions rag/eval/questions.json --mode pilot
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -m unittest discover -s rag/tests
+```
+
+工具还提供 `materials`、`review-input`、`build`、`install`，分别导出原字段、封存独立复核输入、组装正式出处并接入复核、备份后替换正式题库。各入口可用 `--help` 查看。材料选择格式是 `{"materials":[{"id":"S01","source_file":"parsed/...json","source_pointer":"/字段"}]}`，可选start/end；模型只引用编号，不手抄quote或hash。
+
+生成草稿含questions与materials，evidence.sources暂用 `{"material_id":"S01"}`。独立复核封存输入只含当前问题与实际原文；不提供生成者自评。review JSON记录input_sha256、model、reasoning_effort及逐题passed/needs_revision与issues；哈希绑定问答、原文切片与源文件字节。缺题、重复、旧稿复核或critical/important未修问题不能升级为source_reviewed，未知severity也拒绝。
+
+所有导出／备份目录必须是 `rag/data/` 内的新目录，拒绝原始目录及已有目录。`install`仅能替换 `rag/eval/questions.json`，先逐字备份旧文件并校验哈希，再安装经验证的候选文件。该工具不调用模型、不改检索、不上传数据。
+
+## 复核与版本维护
+
+先由用户逐题复核14题，再修订并扩展剩余96题；扩展后分层抽查至少20题，并查看全部疑难项。没有抽查的题继续记录用户未逐题确认，不能称110题全部用户通过。模型生成、独立复核与用户反馈分别留档。
+
+旧100题及各轮草稿、完整原文材料、复核原始输出和保护哈希保存在本地 `rag/data/eval_rebuild/20261011_pilot_v2/`，继续忽略；原12题历史实验输入与报告保持原样。本地记录需要独立备份，不能靠Git或重建语料恢复。程序检查不保证全部语义判断正确。
+
+本题库是公开开发评测集，问题、答案与标注不作为训练样本；最终泛化评测另设留出集。修订必须记录版本与变化，扩展保留已有题号，跨版本比较使用未变题目。

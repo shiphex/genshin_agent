@@ -1,0 +1,2366 @@
+{
+  "schema_version": 2,
+  "benchmark_id": "genshin-story-core",
+  "version": "2.0.0-pilot",
+  "created_date": "2026-10-12",
+  "story_cutoff": "2026-06-05",
+  "language": "zh-CN",
+  "source_snapshot": "data/raw/genshin_wiki_data_20260605",
+  "status": "pilot_pending_user_review",
+  "target_total": 110,
+  "purpose": "公开开发评测集；问题、参考答案与标注不用于训练；泛化评估另设留出集。",
+  "evidence_policy": "语义事实及冻结出处；sources可共同支撑，非穷尽等价来源，不绑定chunk ID。",
+  "review_policy": "首批14题用户逐题确认后扩展；剩余96题分层抽查至少20题及全部疑难项。",
+  "target_core_matrix": {
+    "fact": {
+      "easy": 15,
+      "medium": 10,
+      "hard": 5
+    },
+    "causal": {
+      "easy": 8,
+      "medium": 12,
+      "hard": 10
+    },
+    "worldbuilding": {
+      "easy": 2,
+      "medium": 7,
+      "hard": 11
+    },
+    "relationship": {
+      "easy": 5,
+      "medium": 11,
+      "hard": 4
+    }
+  },
+  "target_cross_story": {
+    "medium": 5,
+    "hard": 5
+  },
+  "questions": [
+    {
+      "id": "gq2-001",
+      "group": "core",
+      "category": "fact",
+      "difficulty": "easy",
+      "question": "温迪的神之心被谁夺走？她在愚人众中是什么身份？",
+      "reference_answer": "夺走温迪神之心的是「女士」。温迪称她为愚人众十一执行官第八席，代号也是「女士」；执行官效忠于至冬的冰之女皇。",
+      "story_topic": "温迪的神之心被夺",
+      "region": "蒙德",
+      "primary_material": "archon_quest",
+      "tags": [
+        "温迪",
+        "神之心",
+        "女士",
+        "愚人众",
+        "蒙德主线"
+      ],
+      "uncertainty": "none",
+      "key_points": [
+        {
+          "id": "p1",
+          "kind": "fact",
+          "statement": "夺走温迪神之心的人是女士。",
+          "evidence_ids": [
+            "e1"
+          ]
+        },
+        {
+          "id": "p2",
+          "kind": "fact",
+          "statement": "温迪称她为愚人众十一执行官第八席，代号女士。",
+          "evidence_ids": [
+            "e2"
+          ]
+        },
+        {
+          "id": "p3",
+          "kind": "fact",
+          "statement": "温迪说执行官效忠于冰之女皇。",
+          "evidence_ids": [
+            "e3"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e1",
+          "statement": "夺走温迪神之心的人是「女士」。",
+          "sources": [
+            {
+              "source_file": "parsed/archon-quests/尾声的尾声__e4ed1de066.json",
+              "source_pointer": "/对话/46/内容",
+              "start": 0,
+              "end": 36,
+              "quote": "那么，刚才那个见面就把我吹飞、还抢走温迪「神之心」的坏女人，到底是谁…？",
+              "source_sha256": "66195703c85146cc7a2827413a020e330c1bdefde4240f2a7ead26fc02838f49",
+              "source_kind": "wiki_excerpt",
+              "speaker": "派蒙"
+            },
+            {
+              "source_file": "parsed/archon-quests/尾声的尾声__e4ed1de066.json",
+              "source_pointer": "/对话/47/内容",
+              "start": 0,
+              "end": 28,
+              "quote": "她是「女士」——愚人众十一执行官的第八席，代号「女士」。",
+              "source_sha256": "66195703c85146cc7a2827413a020e330c1bdefde4240f2a7ead26fc02838f49",
+              "source_kind": "wiki_excerpt",
+              "speaker": "温迪"
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "statement": "温迪称「女士」为愚人众十一执行官第八席，代号「女士」。",
+          "sources": [
+            {
+              "source_file": "parsed/archon-quests/尾声的尾声__e4ed1de066.json",
+              "source_pointer": "/对话/47/内容",
+              "start": 0,
+              "end": 28,
+              "quote": "她是「女士」——愚人众十一执行官的第八席，代号「女士」。",
+              "source_sha256": "66195703c85146cc7a2827413a020e330c1bdefde4240f2a7ead26fc02838f49",
+              "source_kind": "wiki_excerpt",
+              "speaker": "温迪"
+            },
+            {
+              "source_file": "parsed/archon-quests/尾声的尾声__e4ed1de066.json",
+              "source_pointer": "/对话/48/内容",
+              "start": 0,
+              "end": 45,
+              "quote": "愚人众的每一位执行官，都像她一样，被至冬国的女皇赐予了神灵般的权柄，获得超越了凡人的力量。",
+              "source_sha256": "66195703c85146cc7a2827413a020e330c1bdefde4240f2a7ead26fc02838f49",
+              "source_kind": "wiki_excerpt",
+              "speaker": "温迪"
+            }
+          ]
+        },
+        {
+          "id": "e3",
+          "statement": "温迪说明愚人众执行官效忠于至冬的冰之女皇。",
+          "sources": [
+            {
+              "source_file": "parsed/archon-quests/尾声的尾声__e4ed1de066.json",
+              "source_pointer": "/对话/50/内容",
+              "start": 0,
+              "end": 37,
+              "quote": "嗯，七神之一，端坐于至冬宫的「冰之女皇」，全体愚人众执行官的唯一效忠对象。",
+              "source_sha256": "66195703c85146cc7a2827413a020e330c1bdefde4240f2a7ead26fc02838f49",
+              "source_kind": "wiki_excerpt",
+              "speaker": "温迪"
+            },
+            {
+              "source_file": "parsed/archon-quests/尾声的尾声__e4ed1de066.json",
+              "source_pointer": "/对话/51/内容",
+              "start": 0,
+              "end": 44,
+              "quote": "虽然七神之间的关系，并不全都非常融洽，但我也没想到，她居然正在谋夺其他神灵的「神之心」…",
+              "source_sha256": "66195703c85146cc7a2827413a020e330c1bdefde4240f2a7ead26fc02838f49",
+              "source_kind": "wiki_excerpt",
+              "speaker": "温迪"
+            }
+          ]
+        }
+      ],
+      "annotation_status": "source_reviewed",
+      "user_review": "not_reviewed",
+      "corpus_anchor_coverage": {
+        "method": "source_span_union_not_semantic_recall",
+        "status": "complete",
+        "covered_anchors": 6,
+        "total_anchors": 6,
+        "missing_anchors": [],
+        "whitespace_only_gaps": false,
+        "non_whitespace_gap_count": 0
+      }
+    },
+    {
+      "id": "gq2-002",
+      "group": "core",
+      "category": "fact",
+      "difficulty": "medium",
+      "question": "芙卡洛斯怎样安排芙宁娜扮演水神？芙宁娜对这项计划知道多少？",
+      "reference_answer": "芙卡洛斯把神格从身体与精神中分离，留下的人类形态被命名为芙宁娜。为骗过天理、让预言看似成真并拯救枫丹人，她让芙宁娜扮演预言中的水神，并施加诅咒：只要芙卡洛斯的神格仍存在，芙宁娜就不会死。芙卡洛斯确认没有告诉芙宁娜完整计划；芙宁娜并不知道真相。",
+      "story_topic": "芙卡洛斯与芙宁娜的分离及预言计划",
+      "region": "枫丹",
+      "primary_material": "archon_quest",
+      "tags": [
+        "芙卡洛斯",
+        "芙宁娜",
+        "预言",
+        "水神",
+        "计划知情范围"
+      ],
+      "uncertainty": "none",
+      "key_points": [
+        {
+          "id": "p1",
+          "kind": "fact",
+          "statement": "芙卡洛斯分离神格，留下的人类形态名为芙宁娜。",
+          "evidence_ids": [
+            "e1"
+          ]
+        },
+        {
+          "id": "p2",
+          "kind": "fact",
+          "statement": "芙卡洛斯让芙宁娜扮演预言中的水神；诅咒使芙宁娜在芙卡洛斯神格仍存在期间不会死。",
+          "evidence_ids": [
+            "e2"
+          ]
+        },
+        {
+          "id": "p3",
+          "kind": "fact",
+          "statement": "这项安排旨在骗过天理，并在预言发生时拯救众人。",
+          "evidence_ids": [
+            "e3"
+          ]
+        },
+        {
+          "id": "p4",
+          "kind": "fact",
+          "statement": "芙宁娜不知道完整计划；芙卡洛斯确认没向她透露真相。",
+          "evidence_ids": [
+            "e4"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e1",
+          "statement": "芙卡洛斯说自己将神格分离，并把人类形态命名为芙宁娜。",
+          "sources": [
+            {
+              "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+              "source_pointer": "/对话/20/内容",
+              "start": 0,
+              "end": 52,
+              "quote": "在成为神明以后，我将自己的「神格」从身体与精神之中分离出来，只剩下了如同刚刚被创造出来的人类一般的自己。",
+              "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a",
+              "source_kind": "wiki_excerpt",
+              "speaker": "芙卡洛斯"
+            },
+            {
+              "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+              "source_pointer": "/对话/21/内容",
+              "start": 0,
+              "end": 33,
+              "quote": "现在你面前的我，就是那个「神格」，而人类的我，我将她取名为芙宁娜。",
+              "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a",
+              "source_kind": "wiki_excerpt",
+              "speaker": "芙卡洛斯"
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "statement": "芙卡洛斯要求芙宁娜扮演预言中的水神，并施加诅咒：只要自己的神格仍存在，芙宁娜就不会死。",
+          "sources": [
+            {
+              "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+              "source_pointer": "/对话/28/内容",
+              "start": 0,
+              "end": 32,
+              "quote": "还记得吧？预言中最后一幕的景象——水神自己孤零零地在神座上哭泣。",
+              "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a",
+              "source_kind": "wiki_excerpt",
+              "speaker": "芙卡洛斯"
+            },
+            {
+              "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+              "source_pointer": "/对话/29/内容",
+              "start": 0,
+              "end": 35,
+              "quote": "要让预言「看似」实现，我邀请了芙宁娜这位演员，来「扮演」预言中的水神。",
+              "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a",
+              "source_kind": "wiki_excerpt",
+              "speaker": "芙卡洛斯"
+            },
+            {
+              "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+              "source_pointer": "/对话/30/内容",
+              "start": 0,
+              "end": 48,
+              "quote": "在我的诅咒之下，只要作为「神格」的我还存在，芙宁娜便永远不会死，但也永远享受不到人类该有的幸福。",
+              "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a",
+              "source_kind": "wiki_excerpt",
+              "speaker": "芙卡洛斯"
+            },
+            {
+              "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+              "source_pointer": "/对话/31/内容",
+              "start": 0,
+              "end": 47,
+              "quote": "她将被迫以这歌剧院为舞台，成为歌剧院真正的女主角，为了让预言看似实现而永远扮演「神明」的戏份。",
+              "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a",
+              "source_kind": "wiki_excerpt",
+              "speaker": "芙卡洛斯"
+            }
+          ]
+        },
+        {
+          "id": "e3",
+          "statement": "芙卡洛斯称唯有骗过天理，才能在预言发生时拯救大家。",
+          "sources": [
+            {
+              "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+              "source_pointer": "/对话/10/内容",
+              "start": 0,
+              "end": 44,
+              "quote": "在我之前的那一任水神，也就是厄歌莉娅，将这个预言托付给我的时候，我也觉得…这太棘手了吧？",
+              "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a",
+              "source_kind": "wiki_excerpt",
+              "speaker": "芙卡洛斯"
+            },
+            {
+              "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+              "source_pointer": "/对话/12/内容",
+              "start": 0,
+              "end": 28,
+              "quote": "身为「尘世七执政」的她也很明白，「天理」…不可与之为敌。",
+              "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a",
+              "source_kind": "wiki_excerpt",
+              "speaker": "芙卡洛斯"
+            },
+            {
+              "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+              "source_pointer": "/对话/15/内容",
+              "start": 0,
+              "end": 56,
+              "quote": "唯有骗过「天理」，才能在预言发生的同时…拯救大家。嗯，我真是个天才，也正因如此，厄歌莉娅才选择了我作为继任者吧。",
+              "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a",
+              "source_kind": "wiki_excerpt",
+              "speaker": "芙卡洛斯"
+            }
+          ]
+        },
+        {
+          "id": "e4",
+          "statement": "那维莱特问芙宁娜是否不知道真相，芙卡洛斯确认她没有被告知完整计划。",
+          "sources": [
+            {
+              "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+              "source_pointer": "/对话/220/内容",
+              "start": 0,
+              "end": 29,
+              "quote": "所以连芙宁娜自己也不知道真相？你也从未告诉她你完整的计划？",
+              "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a",
+              "source_kind": "wiki_excerpt",
+              "speaker": "那维莱特"
+            },
+            {
+              "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+              "source_pointer": "/对话/221/内容",
+              "start": 0,
+              "end": 19,
+              "quote": "是的，要骗过天理，首先要「骗过自己」。",
+              "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a",
+              "source_kind": "wiki_excerpt",
+              "speaker": "芙卡洛斯"
+            },
+            {
+              "source_file": "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json",
+              "source_pointer": "/对话/222/内容",
+              "start": 0,
+              "end": 40,
+              "quote": "她真的很了不起，这五百年来，但凡她的意志有任何松懈，枫丹都只会剩下最糟糕的结局。",
+              "source_sha256": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a",
+              "source_kind": "wiki_excerpt",
+              "speaker": "芙卡洛斯"
+            }
+          ]
+        }
+      ],
+      "annotation_status": "source_reviewed",
+      "user_review": "not_reviewed",
+      "corpus_anchor_coverage": {
+        "method": "source_span_union_not_semantic_recall",
+        "status": "complete",
+        "covered_anchors": 12,
+        "total_anchors": 12,
+        "missing_anchors": [],
+        "whitespace_only_gaps": false,
+        "non_whitespace_gap_count": 0
+      }
+    },
+    {
+      "id": "gq2-003",
+      "group": "core",
+      "category": "fact",
+      "difficulty": "hard",
+      "question": "《日月前事》将该存在写作什么？“露塔斯伊”的倒写如何与后续对白里旅行者提出的名字对读？再看《白夜国地理水文考》，它对“常世大神／时之千风”究竟说了什么？请分清古籍直述、后续角色说法与推读，并说明它们不能建立什么年代联系。",
+      "reference_answer": "《日月前事》在“黑暗的第三年”称时间之执政为卡伊洛斯，并说秘密名倒写为“露塔斯伊”；反向读作“伊斯塔露”是据此作的文字对应。后来对白中旅行者提出伊斯塔露，钟离确认其知晓该存在，派蒙称之为时间之执政；这支持两段叙述相关，但钟离没有逐字确认别名。《白夜国地理水文考》只把不灭风人格化称为常世大神，并把千风、时之千风列作诗体修辞，未点名伊斯塔露。后来的凝魂事件也不能据此定为黑暗第三年。",
+      "story_topic": "渊下宫与璃月文本中的时间权能者称谓及年代边界",
+      "region": "渊下宫、璃月",
+      "primary_material": "book",
+      "tags": [
+        "日月前事",
+        "卡伊洛斯",
+        "伊斯塔露",
+        "常世大神",
+        "跨文本身份",
+        "年代边界"
+      ],
+      "uncertainty": "uncertainty_analysis",
+      "key_points": [
+        {
+          "id": "p1",
+          "kind": "fact",
+          "statement": "《日月前事》在“黑暗的第三年”称时间之执政为卡伊洛斯，并把秘密名倒写为“露塔斯伊”；反向读作“伊斯塔露”是文字对应。",
+          "evidence_ids": [
+            "e1"
+          ]
+        },
+        {
+          "id": "p2",
+          "kind": "fact",
+          "statement": "后来对白中旅行者提出伊斯塔露，钟离只确认旅行者已知晓该存在，派蒙称其为时间之执政；钟离没有逐字确认别名。",
+          "evidence_ids": [
+            "e2",
+            "e3"
+          ]
+        },
+        {
+          "id": "p3",
+          "kind": "qualification",
+          "statement": "地理书把不灭风人格化称为常世大神，把千风／时之千风列作诗体修辞；它没有点名伊斯塔露或卡伊洛斯，不能独立建立身份等同。",
+          "evidence_ids": [
+            "e4"
+          ]
+        },
+        {
+          "id": "p4",
+          "kind": "qualification",
+          "statement": "古籍把相关记述置于黑暗第三年；后来的兹白凝魂对白未给出与该纪年的直接联系。",
+          "evidence_ids": [
+            "e1",
+            "e2",
+            "e3"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e1",
+          "statement": "古籍在“黑暗的第三年”称唯一未抛弃他们者为时间之执政卡伊洛斯／不变世界的统领，并称秘密名倒写为“露塔斯伊”；反向阅读该字符串为“伊斯塔露”。",
+          "sources": [
+            {
+              "source_file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+              "source_pointer": "/volumes/1/content",
+              "start": 0,
+              "end": 1914,
+              "quote": "我们想要记录的事情，是天上的意志如何在大地上拥有了形态。啊，天上之神，这些创造都是你们的作为。那就请你们启发我的神智，让我源源不断地记录。\n\n\n【鸽子衔枝之年】\n\n天上永恒的王座到来，世界为之焕然一新。然后真王，原初的那一位开始和旧世界的主人们，七位恐怖大王开战。那恐怖的大王们是龙。\n\n原初的那一位造出了自己发着光的影子。而影子的数量是四。\n\n\n【法涅斯，或者原初的那一位】\n\n原初的那一位，或许是法涅斯。它生着羽翼，头戴王冠，从蛋中出生，难以分辨雌雄。但是世界如果要被创造，蛋壳必须被打破。法涅斯——原初的那一位——却用蛋壳隔绝了「宇宙」和「世界的缩影」。\n\n\n【衔枝后四十余年】\n\n四十个冬天埋葬了火，四十个夏天沸腾了海。七位大王全部被打败，七个王国全部对天上俯首称臣。原初的那一位大王开始了天地的创造。为了「我们」——它最可怜的人儿将出现在这片大地。\n\n\n…\n\n\n【衔枝的四百余年】\n\n山川与河流落成，大海和大洋接纳了反叛者和不从者。原初的那一位和一位影子制造出了飞鸟、走兽和水鱼。它们还一起制造出了花草和树木。最后它们造出了人。我们的先祖的数目不可知晓。\n\n自此时起，我们先祖和原初的那一位立约。纪年也更迭一新。\n\n\n【箱舟开门之年】\n\n原初的那一位对人有一套神圣的规划。人只要幸福，它便欢欣。\n\n\n【箱舟开门的次年】\n\n人们耕耘，第一次收获。人们开掘，第一次收获贵金。人们聚集，第一次写就诗歌。\n\n\n【狂欢节之年】\n\n如果有饥馑，天上就落下食物与甘霖。如果有贫瘠，那大地就会生出矿藏。如果有忧郁蔓延，那么高天就会以声音回应。\n\n唯一的禁止之事，就是输给诱惑。但是诱惑的通道已经被封堵。\n\n\n…\n\n\n【葬火之年】\n\n天上的第二个王座到来，仿佛创世之初的大战再开。那一天，天也倾颓，地也崩裂。我们海渊之民的先祖，和他们世代栖居的土地，落入了此处。\n\n黑暗的年代由此开始。\n\n\n【黑暗的元年】\n\n七位大王的子民被海接纳，深海的龙嗣曾经统治这里。我们的先祖与它们发生了征战。\n\n先祖使用千灯将它们逐入影子，它们则在影子里狩猎人类。此处唯有黑暗，所以无处不是它们的猎场。\n\n人们的祈祷汇成哀歌，原初的那一位和其他三位发光的影子并不能听见。\n\n\n【太阳的比喻】\n\n黑暗的洞窟里，有一群未曾见过光的人们在生活。有一位见过太阳的贤人，对着洞窟的众人描绘着光之下的生活与太阳的伟大。他见众人无法理解，于是点起了火。人们于是开始崇拜火，以为这个是太阳，甚至开始习惯了黑暗与火光的生活。\n\n贤人死后，有人霸占了火，通过火，投下了自己巨大的影子。\n\n\n【忘忧莲的比喻】\n\n看见就会忘记忧愁的莲花。在漫长的旅行中，寻找归途的船长遇到了一群以这种莲花为食的人。有的人留下了，有的人抗拒了这种诱惑。\n\n活着就是无尽的苦海。我们只是在寻找归途。\n\n\n【黑暗的第三年】\n\n唯一没有抛弃我们的那一位，她乃是「时间之执政」。她是时刻，是无时不刻，是千风与日月之度量。她是一切欢欣之时，一切愤怒之时，一切渴望之时，一切迷狂之时。她是一切谵妄的时刻。\n\n我们称呼她「卡伊洛斯」，或者「不变世界的统领与执政」。真正秘密的名字，我们不敢直言，所以在这里倒写。「露塔斯伊」——我仅提一次。\n\n\n…\n\n\n【目盲之年】\n\n贤人阿布拉克他被开启了神智，他展示了从手中发出光的奇迹。先祖们以他为首领，开始建设「赫利俄斯」。\n\n\n…\n\n\n【目明之年，或日月的元年】\n\n「赫利俄斯」——太阳的神车，终于落成。白夜到来，常夜消散。\n\n日月的纪年开始了。\n\n\n【日月的二年】\n\n先祖们尝试寻找归途。地表的大战应该已经结束。\n\n但是原初的那一位，第一个王座，布下了禁令。先祖们无法找到归家之路。\n\n既然是如此，那原初的那一位，应该打败了后来的第二位吧。\n\n阿布拉克被太阳之子下令囚禁。\n\n\n【树的比喻】\n\n王的园丁与御园的树精相爱。但是国王想要新修凉亭的雕梁，需要砍伐最有灵气的那一棵灵木。国王是原初的那位之化身，因此园丁无法违逆万王之王，唯有对着国王的祭司祈祷。祭司乃是常世大神的化身。\n\n祭司怜悯园丁，于是说，你去折下灵树的枝条吧。园丁便去折枝，然后听从国王的命令砍伐了灵木。\n\n随后祭司说，你去种下灵木的枝吧。园丁说，灵木长成，需要五百年。祭司说，一念则千劫尽。于是园丁在自家后院种下了树枝。结果一瞬间，细枝长成了新树，那新树精是曾经树精的延续。\n\n因为那时刻之神，可以把「种子」的「这一刻」带到过去与未来。\n\n\n【日月之十年】\n\n阿布拉克故去已久。日月之前的事情已经记录得足够。若无把一切按事实记写的胆量，哪里能成为常世大神的书记呢？\n\n我听到了门外盔甲的声音，我于此绝笔。",
+              "source_sha256": "2d3e68ae47bfa0e7cbbe5f555938cb738f905c88150cdc63f41aa359f41d8521",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "statement": "钟离称凝固兹白灵魂本源者为时之化身；旅行者提出“伊斯塔露”后，钟离说旅行者果然知晓这一位的存在。",
+          "sources": [
+            {
+              "source_file": "parsed/character-quests/在云间__1bf5a7a928.json",
+              "source_pointer": "/对话/547/内容",
+              "start": 0,
+              "end": 7,
+              "quote": "…是时之化身。",
+              "source_sha256": "d8096c0ff16aebbfa8ed98b65b70ea51f6ca1eaf7c992941e1208f74e95a04c3",
+              "source_kind": "wiki_excerpt",
+              "speaker": "钟离"
+            },
+            {
+              "source_file": "parsed/character-quests/在云间__1bf5a7a928.json",
+              "source_pointer": "/对话/549/内容",
+              "start": 0,
+              "end": 15,
+              "quote": "你果然已经知晓了这一位的存在。",
+              "source_sha256": "d8096c0ff16aebbfa8ed98b65b70ea51f6ca1eaf7c992941e1208f74e95a04c3",
+              "source_kind": "wiki_excerpt",
+              "speaker": "钟离"
+            }
+          ]
+        },
+        {
+          "id": "e3",
+          "statement": "派蒙把前述存在称为时间之执政；钟离称只有时之伟力能将残魂凝固在寂灭前的刹那。",
+          "sources": [
+            {
+              "source_file": "parsed/character-quests/在云间__1bf5a7a928.json",
+              "source_pointer": "/对话/550/内容",
+              "start": 0,
+              "end": 9,
+              "quote": "居然是时间之执政…",
+              "source_sha256": "d8096c0ff16aebbfa8ed98b65b70ea51f6ca1eaf7c992941e1208f74e95a04c3",
+              "source_kind": "wiki_excerpt",
+              "speaker": "派蒙"
+            },
+            {
+              "source_file": "parsed/character-quests/在云间__1bf5a7a928.json",
+              "source_pointer": "/对话/551/内容",
+              "start": 0,
+              "end": 25,
+              "quote": "唯有时之伟力，才能将兹白的残魂凝固在寂灭前的刹那。",
+              "source_sha256": "d8096c0ff16aebbfa8ed98b65b70ea51f6ca1eaf7c992941e1208f74e95a04c3",
+              "source_kind": "wiki_excerpt",
+              "speaker": "钟离"
+            }
+          ]
+        },
+        {
+          "id": "e4",
+          "statement": "地理书只说不灭风人格化称常世大神，或以千风、时之千风作诗体修辞；没有点出伊斯塔露或卡伊洛斯。",
+          "sources": [
+            {
+              "source_file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+              "source_pointer": "/volumes/2/content",
+              "start": 0,
+              "end": 1041,
+              "quote": "海渊之下的土地和地面的风貌有巨大差异，常理并不适用。加之曾经的地理与水文知识，也是直接由天上传授的。我们对自身所处世界的研究，连方法都只能自己摸索。一切唯有从头开始。\n\n读此书之后人谨记，莫要以为自己所过之生活为平常之事。虽然千百年后，人们会习惯这种生活。但是请谨记——天中无日月的生活是异常的。就算有贤人在这里描绘太阳，也一定会有腌臜之徒借着光投下巨大的影子。\n\n此书只是为了让人们理解自己所处的世界，切莫忘记重新寻回光的心。\n\n（本书随着时代变化不断修订删改，称呼也从海渊之土变为「常世国」，随后变化为「白夜国」。后因海祇垂怜，渊下之民复归海面。但总序之「海渊之土」有特殊意义，不做统一改订。）\n\n\n-风与水之事\n\n白夜国土没有山之走向，讨论山系没有意义。但是我们之中的祭司和贤人察觉到了一点：就算是在这片海渊之下，仍然有「不灭风」和「水」的力量。「不灭风」，人格化称之「常世大神」，或者诗体修辞为「千风」、「时之千风」；「水」则是深海龙蜥的龙蜥界之力。\n\n我们已经有了一门学问推算「阳炎」与风、水之关系。所以在兴动土木之前，需要考虑水文与不灭风的影响。\n\n\n-白夜国的边陲\n\n白夜之国土，以三角三隅为标。曾经这里就是人类势力与龙蜥势力拉锯的极限了。\n\n三角在白夜国时期修建有三界塔，用来调和三界。古时的名字已经失传，在海祇到来之后，才改了现在的名字。\n\n三界塔非常重要，并且不处在风与水的体系下。甚至与之相反，它们负责平衡整个白夜国的倾向，控制着白夜国的风与水。\n\n一旦三界塔出现问题，整个白夜国将有大灾。因此它们由秘法隐去，仅能由巫女与御使唤出。\n\n\n-狭间之街\n\n最早狭间之街夹在山壁和方圆之地中，因此才被称为狭间之街。但是随着白夜国极端异常的地理变动，几百年内，方圆之地就崩落进了深渊。狭间之街反而成为了一片广阔。\n\n\n-蛇心之地\n\n这里自先祖发现之日起，就存在一个神奇的现象：空间会在某一处交叠。后来这个现象被我们的先人利用，修建了蛇心的祭坛。人们使用这个地方保管秘密、囚禁犯人，并且崇拜幻想出来的大蛇「奥罗巴洛斯」。\n\n最早这里叫做德尔斐，意思是蛇之地。后来海祇大神到来，蛇之地的名字并没有改变。一般古早绘画，无鳞蛇为「奥罗巴洛斯」，有珊瑚的蛇为「远吕羽氏」。\n\n\n-大日御舆\n\n最早的名字是「赫利俄斯」，乃是贤人阿倍良久所设计的高塔。风、水之中属黄。\n\n根据预言，它应该就是贤人所展示的太阳，用来照亮没有见过光的洞穴。同样，根据预言，它后来也被用来投下巨大的影子。",
+              "source_sha256": "2d3e68ae47bfa0e7cbbe5f555938cb738f905c88150cdc63f41aa359f41d8521",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        }
+      ],
+      "annotation_status": "source_reviewed",
+      "user_review": "not_reviewed",
+      "corpus_anchor_coverage": {
+        "method": "source_span_union_not_semantic_recall",
+        "status": "partial",
+        "covered_anchors": 4,
+        "total_anchors": 6,
+        "missing_anchors": [
+          {
+            "source_file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+            "source_pointer": "/volumes/1/content",
+            "start": 0,
+            "end": 1914,
+            "missing_ranges": [
+              [
+                69,
+                72
+              ],
+              [
+                80,
+                82
+              ],
+              [
+                142,
+                144
+              ],
+              [
+                171,
+                174
+              ],
+              [
+                188,
+                190
+              ],
+              [
+                280,
+                283
+              ],
+              [
+                292,
+                294
+              ],
+              [
+                379,
+                382
+              ],
+              [
+                383,
+                386
+              ],
+              [
+                395,
+                397
+              ],
+              [
+                482,
+                484
+              ],
+              [
+                511,
+                514
+              ],
+              [
+                522,
+                524
+              ],
+              [
+                552,
+                555
+              ],
+              [
+                564,
+                566
+              ],
+              [
+                603,
+                606
+              ],
+              [
+                613,
+                615
+              ],
+              [
+                668,
+                670
+              ],
+              [
+                698,
+                701
+              ],
+              [
+                702,
+                705
+              ],
+              [
+                711,
+                713
+              ],
+              [
+                777,
+                779
+              ],
+              [
+                789,
+                792
+              ],
+              [
+                799,
+                801
+              ],
+              [
+                839,
+                841
+              ],
+              [
+                886,
+                888
+              ],
+              [
+                920,
+                923
+              ],
+              [
+                930,
+                932
+              ],
+              [
+                1038,
+                1040
+              ],
+              [
+                1067,
+                1070
+              ],
+              [
+                1078,
+                1080
+              ],
+              [
+                1140,
+                1142
+              ],
+              [
+                1162,
+                1165
+              ],
+              [
+                1173,
+                1175
+              ],
+              [
+                1260,
+                1262
+              ],
+              [
+                1326,
+                1329
+              ],
+              [
+                1330,
+                1333
+              ],
+              [
+                1339,
+                1341
+              ],
+              [
+                1389,
+                1392
+              ],
+              [
+                1393,
+                1396
+              ],
+              [
+                1409,
+                1411
+              ],
+              [
+                1440,
+                1442
+              ],
+              [
+                1451,
+                1454
+              ],
+              [
+                1461,
+                1463
+              ],
+              [
+                1485,
+                1487
+              ],
+              [
+                1520,
+                1522
+              ],
+              [
+                1549,
+                1551
+              ],
+              [
+                1565,
+                1568
+              ],
+              [
+                1574,
+                1576
+              ],
+              [
+                1667,
+                1669
+              ],
+              [
+                1713,
+                1715
+              ],
+              [
+                1799,
+                1801
+              ],
+              [
+                1830,
+                1833
+              ],
+              [
+                1840,
+                1842
+              ],
+              [
+                1894,
+                1896
+              ]
+            ]
+          },
+          {
+            "source_file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+            "source_pointer": "/volumes/2/content",
+            "start": 0,
+            "end": 1041,
+            "missing_ranges": [
+              [
+                83,
+                85
+              ],
+              [
+                181,
+                183
+              ],
+              [
+                214,
+                216
+              ],
+              [
+                299,
+                302
+              ],
+              [
+                308,
+                310
+              ],
+              [
+                429,
+                431
+              ],
+              [
+                479,
+                482
+              ],
+              [
+                489,
+                491
+              ],
+              [
+                527,
+                529
+              ],
+              [
+                578,
+                580
+              ],
+              [
+                634,
+                636
+              ],
+              [
+                677,
+                680
+              ],
+              [
+                685,
+                687
+              ],
+              [
+                763,
+                766
+              ],
+              [
+                771,
+                773
+              ],
+              [
+                866,
+                868
+              ],
+              [
+                938,
+                941
+              ],
+              [
+                946,
+                948
+              ],
+              [
+                984,
+                986
+              ]
+            ]
+          }
+        ],
+        "whitespace_only_gaps": true,
+        "non_whitespace_gap_count": 0
+      }
+    },
+    {
+      "id": "gq2-004",
+      "group": "core",
+      "category": "causal",
+      "difficulty": "easy",
+      "question": "根据钟离在《盐花》中的说明，让赫乌莉亚获得解脱的理由是什么？",
+      "reference_answer": "钟离说，赫乌莉亚仁善却柔弱，子民中有人意识到她在战争中保护不了任何人。他接着解释，与其让她经受战败后的折磨，不如赐予她相对轻松的解脱。",
+      "story_topic": "盐之魔神赫乌莉亚之死",
+      "region": "璃月",
+      "primary_material": "character_quest",
+      "tags": [
+        "赫乌莉亚",
+        "盐之魔神",
+        "盐花",
+        "战争",
+        "子民的判断"
+      ],
+      "uncertainty": "none",
+      "key_points": [
+        {
+          "id": "p1",
+          "kind": "fact",
+          "statement": "钟离说子民中有人意识到，仁善却柔弱的赫乌莉亚无法在战争中保护众人。",
+          "evidence_ids": [
+            "e1"
+          ]
+        },
+        {
+          "id": "p2",
+          "kind": "fact",
+          "statement": "钟离接着以避免战败后的折磨、给予相对轻松的解脱说明理由；回答保留这段说明的说话者归属。",
+          "evidence_ids": [
+            "e2"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e1",
+          "statement": "钟离说，赫乌莉亚的子民中有人意识到这位仁善却柔弱的魔神在战争中保护不了任何人。",
+          "sources": [
+            {
+              "source_file": "parsed/character-quests/慈盐之末__8bcf204f26.json",
+              "source_pointer": "/对话/125/内容",
+              "start": 0,
+              "end": 44,
+              "quote": "故事的后续是：她的子民中，有人终于意识到，这位仁善却柔弱的魔神，在战争中保护不了任何人。",
+              "source_sha256": "8833590e79baa2b6eb35084053e432dfd7f4d947fd68271d7f87e99e9e4fb570",
+              "source_kind": "wiki_excerpt",
+              "speaker": "钟离"
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "statement": "钟离接着说，与其让她经受战败后的折磨，不如赐予她相对轻松的解脱。",
+          "sources": [
+            {
+              "source_file": "parsed/character-quests/慈盐之末__8bcf204f26.json",
+              "source_pointer": "/对话/126/内容",
+              "start": 0,
+              "end": 37,
+              "quote": "魔神战争是很残酷的。与其让她经受战败后的折磨，不如，赐予她相对轻松的解脱。",
+              "source_sha256": "8833590e79baa2b6eb35084053e432dfd7f4d947fd68271d7f87e99e9e4fb570",
+              "source_kind": "wiki_excerpt",
+              "speaker": "钟离"
+            }
+          ]
+        }
+      ],
+      "annotation_status": "source_reviewed",
+      "user_review": "not_reviewed",
+      "corpus_anchor_coverage": {
+        "method": "source_span_union_not_semantic_recall",
+        "status": "complete",
+        "covered_anchors": 2,
+        "total_anchors": 2,
+        "missing_anchors": [],
+        "whitespace_only_gaps": false,
+        "non_whitespace_gap_count": 0
+      }
+    },
+    {
+      "id": "gq2-005",
+      "group": "core",
+      "category": "causal",
+      "difficulty": "medium",
+      "question": "流浪乐团的音乐为何兼具战斗意味？《钟剑》如何说明旧贵族为何畏惧克留兹理德，以及他在起事失败后怎样延续行动？",
+      "reference_answer": "《流浪大地的乐团》写那位剑士的音乐与剑同等致命、优美。钟剑故事说，旧贵族不愿觉察自身堕落，因此克留兹理德挥剑、剑中之钟奏响时，他们格外胆寒。起事失败后的处分不明；传说他被贬黜后建立地下组织，承继同僚遗志并协助异国角斗奴起义。原文没有说他就是乐团故事中的剑士。",
+      "story_topic": "流浪乐团演出与克留兹理德反抗旧贵族",
+      "region": "蒙德",
+      "primary_material": "weapon",
+      "tags": [
+        "流浪大地的乐团",
+        "钟剑",
+        "克留兹理德",
+        "旧贵族",
+        "反抗",
+        "传说"
+      ],
+      "uncertainty": "uncertainty_analysis",
+      "key_points": [
+        {
+          "id": "p1",
+          "kind": "fact",
+          "statement": "乐团剑士的音乐与剑同等致命、优美，演出兼有音乐与武艺。",
+          "evidence_ids": [
+            "e1"
+          ]
+        },
+        {
+          "id": "p2",
+          "kind": "fact",
+          "statement": "旧贵族不愿察觉自己的堕落；因此克留兹理德挥剑、钟声响起时，他们格外胆寒。",
+          "evidence_ids": [
+            "e2"
+          ]
+        },
+        {
+          "id": "p3",
+          "kind": "qualification",
+          "statement": "起事失败后的处分方式不明；传说他被贬黜后组建地下组织，承继同僚遗志并帮助异国角斗奴起义。",
+          "evidence_ids": [
+            "e3"
+          ]
+        },
+        {
+          "id": "p4",
+          "kind": "qualification",
+          "statement": "两段原文未确认克留兹理德就是乐团故事中的剑士。",
+          "evidence_ids": [
+            "e1",
+            "e2"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e1",
+          "statement": "乐团生之花故事称音乐与剑在剑士手中同等致命、同等优美。",
+          "sources": [
+            {
+              "source_file": "parsed/artifacts/流浪大地的乐团__e73c1fcaf5.json",
+              "source_pointer": "/生之花/故事",
+              "start": 0,
+              "end": 168,
+              "quote": "花形的小小徽章，其中仿佛传出音乐声。\n\n在那流浪的乐团里，有一位飒爽的剑士。\n\n比水上的霞光更明媚，优雅如报晓云雀。\n\n每当她挥舞利剑，笛音与歌都随风而起。\n\n一曲一舞落定如同雨霁天青。\n\n尘埃落定，台上下无有杂音。\n\n音乐与剑在她手中同等致命，同等优美。\n\n这便是流浪乐团的演奏，它有两种听众。\n\n听者是恶徒，乐声则远远传到舞台之外。",
+              "source_sha256": "509b68fbec1882427a0687deae3c0242c1a57bf66971f91fd78ba90d4df29163",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "statement": "钟剑说明旧贵族不愿觉察堕落，所以克留兹理德挥剑且钟声响起时，贵族格外胆寒。",
+          "sources": [
+            {
+              "source_file": "parsed/weapons/钟剑__9e7d55e42d.json",
+              "source_pointer": "/故事",
+              "start": 0,
+              "end": 370,
+              "quote": "奇异的粗重大剑，剑身上却装有华丽而精致的时钟。\n伴随着清脆的机关咬合声，为同行者的奏乐与战斗做节拍。\n乐团解散后，大剑被浸在酸水中，使其中的机关齿轮锈死。\n尽管如此，如今仍是致命的兵器。\n\n与流浪乐团同行的叛逆者名为克留兹理德，曾是劳伦斯家族中的一员。\n在那个时代，学者与诗人并不谱史，因为旧贵族不爱觉察自己的堕落。\n因此，他挥舞手中的剑时，剑中之钟奏响时，旧贵族才会格外胆寒。\n\n起事失败后，克留兹理德的处分方式不明，或许从侧面印证了他的显贵出身。\n传说他被贬黜后，怀着亡没同僚的遗志，建起了致力于推翻贵族的地下组织，\n并在来自遥远西方的异国角斗奴的起义中鼎力相助。\n\n在过去，更有茶余饭后的闲谈认为，克留兹理德的组织一直在工作，\n为了守护蒙德，为西风骑士团做那些骑士不应当做的事情，\n传说，就连「幼狼」鲁斯坦也背着大团长经营这无名组织…",
+              "source_sha256": "1e38534c191f612c7dc54e6d64e09bc9ebfc19266d145d7ff94ac4fc1bafd69e",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        },
+        {
+          "id": "e3",
+          "statement": "钟剑说起事失败后的处分不明，并以传说描述克留兹理德被贬黜后的组织与援助行动。",
+          "sources": [
+            {
+              "source_file": "parsed/weapons/钟剑__9e7d55e42d.json",
+              "source_pointer": "/故事",
+              "start": 0,
+              "end": 370,
+              "quote": "奇异的粗重大剑，剑身上却装有华丽而精致的时钟。\n伴随着清脆的机关咬合声，为同行者的奏乐与战斗做节拍。\n乐团解散后，大剑被浸在酸水中，使其中的机关齿轮锈死。\n尽管如此，如今仍是致命的兵器。\n\n与流浪乐团同行的叛逆者名为克留兹理德，曾是劳伦斯家族中的一员。\n在那个时代，学者与诗人并不谱史，因为旧贵族不爱觉察自己的堕落。\n因此，他挥舞手中的剑时，剑中之钟奏响时，旧贵族才会格外胆寒。\n\n起事失败后，克留兹理德的处分方式不明，或许从侧面印证了他的显贵出身。\n传说他被贬黜后，怀着亡没同僚的遗志，建起了致力于推翻贵族的地下组织，\n并在来自遥远西方的异国角斗奴的起义中鼎力相助。\n\n在过去，更有茶余饭后的闲谈认为，克留兹理德的组织一直在工作，\n为了守护蒙德，为西风骑士团做那些骑士不应当做的事情，\n传说，就连「幼狼」鲁斯坦也背着大团长经营这无名组织…",
+              "source_sha256": "1e38534c191f612c7dc54e6d64e09bc9ebfc19266d145d7ff94ac4fc1bafd69e",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        }
+      ],
+      "annotation_status": "source_reviewed",
+      "user_review": "not_reviewed",
+      "corpus_anchor_coverage": {
+        "method": "source_span_union_not_semantic_recall",
+        "status": "complete",
+        "covered_anchors": 3,
+        "total_anchors": 3,
+        "missing_anchors": [],
+        "whitespace_only_gaps": false,
+        "non_whitespace_gap_count": 0
+      }
+    },
+    {
+      "id": "gq2-006",
+      "group": "core",
+      "category": "causal",
+      "difficulty": "hard",
+      "question": "「如雷的盛怒」不同部件如何共同说明少年受祭、雷鸟毁灭部族及其悔恨？请连起部族的祭祀期待、少年的自愿牺牲、雷鸟再次寻人时所见和未兑现的歌约，并指出文本没有交代什么。",
+      "reference_answer": "部族奉雷鸟为守护神，以无辜者血祭，盼它降下神谕；少年相信自己能平息雷雨、为族人换来恩赐，甘愿受祭。雷鸟被歌声吸引与他结识，再来时只见祭台和血水，随后为少年向部族复仇。羽毛故事把它的悔恨连到未兑现的重逢歌约；另记多年后它被视作妖物遭伐，却没说它那时才知道少年的心意。",
+      "story_topic": "雷鸟与古代部族、少年的误解及毁灭",
+      "region": "稻妻",
+      "primary_material": "artifact",
+      "tags": [
+        "如雷的盛怒",
+        "雷鸟",
+        "祭祀",
+        "误解",
+        "因果链"
+      ],
+      "uncertainty": "none",
+      "key_points": [
+        {
+          "id": "p1",
+          "kind": "fact",
+          "statement": "部族把雷鸟奉为守护神，以无辜者鲜血举行祭典并期待神谕；少年相信自己能为族人平息雷雨，甘愿受祭。",
+          "evidence_ids": [
+            "e1",
+            "e2"
+          ]
+        },
+        {
+          "id": "p2",
+          "kind": "fact",
+          "statement": "雷鸟因歌声与少年结识，但再次寻他时只见祭台和血水；文本将毁灭部族写作替少年复仇。",
+          "evidence_ids": [
+            "e2",
+            "e3",
+            "e4"
+          ]
+        },
+        {
+          "id": "p3",
+          "kind": "qualification",
+          "statement": "羽毛故事将雷鸟悔恨发狂与未兑现的重逢歌约相连。",
+          "evidence_ids": [
+            "e3"
+          ]
+        },
+        {
+          "id": "p4",
+          "kind": "qualification",
+          "statement": "故事另记多年后雷鸟被视作作乱妖物遭伐，但没有说它那时才获知少年的牺牲心意。",
+          "evidence_ids": [
+            "e3"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e1",
+          "statement": "沙漏故事说明部族以血祭祈求护佑，并称少年自愿接受骨血分离，想让巨鸟给部落带来恩赐。",
+          "sources": [
+            {
+              "source_file": "parsed/artifacts/如雷的盛怒__963d986348.json",
+              "source_pointer": "/时之沙/故事",
+              "start": 0,
+              "end": 232,
+              "quote": "一尊装饰华丽的沙漏，曾归尊崇雷鸟的古老部落所有。\n\n但当部落被彻底毁灭，这尊沙漏也渐渐为人所遗忘了。\n\n紫水晶与琥珀金制成的华丽沙漏，原本是萨满的时计。\n\n每到雷之魔鸟降临的季节，这尊沙漏便会为祭典报时。\n\n在部落最终的祭典上，狂怒的魔鸟掀翻了染血的祭台。\n\n预告守护神降临的时计，此刻却成了招来雷霆的丧钟。\n\n雷暴的巨鸟向部落人降下灭顶之灾，仅仅为一人之歌。\n\n但雷鸟从未明晓的事实是，少年以自己的牺牲为奉献。\n\n为让巨鸟给部落带来恩赐，自愿接受骨血分离的摧残。",
+              "source_sha256": "87876343c6ae8fc0b2f186bb934ab22effd97aadda02081e4e8eee75648e7f19",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "statement": "酒杯故事记载少年说族中大人告诉他能平息雷电、化暴雨为甘霖；雷鸟被其歌声吸引，与他初次相见。",
+          "sources": [
+            {
+              "source_file": "parsed/artifacts/如雷的盛怒__963d986348.json",
+              "source_pointer": "/空之杯/故事",
+              "start": 0,
+              "end": 263,
+              "quote": "古老部落的萨满使用的祭礼酒杯，\n\n用以将活祭的鲜血献给雷之魔鸟。\n\n雷鸟高飞的季节里，暴雨肆虐的山林中，一位少年无畏地歌唱。\n\n孤高的雷电魔鸟被少年清澈的歌声吸引，静静地落在他的身旁。\n\n「真是有趣的曲调。你，渺小的人儿，就不害怕雷霆与暴雨吗」\n\n「族里的大人说，我这样的孩子能令雷电平息，化暴雨作甘霖」\n\n少年停下歌唱，回答雷鸟的疑问。\n\n雷鸟高傲地鸣叫片刻，不再说话，\n\n因为，那是非常动听美好的歌声。\n\n那是差距无比悬殊的幼小的生祭与雷鸟的初次与最后一次相见。\n\n雷鸟再次寻找少年时，见到了高高搭起的祭台与金杯中的血水。",
+              "source_sha256": "87876343c6ae8fc0b2f186bb934ab22effd97aadda02081e4e8eee75648e7f19",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        },
+        {
+          "id": "e3",
+          "statement": "羽毛故事写雷鸟再来时只见祭台与金杯血水；未兑现“再来时唱别的歌”的承诺令其悔恨发狂，之后远离焦土，直到多年后被视为妖物遭伐。",
+          "sources": [
+            {
+              "source_file": "parsed/artifacts/如雷的盛怒__963d986348.json",
+              "source_pointer": "/死之羽/故事",
+              "start": 0,
+              "end": 248,
+              "quote": "雷之魔鸟遗落的羽毛，闪着紫色的光泽。\n\n或许是被毁灭的部落曾存在的最后证据。\n\n古老的部落视雷鸟为守护神。雷鸟将之毁于一旦。\n\n在一个沉郁的夜晚，它曾与少年结下无瑕的情谊。\n\n魔鸟振翅离去后，少年拾起了偶然落下的雷之羽。\n\n「当你同雷雨再来时」\n\n「我唱别的歌给你听」\n\n未能兑现的承诺令雷之魔鸟悔恨发狂，\n\n它就此远远离开了已化作灰烬的山林，\n\n直到多年后它被视为作乱的妖物遭伐。\n\n许多年后，曾经的焦土重又林木葱葱。\n\n昔日属雷的片羽则埋藏在了草木之间。\n\n但两者的故事已与部落一同归于虚无。",
+              "source_sha256": "87876343c6ae8fc0b2f186bb934ab22effd97aadda02081e4e8eee75648e7f19",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        },
+        {
+          "id": "e4",
+          "statement": "花朵故事写部族期待神谕和恩赐，但雷鸟降下毁灭之雷，是为报复少年族人。",
+          "sources": [
+            {
+              "source_file": "parsed/artifacts/如雷的盛怒__963d986348.json",
+              "source_pointer": "/生之花/故事",
+              "start": 0,
+              "end": 182,
+              "quote": "在山火的灰烬中幸存的紫色野花，\n\n曾见证古老部落遭遇的灭顶之灾。\n\n在新一年来临的祭典上，萨满以无辜者的鲜血唤来了雷之魔鸟。\n\n部落人期待雷鸟悦纳神圣的祭品，如往年一样鸣叫着诵出神谕。\n\n但当乘雷之鸟降临众人头顶，空中回响的却是昭告毁灭的狂雷。\n\n为了回报偶然听见的歌声，为了向少年的族人降下残酷的复仇，\n\n雷之魔鸟展现了可怖的真颜，将渺小的部落从大地上彻底抹除。",
+              "source_sha256": "87876343c6ae8fc0b2f186bb934ab22effd97aadda02081e4e8eee75648e7f19",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        }
+      ],
+      "annotation_status": "source_reviewed",
+      "user_review": "not_reviewed",
+      "corpus_anchor_coverage": {
+        "method": "source_span_union_not_semantic_recall",
+        "status": "complete",
+        "covered_anchors": 4,
+        "total_anchors": 4,
+        "missing_anchors": [],
+        "whitespace_only_gaps": false,
+        "non_whitespace_gap_count": 0
+      }
+    },
+    {
+      "id": "gq2-007",
+      "group": "core",
+      "category": "worldbuilding",
+      "difficulty": "easy",
+      "question": "《白夜国地理水文考》中的三界塔负责什么？书中为何说它们必须隐去、只能由巫女与御使唤出？",
+      "reference_answer": "书中说三界塔用于调和三界，负责平衡白夜国整体倾向并控制风与水；它们本身不属于风、水体系。由于塔一旦出问题可能给整个白夜国带来大灾，故以秘法隐去，只能由巫女与御使唤出。",
+      "story_topic": "白夜国的三界塔与风水秩序",
+      "region": "渊下宫",
+      "primary_material": "book",
+      "tags": [
+        "白夜国地理水文考",
+        "三界塔",
+        "风与水",
+        "世界设定"
+      ],
+      "uncertainty": "none",
+      "key_points": [
+        {
+          "id": "p1",
+          "kind": "fact",
+          "statement": "三界塔用于调和三界，平衡白夜国整体倾向并控制当地风与水。",
+          "evidence_ids": [
+            "e1"
+          ]
+        },
+        {
+          "id": "p2",
+          "kind": "fact",
+          "statement": "书中称三界塔不处于风与水的体系下，而是反过来控制两者。",
+          "evidence_ids": [
+            "e1"
+          ]
+        },
+        {
+          "id": "p3",
+          "kind": "fact",
+          "statement": "因塔出问题会使整个白夜国遭遇大灾，它们被秘法隐去，仅能由巫女与御使唤出。",
+          "evidence_ids": [
+            "e2"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e1",
+          "statement": "地理书称三界塔用来调和三界、平衡白夜国倾向并控制风与水，且不在风水体系之下。",
+          "sources": [
+            {
+              "source_file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+              "source_pointer": "/volumes/2/content",
+              "start": 0,
+              "end": 1041,
+              "quote": "海渊之下的土地和地面的风貌有巨大差异，常理并不适用。加之曾经的地理与水文知识，也是直接由天上传授的。我们对自身所处世界的研究，连方法都只能自己摸索。一切唯有从头开始。\n\n读此书之后人谨记，莫要以为自己所过之生活为平常之事。虽然千百年后，人们会习惯这种生活。但是请谨记——天中无日月的生活是异常的。就算有贤人在这里描绘太阳，也一定会有腌臜之徒借着光投下巨大的影子。\n\n此书只是为了让人们理解自己所处的世界，切莫忘记重新寻回光的心。\n\n（本书随着时代变化不断修订删改，称呼也从海渊之土变为「常世国」，随后变化为「白夜国」。后因海祇垂怜，渊下之民复归海面。但总序之「海渊之土」有特殊意义，不做统一改订。）\n\n\n-风与水之事\n\n白夜国土没有山之走向，讨论山系没有意义。但是我们之中的祭司和贤人察觉到了一点：就算是在这片海渊之下，仍然有「不灭风」和「水」的力量。「不灭风」，人格化称之「常世大神」，或者诗体修辞为「千风」、「时之千风」；「水」则是深海龙蜥的龙蜥界之力。\n\n我们已经有了一门学问推算「阳炎」与风、水之关系。所以在兴动土木之前，需要考虑水文与不灭风的影响。\n\n\n-白夜国的边陲\n\n白夜之国土，以三角三隅为标。曾经这里就是人类势力与龙蜥势力拉锯的极限了。\n\n三角在白夜国时期修建有三界塔，用来调和三界。古时的名字已经失传，在海祇到来之后，才改了现在的名字。\n\n三界塔非常重要，并且不处在风与水的体系下。甚至与之相反，它们负责平衡整个白夜国的倾向，控制着白夜国的风与水。\n\n一旦三界塔出现问题，整个白夜国将有大灾。因此它们由秘法隐去，仅能由巫女与御使唤出。\n\n\n-狭间之街\n\n最早狭间之街夹在山壁和方圆之地中，因此才被称为狭间之街。但是随着白夜国极端异常的地理变动，几百年内，方圆之地就崩落进了深渊。狭间之街反而成为了一片广阔。\n\n\n-蛇心之地\n\n这里自先祖发现之日起，就存在一个神奇的现象：空间会在某一处交叠。后来这个现象被我们的先人利用，修建了蛇心的祭坛。人们使用这个地方保管秘密、囚禁犯人，并且崇拜幻想出来的大蛇「奥罗巴洛斯」。\n\n最早这里叫做德尔斐，意思是蛇之地。后来海祇大神到来，蛇之地的名字并没有改变。一般古早绘画，无鳞蛇为「奥罗巴洛斯」，有珊瑚的蛇为「远吕羽氏」。\n\n\n-大日御舆\n\n最早的名字是「赫利俄斯」，乃是贤人阿倍良久所设计的高塔。风、水之中属黄。\n\n根据预言，它应该就是贤人所展示的太阳，用来照亮没有见过光的洞穴。同样，根据预言，它后来也被用来投下巨大的影子。",
+              "source_sha256": "2d3e68ae47bfa0e7cbbe5f555938cb738f905c88150cdc63f41aa359f41d8521",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "statement": "地理书称三界塔若出现问题会导致白夜国大灾，因此由秘法隐去，仅能由巫女与御使唤出。",
+          "sources": [
+            {
+              "source_file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+              "source_pointer": "/volumes/2/content",
+              "start": 0,
+              "end": 1041,
+              "quote": "海渊之下的土地和地面的风貌有巨大差异，常理并不适用。加之曾经的地理与水文知识，也是直接由天上传授的。我们对自身所处世界的研究，连方法都只能自己摸索。一切唯有从头开始。\n\n读此书之后人谨记，莫要以为自己所过之生活为平常之事。虽然千百年后，人们会习惯这种生活。但是请谨记——天中无日月的生活是异常的。就算有贤人在这里描绘太阳，也一定会有腌臜之徒借着光投下巨大的影子。\n\n此书只是为了让人们理解自己所处的世界，切莫忘记重新寻回光的心。\n\n（本书随着时代变化不断修订删改，称呼也从海渊之土变为「常世国」，随后变化为「白夜国」。后因海祇垂怜，渊下之民复归海面。但总序之「海渊之土」有特殊意义，不做统一改订。）\n\n\n-风与水之事\n\n白夜国土没有山之走向，讨论山系没有意义。但是我们之中的祭司和贤人察觉到了一点：就算是在这片海渊之下，仍然有「不灭风」和「水」的力量。「不灭风」，人格化称之「常世大神」，或者诗体修辞为「千风」、「时之千风」；「水」则是深海龙蜥的龙蜥界之力。\n\n我们已经有了一门学问推算「阳炎」与风、水之关系。所以在兴动土木之前，需要考虑水文与不灭风的影响。\n\n\n-白夜国的边陲\n\n白夜之国土，以三角三隅为标。曾经这里就是人类势力与龙蜥势力拉锯的极限了。\n\n三角在白夜国时期修建有三界塔，用来调和三界。古时的名字已经失传，在海祇到来之后，才改了现在的名字。\n\n三界塔非常重要，并且不处在风与水的体系下。甚至与之相反，它们负责平衡整个白夜国的倾向，控制着白夜国的风与水。\n\n一旦三界塔出现问题，整个白夜国将有大灾。因此它们由秘法隐去，仅能由巫女与御使唤出。\n\n\n-狭间之街\n\n最早狭间之街夹在山壁和方圆之地中，因此才被称为狭间之街。但是随着白夜国极端异常的地理变动，几百年内，方圆之地就崩落进了深渊。狭间之街反而成为了一片广阔。\n\n\n-蛇心之地\n\n这里自先祖发现之日起，就存在一个神奇的现象：空间会在某一处交叠。后来这个现象被我们的先人利用，修建了蛇心的祭坛。人们使用这个地方保管秘密、囚禁犯人，并且崇拜幻想出来的大蛇「奥罗巴洛斯」。\n\n最早这里叫做德尔斐，意思是蛇之地。后来海祇大神到来，蛇之地的名字并没有改变。一般古早绘画，无鳞蛇为「奥罗巴洛斯」，有珊瑚的蛇为「远吕羽氏」。\n\n\n-大日御舆\n\n最早的名字是「赫利俄斯」，乃是贤人阿倍良久所设计的高塔。风、水之中属黄。\n\n根据预言，它应该就是贤人所展示的太阳，用来照亮没有见过光的洞穴。同样，根据预言，它后来也被用来投下巨大的影子。",
+              "source_sha256": "2d3e68ae47bfa0e7cbbe5f555938cb738f905c88150cdc63f41aa359f41d8521",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        }
+      ],
+      "annotation_status": "source_reviewed",
+      "user_review": "not_reviewed",
+      "corpus_anchor_coverage": {
+        "method": "source_span_union_not_semantic_recall",
+        "status": "partial",
+        "covered_anchors": 0,
+        "total_anchors": 2,
+        "missing_anchors": [
+          {
+            "source_file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+            "source_pointer": "/volumes/2/content",
+            "start": 0,
+            "end": 1041,
+            "missing_ranges": [
+              [
+                83,
+                85
+              ],
+              [
+                181,
+                183
+              ],
+              [
+                214,
+                216
+              ],
+              [
+                299,
+                302
+              ],
+              [
+                308,
+                310
+              ],
+              [
+                429,
+                431
+              ],
+              [
+                479,
+                482
+              ],
+              [
+                489,
+                491
+              ],
+              [
+                527,
+                529
+              ],
+              [
+                578,
+                580
+              ],
+              [
+                634,
+                636
+              ],
+              [
+                677,
+                680
+              ],
+              [
+                685,
+                687
+              ],
+              [
+                763,
+                766
+              ],
+              [
+                771,
+                773
+              ],
+              [
+                866,
+                868
+              ],
+              [
+                938,
+                941
+              ],
+              [
+                946,
+                948
+              ],
+              [
+                984,
+                986
+              ]
+            ]
+          },
+          {
+            "source_file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+            "source_pointer": "/volumes/2/content",
+            "start": 0,
+            "end": 1041,
+            "missing_ranges": [
+              [
+                83,
+                85
+              ],
+              [
+                181,
+                183
+              ],
+              [
+                214,
+                216
+              ],
+              [
+                299,
+                302
+              ],
+              [
+                308,
+                310
+              ],
+              [
+                429,
+                431
+              ],
+              [
+                479,
+                482
+              ],
+              [
+                489,
+                491
+              ],
+              [
+                527,
+                529
+              ],
+              [
+                578,
+                580
+              ],
+              [
+                634,
+                636
+              ],
+              [
+                677,
+                680
+              ],
+              [
+                685,
+                687
+              ],
+              [
+                763,
+                766
+              ],
+              [
+                771,
+                773
+              ],
+              [
+                866,
+                868
+              ],
+              [
+                938,
+                941
+              ],
+              [
+                946,
+                948
+              ],
+              [
+                984,
+                986
+              ]
+            ]
+          }
+        ],
+        "whitespace_only_gaps": true,
+        "non_whitespace_gap_count": 0
+      }
+    },
+    {
+      "id": "gq2-008",
+      "group": "core",
+      "category": "worldbuilding",
+      "difficulty": "medium",
+      "question": "《匪石》中昆钧怎样区分若陀个人的记忆变化与“我们”的群体磨损？他如何把层岩巨渊之战归给“你”，又怎样解释“我们／你／我”的关系？再对照钟离的磨损自述，不能把什么症状混为一谈？",
+      "reference_answer": "昆钧说磨损使若陀想不起故友面貌和璃月港；谈到共处能力与理性时改称“我们”，并说“我们”成为“你”、再从“你”意志分出“我”。他把层岩巨渊之战归给“你”，这是昆钧对白中的解释。钟离称亲手封印老友也是自身磨损；角色故事5写熟悉的一切消逝、职责自问，未说他同样失忆或失理性。",
+      "story_topic": "磨损在若陀与钟离身上的不同表现",
+      "region": "璃月",
+      "primary_material": "character_quest",
+      "tags": [
+        "若陀龙王",
+        "钟离",
+        "磨损",
+        "记忆",
+        "世界设定"
+      ],
+      "uncertainty": "uncertainty_analysis",
+      "key_points": [
+        {
+          "id": "p1",
+          "kind": "fact",
+          "statement": "昆钧单独谈若陀时说，磨损夺去其思考，使他渐渐想不起故友面貌和曾守护的璃月港。",
+          "evidence_ids": [
+            "e1"
+          ]
+        },
+        {
+          "id": "p2",
+          "kind": "qualification",
+          "statement": "昆钧随后以“我们”描述失去与人共处能力和理性；该群体表述不能逐项改写成若陀个人症状。",
+          "evidence_ids": [
+            "e2"
+          ]
+        },
+        {
+          "id": "p3",
+          "kind": "fact",
+          "statement": "昆钧把攻打层岩巨渊归给“你”，并说“我们”成为“你”、又从“你”的意志分出“我”；这是对白中的角色解释。",
+          "evidence_ids": [
+            "e3"
+          ]
+        },
+        {
+          "id": "p4",
+          "kind": "qualification",
+          "statement": "钟离把封印老友视作自己的磨损经历；角色故事写岁月消逝和职责自问，未说他与若陀有同样的失忆或失理性。",
+          "evidence_ids": [
+            "e4",
+            "e5"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e1",
+          "statement": "昆钧说磨损夺去若陀的思考，使他渐渐回忆不起故友面貌、想不起曾亲自守护的璃月港。",
+          "sources": [
+            {
+              "source_file": "parsed/character-quests/变乱似流，磐石不转__ce8c05142f.json",
+              "source_pointer": "/对话/78/内容",
+              "start": 0,
+              "end": 40,
+              "quote": "磨损夺去了若陀龙王的思考，让他渐渐回忆不起故友的面貌，想不起曾亲自守护的璃月港。",
+              "source_sha256": "a3919df5827d202a44febfbcbbe11db5bbee6ec8cb0edd68a1e7acb001b21296",
+              "source_kind": "wiki_excerpt",
+              "speaker": "昆钧"
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "statement": "昆钧转以“我们”称呼群体，称磨损使“我们”如同野兽、不断失去与人共处的能力和理性。",
+          "sources": [
+            {
+              "source_file": "parsed/character-quests/变乱似流，磐石不转__ce8c05142f.json",
+              "source_pointer": "/对话/83/内容",
+              "start": 0,
+              "end": 48,
+              "quote": "「磨损」更是让「我们」变得如同野兽。无论怎么挣扎，「我们」依然不断失去与人共处的能力…失去理性。",
+              "source_sha256": "a3919df5827d202a44febfbcbbe11db5bbee6ec8cb0edd68a1e7acb001b21296",
+              "source_kind": "wiki_excerpt",
+              "speaker": "昆钧"
+            }
+          ]
+        },
+        {
+          "id": "e3",
+          "statement": "昆钧说“你”攻击层岩巨渊并与摩拉克斯大战；后又解释“我们”成为“你”，再从“你”的意志分化出“我”。这是昆钧的对白归因。",
+          "sources": [
+            {
+              "source_file": "parsed/character-quests/变乱似流，磐石不转__ce8c05142f.json",
+              "source_pointer": "/对话/81/内容",
+              "start": 0,
+              "end": 32,
+              "quote": "此言诚然。所以「你」才攻击层岩巨渊，才有了那场与摩拉克斯的大战。",
+              "source_sha256": "a3919df5827d202a44febfbcbbe11db5bbee6ec8cb0edd68a1e7acb001b21296",
+              "source_kind": "wiki_excerpt",
+              "speaker": "昆钧"
+            },
+            {
+              "source_file": "parsed/character-quests/变乱似流，磐石不转__ce8c05142f.json",
+              "source_pointer": "/对话/85/内容",
+              "start": 0,
+              "end": 33,
+              "quote": "所以，「我们」成为了「你」。从「你」的意志之中，又分化出了「我」。",
+              "source_sha256": "a3919df5827d202a44febfbcbbe11db5bbee6ec8cb0edd68a1e7acb001b21296",
+              "source_kind": "wiki_excerpt",
+              "speaker": "昆钧"
+            }
+          ]
+        },
+        {
+          "id": "e4",
+          "statement": "钟离说若陀自愿被封印而后因磨损忘却，并称亲手封印老友也是自己所经历的磨损之一。",
+          "sources": [
+            {
+              "source_file": "parsed/character-quests/变乱似流，磐石不转__ce8c05142f.json",
+              "source_pointer": "/对话/178/内容",
+              "start": 0,
+              "end": 23,
+              "quote": "他是自愿被封印的。只可惜，因「磨损」而忘却了。",
+              "source_sha256": "a3919df5827d202a44febfbcbbe11db5bbee6ec8cb0edd68a1e7acb001b21296",
+              "source_kind": "wiki_excerpt",
+              "speaker": "钟离"
+            },
+            {
+              "source_file": "parsed/character-quests/变乱似流，磐石不转__ce8c05142f.json",
+              "source_pointer": "/对话/185/内容",
+              "start": 0,
+              "end": 21,
+              "quote": "亲手封印老友，也是我所经历的「磨损」之一。",
+              "source_sha256": "a3919df5827d202a44febfbcbbe11db5bbee6ec8cb0edd68a1e7acb001b21296",
+              "source_kind": "wiki_excerpt",
+              "speaker": "钟离"
+            }
+          ]
+        },
+        {
+          "id": "e5",
+          "statement": "钟离角色故事5写他感到熟悉的一切逐渐消逝、旧友不再来访，并自问职责是否完成；该段未称他失去记忆或理性。",
+          "sources": [
+            {
+              "source_file": "parsed/characters/钟离__34330e4aba.json",
+              "source_pointer": "/角色故事/角色故事5",
+              "start": 0,
+              "end": 708,
+              "quote": "作为七神中最古老的一位，「岩王帝君」已经度过了太长的时光。\n\n「岩王帝君」还记得，在魔神战争的战火刚刚熄灭时，最后七位魔神各自登上「神」之座，自此终结了「魔神战争」时代。他们虽然性格迥异又相隔万里，却都肩负着「引导人类」的神圣职责。\n\n时代变迁，七神多有更替。时至今日，最初的七神之中，唯留下两位：「岩王帝君」，与那位自由而快活的风神。\n\n七神中第二古老的，是那位自由而快活的风神，巴巴托斯。\n\n两千年前巴巴托斯初临璃月，「岩王帝君」的第一反应是：这位同僚在履行职责时遇到了困难，需要自己的帮助。\n\n所以还没等巴巴托斯从风中落下，岩之神已经做好准备迎接这位邻国神明，只等他开口，自己就将倾尽所能。\n\n然而，风之神却将一瓶酒递到了他面前。\n\n「这是蒙德城的酒，你要尝尝吗？」\n\n——为了送一瓶酒而弃职责于不顾，实在荒唐。\n\n即使如此，那位风神依然不断前来造访，到璃月港四处游玩，还总向岩之神问出各种奇怪问题。这位风神的好奇心，就和他手中的酒一样无穷无尽。\n\n自那时起，那个时代的七神往往会在璃月相聚。\n\n到现在，「岩王帝君」仍能回忆起那些酒的味道。\n\n此后，世界不断变迁，他曾熟悉的一切都在逐渐消逝。\n\n七神之位更迭再更迭，酒会上的七人已逝五人。\n\n最初七神「引导人类」的古老职责，终于也开始被一些新任神明视为无物了。\n\n亲历三千多年风霜，最坚固的岩石也能被磨损。\n\n而且，风也没有再来到他身旁。\n\n某个微雨的清晨，古老的帝君漫步于璃月港，听见一个商人对属下如此夸奖道：\n\n「你很好地完成了你的职责。现在，去休息吧。」\n\n……\n\n「岩王帝君」在熙攘的人群中驻足良久。\n\n「我的职责…又是否已经完成？」\n\n神灵如此自问。",
+              "source_sha256": "506a76f011a850e37c345a0fb5ac24aa36c8093c437f7c13d4c51db71db41d60",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        }
+      ],
+      "annotation_status": "source_reviewed",
+      "user_review": "not_reviewed",
+      "corpus_anchor_coverage": {
+        "method": "source_span_union_not_semantic_recall",
+        "status": "complete",
+        "covered_anchors": 7,
+        "total_anchors": 7,
+        "missing_anchors": [],
+        "whitespace_only_gaps": false,
+        "non_whitespace_gap_count": 0
+      }
+    },
+    {
+      "id": "gq2-009",
+      "group": "core",
+      "category": "worldbuilding",
+      "difficulty": "hard",
+      "question": "沙漠中关于永恒绿洲的传说是怎样形成的？结合圣遗物各部件所写的花神与镇灵关系、绿洲建造和部族记忆说明，并指出相关说法的叙述身份。",
+      "reference_answer": "生之花称睡莲为镇灵之母，镇灵生自梦乡与苦涩记忆，并挽留被流放的花神；时之沙说赤砂之主以晶石为源力、镇灵为助力替挚爱造绿洲。花神统治绿洲、菲莉吉丝守门则明确是游牧民传说，反映后世部族的记忆与信仰。",
+      "story_topic": "永恒绿洲传说的来源与部族记忆",
+      "region": "须弥",
+      "primary_material": "artifact",
+      "tags": [
+        "乐园遗落之花",
+        "镇灵",
+        "花神",
+        "永恒绿洲",
+        "部族记忆"
+      ],
+      "uncertainty": "uncertainty_analysis",
+      "key_points": [
+        {
+          "id": "p1",
+          "kind": "fact",
+          "statement": "生之花叙述睡莲与镇灵的起源，并说镇灵挽留被流放的花神。",
+          "evidence_ids": [
+            "e1"
+          ]
+        },
+        {
+          "id": "p2",
+          "kind": "fact",
+          "statement": "时之沙叙述赤砂之主借晶石与镇灵之力为挚爱造出凝滞绿洲。",
+          "evidence_ids": [
+            "e2"
+          ]
+        },
+        {
+          "id": "p3",
+          "kind": "qualification",
+          "statement": "花神统治绿洲、菲莉吉丝守门祝福来客被标为游牧民传说，须与套装讲述的绿洲建造分开。",
+          "evidence_ids": [
+            "e3"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e1",
+          "statement": "生之花故事先以“传说”引出花神流浪七十二夜、溪流与睡莲，又写睡莲是镇灵之母、镇灵生自梦乡和苦涩记忆，最后说镇灵挽留被流放的神祇。",
+          "sources": [
+            {
+              "source_file": "parsed/artifacts/乐园遗落之花__e56aa6e271.json",
+              "source_pointer": "/生之花/故事",
+              "start": 0,
+              "end": 382,
+              "quote": "在只有镇灵才能忆及的过去，花的女主人曾被天空离弃。\n\n瑰丽高贵的形体残破不堪，族人亦尽皆受责罚失去神智…\n\n传说，花的女主人曾经在荒芜的大地上流浪了七十二个夜晚…\n\n脚跟被无情的砂砾磨破，伤口流出清泉，化作了无边的溪水。\n\n接着，溪流灌溉出绿色的园圃，从中生长出夜一般蓝的睡莲…\n\n睡莲是镇灵的母亲，镇灵生自迷醉的梦乡与失却的苦涩记忆。\n\n最初的镇灵皆是智慧的造物，她们皆沉迷于天真的梦，与甜梦一般的爱恋。\n\n感念创造之恩，稚嫩的镇灵纷纷挽住女主人的手臂，为她加上野菊的冠冕——\n\n「花的大主人啊，园圃的大主人，求您留在此处，求您不要离弃我等！」\n\n「是呀，是呀，梦乡的母亲，酒与遗忘的夫人，请您做这园圃的女王。」\n\n就这样，禁不住温柔的镇灵们挽留，被流放的神祇就此留在了鲜花盛放的园圃。\n\n在她停驻脚步的地方，月夜般美好的紫色花朵盛放开来——其名为「帕蒂莎兰」。",
+              "source_sha256": "d5a6b42d5d9e801416b50ec363254667dad3e01c65319a902563124bcb4e45a8",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "statement": "时之沙故事写赤砂之主为挚爱修建陵园，以深埋沙下的晶石为源力、镇灵为助力打造时光驻足的绿洲。",
+          "sources": [
+            {
+              "source_file": "parsed/artifacts/乐园遗落之花__e56aa6e271.json",
+              "source_pointer": "/时之沙/故事",
+              "start": 0,
+              "end": 615,
+              "quote": "在只有镇灵才能为之叹息的过去，赤砂之主曾为他的挚爱修建陵园。\n\n深埋沙下的晶石为源力，镇灵为助力，打造时光也驻足不去的绿洲。\n\n千百年后，沙漠中流浪的诸部族之间流传着「永恒绿洲」的传说。\n\n游牧民说，那是一座不枯不老的绿洲，为永远沉睡的花神所统治。\n\n游牧民说，最后的镇灵母亲菲莉吉丝守护着那片绿洲的宏伟门扉，\n\n她将以千年不变的柔情祝福前来的每一个凡人，不论良人或恶徒…\n\n塔尼特，乌萨与欣缇等部族的历代主母，皆自称「花神的女儿」。\n\n以信仰为基准，以血脉为纽带，依赖着那幻想中的帕蒂莎兰园圃…\n\n彼此分裂，挣扎求生的沙漠部族追寻着不竭的泉流、无尽的知识。\n\n正如他们的神主所遗下的预言那样，文明爆烈的死亡之后，凡人仍顽强地生存下来…\n\n即使部族失去了神的引导，即使他们不得不借助记忆中早已死去的神明来团结自身，\n\n泪尽的盐漠未令凡人的脚步停滞，「永恒绿洲」的永恒谎言亦未曾令部族停止探寻。\n\n「我的王…你为何命令沙丘停止流动；向流风呼喊，叫它们不再吹拂？」\n\n「正如这时计，其中晶砂若是变成了凝固一团，还有何存在的意思呢？」\n\n「『永恒』的从来不是什么乐园，反倒会是难以分解，无法再生的顽渍。」\n\n「那花一般盛放，花一般毁灭，又在花季重生的，不会有『死』的烦恼。」\n\n那时三位伙伴的闲聊，随风飘荡在千百年后的沙漠之上…\n\n在遥远沙漠的深处，凝滞的绿洲正存在与部族的空想中，\n\n而那些无根的部族却随着流动的沙丘继续着生死的循环…",
+              "source_sha256": "d5a6b42d5d9e801416b50ec363254667dad3e01c65319a902563124bcb4e45a8",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        },
+        {
+          "id": "e3",
+          "statement": "时之沙故事明言游牧民说永恒绿洲由永远沉睡的花神统治、菲莉吉丝守门；同段称永恒绿洲存在于部族空想中，前文称其为“永恒谎言”。",
+          "sources": [
+            {
+              "source_file": "parsed/artifacts/乐园遗落之花__e56aa6e271.json",
+              "source_pointer": "/时之沙/故事",
+              "start": 0,
+              "end": 615,
+              "quote": "在只有镇灵才能为之叹息的过去，赤砂之主曾为他的挚爱修建陵园。\n\n深埋沙下的晶石为源力，镇灵为助力，打造时光也驻足不去的绿洲。\n\n千百年后，沙漠中流浪的诸部族之间流传着「永恒绿洲」的传说。\n\n游牧民说，那是一座不枯不老的绿洲，为永远沉睡的花神所统治。\n\n游牧民说，最后的镇灵母亲菲莉吉丝守护着那片绿洲的宏伟门扉，\n\n她将以千年不变的柔情祝福前来的每一个凡人，不论良人或恶徒…\n\n塔尼特，乌萨与欣缇等部族的历代主母，皆自称「花神的女儿」。\n\n以信仰为基准，以血脉为纽带，依赖着那幻想中的帕蒂莎兰园圃…\n\n彼此分裂，挣扎求生的沙漠部族追寻着不竭的泉流、无尽的知识。\n\n正如他们的神主所遗下的预言那样，文明爆烈的死亡之后，凡人仍顽强地生存下来…\n\n即使部族失去了神的引导，即使他们不得不借助记忆中早已死去的神明来团结自身，\n\n泪尽的盐漠未令凡人的脚步停滞，「永恒绿洲」的永恒谎言亦未曾令部族停止探寻。\n\n「我的王…你为何命令沙丘停止流动；向流风呼喊，叫它们不再吹拂？」\n\n「正如这时计，其中晶砂若是变成了凝固一团，还有何存在的意思呢？」\n\n「『永恒』的从来不是什么乐园，反倒会是难以分解，无法再生的顽渍。」\n\n「那花一般盛放，花一般毁灭，又在花季重生的，不会有『死』的烦恼。」\n\n那时三位伙伴的闲聊，随风飘荡在千百年后的沙漠之上…\n\n在遥远沙漠的深处，凝滞的绿洲正存在与部族的空想中，\n\n而那些无根的部族却随着流动的沙丘继续着生死的循环…",
+              "source_sha256": "d5a6b42d5d9e801416b50ec363254667dad3e01c65319a902563124bcb4e45a8",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        }
+      ],
+      "annotation_status": "source_reviewed",
+      "user_review": "not_reviewed",
+      "corpus_anchor_coverage": {
+        "method": "source_span_union_not_semantic_recall",
+        "status": "complete",
+        "covered_anchors": 3,
+        "total_anchors": 3,
+        "missing_anchors": [],
+        "whitespace_only_gaps": false,
+        "non_whitespace_gap_count": 0
+      }
+    },
+    {
+      "id": "gq2-010",
+      "group": "core",
+      "category": "relationship",
+      "difficulty": "easy",
+      "question": "八重神子说，巴尔与巴尔泽布是什么关系？影曾以什么身份协助巴尔？",
+      "reference_answer": "八重神子说明二者是双生魔神，共同赢下魔神战争。后来巴尔建立幕府，巴尔泽布以御侧「影武者」身份成为巴尔的替身。",
+      "story_topic": "真与影的双生关系及影武者身份",
+      "region": "稻妻",
+      "primary_material": "archon_quest",
+      "tags": [
+        "雷电真",
+        "雷电影",
+        "双生魔神",
+        "影武者"
+      ],
+      "uncertainty": "none",
+      "key_points": [
+        {
+          "id": "p1",
+          "kind": "fact",
+          "statement": "八重神子称巴尔与巴尔泽布是一对双生魔神。",
+          "evidence_ids": [
+            "e1"
+          ]
+        },
+        {
+          "id": "p2",
+          "kind": "fact",
+          "statement": "二者共同赢下魔神战争；巴尔建立幕府后，巴尔泽布以御侧影武者身份成为巴尔的替身。",
+          "evidence_ids": [
+            "e2"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e1",
+          "statement": "八重神子直接说明巴尔与巴尔泽布是双生魔神。",
+          "sources": [
+            {
+              "source_file": "parsed/archon-quests/愿望__f4edc69750.json",
+              "source_pointer": "/对话/60/内容",
+              "start": 0,
+              "end": 30,
+              "quote": "嗯，事实是这样的，「巴尔」与「巴尔泽布」其实是一对双生魔神。",
+              "source_sha256": "ecc93cde9f31f81ca45e004003c4f936522267f07ef581ba044ed26409761dad",
+              "source_kind": "wiki_excerpt",
+              "speaker": "八重神子"
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "statement": "八重神子接着说明二者共同赢得魔神战争，以及影武者身份的分工。",
+          "sources": [
+            {
+              "source_file": "parsed/archon-quests/愿望__f4edc69750.json",
+              "source_pointer": "/对话/62/内容",
+              "start": 0,
+              "end": 47,
+              "quote": "她们共同嬴下魔神战争，而后来巴尔建立幕府后，巴尔泽布则以御侧「影武者」的身份，成为巴尔的替身。",
+              "source_sha256": "ecc93cde9f31f81ca45e004003c4f936522267f07ef581ba044ed26409761dad",
+              "source_kind": "wiki_excerpt",
+              "speaker": "八重神子"
+            }
+          ]
+        }
+      ],
+      "annotation_status": "source_reviewed",
+      "user_review": "not_reviewed",
+      "corpus_anchor_coverage": {
+        "method": "source_span_union_not_semantic_recall",
+        "status": "complete",
+        "covered_anchors": 2,
+        "total_anchors": 2,
+        "missing_anchors": [],
+        "whitespace_only_gaps": false,
+        "non_whitespace_gap_count": 0
+      }
+    },
+    {
+      "id": "gq2-011",
+      "group": "core",
+      "category": "relationship",
+      "difficulty": "medium",
+      "question": "在与纳西妲相见时，大慈树王怎样说明两者与世界树的关系？她为何要求纳西妲抹除自己？主线结尾又由谁提出了什么记忆疑问？",
+      "reference_answer": "大慈树王在意识空间自述自己是世界树的化身，纳西妲是她折下的最纯净枝杈。她说自己与世界树相连，因此也受禁忌知识污染；即使死去，相关存在仍会留在树中，妨碍根除污染，所以安排纳西妲抹除自己。之后纳西妲说污染已被清除，旅行者的内心旁白则疑问派蒙是否也忘记了大慈树王。",
+      "story_topic": "纳西妲与大慈树王、世界树及记忆",
+      "region": "须弥",
+      "primary_material": "archon_quest",
+      "tags": [
+        "世界树",
+        "枝杈",
+        "禁忌知识",
+        "记忆"
+      ],
+      "uncertainty": "uncertainty_analysis",
+      "key_points": [
+        {
+          "id": "p1",
+          "kind": "fact",
+          "statement": "大慈树王在意识空间称自己为世界树化身、纳西妲为折下的最纯净枝杈。",
+          "evidence_ids": [
+            "e1"
+          ]
+        },
+        {
+          "id": "p2",
+          "kind": "fact",
+          "statement": "她说世界树受禁忌知识污染时，自己也因意识相连而受污染。",
+          "evidence_ids": [
+            "e2"
+          ]
+        },
+        {
+          "id": "p3",
+          "kind": "fact",
+          "statement": "她解释自己死后相关存在仍会留在世界树中，因而要求纳西妲抹除自己以根除污染。",
+          "evidence_ids": [
+            "e3"
+          ]
+        },
+        {
+          "id": "p4",
+          "kind": "qualification",
+          "statement": "后续污染清除由纳西妲叙述；遗忘问题则出自结尾旅行者内心旁白，不能改写成大慈树王的原话。",
+          "evidence_ids": [
+            "e4"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e1",
+          "statement": "意识空间中的大慈树王直接解释自己与纳西妲同世界树的关系。",
+          "sources": [
+            {
+              "source_file": "parsed/archon-quests/意识之舟所至之处__b75d3f7033.json",
+              "source_pointer": "/对话/204/内容",
+              "start": 0,
+              "end": 34,
+              "quote": "作为大慈树王，我是世界树的化身，而你则是世界树上折下的最纯净的枝杈。",
+              "source_sha256": "9074a7fc83fa88dcc5414aeef250f0876f82e4dc8479c9bb531822663f84210c",
+              "source_kind": "wiki_excerpt",
+              "speaker": "大慈树王"
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "statement": "大慈树王说明意识与世界树连通，污染也影响了她。",
+          "sources": [
+            {
+              "source_file": "parsed/archon-quests/意识之舟所至之处__b75d3f7033.json",
+              "source_pointer": "/对话/251/内容",
+              "start": 0,
+              "end": 41,
+              "quote": "我才想起，我的意识与世界树是连通的，世界树带给我知识与智慧，但污染也同样找上了我。",
+              "source_sha256": "9074a7fc83fa88dcc5414aeef250f0876f82e4dc8479c9bb531822663f84210c",
+              "source_kind": "wiki_excerpt",
+              "speaker": "大慈树王"
+            }
+          ]
+        },
+        {
+          "id": "e3",
+          "statement": "大慈树王将污染无法根除的原因归于自己仍留存在世界树，并提出抹除自己的办法。",
+          "sources": [
+            {
+              "source_file": "parsed/archon-quests/意识之舟所至之处__b75d3f7033.json",
+              "source_pointer": "/对话/256/内容",
+              "start": 0,
+              "end": 50,
+              "quote": "即便我死去，我的存在，和我相关的一切依旧会作为回忆与知识保存在世界树中，那么禁忌知识便永远无法根除。",
+              "source_sha256": "9074a7fc83fa88dcc5414aeef250f0876f82e4dc8479c9bb531822663f84210c",
+              "source_kind": "wiki_excerpt",
+              "speaker": "大慈树王"
+            },
+            {
+              "source_file": "parsed/archon-quests/意识之舟所至之处__b75d3f7033.json",
+              "source_pointer": "/对话/258/内容",
+              "start": 0,
+              "end": 31,
+              "quote": "所以，我折下世界树最纯净的枝杈，作为我的轮回转世，并留下线索…",
+              "source_sha256": "9074a7fc83fa88dcc5414aeef250f0876f82e4dc8479c9bb531822663f84210c",
+              "source_kind": "wiki_excerpt",
+              "speaker": "大慈树王"
+            },
+            {
+              "source_file": "parsed/archon-quests/意识之舟所至之处__b75d3f7033.json",
+              "source_pointer": "/对话/259/内容",
+              "start": 0,
+              "end": 27,
+              "quote": "只为了你能够来到这里，将被污染的我从世界树中彻底抹除…",
+              "source_sha256": "9074a7fc83fa88dcc5414aeef250f0876f82e4dc8479c9bb531822663f84210c",
+              "source_kind": "wiki_excerpt",
+              "speaker": "大慈树王"
+            }
+          ]
+        },
+        {
+          "id": "e4",
+          "statement": "纳西妲报告污染已被抹除；结尾旅行者内心旁白追问派蒙和众人是否忘记大慈树王。",
+          "sources": [
+            {
+              "source_file": "parsed/archon-quests/意识之舟所至之处__b75d3f7033.json",
+              "source_pointer": "/对话/304/内容",
+              "start": 0,
+              "end": 16,
+              "quote": "然后将世界树中残留的污染抹除了…",
+              "source_sha256": "9074a7fc83fa88dcc5414aeef250f0876f82e4dc8479c9bb531822663f84210c",
+              "source_kind": "wiki_excerpt",
+              "speaker": "纳西妲"
+            },
+            {
+              "source_file": "parsed/archon-quests/意识之舟所至之处__b75d3f7033.json",
+              "source_pointer": "/对话/308/内容",
+              "start": 0,
+              "end": 25,
+              "quote": "（派蒙也不记得了，所有人真的都忘记了大慈树王吗？）",
+              "source_sha256": "9074a7fc83fa88dcc5414aeef250f0876f82e4dc8479c9bb531822663f84210c",
+              "source_kind": "wiki_excerpt",
+              "speaker": "旅行者"
+            }
+          ]
+        }
+      ],
+      "annotation_status": "source_reviewed",
+      "user_review": "not_reviewed",
+      "corpus_anchor_coverage": {
+        "method": "source_span_union_not_semantic_recall",
+        "status": "complete",
+        "covered_anchors": 7,
+        "total_anchors": 7,
+        "missing_anchors": [],
+        "whitespace_only_gaps": false,
+        "non_whitespace_gap_count": 0
+      }
+    },
+    {
+      "id": "gq2-012",
+      "group": "core",
+      "category": "relationship",
+      "difficulty": "hard",
+      "question": "结合阿贝多的角色故事、《命运的题解》和《腐殖之剑》，阿贝多与杜林各自与莱茵多特有什么关系？哪些关系有直接依据，哪些还不能由这些文本确定？",
+      "reference_answer": "角色故事记述莱茵多特是阿贝多的师父，养育并教授他炼金术，也叙述他的生命来自她。杜林呈上成果后，艾莉丝称他为莱茵多特的孩子。《腐殖之剑》所述母亲未具名；所列文本也未称阿贝多和杜林为兄弟，或说明二者经历相同的创造过程。",
+      "story_topic": "莱茵多特与阿贝多、杜林的师徒及创造关系",
+      "region": "蒙德",
+      "primary_material": "character_story",
+      "tags": [
+        "莱茵多特",
+        "阿贝多",
+        "杜林",
+        "炼金术"
+      ],
+      "uncertainty": "uncertainty_analysis",
+      "key_points": [
+        {
+          "id": "p1",
+          "kind": "fact",
+          "statement": "角色故事称莱茵多特为阿贝多的师父，并记述她养育他、教他炼金术。",
+          "evidence_ids": [
+            "e1"
+          ]
+        },
+        {
+          "id": "p2",
+          "kind": "fact",
+          "statement": "角色故事记述阿贝多的生命来自其师父莱茵多特；这是人物故事的叙述，并非阿贝多直接对白。",
+          "evidence_ids": [
+            "e2"
+          ]
+        },
+        {
+          "id": "p3",
+          "kind": "fact",
+          "statement": "艾莉丝称杜林是莱茵多特的孩子；结合杜林刚呈上成果的前一句，场景中所指是杜林。",
+          "evidence_ids": [
+            "e3"
+          ]
+        },
+        {
+          "id": "p4",
+          "kind": "qualification",
+          "statement": "《腐殖之剑》中的母亲未具名；这些引文没有称阿贝多与杜林为兄弟或说明他们经历相同的创造过程。",
+          "evidence_ids": [
+            "e4"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e1",
+          "statement": "角色故事2明确把莱茵多特称为阿贝多的师父；角色故事3记述师父养育他并教他炼金术。",
+          "sources": [
+            {
+              "source_file": "parsed/characters/阿贝多__334fcb5576.json",
+              "source_pointer": "/角色故事/角色故事2",
+              "start": 0,
+              "end": 388,
+              "quote": "「阿贝多是凭借师父的推荐信才得以在蒙德安身。」\n\n这句话倒也算是事实。不过蒙德城永远欢迎任何人，有没有推荐信并不重要。\n\n不如说，要是没有这封推荐信，阿贝多在蒙德城会过得更舒服吧。\n\n——因为，推荐信的收件人是著名游记作者艾莉丝，阿贝多师父莱茵多特的故交。\n\n艾莉丝读完推荐信，沉思了好一会儿。\n\n「莱茵说，要我给你配一个实验室…这可不是民间力量能建起的规模啊。嗯…我想到了！」\n\n就这样，阿贝多被艾莉丝丢进了西风骑士团。\n\n骑士团的工作对阿贝多来说较为轻松，只花百分之五的精力，就能把那些事情处理得很好。\n\n本以为除此之外的精力都可以用于实验，骑士团的实验室及全套器材也能任凭自己折腾。\n\n然而。\n\n艾莉丝有个女儿，叫做可莉。\n\n…没错，就是「那个」可莉。\n\n「这从今往后我们就是一家人了。你就把她当做亲妹妹吧！」\n\n未来的日子里，为可莉善后一事占据了阿贝多剩余精力的大半。",
+              "source_sha256": "e30af614b481ef812d76925285a16f88459b75058910f1495bd4ddf79c4165e4",
+              "source_kind": "wiki_excerpt"
+            },
+            {
+              "source_file": "parsed/characters/阿贝多__334fcb5576.json",
+              "source_pointer": "/角色故事/角色故事3",
+              "start": 0,
+              "end": 252,
+              "quote": "阿贝多没有关于血亲的记忆。自记事起，他就与师父一起在秘境深界探险。\n骑士团的大家、艾莉丝阿姨，以及那位有着星海气息的旅行者。\n他们都是重要之人，但在阿贝多的生命中，师父的地位显然最为特殊。\n对阿贝多来说，她是唯一的亲人。师父是一位冷淡、严格的女性。她养育了阿贝多，也教给他炼金术的奥秘。\n「宇宙——是真实星空那玄黑色的本质，地层——是时间和生命堆积的记忆。白垩——你，黑土——是炼金术的语源，也是生命的根基。而这——」她为阿贝多展示了她的技法。巨大的生命破卵而出,培养槽的碎片散落一地。\n\n「这是诞生。」",
+              "source_sha256": "e30af614b481ef812d76925285a16f88459b75058910f1495bd4ddf79c4165e4",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "statement": "阿贝多人物故事以第三人称记述，他的生命来自师父莱茵多特。",
+          "sources": [
+            {
+              "source_file": "parsed/characters/阿贝多__334fcb5576.json",
+              "source_pointer": "/角色故事/角色故事5",
+              "start": 0,
+              "end": 373,
+              "quote": "阿贝多所掌握的「炼金术」，不同于提瓦特七国中任何一国的现有技术。\n\n他的师承，来自七国之外的国度——名为「坎瑞亚」之国。\n\n坎瑞亚深藏于地下，天然动物种类相当至少。因此，它所持有的「炼金术」，更侧重于「创造生命」这一分支领域。\n\n孕育生命之术「黑土之术」。\n\n年幼的阿贝多曾在师父笔记中了解到这一信息。\n\n「黑土」的进阶乃是「白垩」。这件事，师父也曾提起过。\n\n「白垩是无垢之土，也是原初之人的质料。」\n\n如今的阿贝多对炼金术造诣更深，对知识的理解也比过去更完整。\n\n「黑土诞生白垩。」\n\n他已经完全读懂这句话所代表的无上深意。\n\n这些不可言说的奥秘，与对师父的怀念紧紧相连。\n\n师父固然有别于父母，可毫无疑问，阿贝多的生命来自于她。\n「哎呀，希望我没自作多情。父母对孩子所说的『世界的意义』…应该只是幸福生活的意思吧。」\n\n阿贝多偶尔会这么想。",
+              "source_sha256": "e30af614b481ef812d76925285a16f88459b75058910f1495bd4ddf79c4165e4",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        },
+        {
+          "id": "e3",
+          "statement": "杜林先把成果交给艾莉丝，紧接着艾莉丝称其为莱茵多特的孩子。",
+          "sources": [
+            {
+              "source_file": "parsed/character-quests/命运的题解__1d2e086f03.json",
+              "source_pointer": "/对话/435/内容",
+              "start": 0,
+              "end": 5,
+              "quote": "请您过目。",
+              "source_sha256": "579c91fb8e385ebf149a52546f3ef3e33d9b387f2dcc663ffba5c33e04f3e182",
+              "source_kind": "wiki_excerpt",
+              "speaker": "杜林"
+            },
+            {
+              "source_file": "parsed/character-quests/命运的题解__1d2e086f03.json",
+              "source_pointer": "/对话/437/内容",
+              "start": 0,
+              "end": 52,
+              "quote": "我可没想到莱茵多特的孩子竟然能代替她完成「炼金术」的那一部分，当初听到那个孩子的请求，我真的吃了一惊呢。",
+              "source_sha256": "579c91fb8e385ebf149a52546f3ef3e33d9b387f2dcc663ffba5c33e04f3e182",
+              "source_kind": "wiki_excerpt",
+              "speaker": "艾莉丝"
+            }
+          ]
+        },
+        {
+          "id": "e4",
+          "statement": "《腐殖之剑》中的杜林母亲没有具名；在这些所列人物故事、任务对白和武器故事中，没有称阿贝多与杜林为兄弟或说明他们经历相同的创造过程。",
+          "sources": [
+            {
+              "source_file": "parsed/characters/阿贝多__334fcb5576.json",
+              "source_pointer": "/角色故事/角色故事2",
+              "start": 0,
+              "end": 388,
+              "quote": "「阿贝多是凭借师父的推荐信才得以在蒙德安身。」\n\n这句话倒也算是事实。不过蒙德城永远欢迎任何人，有没有推荐信并不重要。\n\n不如说，要是没有这封推荐信，阿贝多在蒙德城会过得更舒服吧。\n\n——因为，推荐信的收件人是著名游记作者艾莉丝，阿贝多师父莱茵多特的故交。\n\n艾莉丝读完推荐信，沉思了好一会儿。\n\n「莱茵说，要我给你配一个实验室…这可不是民间力量能建起的规模啊。嗯…我想到了！」\n\n就这样，阿贝多被艾莉丝丢进了西风骑士团。\n\n骑士团的工作对阿贝多来说较为轻松，只花百分之五的精力，就能把那些事情处理得很好。\n\n本以为除此之外的精力都可以用于实验，骑士团的实验室及全套器材也能任凭自己折腾。\n\n然而。\n\n艾莉丝有个女儿，叫做可莉。\n\n…没错，就是「那个」可莉。\n\n「这从今往后我们就是一家人了。你就把她当做亲妹妹吧！」\n\n未来的日子里，为可莉善后一事占据了阿贝多剩余精力的大半。",
+              "source_sha256": "e30af614b481ef812d76925285a16f88459b75058910f1495bd4ddf79c4165e4",
+              "source_kind": "wiki_excerpt"
+            },
+            {
+              "source_file": "parsed/characters/阿贝多__334fcb5576.json",
+              "source_pointer": "/角色故事/角色故事3",
+              "start": 0,
+              "end": 252,
+              "quote": "阿贝多没有关于血亲的记忆。自记事起，他就与师父一起在秘境深界探险。\n骑士团的大家、艾莉丝阿姨，以及那位有着星海气息的旅行者。\n他们都是重要之人，但在阿贝多的生命中，师父的地位显然最为特殊。\n对阿贝多来说，她是唯一的亲人。师父是一位冷淡、严格的女性。她养育了阿贝多，也教给他炼金术的奥秘。\n「宇宙——是真实星空那玄黑色的本质，地层——是时间和生命堆积的记忆。白垩——你，黑土——是炼金术的语源，也是生命的根基。而这——」她为阿贝多展示了她的技法。巨大的生命破卵而出,培养槽的碎片散落一地。\n\n「这是诞生。」",
+              "source_sha256": "e30af614b481ef812d76925285a16f88459b75058910f1495bd4ddf79c4165e4",
+              "source_kind": "wiki_excerpt"
+            },
+            {
+              "source_file": "parsed/characters/阿贝多__334fcb5576.json",
+              "source_pointer": "/角色故事/角色故事5",
+              "start": 0,
+              "end": 373,
+              "quote": "阿贝多所掌握的「炼金术」，不同于提瓦特七国中任何一国的现有技术。\n\n他的师承，来自七国之外的国度——名为「坎瑞亚」之国。\n\n坎瑞亚深藏于地下，天然动物种类相当至少。因此，它所持有的「炼金术」，更侧重于「创造生命」这一分支领域。\n\n孕育生命之术「黑土之术」。\n\n年幼的阿贝多曾在师父笔记中了解到这一信息。\n\n「黑土」的进阶乃是「白垩」。这件事，师父也曾提起过。\n\n「白垩是无垢之土，也是原初之人的质料。」\n\n如今的阿贝多对炼金术造诣更深，对知识的理解也比过去更完整。\n\n「黑土诞生白垩。」\n\n他已经完全读懂这句话所代表的无上深意。\n\n这些不可言说的奥秘，与对师父的怀念紧紧相连。\n\n师父固然有别于父母，可毫无疑问，阿贝多的生命来自于她。\n「哎呀，希望我没自作多情。父母对孩子所说的『世界的意义』…应该只是幸福生活的意思吧。」\n\n阿贝多偶尔会这么想。",
+              "source_sha256": "e30af614b481ef812d76925285a16f88459b75058910f1495bd4ddf79c4165e4",
+              "source_kind": "wiki_excerpt"
+            },
+            {
+              "source_file": "parsed/character-quests/命运的题解__1d2e086f03.json",
+              "source_pointer": "/对话/437/内容",
+              "start": 0,
+              "end": 52,
+              "quote": "我可没想到莱茵多特的孩子竟然能代替她完成「炼金术」的那一部分，当初听到那个孩子的请求，我真的吃了一惊呢。",
+              "source_sha256": "579c91fb8e385ebf149a52546f3ef3e33d9b387f2dcc663ffba5c33e04f3e182",
+              "source_kind": "wiki_excerpt",
+              "speaker": "艾莉丝"
+            },
+            {
+              "source_file": "parsed/weapons/腐殖之剑__f6f631e81d.json",
+              "source_pointer": "/故事",
+              "start": 0,
+              "end": 236,
+              "quote": "那是很久以前的事情…\n\n无法获准诞生的生命、无法实现的愿望、\n彷徨在漆黑宇宙中的，悲哀的未果之梦，\n就借由我的身躯，降生在｢现世｣中吧。\n\n然后，我可爱的孩子们啊，\n就像雨水流向溪流，草木向阳光伸展那样，\n到美好的地方去，骄傲展现自己的美丽吧。\n\n这是名为杜林的孩子，对｢母亲｣的回忆…\n\n｢妈妈，谢谢你，妈妈｣\n｢给了我翱翔的翅膀，给了我健壮的身躯｣\n｢我啊，想到有美好歌声的地方去，妈妈｣\n｢告诉他们，大家的事情，和妈妈的事情｣\n｢告诉他们，我出生的地方，有多么美丽｣",
+              "source_sha256": "ad381b89581658615fea236360d9db99c73f09464746b8ae81010590bac783e8",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        }
+      ],
+      "annotation_status": "source_reviewed",
+      "user_review": "not_reviewed",
+      "corpus_anchor_coverage": {
+        "method": "source_span_union_not_semantic_recall",
+        "status": "complete",
+        "covered_anchors": 10,
+        "total_anchors": 10,
+        "missing_anchors": [],
+        "whitespace_only_gaps": false,
+        "non_whitespace_gap_count": 0
+      }
+    },
+    {
+      "id": "gq2-101",
+      "group": "cross_story",
+      "category": "causal",
+      "difficulty": "medium",
+      "question": "影与钟离各自如何回应漫长时间带来的失去？结合他们谈到的具体经历，说明影为何追求永恒，以及钟离如何看待故友离去与自己的职责。",
+      "reference_answer": "影亲历真与旧友离去，并担忧时间继续带走稻妻众生，因此把永恒当作抵抗失去的答案；她制造人偶以超越寿命限制，并将意识隐入刀中。钟离回忆最初七神更替、故友多已离去，最终反问自己的职责是否完成。前者寻求阻止变化，后者在变化中重新审视职责；这只是两段人物故事呈现的不同应对。",
+      "story_topic": "影与钟离面对失去和时间的应对",
+      "region": "稻妻／璃月",
+      "primary_material": "character_story",
+      "tags": [
+        "时间",
+        "失去",
+        "永恒",
+        "职责"
+      ],
+      "uncertainty": "none",
+      "key_points": [
+        {
+          "id": "p1",
+          "kind": "fact",
+          "statement": "影因害怕时间带走稻妻众生而追求永恒。",
+          "evidence_ids": [
+            "e1"
+          ]
+        },
+        {
+          "id": "p2",
+          "kind": "fact",
+          "statement": "影制造人偶以超越寿命限制，并将意识隐入刀中。",
+          "evidence_ids": [
+            "e2"
+          ]
+        },
+        {
+          "id": "p3",
+          "kind": "fact",
+          "statement": "钟离记得七神与故友逐渐离去，并反思自己的职责是否完成。",
+          "evidence_ids": [
+            "e3"
+          ]
+        },
+        {
+          "id": "p4",
+          "kind": "inference",
+          "statement": "两篇故事分别呈现以永恒抵抗变化和在变化中反思职责的选择。",
+          "evidence_ids": [
+            "e1",
+            "e3"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e1",
+          "statement": "影从时间会带走稻妻众生的担忧中得出追求永恒的答案。",
+          "sources": [
+            {
+              "source_file": "parsed/characters/雷电将军__bb768ff878.json",
+              "source_pointer": "/角色故事/角色故事4",
+              "start": 0,
+              "end": 394,
+              "quote": "额外解锁条件：完成「千手百眼，天下人间」剧情\n\n影至今仍记得，真格外喜爱稻妻的风景、美食与人文故事，喜欢到会滔滔不绝地向影分享的程度。\n\n虽然她们在时间「磨损」一事上有共同的认知，但相比为未来担忧的影，真更愿意把注意力放到现在。\n\n「正是明白此景须臾，才更要抓紧享受啊。」\n\n那时的影只能苦笑，反省自己身为一介影武者，居然比雷电将军还古板。她也会反思，想学着和真一样，更加从容一些。\n\n但突变之日来得太快，影毫无防备。回过神来，她手中竟已握着弥留之际的雷电真递来的刀。\n\n这一天，影武者成为了真正的「雷电将军」。\n\n也是这一天，影彻底领悟了「磨损」带来的切肤之痛。\n\n继续跟随时间向前走的话，就连这刀、这樱…这稻妻众生，都会从眼中消失吧。\n\n这是稻妻的根基，也是「雷电将军」必须守护之物。\n\n「由此看来，超前的预想并非毫无意义…也并非僭越。」\n\n心中觉悟终定，生命超脱肉体，永恒降临浮世。",
+              "source_sha256": "539e40fcb52c966e8a9c77d53693d787e1f5b6c07fe4f61998c30de8cb398ec7",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "statement": "影的人物故事说明制造人偶以克服寿命限制，并由她隐入刀中。",
+          "sources": [
+            {
+              "source_file": "parsed/characters/雷电将军__bb768ff878.json",
+              "source_pointer": "/角色故事/角色故事2",
+              "start": 0,
+              "end": 378,
+              "quote": "额外解锁条件：完成「千手百眼，天下人间」剧情\n\n局限于肉体之中的生命想要追求「永恒」，便无法回避寿命一事。\n\n有限的时间让影烦忧。直到某一天，一种神秘技术如命运般降临在她眼前。\n\n凭借这种技艺，人就能制造出与真实生命体无二的精巧人偶。\n\n理论上，人偶能完美复制出影的一切，等于是超越了寿命极限，可以一直存在下去，为稻妻提供永世庇护。\n\n然而，想要打造出神明的复制体，谈何容易？\n\n影为此进行了无数次试验，废弃了许多失败品，消耗了超乎想象的时间与材料——\n\n靠着执念与武人之志，她制造出了完美的人偶。\n\n新生的「雷电将军」静坐着，倾听影讲述有关她、「她」乃至她们的一切。稻妻的未来，被誊写在一张绚烂的蓝图上。\n\n她对影只有一个问题：「放弃肉体意味着无法回头。你当真不后悔吗？」\n\n「你的存在就是我的答案。」\n\n之后，影化作意识隐于刀中，「一心净土」由此诞生。",
+              "source_sha256": "539e40fcb52c966e8a9c77d53693d787e1f5b6c07fe4f61998c30de8cb398ec7",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        },
+        {
+          "id": "e3",
+          "statement": "钟离人物故事回忆早期七神和故友离散，并提出自己职责是否完成的疑问。",
+          "sources": [
+            {
+              "source_file": "parsed/characters/钟离__34330e4aba.json",
+              "source_pointer": "/角色故事/角色故事5",
+              "start": 0,
+              "end": 708,
+              "quote": "作为七神中最古老的一位，「岩王帝君」已经度过了太长的时光。\n\n「岩王帝君」还记得，在魔神战争的战火刚刚熄灭时，最后七位魔神各自登上「神」之座，自此终结了「魔神战争」时代。他们虽然性格迥异又相隔万里，却都肩负着「引导人类」的神圣职责。\n\n时代变迁，七神多有更替。时至今日，最初的七神之中，唯留下两位：「岩王帝君」，与那位自由而快活的风神。\n\n七神中第二古老的，是那位自由而快活的风神，巴巴托斯。\n\n两千年前巴巴托斯初临璃月，「岩王帝君」的第一反应是：这位同僚在履行职责时遇到了困难，需要自己的帮助。\n\n所以还没等巴巴托斯从风中落下，岩之神已经做好准备迎接这位邻国神明，只等他开口，自己就将倾尽所能。\n\n然而，风之神却将一瓶酒递到了他面前。\n\n「这是蒙德城的酒，你要尝尝吗？」\n\n——为了送一瓶酒而弃职责于不顾，实在荒唐。\n\n即使如此，那位风神依然不断前来造访，到璃月港四处游玩，还总向岩之神问出各种奇怪问题。这位风神的好奇心，就和他手中的酒一样无穷无尽。\n\n自那时起，那个时代的七神往往会在璃月相聚。\n\n到现在，「岩王帝君」仍能回忆起那些酒的味道。\n\n此后，世界不断变迁，他曾熟悉的一切都在逐渐消逝。\n\n七神之位更迭再更迭，酒会上的七人已逝五人。\n\n最初七神「引导人类」的古老职责，终于也开始被一些新任神明视为无物了。\n\n亲历三千多年风霜，最坚固的岩石也能被磨损。\n\n而且，风也没有再来到他身旁。\n\n某个微雨的清晨，古老的帝君漫步于璃月港，听见一个商人对属下如此夸奖道：\n\n「你很好地完成了你的职责。现在，去休息吧。」\n\n……\n\n「岩王帝君」在熙攘的人群中驻足良久。\n\n「我的职责…又是否已经完成？」\n\n神灵如此自问。",
+              "source_sha256": "506a76f011a850e37c345a0fb5ac24aa36c8093c437f7c13d4c51db71db41d60",
+              "source_kind": "wiki_excerpt"
+            }
+          ]
+        }
+      ],
+      "annotation_status": "source_reviewed",
+      "user_review": "not_reviewed",
+      "corpus_anchor_coverage": {
+        "method": "source_span_union_not_semantic_recall",
+        "status": "complete",
+        "covered_anchors": 3,
+        "total_anchors": 3,
+        "missing_anchors": [],
+        "whitespace_only_gaps": false,
+        "non_whitespace_gap_count": 0
+      }
+    },
+    {
+      "id": "gq2-102",
+      "group": "cross_story",
+      "category": "causal",
+      "difficulty": "hard",
+      "question": "须弥主线结尾与杜林任务都谈到遗忘。分别是谁说了什么？区分可直接确认的记忆事实、旅行者的疑问和阿贝多的推问，并说明这些文本不能确认哪些人群范围或持续过程。",
+      "reference_answer": "须弥结尾的旅行者内心旁白说派蒙似乎也不记得大慈树王，并追问是否所有人都忘了她；这仍是疑问，不能证实全民失忆。杜林任务中，阿贝多明确说旅行者、派蒙和阿帽仍记得杜林，据此判断失忆尚未蔓延到熟识朋友。对白67则是阿贝多在讨论方案时的反问，表达他对“后来仍逐渐被遗忘”的推想，并非叙述者独立确认遗忘持续。两段文本分别给出一项范围受限的记忆观察、一项角色推断和一项内心疑问，不能据此确定其他人的记忆状态或两种现象同源。",
+      "story_topic": "世界树抹除后的记忆变化与杜林逐渐被遗忘",
+      "region": "须弥／蒙德",
+      "primary_material": "archon_quest",
+      "tags": [
+        "世界树",
+        "记忆",
+        "杜林",
+        "时间线"
+      ],
+      "uncertainty": "uncertainty_analysis",
+      "key_points": [
+        {
+          "id": "p1",
+          "kind": "fact",
+          "statement": "须弥主线中，纳西妲报告污染已从世界树抹除。",
+          "evidence_ids": [
+            "e1"
+          ]
+        },
+        {
+          "id": "p2",
+          "kind": "qualification",
+          "statement": "关于派蒙和“所有人”是否忘记大慈树王，是旅行者的疑问，并非全体记忆状态的确认。",
+          "evidence_ids": [
+            "e2"
+          ]
+        },
+        {
+          "id": "p3",
+          "kind": "fact",
+          "statement": "阿贝多明确说旅行者、派蒙和阿帽仍记得杜林。",
+          "evidence_ids": [
+            "e3"
+          ]
+        },
+        {
+          "id": "p4",
+          "kind": "qualification",
+          "statement": "阿贝多把三人仍记得杜林解读为失忆尚未蔓延到熟识朋友；对白67又以反问提出“后来仍逐渐被遗忘”的疑惑。这是角色推论和追问，不是独立叙述确认；两故事线没有说明现象同源。",
+          "evidence_ids": [
+            "e2",
+            "e3",
+            "e4"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e1",
+          "statement": "纳西妲在主线中说污染已从世界树抹除。",
+          "sources": [
+            {
+              "source_file": "parsed/archon-quests/意识之舟所至之处__b75d3f7033.json",
+              "source_pointer": "/对话/304/内容",
+              "start": 0,
+              "end": 16,
+              "quote": "然后将世界树中残留的污染抹除了…",
+              "source_sha256": "9074a7fc83fa88dcc5414aeef250f0876f82e4dc8479c9bb531822663f84210c",
+              "source_kind": "wiki_excerpt",
+              "speaker": "纳西妲"
+            }
+          ]
+        },
+        {
+          "id": "e2",
+          "statement": "旅行者内心旁白看到派蒙似乎不记得大慈树王，并追问是否所有人都忘记了她。",
+          "sources": [
+            {
+              "source_file": "parsed/archon-quests/意识之舟所至之处__b75d3f7033.json",
+              "source_pointer": "/对话/308/内容",
+              "start": 0,
+              "end": 25,
+              "quote": "（派蒙也不记得了，所有人真的都忘记了大慈树王吗？）",
+              "source_sha256": "9074a7fc83fa88dcc5414aeef250f0876f82e4dc8479c9bb531822663f84210c",
+              "source_kind": "wiki_excerpt",
+              "speaker": "旅行者"
+            }
+          ]
+        },
+        {
+          "id": "e3",
+          "statement": "阿贝多明确说旅行者、派蒙和阿帽仍记得杜林；“尚未蔓延到熟识朋友”是他紧接着作出的判断。",
+          "sources": [
+            {
+              "source_file": "parsed/character-quests/命运的题解__1d2e086f03.json",
+              "source_pointer": "/对话/9/内容",
+              "start": 0,
+              "end": 43,
+              "quote": "旅行者，派蒙还有阿帽先生都没有忘记杜林，看来这种失忆的现象还没有蔓延到熟识的朋友之间。",
+              "source_sha256": "579c91fb8e385ebf149a52546f3ef3e33d9b387f2dcc663ffba5c33e04f3e182",
+              "source_kind": "wiki_excerpt",
+              "speaker": "阿贝多"
+            }
+          ]
+        },
+        {
+          "id": "e4",
+          "statement": "阿贝多以反问表达疑惑：如果这就是解法，为什么杜林后来还是在逐渐被遗忘？这保留为角色推问。",
+          "sources": [
+            {
+              "source_file": "parsed/character-quests/命运的题解__1d2e086f03.json",
+              "source_pointer": "/对话/67/内容",
+              "start": 0,
+              "end": 42,
+              "quote": "如果这就是那个难题的解，那么早就应该被我完成了才对，为什么杜林后来还是在逐渐被遗忘？",
+              "source_sha256": "579c91fb8e385ebf149a52546f3ef3e33d9b387f2dcc663ffba5c33e04f3e182",
+              "source_kind": "wiki_excerpt",
+              "speaker": "阿贝多"
+            }
+          ]
+        }
+      ],
+      "annotation_status": "source_reviewed",
+      "user_review": "not_reviewed",
+      "corpus_anchor_coverage": {
+        "method": "source_span_union_not_semantic_recall",
+        "status": "complete",
+        "covered_anchors": 4,
+        "total_anchors": 4,
+        "missing_anchors": [],
+        "whitespace_only_gaps": false,
+        "non_whitespace_gap_count": 0
+      }
+    }
+  ]
+}
