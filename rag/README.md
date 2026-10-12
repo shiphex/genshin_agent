@@ -1,10 +1,14 @@
 # 原神剧情 RAG：全量 MVP 与历史样本
 
-## 固定剧情评测集 v2 小试
+## 当前 MVP 开发问题集
 
-[eval/questions.json](eval/questions.json)已按用户批准的原文优先流程重建为14题，当前 `2.0.1-pilot`：问题、参考答案、要点和证据同时设计。全部已完成独立轻量模型原文复核和程序校验，仍待用户逐题确认；确认后再扩展到核心100题与额外10题跨故事题。2.0.1仅精简覆盖摘要，忽略空白缺口，问答和证据未变；旧题与历史报告保持原样。
+[eval/questions_dev.json](eval/questions_dev.json)用于快速迭代，共14题，保留原题号、问答，简化为关键词、扁平评价要点及多条 `file/pointer` 出处。只新增一个 `scripts/prepare_eval.py` 自动读取原文并写出补充 `text` 的本地副本；命令与字段见[问题集说明](eval/README.md)。人工重点看疑难、争议和迭代错误，不设置全量人工确认门槛；本轮未接通评测runner或自动评分。
 
-字段、配额、限制和离线命令见[题库说明](eval/README.md)，本地[14题复核表](data/eval_rebuild/20261011_pilot_v2/review.md)便于查看未变的问题、答案与核验要点；该表的覆盖统计属于2.0.0历史口径。`scripts/prepare_eval_cases.py` 负责材料导出、封存复核输入、标注核验、简洁覆盖摘要、独立覆盖报告和备份安装，不接入旧检索runner。新JSON容器和schema不能直接传给仍读取JSONL的 `evaluate_rag_mvp.py`；语义检索Judge另行实施。本轮88项测试通过。
+## 保留的剧情评测集 v2
+
+[eval/questions.json](eval/questions.json)保留为未来benchmark资产，不继续完善，110题扩展暂停。保留版本为 `2.0.1-pilot`，共14题，问题、参考答案、要点和证据同时设计。全部已完成独立轻量模型原文复核和程序校验，仍待用户逐题确认。2.0.1仅精简覆盖摘要，忽略空白缺口，问答和证据未变；旧题与历史报告保持原样。
+
+v2字段、配额、限制和离线命令见[题库说明](eval/README.md)，本地[14题复核表](data/eval_rebuild/20261011_pilot_v2/review.md)便于查看未变的问题、答案与核验要点；该表的覆盖统计属于2.0.0历史口径。保留的 `scripts/prepare_eval_cases.py` 负责v2历史流程，不是开发集准备入口。两种JSON容器都不能直接传给仍读取JSONL的 `evaluate_rag_mvp.py`。88项测试属于前轮v2覆盖摘要验证记录。
 
 ## 公开审阅与发布资料
 

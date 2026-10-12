@@ -1,6 +1,18 @@
 # RAG 开发上下文
 
-## 覆盖摘要精简（2026-10-12，当前）
+## MVP 开发问题集（2026-10-12，当前）
+
+用户认为v2更偏长期公开benchmark，当前只需容易维护的问题集，顶多一个原文读写脚本。新增[eval/questions_dev.json](eval/questions_dev.json)，版本0.1，14题沿用原题号、问题和答案；criteria直接保留原要点文字，keywords仅作提示。每题出处按file/pointer去重，共63条、跨题59处唯一位置；输入不维护text。原v2逐字保留，暂停完善与110题扩展。
+
+随后按用户要求补充创建日期、剧情截止、快照、待用户复核状态及用途／证据／审核策略等头信息。target_core_matrix与v2完全一致，跨故事目标仍为中等5／困难5，target_total=110为长期参考配额，当前仍14题且扩展暂停；review_policy沿用高价值人工审核，不恢复全量审核门槛。已验证14题内容及63条生成文本未变、读写脚本完整透传头信息；新副本在本地data/eval_dev/20261012_mvp_headers_v0_1/，旧副本及v2、脚本不变。
+
+唯一新增辅助脚本[scripts/prepare_eval.py](scripts/prepare_eval.py)只读写JSON，通过uv运行，仅有input/raw-root/output参数。按冻结Pointer提取完整字符串，全部读取成功后写入rag/data下的新文件，拒绝旧输出、输入及原始路径；不调用模型、不读语料、不接评测或评分，不新增测试脚本。人工重点看疑难、争议及迭代错误，未逐题验收不记为用户通过。
+
+实测：已生成本地[data/eval_dev/20261012_mvp_v0_1/questions_dev_prepared.json](data/eval_dev/20261012_mvp_v0_1/questions_dev_prepared.json)；14题问答与要点逐项一致，63条text与原字段逐字一致。18项临时读写核对通过，含转义Pointer、Unicode、非法路径／索引、无效目标、已有输出、输入／原始目录保护及失败不产生结果；开发结束时未运行旧评测测试。v2、17个相关原文文件及当前语料共19个文件SHA-256未变。开发集加入Git白名单，生成副本仍忽略；开发结束时未提交、推送或上传。
+
+Git收尾（2026-10-12）：用户随后授权提交并推送至当前feat/story-eval-v2-pilot分支；重新核对14题／63条来源、原文哈希及v2字节不变，88项既有测试通过。仅提交7个开发文件，生成文本、原始快照及历史产物保持本地忽略；实际提交与远端状态以Git记录为准，未涉及云盘上传。下文为历史记录。
+
+## 覆盖摘要精简（2026-10-12，历史）
 
 用户要求题库不记录低信息量的空白缺口。正式题库更新为2.0.1-pilot，每题corpus_anchor_coverage仅含status/covered_anchors/total_anchors；出处覆盖忽略str.isspace定义的空白，包括换行、制表符、空格及Unicode空白，14题／71处出处均为complete。跨chunk合并、正文重建、quote/hash/speaker核验和摘要过期检查继续保留；完整覆盖仍不是检索召回或答案评分。
 

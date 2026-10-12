@@ -14,9 +14,10 @@ __pycache__/
 !/rag/experiments/
 !/rag/eval/
 
-# Approved fixed benchmark inputs and documentation; local annotation runs stay ignored.
+# Approved dev/benchmark inputs and documentation; generated copies stay ignored.
 /rag/eval/**
 !/rag/eval/questions.json
+!/rag/eval/questions_dev.json
 !/rag/eval/README.md
 
 /rag/scripts/*

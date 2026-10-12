@@ -1,6 +1,28 @@
-# 冻结原文剧情评测集 v2
+# 剧情评测问题集
 
-[questions.json](questions.json)是从冻结原文同时设计问题、参考答案、要点和证据的新版题库。当前版本为 `2.0.1-pilot`，共14题，待用户逐题复核；目标版本 `2.0.0` 共110题。旧题核验认可不自动继承，本题库尚未运行检索Judge或被评测模型。
+## 当前 MVP 开发集
+
+[questions_dev.json](questions_dev.json)是当前工程迭代入口，版本 `0.1`，共14题。题号、问题和答案沿用v2；每题只维护 `id/type/difficulty/question/answer/keywords/criteria/sources`。`criteria` 是原要点文字的扁平列表；`keywords` 仅为关键实体／术语提示，命中不代表语义正确，同义表达也不要求逐字匹配。
+
+头信息记录实际创建日期、剧情截止、冻结快照、用户待复核状态、用途和证据／审核约定。`target_core_matrix` 原样沿用v2，`target_cross_story` 保留中等5／困难5，`target_total=110` 表示长期参考配额，不是当前题数，也不表示本轮启动扩展；当前仍为14题。读写脚本原样保留这些头信息。
+
+`sources` 可有多条，按文件与Pointer去重，各条共同提供参考依据，不代表找到任意一条就足够，也不穷尽其他有效出处。人工只维护冻结快照下的相对POSIX `file` 和RFC 6901 `pointer`，不手写 `text`。默认快照为 `data/raw/genshin_wiki_data_20260605/`；全部现有来源引用完整字符串字段。参考答案保留人物说法、推论和传说的限定，来源来自冻结Wiki，并非自动获得官方事实认证。
+
+唯一新增的辅助脚本只读取问题集和原文，写出补充 `sources[].text` 的本地副本；不调用模型或评测。项目根目录运行：
+
+```powershell
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/prepare_eval.py --output rag/data/eval_dev/run_001/questions_dev_prepared.json
+```
+
+仅有 `--input`、`--raw-root`、`--output` 三个参数；前两项默认使用上述开发集和冻结快照。输出必须是 `rag/data/` 下的新文件，不能覆盖输入、原始目录或已有结果，生成副本继续忽略。更换快照必须重新核对题目依据，不能只沿用旧Pointer。未接通旧JSONL评测runner。
+
+人工重点审核疑难题、存在争议的标准，以及后续迭代发现的新错误或回退；不以全量人工确认作为开发使用门槛。现有14题尚未获用户逐题验收，精简不改变这一状态。
+
+## 保留的冻结原文评测集 v2
+
+以下为v2的结构与历史工具说明，保留作未来benchmark资产；当前暂停继续完善与110题扩展。
+
+[questions.json](questions.json)是从冻结原文同时设计问题、参考答案、要点和证据的v2题库。保留版本为 `2.0.1-pilot`，共14题，待用户逐题复核；原规划为110题，当前暂停扩展。旧题核验认可不自动继承，本题库尚未运行检索Judge或被评测模型。
 
 ## 结构与配额
 
@@ -53,7 +75,7 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 
 ## 复核与版本维护
 
-先由用户逐题复核14题，再修订并扩展剩余96题；扩展后分层抽查至少20题，并查看全部疑难项。没有抽查的题继续记录用户未逐题确认，不能称110题全部用户通过。模型生成、独立复核与用户反馈分别留档。
+v2原规划为先由用户逐题复核14题，再修订并扩展剩余96题；该扩展目前暂停，不作为MVP开发集的使用门槛。未来恢复benchmark工作时再确认复核安排。模型生成、独立复核与用户反馈分别留档，未逐题确认者不记为用户通过。
 
 旧100题及各轮草稿、完整原文材料、复核原始输出和保护哈希保存在本地 `rag/data/eval_rebuild/20261011_pilot_v2/`，继续忽略；原12题历史实验输入与报告保持原样。本地记录需要独立备份，不能靠Git或重建语料恢复。程序检查不保证全部语义判断正确。
 
