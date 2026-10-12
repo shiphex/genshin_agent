@@ -2,7 +2,7 @@
 
 ## 当前 MVP 开发问题集
 
-[eval/questions_dev.json](eval/questions_dev.json)用于快速迭代，当前 `0.3` 共49题：原24题保留，本批按长期配额剩余缺口新增25题，涵盖事实、因果、世界观、人物关系及跨故事对照。仍只用关键词、扁平评价要点及多条 `file/pointer` 出处；`scripts/prepare_eval.py` 自动读取原文并写出补充 `text` 的本地副本，命令与字段见[问题集说明](eval/README.md)。新增题已按冻结原文核对，全部题目仍待用户逐题复核；未接通评测runner或自动评分。
+[eval/questions_dev.json](eval/questions_dev.json)用于快速迭代，当前 `0.4` 共99题：原49题保留，本批新增50题，约40题聚焦天理、法涅斯、降临者、龙族、天使和原神历史，另10题补充其他剧情。仍只用关键词、扁平评价要点及多条 `file/pointer` 出处；`scripts/prepare_eval.py` 自动读取原文并写出补充 `text` 的本地副本，命令与字段见[问题集说明](eval/README.md)。新增题已按冻结原文核对，全部题目仍待用户逐题复核；未接通评测runner或自动评分。
 
 ## 保留的剧情评测集 v2
 

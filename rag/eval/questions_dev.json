@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.4",
   "dataset": "genshin-story-dev",
   "created_date": "2026-10-12",
   "story_cutoff": "2026-06-05",
@@ -581,14 +581,24 @@
       "difficulty": "easy",
       "question": "魈承担着什么护卫职责？他的战斗与这项职责有什么关系？",
       "answer": "魈为报答岩之神的恩情，承担了守护璃月的千年职责。角色故事说，他与威胁璃月百姓的黑暗战斗，战斗是他仍能为人们做的事。",
-      "keywords": ["魈", "守护璃月", "战斗"],
+      "keywords": [
+        "魈",
+        "守护璃月",
+        "战斗"
+      ],
       "criteria": [
         "指出魈承担守护璃月的千年职责。",
         "说明他与威胁璃月百姓的黑暗战斗，是在履行守护职责；这属于角色故事叙述。"
       ],
       "sources": [
-        {"file": "parsed/characters/魈__fb88c811da.json", "pointer": "/角色故事/角色故事3"},
-        {"file": "parsed/characters/魈__fb88c811da.json", "pointer": "/角色故事/角色故事5"}
+        {
+          "file": "parsed/characters/魈__fb88c811da.json",
+          "pointer": "/角色故事/角色故事3"
+        },
+        {
+          "file": "parsed/characters/魈__fb88c811da.json",
+          "pointer": "/角色故事/角色故事5"
+        }
       ]
     },
     {
@@ -597,15 +607,28 @@
       "difficulty": "easy",
       "question": "《归火圣夜巡礼》的胜者接下来要参加什么？",
       "answer": "巡礼胜者获得参加「巡夜者战争」的资格。颁奖后，伊安珊说这次由他们参加巡夜者战争，玛拉妮也说卡齐娜等人接下来要去参战。",
-      "keywords": ["归火圣夜巡礼", "胜者", "巡夜者战争"],
+      "keywords": [
+        "归火圣夜巡礼",
+        "胜者",
+        "巡夜者战争"
+      ],
       "criteria": [
         "指出胜者获得参加「巡夜者战争」的资格。",
         "用颁奖后的对白说明卡齐娜等胜者接下来将参战。"
       ],
       "sources": [
-        {"file": "parsed/archon-quests/归火圣夜巡礼__3ed968fafb.json", "pointer": "/对话/56/内容"},
-        {"file": "parsed/archon-quests/归火圣夜巡礼__3ed968fafb.json", "pointer": "/对话/268/内容"},
-        {"file": "parsed/archon-quests/归火圣夜巡礼__3ed968fafb.json", "pointer": "/对话/278/内容"}
+        {
+          "file": "parsed/archon-quests/归火圣夜巡礼__3ed968fafb.json",
+          "pointer": "/对话/56/内容"
+        },
+        {
+          "file": "parsed/archon-quests/归火圣夜巡礼__3ed968fafb.json",
+          "pointer": "/对话/268/内容"
+        },
+        {
+          "file": "parsed/archon-quests/归火圣夜巡礼__3ed968fafb.json",
+          "pointer": "/对话/278/内容"
+        }
       ]
     },
     {
@@ -614,19 +637,44 @@
       "difficulty": "medium",
       "question": "《海祇见闻》中，五郎怎样转述心海锦囊对愚人众船只的判断与行动安排？兵力不足时，哪些限制使他暂缓行动？",
       "answer": "五郎读出心海锦囊中关于临海盗敌必有船、可焚船作战的提示，据此推断愚人众的船停在附近，原想分两队牵制敌人并绕后烧船。但他也转述心海说兵力不足时尽量不要分兵，并引锦囊的「设伏于野，不可妄动」，所以决定暂时放弃行动。他还转述「山穷水尽，或有援军」，当时却不明白援军所指。这些是五郎转述的锦囊内容与他的现场判断，不是心海当场下令。",
-      "keywords": ["五郎", "心海锦囊", "愚人众船只", "不可分兵", "不可妄动", "援军"],
+      "keywords": [
+        "五郎",
+        "心海锦囊",
+        "愚人众船只",
+        "不可分兵",
+        "不可妄动",
+        "援军"
+      ],
       "criteria": [
         "明确临海船只与焚船提示由五郎读出，他据此推断愚人众船只所在并提出分兵烧船计划。",
         "说明五郎转述心海关于兵力不足不宜分兵的限制，以及「设伏于野，不可妄动」促使他暂缓行动。",
         "列出「山穷水尽，或有援军」，并指出五郎当时不明白援军所指；不把转述写成心海当场发言。"
       ],
       "sources": [
-        {"file": "parsed/character-quests/海祇见闻__280a3c2da0.json", "pointer": "/对话/6/内容"},
-        {"file": "parsed/character-quests/海祇见闻__280a3c2da0.json", "pointer": "/对话/8/内容"},
-        {"file": "parsed/character-quests/海祇见闻__280a3c2da0.json", "pointer": "/对话/9/内容"},
-        {"file": "parsed/character-quests/海祇见闻__280a3c2da0.json", "pointer": "/对话/10/内容"},
-        {"file": "parsed/character-quests/海祇见闻__280a3c2da0.json", "pointer": "/对话/13/内容"},
-        {"file": "parsed/character-quests/海祇见闻__280a3c2da0.json", "pointer": "/对话/15/内容"}
+        {
+          "file": "parsed/character-quests/海祇见闻__280a3c2da0.json",
+          "pointer": "/对话/6/内容"
+        },
+        {
+          "file": "parsed/character-quests/海祇见闻__280a3c2da0.json",
+          "pointer": "/对话/8/内容"
+        },
+        {
+          "file": "parsed/character-quests/海祇见闻__280a3c2da0.json",
+          "pointer": "/对话/9/内容"
+        },
+        {
+          "file": "parsed/character-quests/海祇见闻__280a3c2da0.json",
+          "pointer": "/对话/10/内容"
+        },
+        {
+          "file": "parsed/character-quests/海祇见闻__280a3c2da0.json",
+          "pointer": "/对话/13/内容"
+        },
+        {
+          "file": "parsed/character-quests/海祇见闻__280a3c2da0.json",
+          "pointer": "/对话/15/内容"
+        }
       ]
     },
     {
@@ -635,19 +683,42 @@
       "difficulty": "easy",
       "question": "温迪为什么选择设法救助特瓦林？他最初打算怎样帮助它？",
       "answer": "温迪说自己的理由是「自由」：曾守护蒙德的龙也应有选择生活方式的权利，不该被欺骗说城市背叛了它，也不该被要求永远守护城市。他最初打算借助天空之琴，从噩梦中唤回特瓦林的本性。",
-      "keywords": ["温迪", "特瓦林", "自由", "天空之琴"],
+      "keywords": [
+        "温迪",
+        "特瓦林",
+        "自由",
+        "天空之琴"
+      ],
       "criteria": [
         "说明温迪以自由为理由，认为特瓦林也有选择生活方式的权利。",
         "说明温迪不愿特瓦林受欺骗或被强加永远守护蒙德的义务。",
         "指出天空之琴是他计划中唤回特瓦林本性的手段。"
       ],
       "sources": [
-        {"file": "parsed/archon-quests/在终曲之前__06a9b6be4c.json", "pointer": "/对话/19/内容"},
-        {"file": "parsed/archon-quests/在终曲之前__06a9b6be4c.json", "pointer": "/对话/26/内容"},
-        {"file": "parsed/archon-quests/在终曲之前__06a9b6be4c.json", "pointer": "/对话/27/内容"},
-        {"file": "parsed/archon-quests/在终曲之前__06a9b6be4c.json", "pointer": "/对话/28/内容"},
-        {"file": "parsed/archon-quests/在终曲之前__06a9b6be4c.json", "pointer": "/对话/29/内容"},
-        {"file": "parsed/archon-quests/温迪的计划__a145014ba0.json", "pointer": "/对话/2/内容"}
+        {
+          "file": "parsed/archon-quests/在终曲之前__06a9b6be4c.json",
+          "pointer": "/对话/19/内容"
+        },
+        {
+          "file": "parsed/archon-quests/在终曲之前__06a9b6be4c.json",
+          "pointer": "/对话/26/内容"
+        },
+        {
+          "file": "parsed/archon-quests/在终曲之前__06a9b6be4c.json",
+          "pointer": "/对话/27/内容"
+        },
+        {
+          "file": "parsed/archon-quests/在终曲之前__06a9b6be4c.json",
+          "pointer": "/对话/28/内容"
+        },
+        {
+          "file": "parsed/archon-quests/在终曲之前__06a9b6be4c.json",
+          "pointer": "/对话/29/内容"
+        },
+        {
+          "file": "parsed/archon-quests/温迪的计划__a145014ba0.json",
+          "pointer": "/对话/2/内容"
+        }
       ]
     },
     {
@@ -656,7 +727,14 @@
       "difficulty": "hard",
       "question": "《因果命运的花神诞祭》中，哪些证据使众人先后修正「时间循环」和「每日删除记忆」的推断？到这一阶段，他们确认了什么、仍疑惑什么？",
       "answer": "迪希雅的练剑熟练度与身体记忆没有像单纯时间循环那样重置，旅行者因此否定「时间循环」，暂以「每日删除记忆」解释重复体验。后来迪希雅指出：若日日练剑而木桩未换，它应早已被砍烂；若日日换新木桩，先前独特的剑痕又无法完全复制。派蒙于是质疑「记忆删除」理论。众人此时认为时间并未循环、所在之处也可能并非现实。旅行者提出为何没考虑出城，派蒙建议查看城外时间；纳西妲回忆他们两次提出出城计划，派蒙却说两人没有出城当天的记忆。出城与记忆缺失仍是疑问，不能把前述假说写成已证实的机制。",
-      "keywords": ["时间循环", "身体记忆", "迪希雅", "木人桩", "记忆删除", "出城"],
+      "keywords": [
+        "时间循环",
+        "身体记忆",
+        "迪希雅",
+        "木人桩",
+        "记忆删除",
+        "出城"
+      ],
       "criteria": [
         "以迪希雅练剑进步或身体记忆未重置解释为何单纯的时间循环推断不成立。",
         "说明「每日删除记忆」曾是替代假说；迪希雅以木桩若不换应被砍烂、若换则无法复制剑痕的两种情况促使派蒙质疑该假说。",
@@ -664,23 +742,74 @@
         "准确区分迪希雅的证据、旅行者的出城提问、派蒙的推断与纳西妲的回忆，不把任何假说写成已证实的机制。"
       ],
       "sources": [
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/12/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/14/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/16/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/33/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/44/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/90/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/91/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/93/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/96/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/104/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/106/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/107/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/112/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/113/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/120/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/123/内容"},
-        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/128/内容"}
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/12/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/14/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/16/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/33/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/44/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/90/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/91/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/93/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/96/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/104/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/106/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/107/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/112/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/113/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/120/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/123/内容"
+        },
+        {
+          "file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json",
+          "pointer": "/对话/128/内容"
+        }
       ]
     },
     {
@@ -689,16 +818,30 @@
       "difficulty": "medium",
       "question": "《雷穆利亚衰亡史》如何解释雷穆斯追求谐律秩序的理由？这部史书的作者又怎样表明自己的叙述立场？",
       "answer": "书中说，先知预言最兴盛的帝国也会毁灭；雷穆斯因此谱写谐荣乐章，相信城邦与之协同共奏便能逃脱命运审判，抵达永恒乐土。卷三的作者则声称要用历史理性辨别已被传说和迷信笼罩的雷穆利亚往事，并对帝国晚期的衰亡作道德评断。这是史书中的解释和作者立场，不能直接当作无争议的全知事实。",
-      "keywords": ["雷穆斯", "先知预言", "谐荣乐章", "史书立场"],
+      "keywords": [
+        "雷穆斯",
+        "先知预言",
+        "谐荣乐章",
+        "史书立场"
+      ],
       "criteria": [
         "指出先知的毁灭预言与雷穆斯希望逃脱命运审判之间的因果关系。",
         "说明他相信城邦与谐荣乐章协同共奏可以抵达永恒乐土。",
         "指出卷三作者自称以历史理性辨别传说，并区分作者评断与无立场的事实记录。"
       ],
       "sources": [
-        {"file": "parsed/books/雷穆利亚衰亡史__9513b52ac8.json", "pointer": "/volumes/0/content"},
-        {"file": "parsed/books/雷穆利亚衰亡史__9513b52ac8.json", "pointer": "/volumes/2/content"},
-        {"file": "parsed/books/雷穆利亚衰亡史__9513b52ac8.json", "pointer": "/genre"}
+        {
+          "file": "parsed/books/雷穆利亚衰亡史__9513b52ac8.json",
+          "pointer": "/volumes/0/content"
+        },
+        {
+          "file": "parsed/books/雷穆利亚衰亡史__9513b52ac8.json",
+          "pointer": "/volumes/2/content"
+        },
+        {
+          "file": "parsed/books/雷穆利亚衰亡史__9513b52ac8.json",
+          "pointer": "/genre"
+        }
       ]
     },
     {
@@ -707,7 +850,13 @@
       "difficulty": "hard",
       "question": "《古老的考察日志》对密室中星银武器的说法，与《雪葬的星银》对异乡勇士及大剑的追述，分别能确认什么？能否据此断定两处说的是同一把剑？",
       "answer": "考察日志其之一记载，考察者根据厄伯哈特对碑文的解读，推测密室里或许有壁画和某种星银武器；其之二又记载密室大门未能打开，寻找古代武器的期待落空。这只能确认当时有此推测、考察者未取得武器。《雪葬的星银》的武器故事另行追述：祭司之女把星银大剑交给异乡勇士，勇士后来将剑留在壁画之间。两篇材料都涉及星银武器与壁画，但日志没有确认武器的实物、身份或去向，不能断定它与武器故事中的大剑必为同一把。",
-      "keywords": ["古老的考察日志", "厄伯哈特", "星银武器", "雪葬的星银", "同一性未证"],
+      "keywords": [
+        "古老的考察日志",
+        "厄伯哈特",
+        "星银武器",
+        "雪葬的星银",
+        "同一性未证"
+      ],
       "criteria": [
         "将日志其之一的武器说法标为根据碑文解读所得的推测，而非亲眼确认。",
         "指出日志其之二记载密室未打开、古代武器未取得。",
@@ -715,9 +864,18 @@
         "明确两处文本没有确认物件同一性，不得断言是同一把剑。"
       ],
       "sources": [
-        {"file": "parsed/books/古老的考察日志__55e5732f26.json", "pointer": "/volumes/0/content"},
-        {"file": "parsed/books/古老的考察日志__55e5732f26.json", "pointer": "/volumes/1/content"},
-        {"file": "parsed/weapons/雪葬的星银__be6620303a.json", "pointer": "/故事"}
+        {
+          "file": "parsed/books/古老的考察日志__55e5732f26.json",
+          "pointer": "/volumes/0/content"
+        },
+        {
+          "file": "parsed/books/古老的考察日志__55e5732f26.json",
+          "pointer": "/volumes/1/content"
+        },
+        {
+          "file": "parsed/weapons/雪葬的星银__be6620303a.json",
+          "pointer": "/故事"
+        }
       ]
     },
     {
@@ -726,7 +884,13 @@
       "difficulty": "medium",
       "question": "凯亚与迪卢克少年时怎样相处和并肩行动？克利普斯之死后，两人的关系与道路发生了什么变化？",
       "answer": "凯亚的角色故事回忆，他曾是迪卢克的好友、助战者和「头脑」，两人从明处与暗处默契地守护蒙德。共同的父亲克利普斯用不祥力量击退魔物后受反噬身亡，两人在那夜走上分歧道路。迪卢克的角色故事还记述，他因父亲之死与骑士团掩盖真相的命令而退出骑士团、追查邪力。凯亚的角色介绍说他已很久没有称迪卢克为「义兄」。这些材料说明亲近关系发生变化，未完整交代两人之后是否和解。",
-      "keywords": ["凯亚", "迪卢克", "克利普斯", "义兄", "分歧"],
+      "keywords": [
+        "凯亚",
+        "迪卢克",
+        "克利普斯",
+        "义兄",
+        "分歧"
+      ],
       "criteria": [
         "指出凯亚与迪卢克少年时是配合默契的好友和搭档。",
         "将共同的父亲克利普斯之死与两人在当夜走上分歧道路相连。",
@@ -734,9 +898,18 @@
         "不凭这些段落断言两人后来已经和解。"
       ],
       "sources": [
-        {"file": "parsed/characters/凯亚__ea89d56e10.json", "pointer": "/角色故事/角色详细"},
-        {"file": "parsed/characters/凯亚__ea89d56e10.json", "pointer": "/角色故事/角色故事5"},
-        {"file": "parsed/characters/迪卢克__7221b34128.json", "pointer": "/角色故事/角色故事3"}
+        {
+          "file": "parsed/characters/凯亚__ea89d56e10.json",
+          "pointer": "/角色故事/角色详细"
+        },
+        {
+          "file": "parsed/characters/凯亚__ea89d56e10.json",
+          "pointer": "/角色故事/角色故事5"
+        },
+        {
+          "file": "parsed/characters/迪卢克__7221b34128.json",
+          "pointer": "/角色故事/角色故事3"
+        }
       ]
     },
     {
@@ -745,18 +918,40 @@
       "difficulty": "medium",
       "question": "对照闲云与申鹤、提纳里与柯莱的角色故事，两组师徒关系中的教导与照料分别如何体现？",
       "answer": "闲云的角色故事说，她出于慈心收留弟子、关注其修行与成长，并因珍惜故友和后辈而希望庇护她们。申鹤的角色故事写到仙人将险境中的她带回府中安养调息、授道；另一段故事说明她师从留云借风真君。提纳里的角色故事写他从教柯莱拼写名字开始；柯莱的角色故事则说，提纳里为提高她的识字量搜罗书籍文献。两组都呈现师徒教导与照料，但文本强调的具体做法不同。",
-      "keywords": ["闲云", "申鹤", "提纳里", "柯莱", "师徒", "教导"],
+      "keywords": [
+        "闲云",
+        "申鹤",
+        "提纳里",
+        "柯莱",
+        "师徒",
+        "教导"
+      ],
       "criteria": [
         "用闲云与申鹤的角色故事说明收留、安养授道和庇护后辈的关系。",
         "用提纳里与柯莱的角色故事说明从拼写名字、识字和提供读物入手的教学。",
         "分别列出两组证据，区分两组材料强调的照料方式；不把叙述者文字冒充角色对白。"
       ],
       "sources": [
-        {"file": "parsed/characters/闲云__a74afcfa9c.json", "pointer": "/角色故事/角色故事4"},
-        {"file": "parsed/characters/申鹤__274466bd04.json", "pointer": "/角色故事/角色故事2"},
-        {"file": "parsed/characters/申鹤__274466bd04.json", "pointer": "/角色故事/角色故事3"},
-        {"file": "parsed/characters/提纳里__03904f0389.json", "pointer": "/角色故事/角色故事4"},
-        {"file": "parsed/characters/柯莱__c729b711eb.json", "pointer": "/角色故事/角色故事1"}
+        {
+          "file": "parsed/characters/闲云__a74afcfa9c.json",
+          "pointer": "/角色故事/角色故事4"
+        },
+        {
+          "file": "parsed/characters/申鹤__274466bd04.json",
+          "pointer": "/角色故事/角色故事2"
+        },
+        {
+          "file": "parsed/characters/申鹤__274466bd04.json",
+          "pointer": "/角色故事/角色故事3"
+        },
+        {
+          "file": "parsed/characters/提纳里__03904f0389.json",
+          "pointer": "/角色故事/角色故事4"
+        },
+        {
+          "file": "parsed/characters/柯莱__c729b711eb.json",
+          "pointer": "/角色故事/角色故事1"
+        }
       ]
     },
     {
@@ -765,7 +960,13 @@
       "difficulty": "hard",
       "question": "对照《深林的记忆》关于生命与记忆的说法，以及纳塔对白对古名传承的解释：两边各自怎样叙述？为何不能互相证明同一种记忆保存机制？",
       "answer": "《深林的记忆》的时之沙故事先引述森林王生灭循环的传说，再以引语讨论灵魂消亡与记忆遗失；其中的说法称记忆终将归于大地，并主张人们彼此提醒、铭记形象，使记忆长久留存。《皆为崇高之名》中，希诺宁说古名象征英雄精神，在不断继承中变得厚重；打造古名是铭刻英雄事迹，未获大灵承认的记忆与经历不能成为材料。前者是圣遗物故事中的传说与引语，后者是角色对纳塔古名的说明。两篇文本没有建立相同对象、条件或运作过程，不能用一边证明另一边的机制。",
-      "keywords": ["深林的记忆", "生灭循环", "记忆", "古名", "大灵承认"],
+      "keywords": [
+        "深林的记忆",
+        "生灭循环",
+        "记忆",
+        "古名",
+        "大灵承认"
+      ],
       "criteria": [
         "说明《深林的记忆》中的生灭循环属于传说性叙述，并区分引语中的记忆观点。",
         "指出引语既有「记忆终将归于大地」的说法，也有彼此提醒、铭记形象的主张。",
@@ -773,10 +974,22 @@
         "指出相似主题不足以证明两组文本描述同一种记忆保存机制。"
       ],
       "sources": [
-        {"file": "parsed/artifacts/深林的记忆__6f5f925534.json", "pointer": "/时之沙/故事"},
-        {"file": "parsed/archon-quests/皆为崇高之名__873b512cde.json", "pointer": "/对话/60/内容"},
-        {"file": "parsed/archon-quests/皆为崇高之名__873b512cde.json", "pointer": "/对话/61/内容"},
-        {"file": "parsed/archon-quests/皆为崇高之名__873b512cde.json", "pointer": "/对话/67/内容"}
+        {
+          "file": "parsed/artifacts/深林的记忆__6f5f925534.json",
+          "pointer": "/时之沙/故事"
+        },
+        {
+          "file": "parsed/archon-quests/皆为崇高之名__873b512cde.json",
+          "pointer": "/对话/60/内容"
+        },
+        {
+          "file": "parsed/archon-quests/皆为崇高之名__873b512cde.json",
+          "pointer": "/对话/61/内容"
+        },
+        {
+          "file": "parsed/archon-quests/皆为崇高之名__873b512cde.json",
+          "pointer": "/对话/67/内容"
+        }
       ]
     },
     {
@@ -1439,6 +1652,1792 @@
         {
           "file": "parsed/characters/雷泽__cf06cb4427.json",
           "pointer": "/角色故事/角色故事3"
+        }
+      ]
+    },
+    {
+      "id": "gq2-044",
+      "type": "fact",
+      "difficulty": "easy",
+      "question": "安柏的祖父原来自哪里，后来在骑士团建立了什么小队？",
+      "answer": "他来自璃月港，原是佣兵统领；获西风骑士团医师救助后加入骑士团，并建立、训练和率领侦察骑士小队。",
+      "keywords": [
+        "安柏祖父",
+        "璃月港",
+        "侦察骑士"
+      ],
+      "criteria": [
+        "指出祖父来自璃月港、原为佣兵统领。",
+        "指出他加入骑士团后建立并率领侦察骑士小队。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/characters/安柏__3aa0a86d07.json",
+          "pointer": "/角色故事/角色故事2"
+        }
+      ]
+    },
+    {
+      "id": "gq2-045",
+      "type": "fact",
+      "difficulty": "easy",
+      "question": "凝光处理重大商业事务时会去哪里，谁负责整理资料？",
+      "answer": "她去群玉阁，只让三名心腹陪侍；心腹翻阅资料、整合文书并把摘要贴在墙上，凝光据此思考方案。",
+      "keywords": [
+        "凝光",
+        "群玉阁",
+        "心腹"
+      ],
+      "criteria": [
+        "指出地点是群玉阁。",
+        "说明三名心腹整理资料和摘要，凝光据此思考。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/characters/凝光__eccdb02de8.json",
+          "pointer": "/角色故事/角色故事1"
+        }
+      ]
+    },
+    {
+      "id": "gq2-046",
+      "type": "fact",
+      "difficulty": "easy",
+      "question": "胡桃是往生堂第几代堂主？她在什么场合会显得凝重肃穆？",
+      "answer": "胡桃是往生堂第七十七代堂主；她亲自带领仪倌队伍举行葬礼时显得凝重肃穆。",
+      "keywords": [
+        "胡桃",
+        "往生堂",
+        "葬礼"
+      ],
+      "criteria": [
+        "说出第七十七代堂主。",
+        "指出她在带领葬礼队伍时态度凝重。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/characters/胡桃__7303c1b0d5.json",
+          "pointer": "/角色故事/角色详细"
+        }
+      ]
+    },
+    {
+      "id": "gq2-047",
+      "type": "fact",
+      "difficulty": "easy",
+      "question": "《日月前事》是否直接断定原初的那一位就是法涅斯？书中怎样描绘这个可能的名字？",
+      "answer": "书中用「或许是法涅斯」而非确定口吻；它描绘该存在有羽翼、戴王冠、从蛋中出生，且难辨雌雄。",
+      "keywords": [
+        "法涅斯",
+        "原初的那一位",
+        "或许"
+      ],
+      "criteria": [
+        "保留古籍的「或许」限定。",
+        "说出羽翼、王冠、蛋生等书中描绘，不把它变成外部确证。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+          "pointer": "/volumes/1/content"
+        }
+      ]
+    },
+    {
+      "id": "gq2-048",
+      "type": "fact",
+      "difficulty": "easy",
+      "question": "纳西妲转述愚人众情报时，称旅行者是第几位「降临者」？",
+      "answer": "纳西妲称旅行者是提瓦特的第四降临者；这是她在该段对白中转述的愚人众情报。",
+      "keywords": [
+        "旅行者",
+        "第四降临者",
+        "纳西妲"
+      ],
+      "criteria": [
+        "答出第四降临者。",
+        "交代说法来自纳西妲转述的愚人众情报。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/请饮下祝胜之酒__c78c714fdb.json",
+          "pointer": "/对话/607/内容"
+        },
+        {
+          "file": "parsed/archon-quests/请饮下祝胜之酒__c78c714fdb.json",
+          "pointer": "/对话/608/内容"
+        },
+        {
+          "file": "parsed/archon-quests/请饮下祝胜之酒__c78c714fdb.json",
+          "pointer": "/对话/609/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-049",
+      "type": "fact",
+      "difficulty": "easy",
+      "question": "芙卡洛斯摧毁水神神座后，派蒙说那维莱特恢复成了什么状态？",
+      "answer": "派蒙说水神神座被摧毁、力量归还后，那维莱特成为完全状态的元素龙王。",
+      "keywords": [
+        "芙卡洛斯",
+        "那维莱特",
+        "元素龙王"
+      ],
+      "criteria": [
+        "联系神座被毁与力量归还。",
+        "指出派蒙称那维莱特成为完全状态的元素龙王。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/终幕礼__2832f60895.json",
+          "pointer": "/对话/177/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-050",
+      "type": "fact",
+      "difficulty": "easy",
+      "question": "夜神说，她在被称为「夜神」之前属于什么存在？退化后的形态又被冒险家称作什么？",
+      "answer": "夜神说过去这一类存在名为「天使」；退化之后，冒险家更熟悉的称呼是「仙灵」。",
+      "keywords": [
+        "夜神",
+        "天使",
+        "仙灵"
+      ],
+      "criteria": [
+        "答出天使是夜神所说的旧称。",
+        "答出仙灵是其所说的退化形态。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/224/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/225/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-051",
+      "type": "fact",
+      "difficulty": "medium",
+      "question": "凯亚的角色故事怎样描写他在酒馆与来客攀谈、获取秘密？这种举止与他的骑兵队长身份形成什么反差？",
+      "answer": "故事写凯亚常在夜晚酒馆与酒客攀谈，以亲切、戏谑的态度巧妙诱导来客吐露秘密；这种悠闲亲切的形象让人难以把他与西风骑士团骑兵队长联系起来。来客泄露的内容还可能决定之后是无伤大雅的玩笑还是噩梦，原文没有交代他怎样使用每条消息。",
+      "keywords": [
+        "凯亚",
+        "酒馆",
+        "秘密"
+      ],
+      "criteria": [
+        "指出凯亚借酒馆攀谈巧妙诱导来客吐露秘密。",
+        "说明其亲切悠闲的举止与骑兵队长身份形成反差。",
+        "不编造获取秘密后的具体办案经过。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/characters/凯亚__ea89d56e10.json",
+          "pointer": "/角色故事/角色故事1"
+        }
+      ]
+    },
+    {
+      "id": "gq2-052",
+      "type": "fact",
+      "difficulty": "medium",
+      "question": "「博士」对旅行者说，天理之下的四大执政分别司掌哪些领域？这一说法是谁提出的？",
+      "answer": "「博士」称四大执政分别司掌生、死、时、空。这是他的对白中的说法，不能把说话者省略成无来源的全知陈述。",
+      "keywords": [
+        "博士",
+        "四大执政",
+        "生死时空"
+      ],
+      "criteria": [
+        "列出生、死、时、空四项。",
+        "将这一描述归于博士的说法。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/279/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/281/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-053",
+      "type": "fact",
+      "difficulty": "medium",
+      "question": "尼可怎样讲述三轮明月及月之女神的起源与早期职责？",
+      "answer": "尼可说最初天上没有月亮，是龙王尼伯龙根令三轮明月升起；三位月之女神作为星球的影子诞生，代他掌握权能、管理世界。",
+      "keywords": [
+        "尼可",
+        "尼伯龙根",
+        "三月女神"
+      ],
+      "criteria": [
+        "交代尼伯龙根令三轮明月升起。",
+        "说明尼可所说的月神起源和代龙王管理世界的职责。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/65/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/66/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-054",
+      "type": "fact",
+      "difficulty": "medium",
+      "question": "《日月前事》怎样记载「赫利俄斯」落成及纪年的变化？",
+      "answer": "古籍写阿布拉克他带领先祖建设「赫利俄斯」；在「目明之年，或日月的元年」，这辆太阳神车落成，白夜到来、常夜消散，日月纪年由此开始。",
+      "keywords": [
+        "赫利俄斯",
+        "阿布拉克",
+        "日月的元年"
+      ],
+      "criteria": [
+        "指出建设由阿布拉克他带领。",
+        "交代落成、白夜到来及日月纪年开始的书中顺序。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+          "pointer": "/volumes/1/content"
+        }
+      ]
+    },
+    {
+      "id": "gq2-055",
+      "type": "fact",
+      "difficulty": "medium",
+      "question": "纳西妲查询世界树后，旅行者与其血亲的记录有何不同？愚人众又怎样分类血亲？",
+      "answer": "纳西妲说世界树中没有旅行者的信息，却记录着其血亲；按她掌握的愚人众情报，血亲未被列入「降临者」。这说明记录与分类不同，不能仅凭血缘推定两者同属一类。",
+      "keywords": [
+        "世界树",
+        "血亲",
+        "降临者"
+      ],
+      "criteria": [
+        "区分旅行者无记录与血亲有记录。",
+        "说明愚人众未将血亲列为降临者，保留情报来源。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/请饮下祝胜之酒__c78c714fdb.json",
+          "pointer": "/对话/585/内容"
+        },
+        {
+          "file": "parsed/archon-quests/请饮下祝胜之酒__c78c714fdb.json",
+          "pointer": "/对话/587/内容"
+        },
+        {
+          "file": "parsed/archon-quests/请饮下祝胜之酒__c78c714fdb.json",
+          "pointer": "/对话/604/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-056",
+      "type": "fact",
+      "difficulty": "hard",
+      "question": "把《日月前事》的「法涅斯」段落与月之女神回忆首位降临者的对白并读，两处各直接说了什么？能否仅凭这两处把名字、王座与降临者身份完全画等号？",
+      "answer": "古籍推测原初的那一位或许是法涅斯，并记其与旧世界七位龙王开战、造出四个影子。月之女神回忆第一位来到世界的降临者，称其为高天主宰；哥伦比娅接称「天理」。两处可以并列比较，但后一段没有直接说出「法涅斯」，前一段也用「或许」，因此不能把所有称谓当作两段共同确证的等式。",
+      "keywords": [
+        "法涅斯",
+        "原初的那一位",
+        "第一降临者",
+        "天理"
+      ],
+      "criteria": [
+        "分别复述古籍的或许说法、龙王战争和四影。",
+        "分别归属月之女神与哥伦比娅对第一降临者的称呼。",
+        "说明跨材料并读不能消除古籍的身份不确定性。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+          "pointer": "/volumes/1/content"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/422/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/424/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/425/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/426/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-057",
+      "type": "fact",
+      "difficulty": "hard",
+      "question": "丝柯克为何把神之心称作「第三降临者的遗骨」？这段转述对于第三降临者的姓名、死期及神之心材质确认到了什么程度？",
+      "answer": "丝柯克先说那维莱特身上带着「第三降临者的遗骨」，再用地面常说的「神之心」对应它。她承认师父没有告诉她第三降临者是谁、何时死去；那维莱特也以「如果没有误会或特殊比喻」和「如果她说的真实」保留条件。因此这段不能给出姓名、死期，或把「遗骨」的字面材质当成独立核验的事实。",
+      "keywords": [
+        "丝柯克",
+        "第三降临者",
+        "神之心",
+        "遗骨"
+      ],
+      "criteria": [
+        "准确归属丝柯克的遗骨与神之心说法。",
+        "指出她不知道姓名和死期。",
+        "保留那维莱特对误会、比喻及真伪的条件。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/终幕礼__2832f60895.json",
+          "pointer": "/对话/261/内容"
+        },
+        {
+          "file": "parsed/archon-quests/终幕礼__2832f60895.json",
+          "pointer": "/对话/263/内容"
+        },
+        {
+          "file": "parsed/archon-quests/终幕礼__2832f60895.json",
+          "pointer": "/对话/272/内容"
+        },
+        {
+          "file": "parsed/archon-quests/终幕礼__2832f60895.json",
+          "pointer": "/对话/273/内容"
+        },
+        {
+          "file": "parsed/archon-quests/终幕礼__2832f60895.json",
+          "pointer": "/对话/280/内容"
+        },
+        {
+          "file": "parsed/archon-quests/终幕礼__2832f60895.json",
+          "pointer": "/对话/282/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-058",
+      "type": "causal",
+      "difficulty": "easy",
+      "question": "诺艾尔为何能在客人喊她时迅速解决宴会里的盘子难题？故事怎样解释她的做事方式？",
+      "answer": "故事用她放倒将要坠盘的柜子、取盘再整理的例子说明：她事先多考虑一点，按「该有的全都有，不该有的不能有」做事。所谓「无处不在」是人们的评价，故事没有把它写成超自然能力。",
+      "keywords": [
+        "诺艾尔",
+        "女仆",
+        "盘子"
+      ],
+      "criteria": [
+        "说明她采取安全取盘并整理的行动。",
+        "把无处不在视为评价，指出她按周全准则做事。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/characters/诺艾尔__367ecafc74.json",
+          "pointer": "/角色故事/角色故事1"
+        }
+      ]
+    },
+    {
+      "id": "gq2-059",
+      "type": "causal",
+      "difficulty": "easy",
+      "question": "八岁的妮露第一次看老师跳舞时，是什么经历让她忍不住跟着起舞？老师随后如何回应？",
+      "answer": "八岁的妮露在花神诞祭看老师于祖拜尔剧场跳舞，不由自主跟着跳；演出后老师与她一起捡散落的糖果，并邀请她今后一起跳舞。文本呈现邀请前的动作，没有给出老师更深的心理解释。",
+      "keywords": [
+        "妮露",
+        "祖拜尔剧场",
+        "老师"
+      ],
+      "criteria": [
+        "交代妮露在花神诞祭首次看老师跳舞，仿佛看到千万花朵绽放，因而不自觉跟跳。",
+        "说明老师随后帮她捡糖果并邀请她今后一起跳舞，不虚构老师的内心原因。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/characters/妮露__8e0616e63a.json",
+          "pointer": "/角色故事/角色故事3"
+        }
+      ]
+    },
+    {
+      "id": "gq2-060",
+      "type": "causal",
+      "difficulty": "easy",
+      "question": "商人为何即使支付较高费用仍愿请烟绯调解纠纷？",
+      "answer": "故事说商人看重调解人是否令人信服；烟绯思维敏捷、口齿伶俐，尤其重视公平，经过她调解的争执往往能圆满收场，因此许多人愿付高价预约。",
+      "keywords": [
+        "烟绯",
+        "调解",
+        "公平"
+      ],
+      "criteria": [
+        "说明商人看重可信的调解人。",
+        "指出烟绯的能力、公平取向和调解效果。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/characters/烟绯__0634c28765.json",
+          "pointer": "/角色故事/角色故事1"
+        }
+      ]
+    },
+    {
+      "id": "gq2-061",
+      "type": "causal",
+      "difficulty": "medium",
+      "question": "纳西妲如何解释须弥屏障这次启动，而此前居民患病时没有启动？她把这项规则归于谁？",
+      "answer": "纳西妲说居民患病尚不足以让世界树自身陷入严重危机；「博士」的入侵已影响世界树本身，因此屏障展开。她将危机时隔绝须弥、给外界留出喘息时间的规则归于天理。",
+      "keywords": [
+        "世界树",
+        "须弥屏障",
+        "博士",
+        "天理"
+      ],
+      "criteria": [
+        "区分居民病症与世界树本体受侵的触发条件。",
+        "说明隔绝须弥是纳西妲所述的天理规则及其外界缓冲目的。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json",
+          "pointer": "/对话/132/内容"
+        },
+        {
+          "file": "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json",
+          "pointer": "/对话/133/内容"
+        },
+        {
+          "file": "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json",
+          "pointer": "/对话/134/内容"
+        },
+        {
+          "file": "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json",
+          "pointer": "/对话/135/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-062",
+      "type": "causal",
+      "difficulty": "medium",
+      "question": "尼可讲述中，尼伯龙根为何囚禁三月女神，并怎样改变月亮的用途？",
+      "answer": "尼可说葬火之战时三月女神对于是否追随归来的尼伯龙根出现分歧，其中有人担忧深渊力量和世界破碎。尼伯龙根发现她们没有一致追随自己，便将她们囚禁，把月亮改造成对抗天理的武器。这是尼可的历史叙述。",
+      "keywords": [
+        "尼伯龙根",
+        "三月女神",
+        "葬火之战",
+        "月亮"
+      ],
+      "criteria": [
+        "说明女神们在战争中的分歧及其顾虑。",
+        "说明尼可所述囚禁和将月亮武器化的结果。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/47/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/48/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/49/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/50/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/51/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-063",
+      "type": "causal",
+      "difficulty": "medium",
+      "question": "夜神为何愿意以彻底消失为代价再次重构纳塔地脉？玛薇卡为什么没有接受？",
+      "answer": "夜神说自己作为天使愿继续为纳塔人献力，甚至提出以完全消失为代价再次重构地脉。玛薇卡拒绝，因为这会使夜神消失、夜神之国的规则失效，并让旧地脉的记忆和传说消失，造成失忆等严重后果。两人对代价的判断不同。",
+      "keywords": [
+        "夜神",
+        "天使",
+        "玛薇卡",
+        "地脉重构"
+      ],
+      "criteria": [
+        "说明夜神的天使身份、助人动机与自我牺牲提议。",
+        "说明玛薇卡指出的夜神、规则和记忆三重代价。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/222/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/223/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/224/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/228/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/232/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/233/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/234/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/235/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/236/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-064",
+      "type": "causal",
+      "difficulty": "medium",
+      "question": "世界树屏障阻挡物品传递时，纳西妲为何认为旅行者能跨过它？",
+      "answer": "纳西妲解释世界树通常依据记录产生影响，而旅行者是降临者，世界树没有他／她的记录，因此屏障无法阻挡旅行者；这使转交火神之心有了办法。",
+      "keywords": [
+        "降临者",
+        "旅行者",
+        "世界树",
+        "屏障"
+      ],
+      "criteria": [
+        "说明屏障挡住传递的具体场景。",
+        "将旅行者可通过与世界树没有其记录的机制相连。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json",
+          "pointer": "/对话/163/内容"
+        },
+        {
+          "file": "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json",
+          "pointer": "/对话/164/内容"
+        },
+        {
+          "file": "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json",
+          "pointer": "/对话/166/内容"
+        },
+        {
+          "file": "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json",
+          "pointer": "/对话/168/内容"
+        },
+        {
+          "file": "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json",
+          "pointer": "/对话/170/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-065",
+      "type": "causal",
+      "difficulty": "medium",
+      "question": "血亲怎样说明「命运的织机」编成新坎瑞亚地脉的过程？为什么当时仍不能说复国已经完成？",
+      "answer": "血亲说夜神之国只能提供编织空间、无法承载新地脉；获夜神准许后，以因提瓦特花为基底叠加五百年前的坎瑞亚空间，再由教众的冥想与回忆不断充实，织机编成新坎瑞亚的地脉。血亲仍需找到能承载它的空间，故称复国尚未完成。",
+      "keywords": [
+        "命运的织机",
+        "新坎瑞亚",
+        "地脉",
+        "因提瓦特"
+      ],
+      "criteria": [
+        "依次说明空间基底、记忆充实和地脉编织。",
+        "指出夜神之国不能承载新地脉，血亲仍在寻找承载空间。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/你所不在的时空__a14eb4d1c3.json",
+          "pointer": "/对话/285/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你所不在的时空__a14eb4d1c3.json",
+          "pointer": "/对话/289/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你所不在的时空__a14eb4d1c3.json",
+          "pointer": "/对话/291/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你所不在的时空__a14eb4d1c3.json",
+          "pointer": "/对话/292/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你所不在的时空__a14eb4d1c3.json",
+          "pointer": "/对话/295/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你所不在的时空__a14eb4d1c3.json",
+          "pointer": "/对话/296/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你所不在的时空__a14eb4d1c3.json",
+          "pointer": "/对话/298/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你所不在的时空__a14eb4d1c3.json",
+          "pointer": "/对话/299/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-066",
+      "type": "causal",
+      "difficulty": "medium",
+      "question": "卡利贝尔内心世界的说话者凭什么判断天理仍在沉睡？他是否知道天理会因何醒来？",
+      "answer": "该说话者称天理自五百年前坎瑞亚灾变后沉睡、没有声息，并把水神自毁神座后天空岛未行动视为佐证。他认为天理终会苏醒，却明确说不清楚触发契机与理由；这是一名角色的判断。",
+      "keywords": [
+        "天理",
+        "坎瑞亚灾变",
+        "水神神座",
+        "沉睡"
+      ],
+      "criteria": [
+        "区分说话者的沉睡判断与神座事件这一佐证。",
+        "指出苏醒契机与理由仍未知，不写成已证机制。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/以世界之格的诉说__4bbab786b1.json",
+          "pointer": "/对话/262/内容"
+        },
+        {
+          "file": "parsed/archon-quests/以世界之格的诉说__4bbab786b1.json",
+          "pointer": "/对话/263/内容"
+        },
+        {
+          "file": "parsed/archon-quests/以世界之格的诉说__4bbab786b1.json",
+          "pointer": "/对话/264/内容"
+        },
+        {
+          "file": "parsed/archon-quests/以世界之格的诉说__4bbab786b1.json",
+          "pointer": "/对话/265/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-067",
+      "type": "causal",
+      "difficulty": "hard",
+      "question": "按《日月前事》的纪年，第二王座到来后海渊先祖为何落入黑暗？书中怎样推断后来第一王座与第二王座的胜负，为什么不能把推断当目击记录？",
+      "answer": "古籍写葬火之年第二王座到来、天地崩裂，海渊先祖和土地坠入此处，黑暗年代开始。日月二年先祖寻归途时见到第一王座布下禁令，书中据此说第一王座「应该」打败了第二位；这只是作者依据禁令作的推断，不是战争现场的直接记录。",
+      "keywords": [
+        "第二王座",
+        "葬火之年",
+        "海渊",
+        "第一王座"
+      ],
+      "criteria": [
+        "按古籍顺序交代第二王座到来、坠落与黑暗年代。",
+        "说明返乡禁令和作者以「应该」推定胜负的依据。",
+        "保留古籍推断与目击事实的区别。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+          "pointer": "/volumes/1/content"
+        }
+      ]
+    },
+    {
+      "id": "gq2-068",
+      "type": "causal",
+      "difficulty": "hard",
+      "question": "远古龙与降临者之战和后来的纳塔制度之间，在玛薇卡的叙述中有哪些不同阶段？",
+      "answer": "玛薇卡说大战先破坏世界边缘，引来深渊，纳塔地脉受损尤重；夜神随后用旧地脉残片构建夜神之国。再往后，初代火神希巴拉克强化它并建立对抗深渊的「还魂诗」与「归火圣夜巡礼」规则。三步分别是战争损害、夜神重构和人类火神建立制度，不能合并为一次行动。",
+      "keywords": [
+        "龙与降临者",
+        "夜神之国",
+        "希巴拉克",
+        "还魂诗"
+      ],
+      "criteria": [
+        "列明战争导致的深渊与地脉损害。",
+        "区分夜神重构与希巴拉克后来强化、定规则。",
+        "将历史链条归于玛薇卡的叙述。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/214/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/215/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/216/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-069",
+      "type": "causal",
+      "difficulty": "hard",
+      "question": "尼可为何希望奈芙尔重新看待自己的恨意？奈芙尔接受了哪些判断，又拒绝了什么？",
+      "answer": "尼可以天使引导真实愿望的职责为由，希望听奈芙尔过去；她认为记忆和情感依托现实中的人、场景与事物，若须弥毁灭，奈芙尔珍视的记忆也可能随之淡去。奈芙尔承认自己不只有恨，却拒绝尼可替她改变想法，并说自己希望记住那些旧情感。尼可的心理推演不能写成奈芙尔已被说服。",
+      "keywords": [
+        "尼可",
+        "奈芙尔",
+        "天使",
+        "记忆"
+      ],
+      "criteria": [
+        "说明尼可的职责及她关于记忆与情感的推演。",
+        "说明奈芙尔承认情感复杂却拒绝引导、希望记住过去。",
+        "不把尼可的预测写成已经发生的记忆消失。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/88/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/89/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/90/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/91/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/93/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/96/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/97/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/99/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/104/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/105/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/106/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-070",
+      "type": "causal",
+      "difficulty": "hard",
+      "question": "血亲为何把坎瑞亚称为第二故乡，又为何说复国的愧疚只是理由之一？这些自述能否解释世界树为何有血亲的记录？",
+      "answer": "血亲说初到坎瑞亚时记忆空白，在王庭生活很久才逐渐想起旅行者，因此仍把坎瑞亚视为第二故乡，愧疚由此而来；更重要的是，血亲想拥有「一整个世界」以取得与天理平等对话的资格。纳西妲另说世界树有血亲记录，愚人众未将其列为降临者，但这些对白没有直接说明记录形成的机制。",
+      "keywords": [
+        "血亲",
+        "坎瑞亚",
+        "天理",
+        "世界树"
+      ],
+      "criteria": [
+        "分别说明失忆、王庭生活与第二故乡的关系。",
+        "交代愧疚以外的对等对话目标。",
+        "区分动机自述与世界树记录成因仍未说明。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/你所不在的时空__a14eb4d1c3.json",
+          "pointer": "/对话/305/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你所不在的时空__a14eb4d1c3.json",
+          "pointer": "/对话/306/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你所不在的时空__a14eb4d1c3.json",
+          "pointer": "/对话/308/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你所不在的时空__a14eb4d1c3.json",
+          "pointer": "/对话/309/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你所不在的时空__a14eb4d1c3.json",
+          "pointer": "/对话/311/内容"
+        },
+        {
+          "file": "parsed/archon-quests/请饮下祝胜之酒__c78c714fdb.json",
+          "pointer": "/对话/587/内容"
+        },
+        {
+          "file": "parsed/archon-quests/请饮下祝胜之酒__c78c714fdb.json",
+          "pointer": "/对话/604/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-071",
+      "type": "causal",
+      "difficulty": "hard",
+      "question": "尼可讲述天理击碎两个月亮的原因时，给出了哪两种不同解释？哪些后续结果在她的叙述中仍不确定？",
+      "answer": "尼可先说天理曾与月神和平相处，但被尼伯龙根改造成武器的月亮已成为威胁；她又提出另一说法：天理可能不知月神被囚禁，误以为她们先毁约。她说天理击碎两月、抛出一月，但月神后来是否逃出尼伯龙根的囚禁仍不可知。两种理由不能合并成唯一确定动机。",
+      "keywords": [
+        "天理",
+        "月神",
+        "和平约定",
+        "囚禁"
+      ],
+      "criteria": [
+        "分别表述威胁过大与不知囚禁、以为毁约两种说法。",
+        "说明击碎和抛出月亮的叙述结果。",
+        "保留是否逃出囚禁及天理动机的不确定性。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/51/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/53/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/54/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/55/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/57/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/58/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-072",
+      "type": "worldbuilding",
+      "difficulty": "easy",
+      "question": "《日月前事》用「蛋壳」说明法涅斯可能做过什么世界边界安排？",
+      "answer": "古籍说法涅斯——书中认为可能就是原初的那一位——用蛋壳隔绝「宇宙」与「世界的缩影」。这是古籍的形象化叙述。",
+      "keywords": [
+        "法涅斯",
+        "蛋壳",
+        "宇宙",
+        "世界的缩影"
+      ],
+      "criteria": [
+        "说出蛋壳所隔开的两侧。",
+        "保留古籍对法涅斯身份的可能语气。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+          "pointer": "/volumes/1/content"
+        }
+      ]
+    },
+    {
+      "id": "gq2-073",
+      "type": "worldbuilding",
+      "difficulty": "medium",
+      "question": "夜神怎样区分提瓦特原初的燃素与后来的元素力？她为何说这种改造发生？",
+      "answer": "夜神说燃素是提瓦特原初的力量；元素力则是天理在燃素基础上改造而成，目的在于应对深渊威胁。她借光折射为七色作比喻，并没有在这一段给出可量化的转换公式。",
+      "keywords": [
+        "夜神",
+        "燃素",
+        "元素力",
+        "深渊"
+      ],
+      "criteria": [
+        "区分夜神所说的燃素与后来的元素力。",
+        "说明她所归属的改造者和抗深渊目的。",
+        "不把折射比喻解释成精确物理过程。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/297/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/298/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/299/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-074",
+      "type": "worldbuilding",
+      "difficulty": "medium",
+      "question": "尼可在向柯莱等人介绍自己时，怎样描述天使的身份、寿命与职责？",
+      "answer": "尼可自称长寿的天使，说这种存在不能称为魔神，但知道不少古老故事。她又说天使的职责是引导人实现内心真实愿望；这些是尼可对自身种类和职责的说明，而非所有天使能力的完整清单。",
+      "keywords": [
+        "尼可",
+        "天使",
+        "魔神",
+        "愿望"
+      ],
+      "criteria": [
+        "说出尼可自述的长寿、非魔神和知古事。",
+        "说明她所述的引导愿望职责及描述范围。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/90/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/148/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/150/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-075",
+      "type": "worldbuilding",
+      "difficulty": "medium",
+      "question": "世界树通常依记录影响对象；在须弥行动中，旅行者与佩戴终端的人分别为何可能避开记录？两者能否说成同一种永久身份？",
+      "answer": "纳西妲说旅行者作为降临者，本来就没有世界树记录，因此屏障挡不住他／她。另一行动中，世界树受到干扰后，纳西妲说佩戴终端者的行动无法被正确记录。前者是旅行者的记录缺席，后者是特定行动期间记录失灵，不能把所有终端佩戴者都称作降临者。",
+      "keywords": [
+        "世界树",
+        "降临者",
+        "终端",
+        "记录"
+      ],
+      "criteria": [
+        "区分旅行者无记录与世界树停摆期间的记录失灵。",
+        "指出不能据此把终端佩戴者归为降临者。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json",
+          "pointer": "/对话/168/内容"
+        },
+        {
+          "file": "parsed/archon-quests/虚空劫灰往世书__04ef0abaf9.json",
+          "pointer": "/对话/45/内容"
+        },
+        {
+          "file": "parsed/archon-quests/虚空劫灰往世书__04ef0abaf9.json",
+          "pointer": "/对话/51/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-076",
+      "type": "worldbuilding",
+      "difficulty": "hard",
+      "question": "《日月前事》的四个发光影子、「博士」所说四大执政、夜神提到的死之执政，分别属于什么叙述？这些材料能否逐一核定四影的身份？",
+      "answer": "古籍记原初的那一位造出四个发光影子；博士说天理之下有司掌生、死、时、空的四大执政；夜神称帮助纳塔建立规则的那位为「死之执政」，并说天空力量喜欢隐藏身份。材料可对读四影与四执政的关联，但古籍没有逐一命名，博士和夜神的话也未在此逐名核验全部四影。",
+      "keywords": [
+        "四影",
+        "四大执政",
+        "死之执政",
+        "夜神"
+      ],
+      "criteria": [
+        "分别归属古籍、博士与夜神的说法。",
+        "说明死之执政在夜神叙述中的纳塔关联。",
+        "不把四个古籍影子逐一配名为已由这些材料证实。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+          "pointer": "/volumes/1/content"
+        },
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/279/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/281/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/286/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/287/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/288/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-077",
+      "type": "worldbuilding",
+      "difficulty": "hard",
+      "question": "《深海龙蜥实验记录》如何区分进化观察、研究者的「种子」猜想和水龙王人形预言？它能否单凭实验直接确认后来某个角色的身份？",
+      "answer": "记录描述龙蜥子代在不同环境下出现耐寒或耐热特征，研究者随即说结论尚不足，只可印证「种子」觉醒与母体编制的猜想。另一段又记智力学习实验，并引述水之龙王将以人形诞生的预言。观察、猜想和预言层级不同，这份实验本身没有点名后来的人形水龙王。",
+      "keywords": [
+        "深海龙蜥",
+        "种子",
+        "实验",
+        "水之龙王"
+      ],
+      "criteria": [
+        "分清环境观察与研究者尚未证成的种子机制。",
+        "指出人形水龙王是记录引述的预言。",
+        "不由实验单独识别后来具体角色。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+          "pointer": "/volumes/3/content"
+        }
+      ]
+    },
+    {
+      "id": "gq2-078",
+      "type": "worldbuilding",
+      "difficulty": "hard",
+      "question": "尼可与哥伦比娅分别怎样叙述葬火之战后月亮的结局？两份对白的证据边界有什么不同？",
+      "answer": "尼可概述天理击碎两个月亮、把另一轮扔到天外，并明言月神是否逃出囚禁尚不确定。哥伦比娅对三位月神说自己所知是天理惨胜、尼伯龙根陨落，「恒月」与「虹月」在战争中破碎，「霜月」被抛出虚假之天。两段可对照月亮结果，但哥伦比娅以「据我所知」限定战况，尼可也未解释每位月神的全部去向。",
+      "keywords": [
+        "葬火之战",
+        "恒月",
+        "虹月",
+        "霜月"
+      ],
+      "criteria": [
+        "分别归属尼可与哥伦比娅的叙述。",
+        "正确对应两轮破碎和一轮被抛出的结果及名称。",
+        "保留逃出囚禁与战况知识的限定。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/57/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/58/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/59/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/445/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/446/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/450/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/451/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-079",
+      "type": "worldbuilding",
+      "difficulty": "hard",
+      "question": "「博士」声称降临者应有特殊位阶，与纳西妲关于旅行者越过世界树屏障的解释，分别属于哪类说法？能否据此证明博士许诺的「特权」已落实？",
+      "answer": "博士以旅行者寿命与来历不同为由，许诺让「生来就是降临者」的旅行者回到所谓应有位阶，这是他的劝诱主张。纳西妲另以世界树没有旅行者记录解释他／她为何不被屏障阻挡。后者说明一次具体作用，不证实博士的价值判断或许诺已经兑现。",
+      "keywords": [
+        "博士",
+        "降临者",
+        "世界树",
+        "特权"
+      ],
+      "criteria": [
+        "将博士的位阶和特权说法归为其劝诱。",
+        "说明纳西妲给出的屏障机制。",
+        "不由机制推出博士已实际赋予特权。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json",
+          "pointer": "/对话/168/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/297/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/298/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/299/内容"
+        },
+        {
+          "file": "parsed/archon-quests/循着过往的足迹__942a657281.json",
+          "pointer": "/对话/361/内容"
+        },
+        {
+          "file": "parsed/archon-quests/循着过往的足迹__942a657281.json",
+          "pointer": "/对话/363/内容"
+        },
+        {
+          "file": "parsed/archon-quests/循着过往的足迹__942a657281.json",
+          "pointer": "/对话/365/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-080",
+      "type": "worldbuilding",
+      "difficulty": "hard",
+      "question": "世界树在天理到来前是否已经存在？阿佩普与纳西妲分别怎样叙述其古今用途和后来的变化？",
+      "answer": "阿佩普说世界树在天理之前已有，龙族时代的作用与样貌不同，后来被天理夺走、改造以供人类使用。纳西妲也说世界树早于天理；在另一段对白中，她称天理将光界力化分为元素力，把世界树改造成记录装置，并为其严重危机定下隔绝须弥的规则。世界树先存与后来改造是不同阶段；「夺走」体现阿佩普的敌对立场，不能当成两人共同使用的评价。",
+      "keywords": [
+        "世界树",
+        "天理",
+        "阿佩普",
+        "纳西妲"
+      ],
+      "criteria": [
+        "说明世界树先于天理存在及古今功能有别。",
+        "分别归属阿佩普与纳西妲所说的改造或规则。",
+        "区分阿佩普的敌对评价与两人共同支持的时间先后。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/238/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/240/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/241/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/242/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/243/内容"
+        },
+        {
+          "file": "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json",
+          "pointer": "/对话/131/内容"
+        },
+        {
+          "file": "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json",
+          "pointer": "/对话/134/内容"
+        },
+        {
+          "file": "parsed/archon-quests/幽暗时分__250721001d.json",
+          "pointer": "/对话/453/内容"
+        },
+        {
+          "file": "parsed/archon-quests/幽暗时分__250721001d.json",
+          "pointer": "/对话/454/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-081",
+      "type": "relationship",
+      "difficulty": "easy",
+      "question": "可莉闯祸后，琴与凯亚在故事中分别怎样对待她？",
+      "answer": "琴作为代理团长，严厉要求可莉交出藏着的爆炸物；随后骑兵队长凯亚护送哭泣的可莉去禁闭室。故事没有说凯亚是惩罚的决定者。",
+      "keywords": [
+        "可莉",
+        "琴",
+        "凯亚"
+      ],
+      "criteria": [
+        "说明琴的管束和收缴。",
+        "说明凯亚负责护送，区分两人的行动。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/characters/可莉__bba2a7d7c9.json",
+          "pointer": "/角色故事/角色故事2"
+        }
+      ]
+    },
+    {
+      "id": "gq2-082",
+      "type": "relationship",
+      "difficulty": "easy",
+      "question": "瑶瑶是谁的弟子？这位师长和其他长辈如何对待她？",
+      "answer": "瑶瑶是歌尘浪市真君座下年纪最小的弟子；真君青睐她，师姐和其他长辈也很爱护她。",
+      "keywords": [
+        "瑶瑶",
+        "歌尘浪市真君",
+        "师徒"
+      ],
+      "criteria": [
+        "指出师父及最年幼弟子身份。",
+        "说明师长与长辈的爱护。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/characters/瑶瑶__ea33f0dfed.json",
+          "pointer": "/角色故事/角色详细"
+        }
+      ]
+    },
+    {
+      "id": "gq2-083",
+      "type": "relationship",
+      "difficulty": "medium",
+      "question": "柯莱流浪时最后一位同伴的举动，怎样影响了她对求助的态度？",
+      "answer": "柯莱跌落山道抓住树枝求救，最后一位同伴独自逃走，后来也被野兽追上。柯莱因此决定不再向别人伸手；她又说若交换处境，自己也未必能做得更好，所以没有把憎恨归于对方。",
+      "keywords": [
+        "柯莱",
+        "流浪",
+        "同伴"
+      ],
+      "criteria": [
+        "交代求救、同伴离开与柯莱的结论。",
+        "保留她不敢断言自己会做得更好的反思。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/characters/柯莱__c729b711eb.json",
+          "pointer": "/角色故事/角色故事4"
+        }
+      ]
+    },
+    {
+      "id": "gq2-084",
+      "type": "relationship",
+      "difficulty": "medium",
+      "question": "尼可怎样说明她与花神娜布·玛莉卡塔的共同来历？她如何解释柯莱体内的花神残片发出示警，哪些仍是尼可的推断？",
+      "answer": "尼可说花神与自己本质上都是原初之人所造的天使，具有引导众生的本能。她称柯莱体内留有花神碎片，即便花神身体与灵魂已毁，本能仍会发出警示；至于愚人众怎样收集碎片以及花神究竟预感到什么，尼可只作猜测或推想。",
+      "keywords": [
+        "尼可",
+        "花神",
+        "柯莱",
+        "天使"
+      ],
+      "criteria": [
+        "说明尼可所说两位天使的共同来历与本能。",
+        "把柯莱体内残片与示警联系起来。",
+        "区分尼可对收集方式和预感内容的推测。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/174/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/184/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/185/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/199/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/200/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/201/内容"
+        },
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/202/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-085",
+      "type": "relationship",
+      "difficulty": "medium",
+      "question": "阿佩普明言厌恶魔神与人类，为何仍破例帮助纳西妲？帮助之后她对纳西妲恢复程度又作了什么限定？",
+      "answer": "阿佩普说纳西妲曾把受禁忌知识折磨的自己从苦痛中救出；她虽把敌人的怜悯视作羞辱，却认为受助不报有损龙王尊严，因此破例供给生命力。她同时说纳西妲与世界树高度相关，世界树问题未解决前，力量不可能完全恢复。",
+      "keywords": [
+        "阿佩普",
+        "纳西妲",
+        "龙王",
+        "世界树"
+      ],
+      "criteria": [
+        "说明阿佩普对魔神人类的敌意与旧日受助事实。",
+        "说明报答与尊严如何促成破例帮助。",
+        "保留纳西妲尚不能完全恢复的条件。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/199/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/200/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/203/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/204/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/207/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/208/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/209/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/217/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/218/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-086",
+      "type": "relationship",
+      "difficulty": "medium",
+      "question": "三月女神与尼伯龙根最初是什么关系？葬火之战时为何没有形成一致立场？",
+      "answer": "尼可说三月女神原本作为星球的影子，为尼伯龙根代行权能；尼伯龙根归来与天理开战时，她们内部出现分歧：有人倾向追随创造者，有人担心战争使世界更破碎，也顾虑他身上的深渊之力。原初职责并不意味着战时仍一致服从。",
+      "keywords": [
+        "三月女神",
+        "尼伯龙根",
+        "影子",
+        "葬火之战"
+      ],
+      "criteria": [
+        "说明月神初生时与尼伯龙根的权能关系。",
+        "交代战时追随与反对的不同理由。",
+        "不把月神群体说成单一立场。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/65/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/66/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/47/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/48/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/49/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/50/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-087",
+      "type": "relationship",
+      "difficulty": "medium",
+      "question": "夜神怎样描述自己与「死之执政」在纳塔规则建立中的关系？天理又如何看待这位执政的帮助？",
+      "answer": "夜神说自己是在死之执政指引下构建夜神之国，死之执政也曾帮助纳塔建立规则。她把这种做法称作影子的爱与补偿，并说天理对此并不满意。这里呈现夜神的回忆，不应写成天理认可这项援助。",
+      "keywords": [
+        "夜神",
+        "死之执政",
+        "天理",
+        "纳塔"
+      ],
+      "criteria": [
+        "说出死之执政对夜神和纳塔规则的指引。",
+        "说明夜神所述天理的不满及其说法来源。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/286/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/287/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/288/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/289/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-088",
+      "type": "relationship",
+      "difficulty": "hard",
+      "question": "索贝克怎样回顾赤王与阿佩普的恩怨？再看阿佩普自己的话，哪些关于「七柱」与吞下赤王的说法不能被写成两者合作无间？",
+      "answer": "索贝克称赤王自作主张把阿佩普列作七柱之一，又说赤王在生命末期欺骗阿佩普吞下自己，将禁忌知识的磨难留给她；这些是索贝克的回顾。阿佩普自己说曾被阿赫玛尔算计、受禁忌知识折磨。两边支持存在算计与痛苦，却不能把名义上的「七柱」或吞食事件写成阿佩普自愿结盟。",
+      "keywords": [
+        "赤王",
+        "阿佩普",
+        "索贝克",
+        "七柱",
+        "禁忌知识"
+      ],
+      "criteria": [
+        "交代索贝克对赤王单方面列名和欺骗的叙述。",
+        "引用阿佩普本人对受算计、受折磨的表述。",
+        "不把两人写成自愿合作的关系。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/幽暗时分__250721001d.json",
+          "pointer": "/对话/175/内容"
+        },
+        {
+          "file": "parsed/archon-quests/幽暗时分__250721001d.json",
+          "pointer": "/对话/176/内容"
+        },
+        {
+          "file": "parsed/archon-quests/幽暗时分__250721001d.json",
+          "pointer": "/对话/178/内容"
+        },
+        {
+          "file": "parsed/archon-quests/幽暗时分__250721001d.json",
+          "pointer": "/对话/182/内容"
+        },
+        {
+          "file": "parsed/archon-quests/幽暗时分__250721001d.json",
+          "pointer": "/对话/183/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/207/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/208/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-089",
+      "type": "relationship",
+      "difficulty": "hard",
+      "question": "「博士」试图如何利用旅行者的降临者身份说服其与自己接近？旅行者在同场对白中怎样回应，为什么不能把博士的话当成双方已结盟？",
+      "answer": "博士把旅行者称为降临者、强调其与普通人不同，并声称两人的关系可超越通常感情与利益冲突，企图以特殊位阶和实验许诺拉近距离。旅行者却明确说不与满口谎言的博士做交易，后来也说自己认真体验旅途、与博士完全不同。特殊身份是博士的劝诱材料，不是结盟的证据。",
+      "keywords": [
+        "博士",
+        "旅行者",
+        "降临者",
+        "结盟"
+      ],
+      "criteria": [
+        "指出博士利用特殊身份、位阶或共同利益作劝诱。",
+        "引出旅行者拒绝交易及否认价值观相同的回应。",
+        "不把博士单方话术当作双方关系已成立。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/270/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/274/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/275/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/276/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/293/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/297/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/298/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/299/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/303/内容"
+        },
+        {
+          "file": "parsed/archon-quests/你我交错的时空__980c0dcdb5.json",
+          "pointer": "/对话/306/内容"
+        },
+        {
+          "file": "parsed/archon-quests/循着过往的足迹__942a657281.json",
+          "pointer": "/对话/361/内容"
+        },
+        {
+          "file": "parsed/archon-quests/循着过往的足迹__942a657281.json",
+          "pointer": "/对话/363/内容"
+        },
+        {
+          "file": "parsed/archon-quests/循着过往的足迹__942a657281.json",
+          "pointer": "/对话/365/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-107",
+      "type": "worldbuilding",
+      "difficulty": "medium",
+      "question": "《日月前事》称旧世界有七位龙之大王，尼可另说三月由尼伯龙根令其升起。两处各描述龙族旧时代的哪一面？能否仅凭它们列出七王姓名？",
+      "answer": "古籍描述原初王座与七位龙之大王开战；尼可讲述尼伯龙根令三月升起、月神代其管理世界。两处分别涉及战争对手和统治安排，都没有给出七位龙王的完整姓名名单，也不能单凭这两处把尼伯龙根定为名单中的某一位。",
+      "keywords": [
+        "七位大王",
+        "尼伯龙根",
+        "三月女神"
+      ],
+      "criteria": [
+        "分别复述古籍与尼可的叙述内容和来源。",
+        "指出两处不足以列全七王姓名或确认尼伯龙根在该名单中的位置。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+          "pointer": "/volumes/1/content"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/65/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/66/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-108",
+      "type": "relationship",
+      "difficulty": "medium",
+      "question": "尼可与夜神各怎样描述天使帮助人类的方式？这些对白能否证明两位天使拥有相同能力？",
+      "answer": "尼可说天使职责是引导人找到内心真实愿望；夜神说自己和纳塔遗留的天使、仙灵为人类重构地脉，后来又称改变地脉规则是履行为人类着想的使命。两者都强调帮助人类，但引导心愿与重构地脉是各自对白中的具体行为，不能据此说所有天使能力完全相同。",
+      "keywords": [
+        "尼可",
+        "夜神",
+        "天使",
+        "人类"
+      ],
+      "criteria": [
+        "分别说明尼可的引导愿望和夜神的地脉行动。",
+        "说明共同的助人方向与具体能力不可直接等同。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/旧影重现__05ec673f13.json",
+          "pointer": "/对话/90/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/215/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/224/内容"
+        },
+        {
+          "file": "parsed/archon-quests/秘源之下__0f81c9d00e.json",
+          "pointer": "/对话/228/内容"
+        },
+        {
+          "file": "parsed/archon-quests/当一切镌刻成碑__135625aef1.json",
+          "pointer": "/对话/328/内容"
+        },
+        {
+          "file": "parsed/archon-quests/当一切镌刻成碑__135625aef1.json",
+          "pointer": "/对话/329/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-109",
+      "type": "worldbuilding",
+      "difficulty": "hard",
+      "question": "《日月前事》讲原初的那一位创造生灵，阿佩普却说世界树先于天理。两种材料怎样放在不同叙述层次与时间阶段中理解？",
+      "answer": "古籍以本族先祖视角写原初的那一位和影子造飞鸟、走兽、花草，最后造人；书中对原初那一位是否法涅斯也用「或许」。阿佩普则说世界树在天理到来前已存在，曾属龙族，后来被改造。古籍的特定造物叙事不能推成「天理到来前绝无任何生命或世界树」；阿佩普的敌对口吻也不是古籍作者的立场。",
+      "keywords": [
+        "日月前事",
+        "原初的那一位",
+        "阿佩普",
+        "世界树"
+      ],
+      "criteria": [
+        "准确呈现古籍的造物顺序与身份限定。",
+        "呈现阿佩普关于世界树早于天理的说法。",
+        "避免把特定造物叙事扩张成全世界此前空无一物。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+          "pointer": "/volumes/1/content"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/238/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/240/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/241/内容"
+        },
+        {
+          "file": "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json",
+          "pointer": "/对话/242/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-110",
+      "type": "causal",
+      "difficulty": "hard",
+      "question": "《日月前事》先写与七龙王开战、后写第二王座到来；后来的月神对白又讲尼伯龙根与天理的葬火之战。这些文本能否直接把所有战争合成同一场？",
+      "answer": "古籍先记原初王座与七位龙之大王交战，又在后一个纪年记第二王座到来、天地崩裂；月神回忆则说尼伯龙根外出后首位降临者到来，龙王归来时发生后来被称为葬火之战的冲突。两组文本各自有内部先后，但所指称谓和叙述视角不同，不能把古籍的初战、第二王座之战与月神所述战争未经额外证据就合并为同一次事件。",
+      "keywords": [
+        "日月前事",
+        "七龙王",
+        "第二王座",
+        "尼伯龙根",
+        "葬火之战"
+      ],
+      "criteria": [
+        "分别交代古籍初战和第二王座到来的顺序。",
+        "交代月神所述龙王外出、归来与葬火之战。",
+        "不强行判定各材料中的战争完全同一。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/books/白夜国馆藏__c8cd49814d.json",
+          "pointer": "/volumes/1/content"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/422/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/423/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/424/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/441/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/442/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/443/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/445/内容"
+        },
+        {
+          "file": "parsed/archon-quests/名于何处？__6e940bdaec.json",
+          "pointer": "/对话/47/内容"
         }
       ]
     }
