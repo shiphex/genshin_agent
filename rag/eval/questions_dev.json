@@ -1,5 +1,5 @@
 {
-  "version": "0.4",
+  "version": "0.5",
   "dataset": "genshin-story-dev",
   "created_date": "2026-10-12",
   "story_cutoff": "2026-06-05",
@@ -3268,6 +3268,556 @@
         {
           "file": "parsed/archon-quests/循着过往的足迹__942a657281.json",
           "pointer": "/对话/365/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-090",
+      "type": "fact",
+      "difficulty": "easy",
+      "question": "菈乌玛与哥伦比娅说，什么力量汇聚时，通往月亮的门会打开？",
+      "answer": "菈乌玛点出恒月、霜月和虹月；哥伦比娅接着说，当三个月亮的力量汇聚时，通往月亮的门就会打开。",
+      "keywords": [
+        "恒月",
+        "霜月",
+        "虹月",
+        "通往月亮的门"
+      ],
+      "criteria": [
+        "列出恒月、霜月和虹月。",
+        "说明三月力量汇聚是开门条件，并保留对白说话者。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/6/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/7/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-091",
+      "type": "fact",
+      "difficulty": "medium",
+      "question": "伊涅芙怎样介绍挪德卡莱的「月灵」？她又依据什么材料判断「霜月之子」信仰的年代？",
+      "answer": "伊涅芙称月灵是挪德卡莱特有的物种；按当地「霜月之子」的说法，月灵是月神眷属，会引导月光下的人找到重要之物。她又说，据自己数据库中的文献，「霜月之子」的信仰似乎能追溯到天使文明时期，当时尚无「尘世七执政」。前者是当地人的信仰说法，后者是伊涅芙据文献作的判断，并非她亲历的远古史。",
+      "keywords": [
+        "伊涅芙",
+        "月灵",
+        "霜月之子",
+        "天使文明"
+      ],
+      "criteria": [
+        "说明月灵的地域属性，并将其眷属和引路作用归于霜月之子的说法。",
+        "交代伊涅芙所据的数据库文献及她使用的「似乎」限定。",
+        "说明她所指的年代早于尘世七执政，不改写为亲历或绝对确证。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/月亮升起的地方__bc1dde7c06.json",
+          "pointer": "/对话/84/内容"
+        },
+        {
+          "file": "parsed/archon-quests/月亮升起的地方__bc1dde7c06.json",
+          "pointer": "/对话/86/内容"
+        },
+        {
+          "file": "parsed/archon-quests/月亮升起的地方__bc1dde7c06.json",
+          "pointer": "/对话/88/内容"
+        },
+        {
+          "file": "parsed/archon-quests/月亮升起的地方__bc1dde7c06.json",
+          "pointer": "/对话/89/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-092",
+      "type": "fact",
+      "difficulty": "hard",
+      "question": "按卡侬的说明，三月权能转交哥伦比娅后，哥伦比娅、三位旧月神和囚牢外三轮月亮的力量分别处于什么状态？",
+      "answer": "卡侬说，她们已把三月的权能全数转交哥伦比娅，哥伦比娅因此成为当时唯一的「三月女神」；但囚牢外三轮月亮的力量并未一并交给她。旧月神献出权能与力量后只剩凡人身躯，囚牢开始消解这些身躯。她们请求哥伦比娅送自己回到现实，卡侬认为失去权能后应不再受囚牢阻拦；此处是请求与判断，不能据此单独断定她们已经离开。",
+      "keywords": [
+        "哥伦比娅",
+        "三月权能",
+        "旧月神",
+        "囚牢",
+        "月亮力量"
+      ],
+      "criteria": [
+        "交代权能全数转交及哥伦比娅成为唯一三月女神。",
+        "区分囚牢内权能与未能转交的囚牢外三轮月亮力量。",
+        "说明旧月神仅余凡人身躯并受囚牢消解。",
+        "把返回现实写成她们的请求及卡侬的判断，不当作已完成的行动。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/661/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/662/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/665/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/668/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/672/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/673/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/674/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-093",
+      "type": "causal",
+      "difficulty": "easy",
+      "question": "那维莱特为何接受邀请，来到人类社会担任最高审判官？",
+      "answer": "那维莱特说，他接受邀请是为了回答自己心中的困惑，尤其是为何以现在的形态诞生、漫长生命该归于何处等关于自身存在的问题。他发现自己能与人类情感共鸣，便猜测彼此或有共性，希望通过观察人类逐渐理解自身存在的意义。",
+      "keywords": [
+        "那维莱特",
+        "最高审判官",
+        "自身存在",
+        "人类"
+      ],
+      "criteria": [
+        "指出他接受职位是为解答关于自身存在的困惑。",
+        "说明他因能与人类情感共鸣，而希望借观察人类理解自身。",
+        "将人与龙的共性保留为那维莱特的猜测。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/character-quests/似曾相识的威胁__20e7d0b4af.json",
+          "pointer": "/对话/264/内容"
+        },
+        {
+          "file": "parsed/character-quests/似曾相识的威胁__20e7d0b4af.json",
+          "pointer": "/对话/268/内容"
+        },
+        {
+          "file": "parsed/character-quests/似曾相识的威胁__20e7d0b4af.json",
+          "pointer": "/对话/270/内容"
+        },
+        {
+          "file": "parsed/character-quests/似曾相识的威胁__20e7d0b4af.json",
+          "pointer": "/对话/271/内容"
+        },
+        {
+          "file": "parsed/character-quests/似曾相识的威胁__20e7d0b4af.json",
+          "pointer": "/对话/272/内容"
+        },
+        {
+          "file": "parsed/character-quests/似曾相识的威胁__20e7d0b4af.json",
+          "pointer": "/对话/277/内容"
+        },
+        {
+          "file": "parsed/character-quests/似曾相识的威胁__20e7d0b4af.json",
+          "pointer": "/对话/278/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-094",
+      "type": "causal",
+      "difficulty": "medium",
+      "question": "据卡侬和艾莉亚回忆，她们为何起初没有阻止高天主宰改变世界，后来又为何认为必须采取措施？桑娜妲的态度有何不同？",
+      "answer": "卡侬说最初的来客看起来没有恶意，双方曾相安无事。艾莉亚说，来客后来显露改造与支配欲望，但她和卡侬想观察其规则中那种龙王未教过的「秩序」究竟有益还是有害，因此没有立即阻止；桑娜妲当时反对。后来卡侬回忆，高天主宰以天钉惩罚追求力量的地上生灵，规则的代价过于沉重，她曾救助受罚者，仍有许多生命死去；她们决定采取措施之际，尼伯龙根回来了。这是月神各自的回忆与判断，不宜合成三人始终一致的立场。",
+      "keywords": [
+        "卡侬",
+        "艾莉亚",
+        "桑娜妲",
+        "高天主宰",
+        "天钉"
+      ],
+      "criteria": [
+        "分别说明最初相安无事，以及卡侬和艾莉亚希望观察新秩序的理由。",
+        "指出桑娜妲起初持反对意见。",
+        "说明天钉惩罚及沉重伤亡如何改变前两人的态度，并保留月神回忆的归属。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/427/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/428/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/429/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/431/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/432/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/434/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/435/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/436/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/437/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/438/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/439/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/441/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-095",
+      "type": "causal",
+      "difficulty": "medium",
+      "question": "菈乌玛为何把「霜月之子」加入联合会称为一次尝试？奈芙尔为何对把目光投向整个挪德卡莱有所保留？",
+      "answer": "菈乌玛说，哥伦比娅回归使关心她的人高兴，但如今的霜月之子正在学习不再依赖月神，希望自己迈步、使家园更宜居；加入联合会正是在这种理念下的尝试。奈芙尔欣赏她的进取，却没有她那么乐观：放眼整个挪德卡莱，形形色色的人未必愿意被领导，也未必愿意听正确的话。奈芙尔的保留不能写成联合会已经失败。",
+      "keywords": [
+        "菈乌玛",
+        "霜月之子",
+        "联合会",
+        "奈芙尔"
+      ],
+      "criteria": [
+        "说明不再依赖月神、主动改善家园与加入联合会的关系。",
+        "说明奈芙尔担心更大范围内的人未必接受领导或劝说。",
+        "区分尝试、担忧与已发生的结果。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/空月归乡__3e730efcd5.json",
+          "pointer": "/对话/150/内容"
+        },
+        {
+          "file": "parsed/archon-quests/空月归乡__3e730efcd5.json",
+          "pointer": "/对话/151/内容"
+        },
+        {
+          "file": "parsed/archon-quests/空月归乡__3e730efcd5.json",
+          "pointer": "/对话/152/内容"
+        },
+        {
+          "file": "parsed/archon-quests/空月归乡__3e730efcd5.json",
+          "pointer": "/对话/153/内容"
+        },
+        {
+          "file": "parsed/archon-quests/空月归乡__3e730efcd5.json",
+          "pointer": "/对话/156/内容"
+        },
+        {
+          "file": "parsed/archon-quests/空月归乡__3e730efcd5.json",
+          "pointer": "/对话/157/内容"
+        },
+        {
+          "file": "parsed/archon-quests/空月归乡__3e730efcd5.json",
+          "pointer": "/对话/158/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-096",
+      "type": "causal",
+      "difficulty": "hard",
+      "question": "流浪者怎样解释亥珀波瑞亚虚影所述历史与尼可记忆的差异？按他的说明，多托雷又怎样借「伪月」让通往月亮的门把哥伦比娅送到自己身边？",
+      "answer": "流浪者说，他让虚影与尼可对质后发现两边的历史不同：虚影的叙述多出一个许诺造新月、带回月神的「救世主」，并向其透露了月亮知识。他指认多托雷在背后操纵，但也说多托雷没有亲自进入那扇门；按他转述的尼可解释，同时代虚影之间的因果联系受干扰，巨大的变数使未见过多托雷的虚影也受影响。流浪者接着说，多托雷把变数化为知识，造出令术法误判位置的「伪月」；门通过月矩力定位月亮，当伪月比天外霜月更像月亮，就把哥伦比娅送到多托雷身边。后来多托雷控制她并夺走两块月髓。上述追查和机制保留流浪者转述的来源。",
+      "keywords": [
+        "流浪者",
+        "尼可",
+        "虚影",
+        "多托雷",
+        "伪月",
+        "月矩力"
+      ],
+      "criteria": [
+        "交代虚影历史与尼可记忆的差异、虚构救世主的许诺及获取月亮知识。",
+        "说明流浪者认为多托雷并未亲自进门，而转述尼可关于虚影因果受干扰的解释。",
+        "连起伪月、月矩力定位偏差、哥伦比娅被送错位置及后续月髓被夺。",
+        "不把流浪者的调查和尼可的解释改写为无来源的全知事实。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/70/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/71/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/73/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/74/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/75/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/76/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/79/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/80/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/82/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/83/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/85/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/86/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/87/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/88/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/89/内容"
+        },
+        {
+          "file": "parsed/archon-quests/回到月亮上去__a9f4234a38.json",
+          "pointer": "/对话/90/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-097",
+      "type": "worldbuilding",
+      "difficulty": "medium",
+      "question": "哥伦比娅所知的挪德卡莱「月矩力」，与旧月神被囚禁前对当地力量的记忆有何出入？这些对白解释了出入的成因吗？",
+      "answer": "哥伦比娅把月矩力描述为如今挪德卡莱特有、遍及空气与大地并影响生灵的特殊元素力。卡侬等旧月神却说，在她们被关入囚牢之前，当地没有这种区别于其他地方的力量；艾莉亚看过哥伦比娅展示后称那是她自己的力量。哥伦比娅也疑惑两边的现实为何不同。这些对白呈现了今昔出入，尚未给出月矩力何时、为何遍及当地的确定机制。",
+      "keywords": [
+        "月矩力",
+        "哥伦比娅",
+        "卡侬",
+        "艾莉亚",
+        "挪德卡莱"
+      ],
+      "criteria": [
+        "呈现哥伦比娅对当代月矩力分布的描述。",
+        "呈现旧月神对被囚前当地力量的记忆及艾莉亚对展示力量的判断。",
+        "明确出入存在，但不杜撰形成时间和机制。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/516/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/517/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/518/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/519/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/522/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/523/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/524/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/525/内容"
+        },
+        {
+          "file": "parsed/archon-quests/最初的那抹月光__b51474fddc.json",
+          "pointer": "/对话/526/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-098",
+      "type": "worldbuilding",
+      "difficulty": "hard",
+      "question": "按阿佩普讲述，尼伯龙根从世界之外取得力量、龙族反抗外来秩序，与她后来追寻「禁忌知识」及天钉降下之间是什么先后关系？",
+      "answer": "阿佩普在回答自己如何沾上禁忌知识时回忆，龙族曾认为那是战胜天理的唯一力量；尼伯龙根从世界之外取得漆黑之力，率龙族反抗外来者定义的秩序，惨烈战争几乎令世界崩毁。她说尼伯龙根殒命后自己仍不放弃，后来在将破碎的世界边缘试图获得更多禁忌知识，却被天上降下的巨钉阻止。这里的取得、战斗、再追寻属于不同阶段和主体，不能据此说每条龙都经历了阿佩普后来的行动，或把漆黑之力与禁忌知识的所有性质直接画等号。",
+      "keywords": [
+        "阿佩普",
+        "尼伯龙根",
+        "漆黑之力",
+        "禁忌知识",
+        "天钉"
+      ],
+      "criteria": [
+        "按阿佩普自述交代尼伯龙根取得外来力量并率龙族反抗的阶段。",
+        "说明大战及龙王殒命后，阿佩普又试图取得更多禁忌知识，受到天钉阻止。",
+        "区分尼伯龙根与阿佩普的行动，不扩张为全体龙族同样经历或未经确认的力量等式。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/character-quests/若忘记我为何物__b8c0d1a9aa.json",
+          "pointer": "/对话/305/内容"
+        },
+        {
+          "file": "parsed/character-quests/若忘记我为何物__b8c0d1a9aa.json",
+          "pointer": "/对话/306/内容"
+        },
+        {
+          "file": "parsed/character-quests/若忘记我为何物__b8c0d1a9aa.json",
+          "pointer": "/对话/307/内容"
+        },
+        {
+          "file": "parsed/character-quests/若忘记我为何物__b8c0d1a9aa.json",
+          "pointer": "/对话/309/内容"
+        },
+        {
+          "file": "parsed/character-quests/若忘记我为何物__b8c0d1a9aa.json",
+          "pointer": "/对话/311/内容"
+        },
+        {
+          "file": "parsed/character-quests/若忘记我为何物__b8c0d1a9aa.json",
+          "pointer": "/对话/312/内容"
+        },
+        {
+          "file": "parsed/character-quests/若忘记我为何物__b8c0d1a9aa.json",
+          "pointer": "/对话/313/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-099",
+      "type": "relationship",
+      "difficulty": "easy",
+      "question": "哥伦比娅为什么直到不久前才与菈乌玛见面？她们后来如何看待彼此的关系？",
+      "answer": "哥伦比娅回忆，菈乌玛很小就被选作下一任咏月使，但自己在菈乌玛出生前已离开希汐岛，因此两人直到不久前才见面。旅行者推想，或许正因过去未见，她们才能成为彼此的朋友；哥伦比娅赞同，并说两人从这点看都很幸运。这是旅行者的推想和哥伦比娅的回应，不必写成友谊产生的唯一原因。",
+      "keywords": [
+        "哥伦比娅",
+        "菈乌玛",
+        "咏月使",
+        "朋友"
+      ],
+      "criteria": [
+        "说明哥伦比娅早在菈乌玛出生前离开，故两人此前未见。",
+        "分别归属旅行者对友谊的推想和哥伦比娅的赞同。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/archon-quests/空月归乡__3e730efcd5.json",
+          "pointer": "/对话/342/内容"
+        },
+        {
+          "file": "parsed/archon-quests/空月归乡__3e730efcd5.json",
+          "pointer": "/对话/343/内容"
+        },
+        {
+          "file": "parsed/archon-quests/空月归乡__3e730efcd5.json",
+          "pointer": "/对话/344/内容"
+        },
+        {
+          "file": "parsed/archon-quests/空月归乡__3e730efcd5.json",
+          "pointer": "/对话/345/内容"
+        },
+        {
+          "file": "parsed/archon-quests/空月归乡__3e730efcd5.json",
+          "pointer": "/对话/346/内容"
+        }
+      ]
+    },
+    {
+      "id": "gq2-100",
+      "type": "relationship",
+      "difficulty": "medium",
+      "question": "尼伯龙根归来时，阿佩普怎样描述其他龙族的不同去向？她自己又怎样表明对尼伯龙根的态度？",
+      "answer": "阿佩普说，尼伯龙根归来时世界已大不相同：有的龙与她口中的「你们」太过亲近，忘却了被夺去世界的仇恨；有的战死只剩骸骨；也有的因伤痛选择逃避。她自己则说尼伯龙根的鳞甲与意志仍在心中闪耀，直到生命终点都要追随它。这里不能把「你们」直接缩成全体人类，也不能说所有龙都认同她的立场。",
+      "keywords": [
+        "阿佩普",
+        "尼伯龙根",
+        "龙族",
+        "追随"
+      ],
+      "criteria": [
+        "分别交代阿佩普所述亲近「你们」、战死和逃避的其他龙族去向。",
+        "说明她自己仍珍视尼伯龙根的意志并表态追随。",
+        "把判断归于阿佩普，不将「你们」直接限定为全体人类，也不写成龙族立场一致。"
+      ],
+      "sources": [
+        {
+          "file": "parsed/character-quests/若忘记我为何物__b8c0d1a9aa.json",
+          "pointer": "/对话/319/内容"
+        },
+        {
+          "file": "parsed/character-quests/若忘记我为何物__b8c0d1a9aa.json",
+          "pointer": "/对话/320/内容"
+        },
+        {
+          "file": "parsed/character-quests/若忘记我为何物__b8c0d1a9aa.json",
+          "pointer": "/对话/321/内容"
+        },
+        {
+          "file": "parsed/character-quests/若忘记我为何物__b8c0d1a9aa.json",
+          "pointer": "/对话/322/内容"
+        },
+        {
+          "file": "parsed/character-quests/若忘记我为何物__b8c0d1a9aa.json",
+          "pointer": "/对话/323/内容"
         }
       ]
     },

@@ -2,9 +2,9 @@
 
 ## 当前 MVP 开发集
 
-[questions_dev.json](questions_dev.json)是当前工程迭代入口，版本 `0.4`，共99题。原49题的对象及顺序保留；本批新增gq2-044～089、107～110，其中40题以天理、法涅斯、降临者、龙族、天使和原神历史为主要考点，另10题覆盖其他剧情。每题只维护 `id/type/difficulty/question/answer/keywords/criteria/sources`。`criteria` 是扁平评价要点；`keywords` 仅为关键实体／术语提示，命中不代表语义正确，同义表达也不要求逐字匹配。
+[questions_dev.json](questions_dev.json)是当前工程迭代入口，版本 `0.5`，共110题。旧99题对象及相对顺序保留；本批新增gq2-090～100的11道核心题，涉及月神、天使文明、天理规则、龙族和相关历史，未新增跨故事题。每题只维护 `id/type/difficulty/question/answer/keywords/criteria/sources`。`criteria` 是扁平评价要点；`keywords` 仅为关键实体／术语提示，命中不代表语义正确，同义表达也不要求逐字匹配。
 
-头信息记录实际创建日期、剧情截止、冻结快照、用户待复核状态、用途和证据／审核约定。`target_core_matrix` 原样沿用v2，`target_cross_story` 保留中等5／困难5，`target_total=110` 表示长期参考配额，不是当前题数；本批按剩余缺口的最大余数法分配50题：核心题中fact 14、causal 14、worldbuilding 9、relationship 9，跨故事中等和困难各2题。读写脚本原样保留这些头信息。
+头信息记录实际创建日期、剧情截止、冻结快照、用户待复核状态、用途和证据／审核约定。`target_core_matrix` 原样沿用v2，`target_cross_story` 保留中等5／困难5；本批填满`target_total=110`的长期参考配额，其中核心题100道、跨故事题10道。本批剩余缺口为fact简单／中等／困难各1，causal简单1／中等2／困难1，worldbuilding中等／困难各1，relationship简单／中等各1。读写脚本原样保留这些头信息。
 
 `sources` 可有多条，按文件与Pointer去重，各条共同提供参考依据，不代表找到任意一条就足够，也不穷尽其他有效出处。人工只维护冻结快照下的相对POSIX `file` 和RFC 6901 `pointer`，不手写 `text`。默认快照为 `data/raw/genshin_wiki_data_20260605/`；全部现有来源引用完整字符串字段。参考答案保留人物说法、推论和传说的限定，来源来自冻结Wiki，并非自动获得官方事实认证。
 
@@ -16,7 +16,7 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 
 仅有 `--input`、`--raw-root`、`--output` 三个参数；前两项默认使用上述开发集和冻结快照。输出必须是 `rag/data/` 下的新文件，不能覆盖输入、原始目录或已有结果，生成副本继续忽略。更换快照必须重新核对题目依据，不能只沿用旧Pointer。未接通旧JSONL评测runner。
 
-人工重点审核疑难题、存在争议的标准，以及后续迭代发现的新错误或回退；不以全量人工确认作为开发使用门槛。本批50题按冻结原文逐题核对，99题均尚未获用户逐题验收。99题共364条出处均解析为非空原文，准备副本的`text`与快照逐字一致；88项既有RAG测试通过。本批本地准备副本位于`rag/data/eval_dev/20261012_batch05_v0_4/questions_dev_prepared_review_complete.json`，早期修订副本和另一批不同主题的本地草稿均保留且未覆盖。上一批gq2-016原拟引用的《为了青色的身影》在冻结快照中没有对白，实际使用相邻主线《在终曲之前》与《温迪的计划》的对白。
+人工重点审核疑难题、存在争议的标准，以及后续迭代发现的新错误或回退；不以全量人工确认作为开发使用门槛。本批11题按冻结原文逐题核对，110题均尚未获用户逐题验收。110题共445条出处均解析为非空原文，准备副本的`text`与快照逐字一致；88项既有RAG测试通过。本批本地准备副本位于`rag/data/eval_dev/20261012_batch06_v0_5/questions_dev_prepared_final.json`，本批修订前副本、99题基线及历史结果均保留且未覆盖。上一批gq2-016原拟引用的《为了青色的身影》在冻结快照中没有对白，实际使用相邻主线《在终曲之前》与《温迪的计划》的对白。
 
 ## 保留的冻结原文评测集 v2
 
