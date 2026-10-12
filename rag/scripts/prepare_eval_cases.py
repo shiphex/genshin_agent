@@ -189,9 +189,9 @@ class CorpusIndex:
                     raise ValueError('invalid corpus span')
                 self.locations.setdefault((row['source_file'], pointer), []).append((span, row))
 
-    def coverage(self, anchors):
-        missing, covered, has_overlap, non_whitespace_gaps = [], 0, False, 0
-        for anchor in anchors:
+    def coverage(self, anchors, details=None):
+        covered, has_covered_text = 0, False
+        for source_index, anchor in enumerate(anchors):
             self.reader.validate_anchor(anchor)
             spans = []
             for span, row in self.locations.get((anchor['source_file'], anchor['source_pointer']), []):
@@ -204,22 +204,70 @@ class CorpusIndex:
             gaps = _missing_ranges(anchor['start'], anchor['end'], spans)
             source, _ = self.reader.read(anchor['source_file'])
             raw_text = resolve_pointer(source, anchor['source_pointer'])
-            non_whitespace_gaps += sum(bool(raw_text[a:b].strip()) for a, b in gaps)
-            if not gaps:
+            fragments = []
+            for a, b in gaps:
+                text = raw_text[a:b]
+                if not text.strip():
+                    continue
+                start = a + len(text) - len(text.lstrip())
+                end = b - (len(text) - len(text.rstrip()))
+                fragments.append({'start': start, 'end': end, 'quote': raw_text[start:end]})
+            if not fragments:
                 covered += 1
-            else:
-                missing.append({'source_file': anchor['source_file'], 'source_pointer': anchor['source_pointer'],
-                                'start': anchor['start'], 'end': anchor['end'], 'missing_ranges': gaps})
-            has_overlap |= any(a < anchor['end'] and b > anchor['start'] for a, b in spans)
-        status = 'complete' if anchors and covered == len(anchors) else ('partial' if has_overlap else 'missing')
-        return {'method': 'source_span_union_not_semantic_recall', 'status': status,
-                'covered_anchors': covered, 'total_anchors': len(anchors), 'missing_anchors': missing,
-                'whitespace_only_gaps': bool(missing) and non_whitespace_gaps == 0,
-                'non_whitespace_gap_count': non_whitespace_gaps}
+            elif details is not None:
+                details.append({'source_index': source_index, 'source_file': anchor['source_file'],
+                                'source_pointer': anchor['source_pointer'],
+                                'source_sha256': anchor['source_sha256'], 'fragments': fragments})
+            required = sum(not c.isspace() for c in raw_text[anchor['start']:anchor['end']])
+            absent = sum(not c.isspace() for f in fragments for c in f['quote'])
+            has_covered_text |= required > absent
+        status = 'complete' if anchors and covered == len(anchors) else ('partial' if has_covered_text else 'missing')
+        return {'status': status, 'covered_anchors': covered, 'total_anchors': len(anchors)}
 
 
-def anchor_coverage(anchors, corpus, raw_root):
-    return CorpusIndex(corpus, SourceReader(raw_root)).coverage(anchors)
+def anchor_coverage(anchors, corpus, raw_root, details=None):
+    return CorpusIndex(corpus, SourceReader(raw_root)).coverage(anchors, details)
+
+
+def make_coverage_report(document, corpus, raw_root):
+    """Keep real missing text and coordinates in a run report, never the benchmark."""
+    index = CorpusIndex(corpus, SourceReader(raw_root))
+    missing, statuses, anchor_count = [], Counter(), 0
+    for question in document['questions']:
+        if question.get('annotation_status') == 'pending_evidence':
+            statuses['not_assessed'] += 1
+            continue
+        anchors, identities = [], []
+        for evidence in question['evidence']:
+            for source_index, anchor in enumerate(evidence['sources']):
+                anchors.append(anchor)
+                identities.append((evidence['id'], source_index))
+        details = []
+        coverage = index.coverage(anchors, details)
+        statuses[coverage['status']] += 1
+        anchor_count += coverage['total_anchors']
+        for detail in details:
+            evidence_id, source_index = identities[detail.pop('source_index')]
+            missing.append({'question_id': question['id'], 'evidence_id': evidence_id,
+                            'source_index': source_index, **detail})
+    return {'benchmark_id': document['benchmark_id'], 'version': document['version'],
+            'method': 'source_span_union_ignore_unicode_whitespace_not_semantic_recall',
+            'summary': {'questions': len(document['questions']), 'source_anchors': anchor_count,
+                        'status_counts': dict(statuses)}, 'missing_evidence': missing}
+
+
+def validate_coverage_summary(value, anchor_count):
+    if not isinstance(value, dict):
+        raise ValueError('missing corpus anchor coverage')
+    if value == {'status': 'not_assessed'}:
+        return
+    if set(value) != {'status', 'covered_anchors', 'total_anchors'}:
+        raise ValueError('coverage must contain only compact summary fields')
+    status, covered, total = value['status'], value['covered_anchors'], value['total_anchors']
+    if status not in ('complete', 'partial', 'missing') or type(covered) is not int or type(total) is not int or not 0 <= covered <= total or total != anchor_count:
+        raise ValueError('invalid corpus anchor coverage counts')
+    if (status == 'complete') != (covered == total) or (status == 'missing' and covered != 0):
+        raise ValueError('coverage status/count mismatch')
 
 
 def _nonempty(value, label):
@@ -308,18 +356,17 @@ def validate_document(document, raw_root, corpus=None, mode='pilot'):
             used.update(refs)
         if used != evidence_ids:
             raise ValueError('unreferenced evidence would inflate future scoring')
+        validate_coverage_summary(question.get('corpus_anchor_coverage'), len(anchors))
         if index:
             expected = index.coverage(anchors)
             if question.get('corpus_anchor_coverage') != expected:
                 raise ValueError(f'stale corpus anchor coverage: {identity}')
-        elif not isinstance(question.get('corpus_anchor_coverage'), dict) or question['corpus_anchor_coverage'].get('status') not in ('not_assessed', 'complete', 'partial', 'missing'):
-            raise ValueError('missing or invalid corpus anchor coverage')
         coverage_counts[question['corpus_anchor_coverage'].get('status')] += 1
     if max(topics.values()) > 6:
         raise ValueError('one story topic exceeds six cases')
     if mode == 'pilot':
         expected_ids = {f'gq2-{i:03d}' for i in range(1, 13)} | {'gq2-101', 'gq2-102'}
-        if identities != expected_ids or counts != {'core': 12, 'cross_story': 2} or document['version'] != '2.0.0-pilot':
+        if identities != expected_ids or counts != {'core': 12, 'cross_story': 2} or document['version'] not in ('2.0.0-pilot', '2.0.1-pilot'):
             raise ValueError('pilot requires 12 core + 2 cross-story cases and pilot version')
         if any(matrix[('core', cat, level)] != 1 for cat in CATEGORIES for level in DIFFICULTIES):
             raise ValueError('pilot category/difficulty matrix mismatch')
@@ -398,7 +445,7 @@ def build_document(drafts, raw_root, corpus=None, reviews=None):
         if question.get('primary_material') not in set(MATERIAL_TYPES.values()) | {'other_lore'}:
             family = PurePosixPath(anchors[0]['source_file']).parts[1]
             question['primary_material'] = MATERIAL_TYPES.get(family, 'other_lore')
-    document = {'schema_version': 2, 'benchmark_id': 'genshin-story-core', 'version': '2.0.0-pilot',
+    document = {'schema_version': 2, 'benchmark_id': 'genshin-story-core', 'version': '2.0.1-pilot',
                 'created_date': datetime.now(timezone(timedelta(hours=8))).date().isoformat(),
                 'story_cutoff': '2026-06-05', 'language': 'zh-CN',
                 'source_snapshot': (Path(raw_root).resolve().relative_to(PROJECT).as_posix()
@@ -455,13 +502,15 @@ def main(argv=None):
     build.add_argument('--draft', type=Path, action='append', required=True)
     build.add_argument('--review', type=Path, action='append')
     build.add_argument('--output-dir', type=Path, required=True)
-    for name in ('validate', 'install'):
+    for name in ('validate', 'install', 'coverage'):
         p = sub.add_parser(name)
         p.add_argument('--questions', type=Path, required=True)
         p.add_argument('--mode', choices=('draft', 'pilot', 'full'), default='pilot')
         if name == 'install':
             p.add_argument('--backup-dir', type=Path, required=True)
-    for p in (materials, review, build, *[sub.choices[n] for n in ('validate', 'install')]):
+        if name == 'coverage':
+            p.add_argument('--output-dir', type=Path, required=True)
+    for p in (materials, review, build, *[sub.choices[n] for n in ('validate', 'install', 'coverage')]):
         p.add_argument('--raw-root', type=Path, default=RAW)
         if p not in (materials, review):
             p.add_argument('--corpus', type=Path, default=CORPUS)
@@ -486,8 +535,22 @@ def main(argv=None):
                 out.mkdir(parents=True)
                 write_json(out / 'questions.json', document)
                 write_json(out / 'validation.json', result)
+                report = make_coverage_report(document, corpus, args.raw_root)
+                report['corpus_sha256'] = hashlib.sha256(args.corpus.read_bytes()).hexdigest()
+                report['questions_sha256'] = hashlib.sha256((out / 'questions.json').read_bytes()).hexdigest()
+                write_json(out / 'coverage_report.json', report)
             elif args.command == 'validate':
                 result = validate_document(load_json(args.questions), args.raw_root, corpus, args.mode)
+            elif args.command == 'coverage':
+                out = _new_output(args.output_dir, PROJECT, args.raw_root)
+                document = load_json(args.questions)
+                validate_document(document, args.raw_root, corpus, args.mode)
+                report = make_coverage_report(document, corpus, args.raw_root)
+                report['questions_sha256'] = hashlib.sha256(args.questions.read_bytes()).hexdigest()
+                report['corpus_sha256'] = hashlib.sha256(args.corpus.read_bytes()).hexdigest()
+                out.mkdir(parents=True)
+                write_json(out / 'coverage_report.json', report)
+                result = report['summary']
             else:
                 result = install_document(load_json(args.questions), args.raw_root, PROJECT / 'rag/eval/questions.json',
                                           args.backup_dir, mode=args.mode, corpus=corpus)

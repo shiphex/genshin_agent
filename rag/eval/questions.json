@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "benchmark_id": "genshin-story-core",
-  "version": "2.0.0-pilot",
+  "version": "2.0.1-pilot",
   "created_date": "2026-10-12",
   "story_cutoff": "2026-06-05",
   "language": "zh-CN",
@@ -165,13 +165,9 @@
       "annotation_status": "source_reviewed",
       "user_review": "not_reviewed",
       "corpus_anchor_coverage": {
-        "method": "source_span_union_not_semantic_recall",
         "status": "complete",
         "covered_anchors": 6,
-        "total_anchors": 6,
-        "missing_anchors": [],
-        "whitespace_only_gaps": false,
-        "non_whitespace_gap_count": 0
+        "total_anchors": 6
       }
     },
     {
@@ -375,13 +371,9 @@
       "annotation_status": "source_reviewed",
       "user_review": "not_reviewed",
       "corpus_anchor_coverage": {
-        "method": "source_span_union_not_semantic_recall",
         "status": "complete",
         "covered_anchors": 12,
-        "total_anchors": 12,
-        "missing_anchors": [],
-        "whitespace_only_gaps": false,
-        "non_whitespace_gap_count": 0
+        "total_anchors": 12
       }
     },
     {
@@ -527,326 +519,9 @@
       "annotation_status": "source_reviewed",
       "user_review": "not_reviewed",
       "corpus_anchor_coverage": {
-        "method": "source_span_union_not_semantic_recall",
-        "status": "partial",
-        "covered_anchors": 4,
-        "total_anchors": 6,
-        "missing_anchors": [
-          {
-            "source_file": "parsed/books/白夜国馆藏__c8cd49814d.json",
-            "source_pointer": "/volumes/1/content",
-            "start": 0,
-            "end": 1914,
-            "missing_ranges": [
-              [
-                69,
-                72
-              ],
-              [
-                80,
-                82
-              ],
-              [
-                142,
-                144
-              ],
-              [
-                171,
-                174
-              ],
-              [
-                188,
-                190
-              ],
-              [
-                280,
-                283
-              ],
-              [
-                292,
-                294
-              ],
-              [
-                379,
-                382
-              ],
-              [
-                383,
-                386
-              ],
-              [
-                395,
-                397
-              ],
-              [
-                482,
-                484
-              ],
-              [
-                511,
-                514
-              ],
-              [
-                522,
-                524
-              ],
-              [
-                552,
-                555
-              ],
-              [
-                564,
-                566
-              ],
-              [
-                603,
-                606
-              ],
-              [
-                613,
-                615
-              ],
-              [
-                668,
-                670
-              ],
-              [
-                698,
-                701
-              ],
-              [
-                702,
-                705
-              ],
-              [
-                711,
-                713
-              ],
-              [
-                777,
-                779
-              ],
-              [
-                789,
-                792
-              ],
-              [
-                799,
-                801
-              ],
-              [
-                839,
-                841
-              ],
-              [
-                886,
-                888
-              ],
-              [
-                920,
-                923
-              ],
-              [
-                930,
-                932
-              ],
-              [
-                1038,
-                1040
-              ],
-              [
-                1067,
-                1070
-              ],
-              [
-                1078,
-                1080
-              ],
-              [
-                1140,
-                1142
-              ],
-              [
-                1162,
-                1165
-              ],
-              [
-                1173,
-                1175
-              ],
-              [
-                1260,
-                1262
-              ],
-              [
-                1326,
-                1329
-              ],
-              [
-                1330,
-                1333
-              ],
-              [
-                1339,
-                1341
-              ],
-              [
-                1389,
-                1392
-              ],
-              [
-                1393,
-                1396
-              ],
-              [
-                1409,
-                1411
-              ],
-              [
-                1440,
-                1442
-              ],
-              [
-                1451,
-                1454
-              ],
-              [
-                1461,
-                1463
-              ],
-              [
-                1485,
-                1487
-              ],
-              [
-                1520,
-                1522
-              ],
-              [
-                1549,
-                1551
-              ],
-              [
-                1565,
-                1568
-              ],
-              [
-                1574,
-                1576
-              ],
-              [
-                1667,
-                1669
-              ],
-              [
-                1713,
-                1715
-              ],
-              [
-                1799,
-                1801
-              ],
-              [
-                1830,
-                1833
-              ],
-              [
-                1840,
-                1842
-              ],
-              [
-                1894,
-                1896
-              ]
-            ]
-          },
-          {
-            "source_file": "parsed/books/白夜国馆藏__c8cd49814d.json",
-            "source_pointer": "/volumes/2/content",
-            "start": 0,
-            "end": 1041,
-            "missing_ranges": [
-              [
-                83,
-                85
-              ],
-              [
-                181,
-                183
-              ],
-              [
-                214,
-                216
-              ],
-              [
-                299,
-                302
-              ],
-              [
-                308,
-                310
-              ],
-              [
-                429,
-                431
-              ],
-              [
-                479,
-                482
-              ],
-              [
-                489,
-                491
-              ],
-              [
-                527,
-                529
-              ],
-              [
-                578,
-                580
-              ],
-              [
-                634,
-                636
-              ],
-              [
-                677,
-                680
-              ],
-              [
-                685,
-                687
-              ],
-              [
-                763,
-                766
-              ],
-              [
-                771,
-                773
-              ],
-              [
-                866,
-                868
-              ],
-              [
-                938,
-                941
-              ],
-              [
-                946,
-                948
-              ],
-              [
-                984,
-                986
-              ]
-            ]
-          }
-        ],
-        "whitespace_only_gaps": true,
-        "non_whitespace_gap_count": 0
+        "status": "complete",
+        "covered_anchors": 6,
+        "total_anchors": 6
       }
     },
     {
@@ -922,13 +597,9 @@
       "annotation_status": "source_reviewed",
       "user_review": "not_reviewed",
       "corpus_anchor_coverage": {
-        "method": "source_span_union_not_semantic_recall",
         "status": "complete",
         "covered_anchors": 2,
-        "total_anchors": 2,
-        "missing_anchors": [],
-        "whitespace_only_gaps": false,
-        "non_whitespace_gap_count": 0
+        "total_anchors": 2
       }
     },
     {
@@ -1035,13 +706,9 @@
       "annotation_status": "source_reviewed",
       "user_review": "not_reviewed",
       "corpus_anchor_coverage": {
-        "method": "source_span_union_not_semantic_recall",
         "status": "complete",
         "covered_anchors": 3,
-        "total_anchors": 3,
-        "missing_anchors": [],
-        "whitespace_only_gaps": false,
-        "non_whitespace_gap_count": 0
+        "total_anchors": 3
       }
     },
     {
@@ -1164,13 +831,9 @@
       "annotation_status": "source_reviewed",
       "user_review": "not_reviewed",
       "corpus_anchor_coverage": {
-        "method": "source_span_union_not_semantic_recall",
         "status": "complete",
         "covered_anchors": 4,
-        "total_anchors": 4,
-        "missing_anchors": [],
-        "whitespace_only_gaps": false,
-        "non_whitespace_gap_count": 0
+        "total_anchors": 4
       }
     },
     {
@@ -1251,182 +914,9 @@
       "annotation_status": "source_reviewed",
       "user_review": "not_reviewed",
       "corpus_anchor_coverage": {
-        "method": "source_span_union_not_semantic_recall",
-        "status": "partial",
-        "covered_anchors": 0,
-        "total_anchors": 2,
-        "missing_anchors": [
-          {
-            "source_file": "parsed/books/白夜国馆藏__c8cd49814d.json",
-            "source_pointer": "/volumes/2/content",
-            "start": 0,
-            "end": 1041,
-            "missing_ranges": [
-              [
-                83,
-                85
-              ],
-              [
-                181,
-                183
-              ],
-              [
-                214,
-                216
-              ],
-              [
-                299,
-                302
-              ],
-              [
-                308,
-                310
-              ],
-              [
-                429,
-                431
-              ],
-              [
-                479,
-                482
-              ],
-              [
-                489,
-                491
-              ],
-              [
-                527,
-                529
-              ],
-              [
-                578,
-                580
-              ],
-              [
-                634,
-                636
-              ],
-              [
-                677,
-                680
-              ],
-              [
-                685,
-                687
-              ],
-              [
-                763,
-                766
-              ],
-              [
-                771,
-                773
-              ],
-              [
-                866,
-                868
-              ],
-              [
-                938,
-                941
-              ],
-              [
-                946,
-                948
-              ],
-              [
-                984,
-                986
-              ]
-            ]
-          },
-          {
-            "source_file": "parsed/books/白夜国馆藏__c8cd49814d.json",
-            "source_pointer": "/volumes/2/content",
-            "start": 0,
-            "end": 1041,
-            "missing_ranges": [
-              [
-                83,
-                85
-              ],
-              [
-                181,
-                183
-              ],
-              [
-                214,
-                216
-              ],
-              [
-                299,
-                302
-              ],
-              [
-                308,
-                310
-              ],
-              [
-                429,
-                431
-              ],
-              [
-                479,
-                482
-              ],
-              [
-                489,
-                491
-              ],
-              [
-                527,
-                529
-              ],
-              [
-                578,
-                580
-              ],
-              [
-                634,
-                636
-              ],
-              [
-                677,
-                680
-              ],
-              [
-                685,
-                687
-              ],
-              [
-                763,
-                766
-              ],
-              [
-                771,
-                773
-              ],
-              [
-                866,
-                868
-              ],
-              [
-                938,
-                941
-              ],
-              [
-                946,
-                948
-              ],
-              [
-                984,
-                986
-              ]
-            ]
-          }
-        ],
-        "whitespace_only_gaps": true,
-        "non_whitespace_gap_count": 0
+        "status": "complete",
+        "covered_anchors": 2,
+        "total_anchors": 2
       }
     },
     {
@@ -1586,13 +1076,9 @@
       "annotation_status": "source_reviewed",
       "user_review": "not_reviewed",
       "corpus_anchor_coverage": {
-        "method": "source_span_union_not_semantic_recall",
         "status": "complete",
         "covered_anchors": 7,
-        "total_anchors": 7,
-        "missing_anchors": [],
-        "whitespace_only_gaps": false,
-        "non_whitespace_gap_count": 0
+        "total_anchors": 7
       }
     },
     {
@@ -1689,13 +1175,9 @@
       "annotation_status": "source_reviewed",
       "user_review": "not_reviewed",
       "corpus_anchor_coverage": {
-        "method": "source_span_union_not_semantic_recall",
         "status": "complete",
         "covered_anchors": 3,
-        "total_anchors": 3,
-        "missing_anchors": [],
-        "whitespace_only_gaps": false,
-        "non_whitespace_gap_count": 0
+        "total_anchors": 3
       }
     },
     {
@@ -1770,13 +1252,9 @@
       "annotation_status": "source_reviewed",
       "user_review": "not_reviewed",
       "corpus_anchor_coverage": {
-        "method": "source_span_union_not_semantic_recall",
         "status": "complete",
         "covered_anchors": 2,
-        "total_anchors": 2,
-        "missing_anchors": [],
-        "whitespace_only_gaps": false,
-        "non_whitespace_gap_count": 0
+        "total_anchors": 2
       }
     },
     {
@@ -1929,13 +1407,9 @@
       "annotation_status": "source_reviewed",
       "user_review": "not_reviewed",
       "corpus_anchor_coverage": {
-        "method": "source_span_union_not_semantic_recall",
         "status": "complete",
         "covered_anchors": 7,
-        "total_anchors": 7,
-        "missing_anchors": [],
-        "whitespace_only_gaps": false,
-        "non_whitespace_gap_count": 0
+        "total_anchors": 7
       }
     },
     {
@@ -2111,13 +1585,9 @@
       "annotation_status": "source_reviewed",
       "user_review": "not_reviewed",
       "corpus_anchor_coverage": {
-        "method": "source_span_union_not_semantic_recall",
         "status": "complete",
         "covered_anchors": 10,
-        "total_anchors": 10,
-        "missing_anchors": [],
-        "whitespace_only_gaps": false,
-        "non_whitespace_gap_count": 0
+        "total_anchors": 10
       }
     },
     {
@@ -2222,13 +1692,9 @@
       "annotation_status": "source_reviewed",
       "user_review": "not_reviewed",
       "corpus_anchor_coverage": {
-        "method": "source_span_union_not_semantic_recall",
         "status": "complete",
         "covered_anchors": 3,
-        "total_anchors": 3,
-        "missing_anchors": [],
-        "whitespace_only_gaps": false,
-        "non_whitespace_gap_count": 0
+        "total_anchors": 3
       }
     },
     {
@@ -2353,13 +1819,9 @@
       "annotation_status": "source_reviewed",
       "user_review": "not_reviewed",
       "corpus_anchor_coverage": {
-        "method": "source_span_union_not_semantic_recall",
         "status": "complete",
         "covered_anchors": 4,
-        "total_anchors": 4,
-        "missing_anchors": [],
-        "whitespace_only_gaps": false,
-        "non_whitespace_gap_count": 0
+        "total_anchors": 4
       }
     }
   ]

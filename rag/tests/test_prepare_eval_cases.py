@@ -1,6 +1,8 @@
 """Frozen-source annotations must survive rechunking without invented quotes."""
 import copy
+from contextlib import redirect_stderr, redirect_stdout
 import hashlib
+import io
 import json
 from pathlib import Path
 import sys
@@ -138,20 +140,77 @@ class EvalCaseTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             cases.anchor_coverage([source], rows, self.raw)
 
-    def test_whitespace_gaps_are_separate_from_missing_story_text(self):
+    def test_unicode_whitespace_gaps_are_ignored_and_real_text_is_reported(self):
         path = self.raw / self.source_file
-        path.write_text(json.dumps({'对话': [{'说话者': '角色甲', '类型': 'character', '内容': '甲\n\n乙'}]}, ensure_ascii=False), encoding='utf-8')
-        anchor = cases.materialize({**self.material, 'start': 0, 'end': 4}, self.raw)
+        text = '甲 \t\r\n\u00a0\u2003\u3000乙'
+        path.write_text(json.dumps({'对话': [{'说话者': '角色甲', '类型': 'character', '内容': text}]}, ensure_ascii=False), encoding='utf-8')
+        anchor = cases.materialize({**self.material, 'start': 0, 'end': len(text)}, self.raw)
         anchor.pop('id')
-        rows = [{'id': f'c{i}', 'text': '角色甲：' + text, 'source_file': self.source_file,
+        rows = [{'id': f'c{i}', 'text': '角色甲：' + quote, 'source_file': self.source_file,
                  'source_kind': 'wiki_excerpt', 'source_pointer': ['/对话/0/内容'],
                  'source_spans': [{'start': a, 'end': b}]}
-                for i, (a, b, text) in enumerate([(0, 1, '甲'), (3, 4, '乙')])]
+                for i, (a, b, quote) in enumerate([(0, 1, '甲'), (len(text)-1, len(text), '乙')])]
         result = cases.anchor_coverage([anchor], rows, self.raw)
-        self.assertEqual(result['status'], 'partial')
-        self.assertTrue(result['whitespace_only_gaps'])
-        self.assertEqual(result['non_whitespace_gap_count'], 0)
-        self.assertGreater(cases.anchor_coverage([anchor], rows[:1], self.raw)['non_whitespace_gap_count'], 0)
+        self.assertEqual(result, {'status': 'complete', 'covered_anchors': 1, 'total_anchors': 1})
+        details = []
+        cases.anchor_coverage([anchor], rows, self.raw, details=details)
+        self.assertEqual(details, [])
+        result = cases.anchor_coverage([anchor], rows[:1], self.raw, details=details)
+        self.assertEqual(result, {'status': 'partial', 'covered_anchors': 0, 'total_anchors': 1})
+        self.assertEqual(details[0]['fragments'], [{'start': len(text)-1, 'end': len(text), 'quote': '乙'}])
+
+    def test_chunks_covering_only_whitespace_do_not_count_as_partial(self):
+        path = self.raw / self.source_file
+        path.write_text(json.dumps({'对话': [{'说话者': '角色甲', '类型': 'character', '内容': ' \t乙'}]}, ensure_ascii=False), encoding='utf-8')
+        anchor = cases.materialize({**self.material, 'start': 0, 'end': 3}, self.raw)
+        anchor.pop('id')
+        rows = [{'id': 'blank', 'text': '角色甲：', 'source_file': self.source_file,
+                 'source_kind': 'wiki_excerpt', 'source_pointer': ['/对话/0/内容'],
+                 'source_spans': [{'start': 0, 'end': 2}]}]
+        self.assertEqual(cases.anchor_coverage([anchor], rows, self.raw)['status'], 'missing')
+
+    def test_coverage_report_keeps_real_missing_quotes_out_of_questions(self):
+        doc = self.document()
+        original = copy.deepcopy(doc)
+        report = cases.make_coverage_report(doc, self.corpus([(0, 2), (3, 7)]), self.raw)
+        self.assertEqual(doc, original)
+        self.assertEqual(report['summary']['status_counts'], {'partial': 1})
+        missing = report['missing_evidence'][0]
+        self.assertEqual(missing['question_id'], 'gq2-001')
+        self.assertEqual(missing['evidence_id'], 'e1')
+        self.assertEqual(missing['fragments'], [{'start': 2, 'end': 3, 'quote': '乙'}])
+        self.assertNotIn('missing_ranges', json.dumps(report))
+
+    def test_coverage_summary_rejects_verbose_or_malformed_fields(self):
+        doc = self.document()
+        for value in ({'status': 'complete', 'covered_anchors': 1, 'total_anchors': 1, 'missing_ranges': []},
+                      {'status': 'complete', 'covered_anchors': True, 'total_anchors': 1},
+                      {'status': 'complete', 'covered_anchors': 0, 'total_anchors': 1}):
+            doc['questions'][0]['corpus_anchor_coverage'] = value
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                cases.validate_document(doc, self.raw, mode='draft')
+
+    def test_coverage_command_writes_fingerprinted_local_report_and_refuses_overwrite(self):
+        corpus = self.corpus([(0, 2), (3, 7)])
+        doc = self.document()
+        doc['questions'][0]['corpus_anchor_coverage'] = cases.anchor_coverage([self.anchor()], corpus, self.raw)
+        questions_path = self.project / 'questions.json'
+        cases.write_json(questions_path, doc)
+        corpus_path = self.project / 'corpus.jsonl'
+        corpus_path.write_text('\n'.join(json.dumps(r, ensure_ascii=False) for r in corpus) + '\n', encoding='utf-8')
+        out = self.project / 'rag/data/coverage'
+        args = ['coverage', '--questions', str(questions_path), '--raw-root', str(self.raw),
+                '--corpus', str(corpus_path), '--mode', 'draft', '--output-dir', str(out)]
+        with patch.object(cases, 'PROJECT', self.project), redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
+            self.assertEqual(cases.main(args), 0)
+            saved = (out / 'coverage_report.json').read_bytes()
+            self.assertEqual(cases.main(args), 1)
+        self.assertEqual((out / 'coverage_report.json').read_bytes(), saved)
+        report = cases.load_json(out / 'coverage_report.json')
+        self.assertEqual(report['questions_sha256'], hashlib.sha256(questions_path.read_bytes()).hexdigest())
+        self.assertEqual(report['corpus_sha256'], hashlib.sha256(corpus_path.read_bytes()).hexdigest())
+        self.assertEqual(report['missing_evidence'][0]['fragments'][0]['quote'], '乙')
+        self.assertNotIn('missing_ranges', questions_path.read_text(encoding='utf-8'))
 
     def test_all_joint_source_anchors_are_required_for_complete_coverage(self):
         first = self.anchor()
