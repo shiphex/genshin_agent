@@ -1,5 +1,5 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "dataset": "genshin-story-dev",
   "created_date": "2026-10-12",
   "story_cutoff": "2026-06-05",
@@ -573,6 +573,210 @@
           "file": "parsed/character-quests/命运的题解__1d2e086f03.json",
           "pointer": "/对话/67/内容"
         }
+      ]
+    },
+    {
+      "id": "gq2-013",
+      "type": "fact",
+      "difficulty": "easy",
+      "question": "魈承担着什么护卫职责？他的战斗与这项职责有什么关系？",
+      "answer": "魈为报答岩之神的恩情，承担了守护璃月的千年职责。角色故事说，他与威胁璃月百姓的黑暗战斗，战斗是他仍能为人们做的事。",
+      "keywords": ["魈", "守护璃月", "战斗"],
+      "criteria": [
+        "指出魈承担守护璃月的千年职责。",
+        "说明他与威胁璃月百姓的黑暗战斗，是在履行守护职责；这属于角色故事叙述。"
+      ],
+      "sources": [
+        {"file": "parsed/characters/魈__fb88c811da.json", "pointer": "/角色故事/角色故事3"},
+        {"file": "parsed/characters/魈__fb88c811da.json", "pointer": "/角色故事/角色故事5"}
+      ]
+    },
+    {
+      "id": "gq2-014",
+      "type": "fact",
+      "difficulty": "easy",
+      "question": "《归火圣夜巡礼》的胜者接下来要参加什么？",
+      "answer": "巡礼胜者获得参加「巡夜者战争」的资格。颁奖后，伊安珊说这次由他们参加巡夜者战争，玛拉妮也说卡齐娜等人接下来要去参战。",
+      "keywords": ["归火圣夜巡礼", "胜者", "巡夜者战争"],
+      "criteria": [
+        "指出胜者获得参加「巡夜者战争」的资格。",
+        "用颁奖后的对白说明卡齐娜等胜者接下来将参战。"
+      ],
+      "sources": [
+        {"file": "parsed/archon-quests/归火圣夜巡礼__3ed968fafb.json", "pointer": "/对话/56/内容"},
+        {"file": "parsed/archon-quests/归火圣夜巡礼__3ed968fafb.json", "pointer": "/对话/268/内容"},
+        {"file": "parsed/archon-quests/归火圣夜巡礼__3ed968fafb.json", "pointer": "/对话/278/内容"}
+      ]
+    },
+    {
+      "id": "gq2-015",
+      "type": "fact",
+      "difficulty": "medium",
+      "question": "《海祇见闻》中，五郎怎样转述心海锦囊对愚人众船只的判断与行动安排？兵力不足时，哪些限制使他暂缓行动？",
+      "answer": "五郎读出心海锦囊中关于临海盗敌必有船、可焚船作战的提示，据此推断愚人众的船停在附近，原想分两队牵制敌人并绕后烧船。但他也转述心海说兵力不足时尽量不要分兵，并引锦囊的「设伏于野，不可妄动」，所以决定暂时放弃行动。他还转述「山穷水尽，或有援军」，当时却不明白援军所指。这些是五郎转述的锦囊内容与他的现场判断，不是心海当场下令。",
+      "keywords": ["五郎", "心海锦囊", "愚人众船只", "不可分兵", "不可妄动", "援军"],
+      "criteria": [
+        "明确临海船只与焚船提示由五郎读出，他据此推断愚人众船只所在并提出分兵烧船计划。",
+        "说明五郎转述心海关于兵力不足不宜分兵的限制，以及「设伏于野，不可妄动」促使他暂缓行动。",
+        "列出「山穷水尽，或有援军」，并指出五郎当时不明白援军所指；不把转述写成心海当场发言。"
+      ],
+      "sources": [
+        {"file": "parsed/character-quests/海祇见闻__280a3c2da0.json", "pointer": "/对话/6/内容"},
+        {"file": "parsed/character-quests/海祇见闻__280a3c2da0.json", "pointer": "/对话/8/内容"},
+        {"file": "parsed/character-quests/海祇见闻__280a3c2da0.json", "pointer": "/对话/9/内容"},
+        {"file": "parsed/character-quests/海祇见闻__280a3c2da0.json", "pointer": "/对话/10/内容"},
+        {"file": "parsed/character-quests/海祇见闻__280a3c2da0.json", "pointer": "/对话/13/内容"},
+        {"file": "parsed/character-quests/海祇见闻__280a3c2da0.json", "pointer": "/对话/15/内容"}
+      ]
+    },
+    {
+      "id": "gq2-016",
+      "type": "causal",
+      "difficulty": "easy",
+      "question": "温迪为什么选择设法救助特瓦林？他最初打算怎样帮助它？",
+      "answer": "温迪说自己的理由是「自由」：曾守护蒙德的龙也应有选择生活方式的权利，不该被欺骗说城市背叛了它，也不该被要求永远守护城市。他最初打算借助天空之琴，从噩梦中唤回特瓦林的本性。",
+      "keywords": ["温迪", "特瓦林", "自由", "天空之琴"],
+      "criteria": [
+        "说明温迪以自由为理由，认为特瓦林也有选择生活方式的权利。",
+        "说明温迪不愿特瓦林受欺骗或被强加永远守护蒙德的义务。",
+        "指出天空之琴是他计划中唤回特瓦林本性的手段。"
+      ],
+      "sources": [
+        {"file": "parsed/archon-quests/在终曲之前__06a9b6be4c.json", "pointer": "/对话/19/内容"},
+        {"file": "parsed/archon-quests/在终曲之前__06a9b6be4c.json", "pointer": "/对话/26/内容"},
+        {"file": "parsed/archon-quests/在终曲之前__06a9b6be4c.json", "pointer": "/对话/27/内容"},
+        {"file": "parsed/archon-quests/在终曲之前__06a9b6be4c.json", "pointer": "/对话/28/内容"},
+        {"file": "parsed/archon-quests/在终曲之前__06a9b6be4c.json", "pointer": "/对话/29/内容"},
+        {"file": "parsed/archon-quests/温迪的计划__a145014ba0.json", "pointer": "/对话/2/内容"}
+      ]
+    },
+    {
+      "id": "gq2-017",
+      "type": "causal",
+      "difficulty": "hard",
+      "question": "《因果命运的花神诞祭》中，哪些证据使众人先后修正「时间循环」和「每日删除记忆」的推断？到这一阶段，他们确认了什么、仍疑惑什么？",
+      "answer": "迪希雅的练剑熟练度与身体记忆没有像单纯时间循环那样重置，旅行者因此否定「时间循环」，暂以「每日删除记忆」解释重复体验。后来迪希雅指出：若日日练剑而木桩未换，它应早已被砍烂；若日日换新木桩，先前独特的剑痕又无法完全复制。派蒙于是质疑「记忆删除」理论。众人此时认为时间并未循环、所在之处也可能并非现实。旅行者提出为何没考虑出城，派蒙建议查看城外时间；纳西妲回忆他们两次提出出城计划，派蒙却说两人没有出城当天的记忆。出城与记忆缺失仍是疑问，不能把前述假说写成已证实的机制。",
+      "keywords": ["时间循环", "身体记忆", "迪希雅", "木人桩", "记忆删除", "出城"],
+      "criteria": [
+        "以迪希雅练剑进步或身体记忆未重置解释为何单纯的时间循环推断不成立。",
+        "说明「每日删除记忆」曾是替代假说；迪希雅以木桩若不换应被砍烂、若换则无法复制剑痕的两种情况促使派蒙质疑该假说。",
+        "区分阶段性结论与未解疑问：时间未循环、此处可能并非现实；出城经历和记忆缺失尚待解释。",
+        "准确区分迪希雅的证据、旅行者的出城提问、派蒙的推断与纳西妲的回忆，不把任何假说写成已证实的机制。"
+      ],
+      "sources": [
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/12/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/14/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/16/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/33/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/44/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/90/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/91/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/93/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/96/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/104/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/106/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/107/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/112/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/113/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/120/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/123/内容"},
+        {"file": "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json", "pointer": "/对话/128/内容"}
+      ]
+    },
+    {
+      "id": "gq2-018",
+      "type": "worldbuilding",
+      "difficulty": "medium",
+      "question": "《雷穆利亚衰亡史》如何解释雷穆斯追求谐律秩序的理由？这部史书的作者又怎样表明自己的叙述立场？",
+      "answer": "书中说，先知预言最兴盛的帝国也会毁灭；雷穆斯因此谱写谐荣乐章，相信城邦与之协同共奏便能逃脱命运审判，抵达永恒乐土。卷三的作者则声称要用历史理性辨别已被传说和迷信笼罩的雷穆利亚往事，并对帝国晚期的衰亡作道德评断。这是史书中的解释和作者立场，不能直接当作无争议的全知事实。",
+      "keywords": ["雷穆斯", "先知预言", "谐荣乐章", "史书立场"],
+      "criteria": [
+        "指出先知的毁灭预言与雷穆斯希望逃脱命运审判之间的因果关系。",
+        "说明他相信城邦与谐荣乐章协同共奏可以抵达永恒乐土。",
+        "指出卷三作者自称以历史理性辨别传说，并区分作者评断与无立场的事实记录。"
+      ],
+      "sources": [
+        {"file": "parsed/books/雷穆利亚衰亡史__9513b52ac8.json", "pointer": "/volumes/0/content"},
+        {"file": "parsed/books/雷穆利亚衰亡史__9513b52ac8.json", "pointer": "/volumes/2/content"},
+        {"file": "parsed/books/雷穆利亚衰亡史__9513b52ac8.json", "pointer": "/genre"}
+      ]
+    },
+    {
+      "id": "gq2-019",
+      "type": "worldbuilding",
+      "difficulty": "hard",
+      "question": "《古老的考察日志》对密室中星银武器的说法，与《雪葬的星银》对异乡勇士及大剑的追述，分别能确认什么？能否据此断定两处说的是同一把剑？",
+      "answer": "考察日志其之一记载，考察者根据厄伯哈特对碑文的解读，推测密室里或许有壁画和某种星银武器；其之二又记载密室大门未能打开，寻找古代武器的期待落空。这只能确认当时有此推测、考察者未取得武器。《雪葬的星银》的武器故事另行追述：祭司之女把星银大剑交给异乡勇士，勇士后来将剑留在壁画之间。两篇材料都涉及星银武器与壁画，但日志没有确认武器的实物、身份或去向，不能断定它与武器故事中的大剑必为同一把。",
+      "keywords": ["古老的考察日志", "厄伯哈特", "星银武器", "雪葬的星银", "同一性未证"],
+      "criteria": [
+        "将日志其之一的武器说法标为根据碑文解读所得的推测，而非亲眼确认。",
+        "指出日志其之二记载密室未打开、古代武器未取得。",
+        "说明《雪葬的星银》故事追述祭司之女交剑、异乡勇士后来将剑留在壁画之间。",
+        "明确两处文本没有确认物件同一性，不得断言是同一把剑。"
+      ],
+      "sources": [
+        {"file": "parsed/books/古老的考察日志__55e5732f26.json", "pointer": "/volumes/0/content"},
+        {"file": "parsed/books/古老的考察日志__55e5732f26.json", "pointer": "/volumes/1/content"},
+        {"file": "parsed/weapons/雪葬的星银__be6620303a.json", "pointer": "/故事"}
+      ]
+    },
+    {
+      "id": "gq2-020",
+      "type": "relationship",
+      "difficulty": "medium",
+      "question": "凯亚与迪卢克少年时怎样相处和并肩行动？克利普斯之死后，两人的关系与道路发生了什么变化？",
+      "answer": "凯亚的角色故事回忆，他曾是迪卢克的好友、助战者和「头脑」，两人从明处与暗处默契地守护蒙德。共同的父亲克利普斯用不祥力量击退魔物后受反噬身亡，两人在那夜走上分歧道路。迪卢克的角色故事还记述，他因父亲之死与骑士团掩盖真相的命令而退出骑士团、追查邪力。凯亚的角色介绍说他已很久没有称迪卢克为「义兄」。这些材料说明亲近关系发生变化，未完整交代两人之后是否和解。",
+      "keywords": ["凯亚", "迪卢克", "克利普斯", "义兄", "分歧"],
+      "criteria": [
+        "指出凯亚与迪卢克少年时是配合默契的好友和搭档。",
+        "将共同的父亲克利普斯之死与两人在当夜走上分歧道路相连。",
+        "区分迪卢克退出骑士团、追查邪力的个人经历，与凯亚很久未称其为义兄的关系线索。",
+        "不凭这些段落断言两人后来已经和解。"
+      ],
+      "sources": [
+        {"file": "parsed/characters/凯亚__ea89d56e10.json", "pointer": "/角色故事/角色详细"},
+        {"file": "parsed/characters/凯亚__ea89d56e10.json", "pointer": "/角色故事/角色故事5"},
+        {"file": "parsed/characters/迪卢克__7221b34128.json", "pointer": "/角色故事/角色故事3"}
+      ]
+    },
+    {
+      "id": "gq2-103",
+      "type": "relationship",
+      "difficulty": "medium",
+      "question": "对照闲云与申鹤、提纳里与柯莱的角色故事，两组师徒关系中的教导与照料分别如何体现？",
+      "answer": "闲云的角色故事说，她出于慈心收留弟子、关注其修行与成长，并因珍惜故友和后辈而希望庇护她们。申鹤的角色故事写到仙人将险境中的她带回府中安养调息、授道；另一段故事说明她师从留云借风真君。提纳里的角色故事写他从教柯莱拼写名字开始；柯莱的角色故事则说，提纳里为提高她的识字量搜罗书籍文献。两组都呈现师徒教导与照料，但文本强调的具体做法不同。",
+      "keywords": ["闲云", "申鹤", "提纳里", "柯莱", "师徒", "教导"],
+      "criteria": [
+        "用闲云与申鹤的角色故事说明收留、安养授道和庇护后辈的关系。",
+        "用提纳里与柯莱的角色故事说明从拼写名字、识字和提供读物入手的教学。",
+        "分别列出两组证据，区分两组材料强调的照料方式；不把叙述者文字冒充角色对白。"
+      ],
+      "sources": [
+        {"file": "parsed/characters/闲云__a74afcfa9c.json", "pointer": "/角色故事/角色故事4"},
+        {"file": "parsed/characters/申鹤__274466bd04.json", "pointer": "/角色故事/角色故事2"},
+        {"file": "parsed/characters/申鹤__274466bd04.json", "pointer": "/角色故事/角色故事3"},
+        {"file": "parsed/characters/提纳里__03904f0389.json", "pointer": "/角色故事/角色故事4"},
+        {"file": "parsed/characters/柯莱__c729b711eb.json", "pointer": "/角色故事/角色故事1"}
+      ]
+    },
+    {
+      "id": "gq2-104",
+      "type": "worldbuilding",
+      "difficulty": "hard",
+      "question": "对照《深林的记忆》关于生命与记忆的说法，以及纳塔对白对古名传承的解释：两边各自怎样叙述？为何不能互相证明同一种记忆保存机制？",
+      "answer": "《深林的记忆》的时之沙故事先引述森林王生灭循环的传说，再以引语讨论灵魂消亡与记忆遗失；其中的说法称记忆终将归于大地，并主张人们彼此提醒、铭记形象，使记忆长久留存。《皆为崇高之名》中，希诺宁说古名象征英雄精神，在不断继承中变得厚重；打造古名是铭刻英雄事迹，未获大灵承认的记忆与经历不能成为材料。前者是圣遗物故事中的传说与引语，后者是角色对纳塔古名的说明。两篇文本没有建立相同对象、条件或运作过程，不能用一边证明另一边的机制。",
+      "keywords": ["深林的记忆", "生灭循环", "记忆", "古名", "大灵承认"],
+      "criteria": [
+        "说明《深林的记忆》中的生灭循环属于传说性叙述，并区分引语中的记忆观点。",
+        "指出引语既有「记忆终将归于大地」的说法，也有彼此提醒、铭记形象的主张。",
+        "将古名的继承、铭刻英雄事迹及大灵承认条件准确归于希诺宁的对白。",
+        "指出相似主题不足以证明两组文本描述同一种记忆保存机制。"
+      ],
+      "sources": [
+        {"file": "parsed/artifacts/深林的记忆__6f5f925534.json", "pointer": "/时之沙/故事"},
+        {"file": "parsed/archon-quests/皆为崇高之名__873b512cde.json", "pointer": "/对话/60/内容"},
+        {"file": "parsed/archon-quests/皆为崇高之名__873b512cde.json", "pointer": "/对话/61/内容"},
+        {"file": "parsed/archon-quests/皆为崇高之名__873b512cde.json", "pointer": "/对话/67/内容"}
       ]
     }
   ]

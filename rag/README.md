@@ -2,7 +2,7 @@
 
 ## 当前 MVP 开发问题集
 
-[eval/questions_dev.json](eval/questions_dev.json)用于快速迭代，共14题，保留原题号、问答，简化为关键词、扁平评价要点及多条 `file/pointer` 出处。只新增一个 `scripts/prepare_eval.py` 自动读取原文并写出补充 `text` 的本地副本；命令与字段见[问题集说明](eval/README.md)。人工重点看疑难、争议和迭代错误，不设置全量人工确认门槛；本轮未接通评测runner或自动评分。
+[eval/questions_dev.json](eval/questions_dev.json)用于快速迭代，当前 `0.2` 共24题：保留原14题，新增10题覆盖新故事、材料类型及主体、时序、不确定性辨析。仍只用关键词、扁平评价要点及多条 `file/pointer` 出处；`scripts/prepare_eval.py` 自动读取原文并写出补充 `text` 的本地副本，命令与字段见[问题集说明](eval/README.md)。新增题已按冻结原文核对，全部题目仍待用户逐题复核；未接通评测runner或自动评分。
 
 ## 保留的剧情评测集 v2
 

@@ -2,21 +2,21 @@
 
 ## 当前 MVP 开发集
 
-[questions_dev.json](questions_dev.json)是当前工程迭代入口，版本 `0.1`，共14题。题号、问题和答案沿用v2；每题只维护 `id/type/difficulty/question/answer/keywords/criteria/sources`。`criteria` 是原要点文字的扁平列表；`keywords` 仅为关键实体／术语提示，命中不代表语义正确，同义表达也不要求逐字匹配。
+[questions_dev.json](questions_dev.json)是当前工程迭代入口，版本 `0.2`，共24题。前14题的题号、问题和答案沿用v2且内容、顺序不变；新增gq2-013～020、103～104，覆盖护卫职责、巡礼后续、海祇锦囊、特瓦林、花神诞祭、雷穆利亚、雪山武器、人物关系与跨故事记忆辨析。每题只维护 `id/type/difficulty/question/answer/keywords/criteria/sources`。`criteria` 是扁平评价要点；`keywords` 仅为关键实体／术语提示，命中不代表语义正确，同义表达也不要求逐字匹配。
 
-头信息记录实际创建日期、剧情截止、冻结快照、用户待复核状态、用途和证据／审核约定。`target_core_matrix` 原样沿用v2，`target_cross_story` 保留中等5／困难5，`target_total=110` 表示长期参考配额，不是当前题数，也不表示本轮启动扩展；当前仍为14题。读写脚本原样保留这些头信息。
+头信息记录实际创建日期、剧情截止、冻结快照、用户待复核状态、用途和证据／审核约定。`target_core_matrix` 原样沿用v2，`target_cross_story` 保留中等5／困难5，`target_total=110` 表示长期参考配额，不是当前题数；本批只扩充简化开发集。读写脚本原样保留这些头信息。
 
 `sources` 可有多条，按文件与Pointer去重，各条共同提供参考依据，不代表找到任意一条就足够，也不穷尽其他有效出处。人工只维护冻结快照下的相对POSIX `file` 和RFC 6901 `pointer`，不手写 `text`。默认快照为 `data/raw/genshin_wiki_data_20260605/`；全部现有来源引用完整字符串字段。参考答案保留人物说法、推论和传说的限定，来源来自冻结Wiki，并非自动获得官方事实认证。
 
-唯一新增的辅助脚本只读取问题集和原文，写出补充 `sources[].text` 的本地副本；不调用模型或评测。项目根目录运行：
+唯一辅助脚本只读取问题集和原文，写出补充 `sources[].text` 的本地副本；不调用模型或评测。项目根目录运行：
 
 ```powershell
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/prepare_eval.py --output rag/data/eval_dev/run_001/questions_dev_prepared.json
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/prepare_eval.py --output rag/data/eval_dev/20261012_batch02_v0_2/questions_dev_prepared.json
 ```
 
 仅有 `--input`、`--raw-root`、`--output` 三个参数；前两项默认使用上述开发集和冻结快照。输出必须是 `rag/data/` 下的新文件，不能覆盖输入、原始目录或已有结果，生成副本继续忽略。更换快照必须重新核对题目依据，不能只沿用旧Pointer。未接通旧JSONL评测runner。
 
-人工重点审核疑难题、存在争议的标准，以及后续迭代发现的新错误或回退；不以全量人工确认作为开发使用门槛。现有14题尚未获用户逐题验收，精简不改变这一状态。
+人工重点审核疑难题、存在争议的标准，以及后续迭代发现的新错误或回退；不以全量人工确认作为开发使用门槛。新增10题已按冻结原文核对，24题均尚未获用户逐题验收。gq2-016原拟引用的《为了青色的身影》在冻结快照中没有对白，实际使用相邻主线《在终曲之前》与《温迪的计划》的对白。
 
 ## 保留的冻结原文评测集 v2
 
