@@ -28,6 +28,7 @@ __pycache__/
 /rag/experiments/**
 !/rag/experiments/**/
 !/rag/experiments/**/*.md
+!/rag/experiments/dev_question_sample_20261013/selected_questions.json
 !/rag/experiments/mvp/selection.json
 !/rag/experiments/mvp/questions.jsonl
 !/rag/experiments/mvp/local_api.json

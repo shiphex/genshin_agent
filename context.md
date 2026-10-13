@@ -7,7 +7,7 @@
 ## 当前阶段与入口
 
 - [MVP开发问题集](rag/eval/questions_dev.json)：当前0.5，共110题，原定100道核心题和10道跨故事题的类型／难度配额已填满。本批新增gq2-090～100，继续选取天理、龙族、天使及历史相关的独立考点；旧99题对象与相对顺序保留。八字段与2026-06-05冻结快照不变，[原文准备脚本](rag/scripts/prepare_eval.py)生成的副本仅本地保留。全部110题仍待用户逐题复核；未接通评测运行或自动评分；[说明](rag/eval/README.md)。
-- [开发题随机抽样](rag/experiments/dev_question_sample_20261013/selected_questions.md)：从0.5版110题中不放回抽取20题，按每批5题保存题号、题目和原参考答案，供复制给第三方核验；抽样不代表答案已通过复核。
+- [开发题原文摘录](rag/experiments/dev_question_sample_20261013/selected_questions.json)：保持从0.5版110题抽出的20题及每批5题的顺序，复制题目、参考答案、评价要点和冻结快照中87处来源原文；仅供核验，不代表答案已通过复核。独立事实核验进行中：组1（前5题）、组2（第6–10题）与组3（第11–15题）结论写入本地的`result_by_deepseek.json`与[摘要](rag/experiments/dev_question_sample_20261013/result_by_deepseek_summary.md)，三组各5题初判正确、0条criteria与原文矛盾、52/52来源指针逐字一致，仅有个别措辞／评分口径待复核；属初审，仍待用户逐题确认。
 - [剧情评测集v2](rag/eval/questions.json)：2.0.1-pilot原样保留为未来benchmark资产，暂停完善和110题扩展。首批14题已完成独立模型复核与程序校验，仍待用户逐题确认；历史数据与报告保持完整。
 - [公开审阅入口](rag/reports/README.md)：24题双组及六题全部条件／种子的精简诊断，只放关键原句、必要原文和初审；完整记录在云盘包；六题为前轮子集。
 - [24题结果](rag/reports/full_validation_20261010_105700/summary.md)：48次正式调用中47stop、1length；旧题Top5找齐6/9、新题0/10，参考不穷尽，不能代表答案正确率。

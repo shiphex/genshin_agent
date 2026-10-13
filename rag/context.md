@@ -2,7 +2,7 @@
 
 ## 开发题随机抽样（2026-10-13）
 
-从`eval/questions_dev.json` 0.5版110题中不放回随机抽取20题；[可复制题单](experiments/dev_question_sample_20261013/selected_questions.md)按抽取顺序分为四批，每批5题，保存题号、原题与原参考答案。该文件只是第三方核验的输入，未执行答案复核，也不改变题库或用户待验收状态。
+从`eval/questions_dev.json` 0.5版110题中不放回随机抽取20题；[原文摘录包](experiments/dev_question_sample_20261013/selected_questions.json)保持原抽样与四批顺序，每批5题，只复制题号、题目、参考答案、评价要点，以及按冻结快照的来源文件和JSON Pointer提取的87处原文。该文件只是核验输入，不包含正确性结论，也不改变题库或用户待验收状态。独立剧情事实核验按批进行：组1（前5题）、组2（第6–10题）与组3（第11–15题）结果存于本地的`experiments/dev_question_sample_20261013/result_by_deepseek.json`（含分组items、criteria逐条判读与来源URL）及`result_by_deepseek_summary.md`；已核对52/52来源指针与冻结快照逐字一致，三组各5题初判正确、0条criteria与原文矛盾，仅存个别措辞／口径待人工复核。属初审结论，未取得用户逐题验收，也不改变题库状态。
 
 ## MVP 开发问题集第五批（2026-10-12，当前）
 
