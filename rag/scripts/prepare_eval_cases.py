@@ -18,7 +18,11 @@ import full_corpus
 
 PROJECT = Path(__file__).resolve().parents[2]
 RAW = PROJECT / 'data/raw/genshin_wiki_data_20260605'
-CORPUS = PROJECT / 'rag/data/full/genshin_wiki_data_20260605/corpus.jsonl'
+try:
+    from . import artifact_catalog
+except ImportError:
+    import artifact_catalog
+CORPUS = artifact_catalog.dataset_path(PROJECT, 'full_corpus')
 CATEGORIES = ('fact', 'causal', 'worldbuilding', 'relationship')
 DIFFICULTIES = ('easy', 'medium', 'hard')
 CORE_MATRIX = dict(zip(CATEGORIES, ((15, 10, 5), (8, 12, 10), (2, 7, 11), (5, 11, 4))))

@@ -16,7 +16,11 @@ ROOT = Path(__file__).resolve().parents[2]
 RELEASE_VERSION = "rag-full-20260605-v1"
 INPUT_SNAPSHOT = "genshin_wiki_data_20260605"
 DATASET_RELATIVE = Path("data/full") / INPUT_SNAPSHOT
-SOURCE = ROOT / "rag/data/full" / INPUT_SNAPSHOT
+try:
+    from rag.scripts import artifact_catalog
+except ModuleNotFoundError:
+    import artifact_catalog
+SOURCE = artifact_catalog.dataset_path(ROOT, 'full_corpus', 'v1').parent
 CORPUS_ROWS = 22_822
 DATA_FILES = ("corpus.jsonl", "audit.json", "exclusions.jsonl", "coverage.md")
 REQUIRED_RECORD_FIELDS = {

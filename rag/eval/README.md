@@ -11,12 +11,14 @@
 唯一辅助脚本只读取问题集和原文，写出补充 `sources[].text` 的本地副本；不调用模型或评测。项目根目录运行：
 
 ```powershell
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/prepare_eval.py --output rag/data/eval_dev/<新的本地目录>/questions_dev_prepared.json
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/prepare_eval.py
 ```
 
-仅有 `--input`、`--raw-root`、`--output` 三个参数；前两项默认使用上述开发集和冻结快照。输出必须是 `rag/data/` 下的新文件，不能覆盖输入、原始目录或已有结果，生成副本继续忽略。更换快照必须重新核对题目依据，不能只沿用旧Pointer。未接通旧JSONL评测runner。
+仍只有 `--input`、`--raw-root`、`--output` 三个参数，output改为可选；默认在 `data/prepared/story_dev/v<输入版本>/rNNN/questions.json` 生成新副本并登记catalog。显式输出须在prepared或新的tmp任务目录，不能覆盖已有目录、输入、原文或结果。生成副本和清单继续忽略，自定义输入先登记dataset。更换快照必须重新核对依据，不能沿用旧Pointer；未接通JSONL评测runner。[本地产物管理](../docs/data.md)。
 
-人工重点审核疑难题、存在争议的标准，以及后续迭代发现的新错误或回退；不以全量人工确认作为开发使用门槛。本批11题按冻结原文逐题核对，110题均尚未获用户逐题验收。110题共445条出处均解析为非空原文，准备副本的`text`与快照逐字一致；88项既有RAG测试通过。本批本地准备副本位于`rag/data/eval_dev/20261012_batch06_v0_5/questions_dev_prepared_final.json`，本批修订前副本、99题基线及历史结果均保留且未覆盖。上一批gq2-016原拟引用的《为了青色的身影》在冻结快照中没有对白，实际使用相邻主线《在终曲之前》与《温迪的计划》的对白。
+人工重点审核疑难题、存在争议的标准，以及后续迭代发现的新错误或回退；不以全量人工确认作为开发使用门槛。本批11题按冻结原文逐题核对，110题均尚未获用户逐题验收。110题共445条出处均解析为非空原文，准备副本的`text`与快照逐字一致；88项既有RAG测试通过。本批本地准备副本位于`rag/data/prepared/story_dev/v0.5/r001/questions.json`，本批修订前副本、99题基线及历史结果均保留且未覆盖。上一批gq2-016原拟引用的《为了青色的身影》在冻结快照中没有对白，实际使用相邻主线《在终曲之前》与《温迪的计划》的对白。
+
+2026-10-13 本地整理后，上述最终原文副本保留原路径；旧批次、修订前副本、基线和一次性脚本保存在 `rag/data/archive/housekeeping/r001/eval-dev.zip`，以包内原项目相对路径定位。[归档与恢复说明](../docs/archives.md#eval-dev)。本节的88项测试和原文核对属于题库开发历史，本次整理未重新判定题目语义。
 
 ## 保留的冻结原文评测集 v2
 
@@ -77,8 +79,8 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 
 v2原规划为先由用户逐题复核14题，再修订并扩展剩余96题；该扩展目前暂停，不作为MVP开发集的使用门槛。未来恢复benchmark工作时再确认复核安排。模型生成、独立复核与用户反馈分别留档，未逐题确认者不记为用户通过。
 
-旧100题及各轮草稿、完整原文材料、复核原始输出和保护哈希保存在本地 `rag/data/eval_rebuild/20261011_pilot_v2/`，继续忽略；原12题历史实验输入与报告保持原样。本地记录需要独立备份，不能靠Git或重建语料恢复。程序检查不保证全部语义判断正确。
+旧100题及各轮草稿、完整原文材料、复核原始输出和保护哈希已核验归档至本地 `rag/data/archive/housekeeping/r001/eval-rebuild.zip`，保留原项目相对路径；14题历史 `review.md` 仍留原处供直接阅读。原12题历史实验输入与报告保持原样。[归档与恢复说明](../docs/archives.md#eval-rebuild)。本地记录不能靠Git或重建语料恢复，程序检查不保证全部语义判断正确。
 
-2.0.1覆盖摘要迁移的逐字备份、语义内容不变检查和覆盖报告保存于本地 `rag/data/eval_coverage_compact/20261012_v2_0_1/`。本轮未调用模型重标注。
+2.0.1覆盖摘要迁移的逐字备份、语义内容不变检查和覆盖报告已核验归档至本地 `rag/data/archive/housekeeping/r001/eval-coverage.zip`。[原路径与恢复说明](../docs/archives.md#eval-coverage)。该迁移未调用模型重标注。
 
 本题库是公开开发评测集，问题、答案与标注不作为训练样本；最终泛化评测另设留出集。修订必须记录版本与变化，扩展保留已有题号，跨版本比较使用未变题目。

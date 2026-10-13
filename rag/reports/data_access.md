@@ -4,7 +4,7 @@
 
 ## Hugging Face 派生语料
 
-目标仓库为 <https://huggingface.co/datasets/shiphex/genshin_agent_RAG>，首版为 `rag-full-20260605-v1`。它只包含 `rag/data/full/genshin_wiki_data_20260605/` 的以下派生文件：
+目标仓库为 <https://huggingface.co/datasets/shiphex/genshin_agent_RAG>，首版为 `rag-full-20260605-v1`。它只包含 `rag/data/corpora/story_full/v1/` 的以下派生文件：
 
 | 文件 | 字节数 | SHA-256 |
 |---|---:|---|
@@ -62,4 +62,4 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 
 两包各覆盖30页／96份回答，摘要与原件定位校验通过；完整包读取22,822个片段。60项测试通过，原数据和v2包哈希未变。
 
-本地历史备份：rag/data/publication/history_backup/precompact-cc17b40.bundle，旁置.sha256校验值；bundle verify和独立裸仓库恢复已通过。恢复时可在新目录git clone该bundle，不要推送恢复出的旧历史。
+本地历史备份：rag/data/archive/git_history/r001/precompact-cc17b40.bundle，旁置.sha256校验值；bundle verify和独立裸仓库恢复已通过。恢复时可在新目录git clone该bundle，不要推送恢复出的旧历史。

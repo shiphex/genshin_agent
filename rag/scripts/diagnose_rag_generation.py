@@ -14,13 +14,15 @@ from urllib.parse import urlsplit, urlunsplit
 try:
     from . import evaluate_rag_mvp as evaluate
     from . import full_corpus
+    from . import artifact_catalog
 except ImportError:
     import evaluate_rag_mvp as evaluate
     import full_corpus
+    import artifact_catalog
 
 RAG_ROOT = Path(__file__).resolve().parents[1]
 PROJECT = RAG_ROOT.parent
-DEFAULT_CORPUS = RAG_ROOT / "data/full/genshin_wiki_data_20260605/corpus.jsonl"
+DEFAULT_CORPUS = artifact_catalog.dataset_path(PROJECT, 'full_corpus')
 EXPERIMENT = RAG_ROOT / "experiments/generation_diagnosis"
 
 
@@ -180,14 +182,16 @@ def main():
     parser.add_argument("--profiles", type=Path, default=EXPERIMENT / "generation_profiles.json")
     parser.add_argument("--corpus", type=Path, default=DEFAULT_CORPUS)
     parser.add_argument("--raw-root", type=Path, default=PROJECT / "data/raw/genshin_wiki_data_20260605")
-    parser.add_argument("--config", type=Path, default=RAG_ROOT / "experiments/mvp/local_api.json")
-    parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--config", type=Path, default=RAG_ROOT / "config/local_api.json")
+    parser.add_argument("--output-dir", type=Path, help="new local directory; default allocates a catalog run")
     args = parser.parse_args()
+    run_key = None
     try:
+        run_key, args.output_dir = artifact_catalog.reserve_run(PROJECT, 'generation_diagnosis', args.output_dir)
         evaluate.validate_output_dir(args.output_dir, raw_root=args.raw_root,
                                      input_paths=(args.cases, args.profiles, args.corpus, args.config), protect_sample=True)
-        if args.output_dir.exists():
-            raise FileExistsError("diagnosis output directory already exists")
+        artifact_catalog.seal_inputs(PROJECT, run_key, (args.cases, args.profiles, args.corpus, args.config, Path(__file__), Path(evaluate.__file__), Path(artifact_catalog.__file__), Path(full_corpus.__file__)),
+                                     {'max_tokens': 1536, 'protocol': 'evidence_x_sampling'})
         corpus, cases = evaluate.load_jsonl(args.corpus), evaluate.load_jsonl(args.cases)
         profiles = json.loads(args.profiles.read_text(encoding="utf-8-sig"))
         config = json.loads(args.config.read_text(encoding="utf-8-sig"))
@@ -221,10 +225,18 @@ def main():
                     "question_checks": {case["id"]:case.get("checks", []) for case in cases},
                     "answer_reference_sent_to_model": False,
                     "evaluation_script_sha256": fingerprint(Path(evaluate.__file__)), "runner_sha256": fingerprint(Path(__file__))}
-        summary = run_trials(trials, config, args.output_dir, input_manifest=manifest)
+        summary = run_trials(trials, config, args.output_dir / 'model', input_manifest=manifest)
         print(json.dumps(summary, ensure_ascii=False))
-        return 0 if summary["call_statuses"].get("ok", 0) == len(trials) else 1
+        complete = summary["call_statuses"].get("ok", 0) == len(trials)
+        artifact_catalog.finish_run(PROJECT, run_key, 'completed' if complete else 'completed_with_errors')
+        return 0 if complete else 1
+    except KeyboardInterrupt:
+        if run_key:
+            artifact_catalog.finish_run(PROJECT, run_key, 'interrupted')
+        return 130
     except (HTTPException, URLError, OSError, ValueError, KeyError, IndexError, TypeError) as exc:
+        if run_key:
+            artifact_catalog.finish_run(PROJECT, run_key, 'failed')
         print(f"Diagnosis failed ({type(exc).__name__}); inspect inputs, service and saved results.", file=sys.stderr)
         return 1
 

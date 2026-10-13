@@ -2,14 +2,20 @@
 
 import argparse
 import json
+import hashlib
 from pathlib import Path
 import re
 import sys
 
+try:
+    from . import artifact_catalog
+except ImportError:
+    import artifact_catalog
+
 RAG_ROOT = Path(__file__).resolve().parents[1]
 PROJECT = RAG_ROOT.parent
 DEFAULT_ROOT = PROJECT / "data/raw/genshin_wiki_data_20260605"
-DEFAULT_SELECTION = RAG_ROOT / "experiments/mvp/selection.json"
+DEFAULT_SELECTION = artifact_catalog.experiment_input(PROJECT, 'sample_retrieval', 'selection')
 DEFAULT_OUTPUT = RAG_ROOT / "data/mvp"
 
 # This is a field allowlist, not a blanket deletion of combat-related words.
@@ -171,16 +177,21 @@ def main():
     parser.add_argument("--max-chars", type=int, default=800, help="full-mode target chunk length")
     parser.add_argument("--output-dir", type=Path)
     args = parser.parse_args()
+    dataset = 'full_corpus' if args.all else 'sample_corpus'
+    version = None
     try:
-        if args.output_dir is None:
-            args.output_dir = RAG_ROOT / "data/full" / args.raw_root.name if args.all else DEFAULT_OUTPUT
-        if args.output_dir.resolve().is_relative_to(args.raw_root.resolve()):
+        if args.output_dir is not None and args.output_dir.resolve().is_relative_to(args.raw_root.resolve()):
             raise ValueError("output directory must be outside the raw snapshot")
         if __package__:
             from .evaluate_rag_mvp import validate_output_dir
         else:
             from evaluate_rag_mvp import validate_output_dir
-        validate_output_dir(args.output_dir, protect_sample=args.all)
+        if args.output_dir is not None:
+            validate_output_dir(args.output_dir, protect_sample=args.all)
+        version, args.output_dir = artifact_catalog.reserve_corpus(PROJECT, dataset, args.output_dir)
+        metadata = {'source_snapshot': args.raw_root.name, 'raw_root': str(args.raw_root.resolve()),
+                    'max_chars': args.max_chars if args.all else None,
+                    'runner_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
         if args.all:
             if args.output_dir.resolve().is_relative_to(DEFAULT_OUTPUT.resolve()):
                 raise ValueError("full output must not overwrite the historical sample dataset")
@@ -192,6 +203,9 @@ def main():
             if not records:
                 raise ValueError("no usable full-corpus records; inspect the source snapshot")
             write_full(args.output_dir, records, issues, audit)
+            metadata.update(chunks=len(records), files_scanned=audit['files_scanned'])
+            (args.output_dir / 'corpus_manifest.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+            artifact_catalog.finish_corpus(PROJECT, dataset, version, 'completed', metadata)
             print(json.dumps({"files_scanned": audit["files_scanned"], "chunks": len(records),
                               "issues": len(issues), "elapsed_seconds": audit["elapsed_seconds"],
                               "output_dir": str(args.output_dir)}, ensure_ascii=False))
@@ -201,10 +215,15 @@ def main():
         for name, rows in (("corpus.jsonl", records), ("exclusions.jsonl", issues)):
             (args.output_dir / name).write_text(
                 "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
+        metadata.update(chunks=len(records), selection_sha256=hashlib.sha256(Path(args.selection or DEFAULT_SELECTION).read_bytes()).hexdigest())
+        (args.output_dir / 'corpus_manifest.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        artifact_catalog.finish_corpus(PROJECT, dataset, version, 'completed' if records else 'failed', metadata)
         print(json.dumps({"chunks": len(records), "excluded": len(issues),
                           "output_dir": str(args.output_dir)}, ensure_ascii=False))
         return 0 if records else 1
     except (OSError, ValueError, KeyError, TypeError) as error:
+        if version and artifact_catalog.load_catalog(PROJECT)['datasets'][dataset]['versions'][version]['status'] == 'building':
+            artifact_catalog.finish_corpus(PROJECT, dataset, version, 'failed')
         print(f"Preparation failed: {error}", file=sys.stderr)
         return 1
 
