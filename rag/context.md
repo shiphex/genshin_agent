@@ -99,6 +99,8 @@ catalog扩展固定语料版本、prepared、发布包、基线、归档和旧�
 
 用户批准沿用旧 q01–q03、现有语料／检索／提示词完成六次正式模型调用与逐题初审，不接入开发题库、不作 Q4／Q6 受控比较。通过 uv 执行现有 `evaluate_rag_mvp.py --dataset full --limit 3`，登记为本地 `model_comparison/r002`；[初审报告](data/runs/model_comparison/r002/smoke_review.md)、[结构化初审](data/runs/model_comparison/r002/semantic_review.json)和[验证结果](data/runs/model_comparison/r002/verification.json)仅本地保存。
 
+运行完成后，按用户要求另存[已确认方案 v1](experiments/model_comparison/smoke_qwen35_q4_v1.md)，保留方案正文并将实际执行与核验入口单列，附输入／模型哈希和已知记录限制；该文档可随 Git 保存，后续修订另建版本，不改写本次运行清单或产物哈希。
+
 实测运行环境为 llama.cpp b9837（b3fed31b9）、RTX 4060 / Vulkan0、单槽位、8192 上下文、关闭思考及上下文移位，纯文本不加载 mmproj。GGUF 位于用户提供的 D 盘目录下冻结下载快照，SHA-256 为 `00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4`；完整路径、启动参数、日志、预检请求／响应及实际辅助脚本保存在运行组的 `runtime_evidence/`。GPU 使用由设备列表、显式启动参数、进程及显存／利用率观测佐证；默认日志没有逐层分配明细。
 
 模型身份、健康检查和独立短回答预检通过，预检调用另计 1 次。六份正式提示词经服务模板／分词接口核对；三题 RAG 输入分别为 2559、2615、2616 tokens，与正式 usage 一致，加上 1536 输出预算后均有至少 4040 tokens 余量。沿用 Top5、温度 0、seed 42、超时 180 秒，未调整参数或重跑。六次正式调用均有正文且 `finish_reason=stop`，错误／截断／其他未完成均为 0；单次耗时 3.453～19.625 秒，三题预期证据组全部覆盖，平均覆盖 1.0。

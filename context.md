@@ -35,3 +35,5 @@
 2026-10-14 按用户要求运行 RAG 纯检索 Smoke Test：全量语料前 3 题均成功返回 Top5，结果登记为本地 `full_retrieval/r005`；未调用模型，语义状态仍待人工复核。详见 [RAG 模块上下文](rag/context.md)。
 
 同日使用本地 `Qwen3.5-4B-Q4_K_M.gguf`、llama.cpp b9837 和 RTX 4060 Vulkan 后端完成完整链路 Smoke Test，登记为 `model_comparison/r002`：q01–q03 的六次正式调用均正常结束，三题预期证据组全部覆盖。Codex 对冻结原文初审发现无检索回答错误，以及 RAG 扩写主体错置、错引和引用格式问题；技术通过不表示语义或用户验收通过。结果与复核依据仅本地保存，入口见 [RAG 模块上下文](rag/context.md)。
+
+随后按用户要求将本次已确认的 Smoke 方案整理保存为[方案 v1](rag/experiments/model_comparison/smoke_qwen35_q4_v1.md)，保留原方案正文并关联执行清单、参数、输入哈希及本地核验材料；明确为运行后保存，不冒充执行前封存。
