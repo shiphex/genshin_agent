@@ -219,6 +219,30 @@
       "manifest": "rag/data/runs/full_retrieval/r004/run_manifest.json",
       "report": null,
       "finished_at": "2026-10-13T15:42:04.355699+00:00"
+    },
+    "full_retrieval/r005": {
+      "experiment_id": "full_retrieval",
+      "run_id": "r005",
+      "created_at": "2026-10-14T12:44:45.842877+00:00",
+      "execution_status": "completed",
+      "review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "artifacts": "rag/data/runs/full_retrieval/r005",
+      "manifest": "rag/data/runs/full_retrieval/r005/run_manifest.json",
+      "report": null,
+      "finished_at": "2026-10-14T12:44:48.161809+00:00"
+    },
+    "model_comparison/r002": {
+      "experiment_id": "model_comparison",
+      "run_id": "r002",
+      "created_at": "2026-10-14T13:10:23.515428+00:00",
+      "execution_status": "completed",
+      "review_status": "not_reviewed",
+      "publication_status": "not_published",
+      "artifacts": "rag/data/runs/model_comparison/r002",
+      "manifest": "rag/data/runs/model_comparison/r002/run_manifest.json",
+      "report": null,
+      "finished_at": "2026-10-14T13:11:18.274184+00:00"
     }
   },
   "reviews": {
