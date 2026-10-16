@@ -77,7 +77,7 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 
 ## 数据获取与验证
 
-已有[公开语料 revision](https://huggingface.co/datasets/shiphex/genshin_agent_RAG/tree/592d198a9cde390005323a9f849c0d3981fb5a33)保留原发布布局，其四个数据文件与当前语料相同；新格式尚未上传。新克隆不含本地 `data/`，须另行提供当前基线原件。重建语料不能恢复模型回答或第三方核验，公开语料也不包含原始快照。
+新格式已通过[PR #1 合并到 main](https://huggingface.co/datasets/shiphex/genshin_agent_RAG/discussions/1)，固定 [revision](https://huggingface.co/datasets/shiphex/genshin_agent_RAG/tree/5684b0d146cda2590f72e1be114281a032356781) 的 `story/train` 只加载剧情语料，审计附件独立存放；发布状态和指纹见[catalog](catalog.json)。旧布局仍可通过[原 revision](https://huggingface.co/datasets/shiphex/genshin_agent_RAG/tree/592d198a9cde390005323a9f849c0d3981fb5a33)访问。新克隆不含本地 `data/`，须另行提供当前基线原件。重建语料不能恢复模型回答或第三方核验，公开语料也不包含原始快照。
 
 ```powershell
 uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/artifact_catalog.py

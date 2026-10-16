@@ -137,9 +137,12 @@
   },
   "hf": {
     "release_version": "rag-full-20260605-v2",
-    "publication_status": "not_published",
+    "publication_status": "available",
     "previous_revision": "592d198a9cde390005323a9f849c0d3981fb5a33",
-    "repository": "shiphex/genshin_agent_RAG"
+    "repository": "shiphex/genshin_agent_RAG",
+    "published_revision": "5684b0d146cda2590f72e1be114281a032356781",
+    "publication_url": "https://huggingface.co/datasets/shiphex/genshin_agent_RAG/tree/5684b0d146cda2590f72e1be114281a032356781",
+    "merged_pull_request": 1
   },
   "supersedes": "current-002"
 }

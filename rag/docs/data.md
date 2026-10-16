@@ -34,7 +34,7 @@ description: "维护当前基线文件、独立输出和后续更新规则。"
 
 review用于新的题库核验记录，沿用 `artifact_catalog.reserve_output(root, 'review')` 的目录分配、`seal_inputs` 的输入封存和 `finish_output` 的执行登记；当前没有自动核验runner。用户要求落盘时才生成，执行完成仍保持review_status=not_reviewed，不把外部模型初审登记为用户验收。
 
-构建、原文准备和评测的 run_manifest.json 记录执行状态、实际参数、输入文件哈希、Git commit、source_dirty和执行源码副本；配置只记指纹，不复制鉴权。新全量构建的原始目录目前仅记路径与快照名，未保存逐文件输入指纹。原文准备被手动中断时可能留下running状态，需人工核对，编号不复用。HF 导出由包内 manifest.json 维护固定白名单与发布信息，显式指定新目录。
+构建、原文准备和评测的 run_manifest.json 记录执行状态、实际参数、输入文件哈希、Git commit、source_dirty和执行源码副本；配置只记指纹，不复制鉴权。新全量构建的原始目录目前仅记路径与快照名，未保存逐文件输入指纹。原文准备被手动中断时可能留下running状态，需人工核对，编号不复用。HF 导出由包内 manifest.json 维护固定白名单与发布信息，显式指定新目录。已发布的 `rag-full-20260605-v2` revision、状态与远端入口以 catalog 的 `hf` 字段为准。
 
 基线更新是独立操作：明确替换集合，在新输出验证通过后再更新 catalog 的基线身份、路径、哈希及题库版本，完成所有引用核对。失败保持当前基线不变；现有工具没有自动提升基线的接口。不默认保留每次可重建副本，也不在生成成功时升级用户验收状态。
 
