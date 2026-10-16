@@ -57,7 +57,7 @@ llama-server.exe -m $smokeModel.FullName `
 
 ## 执行记录与核验入口
 
-以下为完成运行后核对的事实，不是新增验收要求。运行数据仅本地保存，新克隆须另行提供备份；此方案文档可随 Git 保存。
+以下为完成运行后核对的事实，不是新增验收要求。本节指向 `rag/data/` 的链接仅本地可用，获取与恢复见[数据获取说明](../../reports/data_access.md)；全量语料链接固定到当次输入的已发布 revision。此方案文档可随 Git 保存。
 
 | 核验对象 | 本次依据 |
 | --- | --- |
@@ -75,7 +75,7 @@ llama-server.exe -m $smokeModel.FullName `
 
 | 输入 | SHA-256 |
 | --- | --- |
-| [全量语料](../../data/corpora/story_full/v1/corpus.jsonl) | `1fafb904a22126b1fa757d1f6a2c119f1fa10f5637d5d75bcccfb9425c6efed3` |
+| [全量语料](https://huggingface.co/datasets/shiphex/genshin_agent_RAG/resolve/592d198a9cde390005323a9f849c0d3981fb5a33/data/full/genshin_wiki_data_20260605/corpus.jsonl) | `1fafb904a22126b1fa757d1f6a2c119f1fa10f5637d5d75bcccfb9425c6efed3` |
 | [旧题 JSONL](../full_retrieval/questions.jsonl) | `669cdee767006906246a595f31476a2219d98dee3db2c1c06c8eed2edc618988` |
 | [共享配置](../../config/local_api.json) | `42930815410d85bb2ad2d597332ab0ba8044feb97c507cc780a4267ed87d3787` |
 

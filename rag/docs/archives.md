@@ -1,5 +1,7 @@
 # 本地过程资料归档
 
+本页指向 `rag/data/` 的链接仅本地可用，不随 Git 提供。获取与恢复见[数据获取说明](../reports/data_access.md)；这些归档包不属于 Hugging Face 语料发布范围，须独立取得。
+
 2026-10-13 按用户批准的整理方案执行。正式语料、题库、模型结果、最新第三方复核和已有发布 ZIP 保持原路径；旧过程文件以 ZIP 保留原项目相对路径。整理前的完整文档文字另有本地备份，开发历史见[历史记录](history/development_20261013.md)。
 
 本地归档根目录为 `rag/data/archive/housekeeping/r001/`，整个目录继续由 `.gitignore` 忽略。新克隆不会自动包含这些包，须独立备份或另行取得。`archive_index.json` 记录 ZIP 大小、SHA-256、原文件数量和恢复验证状态；`SHA256SUMS.txt` 用于校验 ZIP，各包内 `archive_manifest.json` 记录逐文件路径、大小和哈希。

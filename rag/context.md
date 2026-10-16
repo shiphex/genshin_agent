@@ -15,11 +15,13 @@ description: "记录 RAG 当前问题与验证边界，保留既有历史上下�
 
 ## 当前状态与遗留问题
 
-当前仍聚焦检索遗漏、生成忠实性和独立语义复核；程序验证不替代用户逐题验收。文档体系现将模块命令、当前问题、实验执行和历史分别维护，详见[文档规范](../docs/AGENTS.md)。
+当前聚焦检索遗漏、生成忠实性与独立语义复核；程序验证不替代用户逐题验收。维护分工见[文档规范](../docs/AGENTS.md)。
 
-已核对的遗留冲突：开发题 skill 的“准备副本与验收”仍指定 rag/data/eval_dev/，而 prepare_eval.py 调用 artifact_catalog.reserve_prepared，后者的 output_namespace 只允许 prepared 或新 tmp 任务。原 skill 本轮未修改；下次开发题任务须先对照[现行产物规则](docs/data.md)。
+开发题 skill 已对齐[产物规则](docs/data.md)：默认分配新 prepared 副本；显式输出限于 prepared 或新 tmp 任务，拒绝已有父目录。先读当前区，根 context 仅阶段或入口变化时更新。
 
-本轮既有 101 项 RAG 测试、catalog 与精确摘录检查通过；文档及 skill 核验见[Agent Note](../.agents/notes/implemented/2026-10-16-ai-native-documentation.md#验证)。未生成 RAG 产物或改变用户验收状态。
+6 处语料链接已改为固定 Hugging Face revision。历史区指向 `rag/data/` 的链接仅本地可用；[获取说明](reports/data_access.md)区分语料与未发布资料，公开语料不替代历史回答或复核。
+
+初轮 101 项 RAG 测试、catalog 与摘录检查保留原记录；本轮检查及边界见[Agent Note](../.agents/notes/implemented/2026-10-16-ai-native-documentation.md#后续验证)。本轮不生成 RAG 副本或运行，不改变用户验收状态。
 
 ## 历史保留区
 

@@ -9,7 +9,7 @@ description: Use when continuing to add or revise simplified story development q
 
 ## 准备
 
-1. 从仓库根目录读取 `context.md`、`rag/context.md`、`rag/README.md`、`rag/eval/README.md`、当前 JSON 和适用的 `AGENTS.md`。检查 Git 状态，保留已有工作与暂存状态。
+1. 从仓库根目录读取 `context.md`、适用的 `AGENTS.md`、`rag/context.md` 当前区，以及 `rag/README.md`、`rag/eval/README.md` 和当前 JSON 的相关部分；历史按需回查。检查 Git 状态，保留已有工作与暂存状态。
 2. 从当前任务和文件确定本批题号、版本、类型与难度、题数、冻结快照、用户复核状态及输出路径。编辑前保存现有题目对象及顺序作为比较基线；有未提交修改时不能单靠 `HEAD` 作为基线。长期配额与当前题数分开记录。
 3. 读取指定快照中的实际原文字段，确认拟用材料含有支持命题的非空文本。若指定任务的对白等字段为空，寻找同一故事阶段或相邻任务中确实可用的原文，核对出处并在交付说明中交代变更；找不到足够依据就缩小或改写命题，不凭记忆补全。
 
@@ -23,6 +23,6 @@ description: Use when continuing to add or revise simplified story development q
 ## 准备副本与验收
 
 1. 编辑后逐字段比较基线题目与当前题目，检查新增 ID 唯一、题型和难度符合任务，且没有重复考点。
-2. 按 `rag/eval/README.md` 的当前命令，经 uv 运行现有 `rag/scripts/prepare_eval.py`，输出到 `rag/data/eval_dev/` 下本批专用、尚不存在的本地路径。不得覆盖旧结果或输入。检查全部出处均解析为非空原文，准备副本的 `text` 与对应快照字段逐字一致。
-3. 经 uv 运行现有 `rag/tests`，检查 Git 候选文件及暂存清单。生成副本和原始快照留在本地忽略目录；只更新受影响的开发说明、根 `context.md` 与 `rag/context.md`，不碰无关实验。
+2. 按 `rag/eval/README.md` 的当前命令，经 uv 运行现有 `rag/scripts/prepare_eval.py`；默认自动分配新的 prepared 编号并登记 catalog。显式 `--output` 须遵循[现行产物规则](../../../rag/docs/data.md)，位于 prepared 或新的 tmp 任务目录，且输出父目录尚不存在。不得覆盖旧结果或输入。检查全部出处均解析为非空原文，准备副本的 `text` 与对应快照字段逐字一致。
+3. 经 uv 运行现有 `rag/tests`，检查 Git 候选文件及暂存清单。生成副本和原始快照留在本地忽略目录；只同步受影响的开发说明与 `rag/context.md` 当前区，根 `context.md` 仅在阶段或入口变化时更新，不碰无关实验。
 4. 交付时分开报告程序校验、主代理逐题原文核对和用户逐题验收。只有收到用户的实际逐题确认，才能把相应题目记为用户通过。

@@ -38,7 +38,7 @@ description: "提供 RAG 语料、检索、模型实验和模块检查的使用�
 
 ## 当前题库
 
-[questions_dev.json](eval/questions_dev.json)为工程迭代入口：0.5 版、110 题，仅维护 `id/type/difficulty/question/answer/keywords/criteria/sources`。原文位置指向冻结快照，`text` 由脚本读取后加入本地副本。当前保留的[最终原文副本](data/prepared/story_dev/v0.5/r001/questions.json)只供本地查看。
+[questions_dev.json](eval/questions_dev.json)为工程迭代入口：0.5 版、110 题，仅维护 `id/type/difficulty/question/answer/keywords/criteria/sources`。原文位置指向冻结快照，`text` 由脚本读取后加入本地副本。当前保留的[最终原文副本](data/prepared/story_dev/v0.5/r001/questions.json)仅本地可用。
 
 在项目根目录运行，输出替换为新的路径：
 
@@ -46,13 +46,13 @@ description: "提供 RAG 语料、检索、模型实验和模块检查的使用�
 uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/prepare_eval.py
 ```
 
-[questions.json](eval/questions.json)保留为未来 benchmark 资产：2.0.1-pilot、14 题，暂停扩展。[14 题历史复核表](data/reviews/benchmark_source/r001/review.md)继续可直接阅读；覆盖统计属于 2.0.0 的旧口径。v2 离线工具为 `prepare_eval_cases.py`，字段及命令见[题库说明](eval/README.md)。
+[questions.json](eval/questions.json)保留为未来 benchmark 资产：2.0.1-pilot、14 题，暂停扩展。[14 题历史复核表](data/reviews/benchmark_source/r001/review.md)仅本地可用；覆盖统计属于 2.0.0 的旧口径。v2 离线工具为 `prepare_eval_cases.py`，字段及命令见[题库说明](eval/README.md)。本地资料不随 Git 提供，获取与恢复见[数据获取说明](reports/data_access.md)。
 
 两套 JSON 题库尚未接通读取 JSONL 的 `evaluate_rag_mvp.py`；关键词命中不等于语义正确。全部题目仍待用户逐题验收；第三方复核和程序校验单独记录。
 
 ## 语料与检索
 
-原始快照位于项目共享的 `data/raw/genshin_wiki_data_20260605/`。新克隆须另行提供该快照，才能构建语料或按原文位置回查。当前[全量语料](data/corpora/story_full/v1/corpus.jsonl)有 22,822 个片段；处理状态和边界见[覆盖说明](data/corpora/story_full/v1/coverage.md)、[审计](data/corpora/story_full/v1/audit.json)及[排除记录](data/corpora/story_full/v1/exclusions.jsonl)。
+原始快照位于项目共享的 `data/raw/genshin_wiki_data_20260605/`。新克隆须另行提供该快照，才能构建语料或按原文位置回查。当前[全量语料](https://huggingface.co/datasets/shiphex/genshin_agent_RAG/resolve/592d198a9cde390005323a9f849c0d3981fb5a33/data/full/genshin_wiki_data_20260605/corpus.jsonl)有 22,822 个片段；处理状态和边界见[覆盖说明](https://huggingface.co/datasets/shiphex/genshin_agent_RAG/blob/592d198a9cde390005323a9f849c0d3981fb5a33/data/full/genshin_wiki_data_20260605/coverage.md)、[审计](https://huggingface.co/datasets/shiphex/genshin_agent_RAG/resolve/592d198a9cde390005323a9f849c0d3981fb5a33/data/full/genshin_wiki_data_20260605/audit.json)及[排除记录](https://huggingface.co/datasets/shiphex/genshin_agent_RAG/resolve/592d198a9cde390005323a9f849c0d3981fb5a33/data/full/genshin_wiki_data_20260605/exclusions.jsonl)。上述链接固定到全量语料 v1 的已发布 revision，本地位置由 catalog 定位。
 
 构建使用新输出目录；评测由索引分配独立运行编号，保留已存在的语料和人工复核：
 

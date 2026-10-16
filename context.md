@@ -25,4 +25,4 @@ description: "记录项目当前阶段、模块入口及下一会话的工作边
 
 文档体系采用职责分层、三个独立 skill、分类模板和中文字数门禁；实现与验证入口见[首条 Agent Note](.agents/notes/implemented/2026-10-16-ai-native-documentation.md)。RAG 的语义问题及待用户验收状态未因本轮文档调整改变。
 
-历史模型回答、题库复核、数据整理和 Smoke Test 记录保留在模块 context 及其链接位置，不在项目导航重复。旧开发题 skill 的输出路径冲突见模块当前问题；未在本轮修订该 skill。
+历史模型回答、题库复核、数据整理和 Smoke Test 记录保留在模块 context 及其链接位置，不在项目导航重复。开发题 skill 的旧路径及上下文规则已对齐；链接可用范围与最近验证见模块当前区。

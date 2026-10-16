@@ -1,5 +1,7 @@
 # RAG 开发历史（2026-10-13 整理前）
 
+阅读提示（2026-10-16）：下文指向 `rag/data/` 的链接仅本地可用，获取与恢复见[数据获取说明](../../reports/data_access.md)。语料覆盖说明链接已改为相同文件的固定发布 revision；其余历史正文与统计口径保留。
+
 以下迁自原模块上下文。每节的“当前”“本轮”“最新”、测试数量与提交状态均属于当时阶段，不覆盖现状；当前入口见[模块上下文](../../context.md)与[运行说明](../../README.md)。已归档的原路径保留为历史坐标，通过[归档说明](../archives.md)恢复。旧命令记录当时行为，运行时应按当前说明选用新输出目录。
 
 ## 开发题随机抽样（2026-10-13）
@@ -172,7 +174,7 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 
 全量参考题在`experiments/full_retrieval/questions.jsonl`，按原文位置映射新ID，仍为待复核草稿。9道可评分题中6道在Top5找齐全部必要证据，平均组覆盖83.3%；q05/q06/q07跨来源题缺失部分证据。q10旧样本不足不等于全库无答案，q11/q12未运行模型拒答检查。本轮不调用真实模型。
 
-39项行为测试通过；连续两次构建语料和问题记录字节一致，全部片段能从原字段重建，入库字符范围无重叠，样本语料重建仍字节一致。最终核对11,439个原始文件、11个历史产物和5个样本输入哈希未变；full写入sample／共享raw及缺失full语料的CLI均失败而不覆盖、不回退。全量产物与抽检见 [coverage.md](../../data/corpora/story_full/v1/coverage.md)，检索见 [回归报告](../../data/runs/full_retrieval/r001/review.md)，详细实测见 [全量观察](full_observations.md)。
+39项行为测试通过；连续两次构建语料和问题记录字节一致，全部片段能从原字段重建，入库字符范围无重叠，样本语料重建仍字节一致。最终核对11,439个原始文件、11个历史产物和5个样本输入哈希未变；full写入sample／共享raw及缺失full语料的CLI均失败而不覆盖、不回退。全量产物与抽检见 [coverage.md](https://huggingface.co/datasets/shiphex/genshin_agent_RAG/blob/592d198a9cde390005323a9f849c0d3981fb5a33/data/full/genshin_wiki_data_20260605/coverage.md)，检索见 [回归报告](../../data/runs/full_retrieval/r001/review.md)，详细实测见 [全量观察](full_observations.md)。
 
 独立审查发现并修复机制漏项、说话者／流程模板、编年史CSS及跨输入raw／历史sample写保护四类Important。机制与样式按可分离自然段隔离，未知结构不猜测恢复；角色力量叙述及剧情百分数保留。针对修复新增的复现测试先失败后通过，最终仍需人工语义检查，规则不能证明全库无漏项。
 
