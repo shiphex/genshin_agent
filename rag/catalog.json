@@ -1,919 +1,145 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
+  "baseline_id": "current-003",
+  "established_on": "2026-10-16",
+  "source_snapshot": "genshin_wiki_data_20260605",
+  "raw_root": "data/raw/genshin_wiki_data_20260605",
   "datasets": {
-    "story_dev": {
-      "path": "rag/eval/questions_dev.json",
-      "version": "0.5",
-      "review_status": "not_reviewed",
-      "kind": "question_set",
-      "prepared_current": "story_dev/v0.5/r002"
-    },
-    "story_benchmark": {
-      "path": "rag/eval/questions.json",
-      "version": "2.0.1-pilot",
-      "review_status": "not_reviewed",
-      "kind": "question_set"
-    },
     "full_corpus": {
-      "path": "rag/data/corpora/story_full/v1/corpus.jsonl",
-      "snapshot": "genshin_wiki_data_20260605",
-      "availability": "local_optional",
-      "kind": "corpus",
-      "resource_id": "story_full",
-      "version": "v1",
-      "versions": {
-        "v1": {
-          "path": "rag/data/corpora/story_full/v1/corpus.jsonl",
-          "status": "completed",
-          "legacy_path": "rag/data/full/genshin_wiki_data_20260605/corpus.jsonl",
-          "manifest": "rag/data/corpora/story_full/v1/corpus_manifest.json"
-        }
+      "path": "rag/data/corpus/corpus.jsonl",
+      "rows": 22822
+    },
+    "story_dev": {
+      "path": "rag/eval/questions.json",
+      "version": "0.5",
+      "questions": 110,
+      "review_status": "not_reviewed"
+    }
+  },
+  "review20": {
+    "input": "rag/eval/review20.json",
+    "result": "rag/data/review20/result.json",
+    "questions": 20,
+    "execution_status": "completed_as_reported",
+    "review_status": "not_reviewed",
+    "summary": "rag/data/review20/summary.md",
+    "summary_role": "third_party_summary_and_historical_prompt_record",
+    "summary_origin": "user-provided result_by_deepseek_summary.md"
+  },
+  "smoke": {
+    "input": "rag/eval/smoke/questions.jsonl",
+    "results": "rag/data/smoke/results.jsonl",
+    "review": "rag/data/smoke/semantic_review.json",
+    "sources": "rag/data/smoke/frozen_review_sources.json",
+    "questions": 3,
+    "model_calls": 6,
+    "execution_status": "completed",
+    "review_status": "not_reviewed",
+    "parameters": {
+      "dataset": "full",
+      "retrieval_only": false,
+      "limit": 3,
+      "retrieval_top_k": 5,
+      "max_tokens": 1536,
+      "temperature": 0,
+      "seed": 42
+    },
+    "source_commit": "0bf881628d99f1c66ed82f51628540ff9b22602b",
+    "source_dirty": true,
+    "model": {
+      "name": "Qwen3.5-4B-Q4_K_M",
+      "bytes": 2740937888,
+      "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4"
+    },
+    "runtime": {
+      "version": "version: 9837 (b3fed31b9)\nbuilt with Clang 20.1.8 for Windows x86_64",
+      "server_sha256": "28713f013309fc1ad213232b429547e046d8928d6352ef006f47cb4e6515b388",
+      "device": "RTX 4060 / Vulkan0",
+      "context_size": 8192,
+      "enable_thinking": false,
+      "context_shift": false
+    },
+    "provenance": {
+      "original_run_id": "model_comparison/r002",
+      "original_manifest_sha256": "62b59dcae46fc16d96a01012287e6bbf9c1ec12ad155a79a30e0b6931acec693",
+      "original_input_sha256": "669cdee767006906246a595f31476a2219d98dee3db2c1c06c8eed2edc618988",
+      "original_input_questions": 12,
+      "selection": "first 3 records, original execution limit=3; selected file was not the historical execution input"
+    },
+    "executed_sources": {
+      "evaluate_rag_mvp.py": {
+        "path": "rag/data/smoke/executed_source/evaluate_rag_mvp.py",
+        "sha256": "112fba29bd19ba24133a9e9b7b746a459841c3c5b72708e9a5a22491c5ab5391"
       },
-      "manifest": "rag/data/corpora/story_full/v1/corpus_manifest.json"
-    },
-    "sample_corpus": {
-      "path": "rag/data/corpora/story_sample/v1/corpus.jsonl",
-      "availability": "local_optional",
-      "kind": "corpus",
-      "resource_id": "story_sample",
-      "version": "v1",
-      "versions": {
-        "v1": {
-          "path": "rag/data/corpora/story_sample/v1/corpus.jsonl",
-          "status": "completed",
-          "legacy_path": "rag/data/mvp/corpus.jsonl",
-          "manifest": "rag/data/corpora/story_sample/v1/corpus_manifest.json"
-        }
-      },
-      "manifest": "rag/data/corpora/story_sample/v1/corpus_manifest.json",
-      "related_runs": [
-        "sample_model_comparison/r001",
-        "sample_model_comparison/r002"
-      ]
-    }
-  },
-  "experiments": {
-    "sample_retrieval": {
-      "purpose": "历史30片段样本的检索回归",
-      "state": "frozen",
-      "inputs": {
-        "selection": "rag/experiments/sample_retrieval/selection.json",
-        "questions": "rag/experiments/sample_retrieval/questions.jsonl"
-      }
-    },
-    "full_retrieval": {
-      "purpose": "当前冻结全量语料的检索回归",
-      "state": "active",
-      "inputs": {
-        "questions": "rag/experiments/full_retrieval/questions.jsonl"
-      }
-    },
-    "model_comparison": {
-      "purpose": "无检索与RAG模型回答对照；历史正式运行包含旧12题和新12题",
-      "state": "frozen",
-      "inputs": {
-        "regression_questions": "rag/experiments/full_retrieval/questions.jsonl",
-        "new_questions": "rag/experiments/model_comparison/questions.jsonl",
-        "config": "rag/config/local_api.json"
-      }
-    },
-    "generation_diagnosis": {
-      "purpose": "前轮六题的证据与采样参数受控诊断",
-      "state": "frozen",
-      "inputs": {
-        "cases": "rag/experiments/generation_diagnosis/cases.jsonl",
-        "profiles": "rag/experiments/generation_diagnosis/generation_profiles.json",
-        "config": "rag/config/local_api.json"
-      }
-    },
-    "sample_model_comparison": {
-      "purpose": "历史30片段样本的无检索与RAG模型对照",
-      "state": "frozen",
-      "inputs": {
-        "questions": "rag/experiments/sample_retrieval/questions.jsonl",
-        "config": "rag/config/local_api.json"
+      "artifact_catalog.py": {
+        "path": "rag/data/smoke/executed_source/artifact_catalog.py",
+        "sha256": "63d76f8b14e8cc2b1892d9b1de26176b70b62cded61c1a2ce688a37d1b5b924c"
       }
     }
   },
-  "runs": {
-    "sample_retrieval/r001": {
-      "experiment_id": "sample_retrieval",
-      "run_id": "r001",
-      "execution_status": "completed",
-      "review_status": "not_reviewed",
-      "publication_status": "not_published",
-      "artifacts": "rag/data/runs/sample_retrieval/r001",
-      "manifest": "rag/data/runs/sample_retrieval/r001/summary.json",
-      "report": null,
-      "recorded_at": "2026-10-09T14:37:11.132895+00:00",
-      "recorded_at_source": "rag/data/runs/sample_retrieval/r001/summary.json#timestamp_utc",
-      "legacy_artifacts": "rag/data/mvp/retrieval"
+  "files": {
+    "rag/data/corpus/corpus.jsonl": {
+      "bytes": 33087738,
+      "sha256": "1fafb904a22126b1fa757d1f6a2c119f1fa10f5637d5d75bcccfb9425c6efed3"
     },
-    "full_retrieval/r001": {
-      "experiment_id": "full_retrieval",
-      "run_id": "r001",
-      "execution_status": "completed",
-      "review_status": "not_reviewed",
-      "publication_status": "not_published",
-      "artifacts": "rag/data/runs/full_retrieval/r001",
-      "manifest": "rag/data/runs/full_retrieval/r001/summary.json",
-      "report": null,
-      "recorded_at": "2026-10-09T16:21:09.579231+00:00",
-      "recorded_at_source": "rag/data/runs/full_retrieval/r001/summary.json#timestamp_utc",
-      "legacy_artifacts": "rag/data/full/genshin_wiki_data_20260605/retrieval"
+    "rag/data/corpus/audit.json": {
+      "bytes": 1073603,
+      "sha256": "7aec9fc7e7ec6d12c625d75e20168b33e6e18d38dc2e54d178866e6732d75a58"
     },
-    "model_comparison/r001": {
-      "experiment_id": "model_comparison",
-      "run_id": "r001",
-      "legacy_id": "full_validation_20261010_105700",
-      "execution_status": "completed_with_errors",
-      "review_status": "not_reviewed",
-      "publication_status": "pending_upload",
-      "artifacts": "rag/data/runs/model_comparison/r001",
-      "manifest": "rag/data/runs/model_comparison/r001/run_manifest.json",
-      "report": "rag/reports/model_comparison/r001",
-      "recorded_at": "2026-10-10T03:20:59.824893+00:00",
-      "recorded_at_source": "rag/data/runs/model_comparison/r001/experiment_summary.json#created_at_utc",
-      "legacy_artifacts": "rag/data/full_validation/20261010_105700",
-      "corpus_path": "rag/data/corpora/story_full/v1/corpus.jsonl",
-      "process_archive": "rag/data/archive/experiment_process/model_comparison/r001/audit.zip"
+    "rag/data/corpus/exclusions.jsonl": {
+      "bytes": 438694,
+      "sha256": "39079f6248bf8ed8fe227eb52c4b4906793740b1b35c3bb43145967c5228c269"
     },
-    "generation_diagnosis/r001": {
-      "experiment_id": "generation_diagnosis",
-      "run_id": "r001",
-      "legacy_id": "generation_diagnosis_20261010_145424",
-      "execution_status": "completed",
-      "review_status": "not_reviewed",
-      "publication_status": "pending_upload",
-      "artifacts": "rag/data/runs/generation_diagnosis/r001",
-      "manifest": "rag/data/runs/generation_diagnosis/r001/model/sealed_inputs.json",
-      "report": "rag/reports/generation_diagnosis/r001",
-      "recorded_at": "2026-10-10T07:15:37.504640+00:00",
-      "recorded_at_source": "rag/data/runs/generation_diagnosis/r001/model/summary.json#completed_at_utc",
-      "legacy_artifacts": "rag/data/generation_diagnosis/20261010_145424",
-      "corpus_path": "rag/data/corpora/story_full/v1/corpus.jsonl",
-      "process_archive": "rag/data/archive/experiment_process/generation_diagnosis/r001/audit.zip"
+    "rag/data/corpus/coverage.md": {
+      "bytes": 58645,
+      "sha256": "1dd52c27ccd5db96165b5a588a28e7f67f969478ee4335f63300c086c3bf3aa6"
     },
-    "full_retrieval/r002": {
-      "experiment_id": "full_retrieval",
-      "run_id": "r002",
-      "created_at": "2026-10-13T14:11:43.357226+00:00",
-      "execution_status": "completed",
-      "review_status": "not_reviewed",
-      "publication_status": "not_published",
-      "artifacts": "rag/data/runs/full_retrieval/r002",
-      "manifest": "rag/data/runs/full_retrieval/r002/run_manifest.json",
-      "report": null,
-      "finished_at": "2026-10-13T14:11:45.865734+00:00",
-      "provenance_note": "Earlier verification run has source fingerprints and source_dirty; no full executed-source copy was captured. Do not substitute current helper code for that exact version."
+    "rag/eval/questions.json": {
+      "bytes": 176961,
+      "sha256": "114c9c47f5241f9a4ef77750fb77826a2938ef839cc37523cf7f55cf966aee1e"
     },
-    "sample_model_comparison/r001": {
-      "experiment_id": "sample_model_comparison",
-      "run_id": "r001",
-      "execution_status": "completed",
-      "api_completion_verified": false,
-      "review_status": "not_reviewed",
-      "publication_status": "not_published",
-      "artifacts": "rag/data/runs/sample_model_comparison/r001",
-      "manifest": "rag/data/runs/sample_model_comparison/r001/summary.json",
-      "report": null,
-      "legacy_artifacts": "rag/data/mvp/model_comparison_initial",
-      "recorded_at": "2026-10-09T14:32:30.293463+00:00",
-      "note": "首次旧版未记录结束原因，successful_model_calls不作为完整响应证明"
+    "rag/eval/review20.json": {
+      "bytes": 71362,
+      "sha256": "a35fa6993fde18896c71f8d6f6173d2a7477089f80ff893fdfe57e3c0fce67e7"
     },
-    "sample_model_comparison/r002": {
-      "experiment_id": "sample_model_comparison",
-      "run_id": "r002",
-      "execution_status": "completed",
-      "api_completion_verified": true,
-      "review_status": "not_reviewed",
-      "publication_status": "not_published",
-      "artifacts": "rag/data/runs/sample_model_comparison/r002",
-      "manifest": "rag/data/runs/sample_model_comparison/r002/summary.json",
-      "report": null,
-      "legacy_artifacts": "rag/data/mvp/model_comparison",
-      "recorded_at": "2026-10-09T14:41:36.619848+00:00",
-      "note": "保留第二次运行及其结束状态记录"
+    "rag/data/review20/result.json": {
+      "bytes": 81622,
+      "sha256": "395142c3d32b970ffe1d71a1adbacf0f4c8dd0c46460a63be41c47d57ff194e3"
     },
-    "full_retrieval/r003": {
-      "experiment_id": "full_retrieval",
-      "run_id": "r003",
-      "created_at": "2026-10-13T15:08:38.605219+00:00",
-      "execution_status": "completed",
-      "review_status": "not_reviewed",
-      "publication_status": "not_published",
-      "artifacts": "rag/data/runs/full_retrieval/r003",
-      "manifest": "rag/data/runs/full_retrieval/r003/run_manifest.json",
-      "report": null,
-      "finished_at": "2026-10-13T15:08:40.916734+00:00",
-      "provenance_note": "Earlier verification run has source fingerprints and source_dirty; no full executed-source copy was captured. Do not substitute current helper code for that exact version."
+    "rag/data/smoke/results.jsonl": {
+      "bytes": 52081,
+      "sha256": "3c80614bbcad55e12638817c353a39a46a4acb8be3c4abdbbc70e92a983a815c"
     },
-    "full_retrieval/r004": {
-      "experiment_id": "full_retrieval",
-      "run_id": "r004",
-      "created_at": "2026-10-13T15:42:02.056602+00:00",
-      "execution_status": "completed",
-      "review_status": "not_reviewed",
-      "publication_status": "not_published",
-      "artifacts": "rag/data/runs/full_retrieval/r004",
-      "manifest": "rag/data/runs/full_retrieval/r004/run_manifest.json",
-      "report": null,
-      "finished_at": "2026-10-13T15:42:04.355699+00:00"
+    "rag/data/smoke/semantic_review.json": {
+      "bytes": 9963,
+      "sha256": "21573b57f259b8306250bea3229c688c755745f179913c3da2f8b73f923cfcfa"
     },
-    "full_retrieval/r005": {
-      "experiment_id": "full_retrieval",
-      "run_id": "r005",
-      "created_at": "2026-10-14T12:44:45.842877+00:00",
-      "execution_status": "completed",
-      "review_status": "not_reviewed",
-      "publication_status": "not_published",
-      "artifacts": "rag/data/runs/full_retrieval/r005",
-      "manifest": "rag/data/runs/full_retrieval/r005/run_manifest.json",
-      "report": null,
-      "finished_at": "2026-10-14T12:44:48.161809+00:00"
+    "rag/data/smoke/frozen_review_sources.json": {
+      "bytes": 10879,
+      "sha256": "2127102d8cbf5eac2ca3459ed71daebe46a48f7f5714669383f67abb02749e57"
     },
-    "model_comparison/r002": {
-      "experiment_id": "model_comparison",
-      "run_id": "r002",
-      "created_at": "2026-10-14T13:10:23.515428+00:00",
-      "execution_status": "completed",
-      "review_status": "not_reviewed",
-      "publication_status": "not_published",
-      "artifacts": "rag/data/runs/model_comparison/r002",
-      "manifest": "rag/data/runs/model_comparison/r002/run_manifest.json",
-      "report": null,
-      "finished_at": "2026-10-14T13:11:18.274184+00:00"
+    "rag/data/smoke/executed_source/artifact_catalog.py": {
+      "bytes": 18858,
+      "sha256": "63d76f8b14e8cc2b1892d9b1de26176b70b62cded61c1a2ce688a37d1b5b924c"
+    },
+    "rag/data/smoke/executed_source/evaluate_rag_mvp.py": {
+      "bytes": 19823,
+      "sha256": "112fba29bd19ba24133a9e9b7b746a459841c3c5b72708e9a5a22491c5ab5391"
+    },
+    "rag/eval/smoke/questions.jsonl": {
+      "bytes": 1871,
+      "sha256": "1925157a0a8c1d0af252f77d6c0ecc9cd32ce42a83d24b9d7ed841c8186e1841"
+    },
+    "rag/data/review20/summary.md": {
+      "bytes": 13966,
+      "sha256": "02139d404950c400de60c8088ab44137edc92e4a44a47758962be72eb4b4c3d7"
     }
   },
-  "reviews": {
-    "dev_sample/r001": {
-      "purpose": "开发题库抽样的独立剧情事实复核",
-      "dataset_id": "story_dev",
-      "dataset_version": "0.5",
-      "created_at": null,
-      "legacy_id": "20261013_sample20",
-      "input": "rag/eval/reviews/dev_sample/r001/selected_questions.json",
-      "summary": "rag/eval/reviews/dev_sample/r001/result_by_deepseek_summary.md",
-      "local_output": "rag/data/reviews/dev_sample/r001/result_by_deepseek.json",
-      "execution_status": "completed_as_reported",
-      "review_status": "not_reviewed",
-      "publication_status": "not_published"
-    },
-    "benchmark_source/r001": {
-      "purpose": "历史v2原文复核表；覆盖采用2.0.0旧口径",
-      "dataset_id": "story_benchmark",
-      "dataset_version": "2.0.0-pilot",
-      "availability": "local_optional",
-      "input": null,
-      "input_archive": "rag/data/archive/housekeeping/r001/eval-rebuild.zip",
-      "input_member": "rag/data/eval_rebuild/20261011_pilot_v2/final_build/questions.json",
-      "summary": "rag/data/reviews/benchmark_source/r001/review.md",
-      "execution_status": "completed_as_recorded",
-      "review_status": "not_reviewed",
-      "publication_status": "not_published"
-    }
+  "hf": {
+    "release_version": "rag-full-20260605-v2",
+    "publication_status": "not_published",
+    "previous_revision": "592d198a9cde390005323a9f849c0d3981fb5a33",
+    "repository": "shiphex/genshin_agent_RAG"
   },
-  "legacy_paths": {
-    "rag/data/full/genshin_wiki_data_20260605/retrieval": "rag/data/runs/full_retrieval/r001",
-    "rag/data/full/genshin_wiki_data_20260605": "rag/data/corpora/story_full/v1",
-    "rag/data/mvp/model_comparison_initial": "rag/data/runs/sample_model_comparison/r001",
-    "rag/data/mvp/model_comparison": "rag/data/runs/sample_model_comparison/r002",
-    "rag/data/mvp/retrieval": "rag/data/runs/sample_retrieval/r001",
-    "rag/data/mvp": "rag/data/corpora/story_sample/v1",
-    "rag/data/full_validation/20261010_105700": "rag/data/runs/model_comparison/r001",
-    "rag/data/generation_diagnosis/20261010_145424": "rag/data/runs/generation_diagnosis/r001",
-    "rag/data/eval_dev/20261012_batch06_v0_5/questions_dev_prepared_final.json": "rag/data/prepared/story_dev/v0.5/r001/questions.json",
-    "rag/data/eval_rebuild/20261011_pilot_v2/review.md": "rag/data/reviews/benchmark_source/r001/review.md",
-    "rag/eval/reviews/dev_sample/r001/result_by_deepseek.json": "rag/data/reviews/dev_sample/r001/result_by_deepseek.json",
-    "rag/data/publication/history_backup": "rag/data/archive/git_history/r001",
-    "rag/data/publication/review-20261010-v1": "rag/data/releases/review/v1",
-    "rag/data/publication/review-20261010-v2": "rag/data/releases/review/v2",
-    "rag/data/publication/review-20261010-v3": "rag/data/releases/review/v3",
-    "rag/data/recovery_handoff/genshin_wiki_data_20260605": "rag/data/baselines/wiki_snapshot/v1",
-    "rag/data/archive/cleanup-20261013": "rag/data/archive/housekeeping/r001",
-    "rag/data/archive/layout-20261013": "rag/data/archive/housekeeping/r002",
-    "rag/data/archive/catalog_migration/r001": "rag/data/archive/housekeeping/r003",
-    "rag/data/tmp/data_management/r001": "rag/data/archive/housekeeping/r004"
-  },
-  "archived_files": {
-    "rag/data/archive/housekeeping/r001/baseline.json": {
-      "archive": "rag/data/archive/housekeeping/r001/audit.zip",
-      "member": "rag/data/archive/housekeeping/r001/baseline.json"
-    },
-    "rag/data/archive/housekeeping/r001/checks.json": {
-      "archive": "rag/data/archive/housekeeping/r001/audit.zip",
-      "member": "rag/data/archive/housekeeping/r001/checks.json"
-    },
-    "rag/data/archive/housekeeping/r001/cleanup.py": {
-      "archive": "rag/data/archive/housekeeping/r001/audit.zip",
-      "member": "rag/data/archive/housekeeping/r001/cleanup.py"
-    },
-    "rag/data/archive/housekeeping/r001/deletion_log.json": {
-      "archive": "rag/data/archive/housekeeping/r001/audit.zip",
-      "member": "rag/data/archive/housekeeping/r001/deletion_log.json"
-    },
-    "rag/data/archive/housekeeping/r001/deletion_targets.json": {
-      "archive": "rag/data/archive/housekeeping/r001/audit.zip",
-      "member": "rag/data/archive/housekeeping/r001/deletion_targets.json"
-    },
-    "rag/data/archive/housekeeping/r001/plan.md": {
-      "archive": "rag/data/archive/housekeeping/r001/audit.zip",
-      "member": "rag/data/archive/housekeeping/r001/plan.md"
-    },
-    "rag/data/archive/housekeeping/r001/tests.log": {
-      "archive": "rag/data/archive/housekeeping/r001/audit.zip",
-      "member": "rag/data/archive/housekeeping/r001/tests.log"
-    },
-    "rag/data/archive/housekeeping/r001/verification.json": {
-      "archive": "rag/data/archive/housekeeping/r001/audit.zip",
-      "member": "rag/data/archive/housekeeping/r001/verification.json"
-    },
-    "rag/data/archive/housekeeping/r001/write_docs.py": {
-      "archive": "rag/data/archive/housekeeping/r001/audit.zip",
-      "member": "rag/data/archive/housekeeping/r001/write_docs.py"
-    },
-    "rag/data/archive/housekeeping/r002/baseline.json": {
-      "archive": "rag/data/archive/housekeeping/r002/audit.zip",
-      "member": "rag/data/archive/housekeeping/r002/baseline.json"
-    },
-    "rag/data/archive/housekeeping/r002/checks.json": {
-      "archive": "rag/data/archive/housekeeping/r002/audit.zip",
-      "member": "rag/data/archive/housekeeping/r002/checks.json"
-    },
-    "rag/data/archive/housekeeping/r002/document_changes.json": {
-      "archive": "rag/data/archive/housekeeping/r002/audit.zip",
-      "member": "rag/data/archive/housekeeping/r002/document_changes.json"
-    },
-    "rag/data/archive/housekeeping/r002/original_docs.json": {
-      "archive": "rag/data/archive/housekeeping/r002/audit.zip",
-      "member": "rag/data/archive/housekeeping/r002/original_docs.json"
-    },
-    "rag/data/archive/housekeeping/r002/plan.md": {
-      "archive": "rag/data/archive/housekeeping/r002/audit.zip",
-      "member": "rag/data/archive/housekeeping/r002/plan.md"
-    },
-    "rag/data/archive/housekeeping/r002/relocate.py": {
-      "archive": "rag/data/archive/housekeeping/r002/audit.zip",
-      "member": "rag/data/archive/housekeeping/r002/relocate.py"
-    },
-    "rag/data/archive/housekeeping/r002/retrieval_smoke.json": {
-      "archive": "rag/data/archive/housekeeping/r002/audit.zip",
-      "member": "rag/data/archive/housekeeping/r002/retrieval_smoke.json"
-    },
-    "rag/data/archive/housekeeping/r002/tests.log": {
-      "archive": "rag/data/archive/housekeeping/r002/audit.zip",
-      "member": "rag/data/archive/housekeeping/r002/tests.log"
-    },
-    "rag/data/archive/housekeeping/r002/verification.json": {
-      "archive": "rag/data/archive/housekeeping/r002/audit.zip",
-      "member": "rag/data/archive/housekeeping/r002/verification.json"
-    },
-    "rag/data/archive/housekeeping/r003/baseline.json": {
-      "archive": "rag/data/archive/housekeeping/r003/audit.zip",
-      "member": "rag/data/archive/housekeeping/r003/baseline.json"
-    },
-    "rag/data/archive/housekeeping/r003/checks.json": {
-      "archive": "rag/data/archive/housekeeping/r003/audit.zip",
-      "member": "rag/data/archive/housekeeping/r003/checks.json"
-    },
-    "rag/data/archive/housekeeping/r003/legacy_restore.json": {
-      "archive": "rag/data/archive/housekeeping/r003/audit.zip",
-      "member": "rag/data/archive/housekeeping/r003/legacy_restore.json"
-    },
-    "rag/data/archive/housekeeping/r003/migrate.py": {
-      "archive": "rag/data/archive/housekeeping/r003/audit.zip",
-      "member": "rag/data/archive/housekeeping/r003/migrate.py"
-    },
-    "rag/data/archive/housekeeping/r003/original_docs.json": {
-      "archive": "rag/data/archive/housekeeping/r003/audit.zip",
-      "member": "rag/data/archive/housekeeping/r003/original_docs.json"
-    },
-    "rag/data/archive/housekeeping/r003/overwrite_check.log": {
-      "archive": "rag/data/archive/housekeeping/r003/audit.zip",
-      "member": "rag/data/archive/housekeeping/r003/overwrite_check.log"
-    },
-    "rag/data/archive/housekeeping/r003/plan.md": {
-      "archive": "rag/data/archive/housekeeping/r003/audit.zip",
-      "member": "rag/data/archive/housekeeping/r003/plan.md"
-    },
-    "rag/data/archive/housekeeping/r003/red.log": {
-      "archive": "rag/data/archive/housekeeping/r003/audit.zip",
-      "member": "rag/data/archive/housekeeping/r003/red.log"
-    },
-    "rag/data/archive/housekeeping/r003/tests.log": {
-      "archive": "rag/data/archive/housekeeping/r003/audit.zip",
-      "member": "rag/data/archive/housekeeping/r003/tests.log"
-    },
-    "rag/data/archive/housekeeping/r003/verification.json": {
-      "archive": "rag/data/archive/housekeeping/r003/audit.zip",
-      "member": "rag/data/archive/housekeeping/r003/verification.json"
-    },
-    "rag/data/runs/model_comparison/r001/annotate.py": {
-      "archive": "rag/data/archive/experiment_process/model_comparison/r001/audit.zip",
-      "member": "rag/data/runs/model_comparison/r001/annotate.py"
-    },
-    "rag/data/runs/model_comparison/r001/check_docs.py": {
-      "archive": "rag/data/archive/experiment_process/model_comparison/r001/audit.zip",
-      "member": "rag/data/runs/model_comparison/r001/check_docs.py"
-    },
-    "rag/data/runs/model_comparison/r001/prepare_retry.py": {
-      "archive": "rag/data/archive/experiment_process/model_comparison/r001/audit.zip",
-      "member": "rag/data/runs/model_comparison/r001/prepare_retry.py"
-    },
-    "rag/data/runs/model_comparison/r001/summarize.py": {
-      "archive": "rag/data/archive/experiment_process/model_comparison/r001/audit.zip",
-      "member": "rag/data/runs/model_comparison/r001/summarize.py"
-    },
-    "rag/data/runs/model_comparison/r001/verify_run.py": {
-      "archive": "rag/data/archive/experiment_process/model_comparison/r001/audit.zip",
-      "member": "rag/data/runs/model_comparison/r001/verify_run.py"
-    },
-    "rag/data/runs/model_comparison/r001/view_results.py": {
-      "archive": "rag/data/archive/experiment_process/model_comparison/r001/audit.zip",
-      "member": "rag/data/runs/model_comparison/r001/view_results.py"
-    },
-    "rag/data/runs/model_comparison/r001/__pycache__/work.cpython-311.pyc": {
-      "archive": "rag/data/archive/experiment_process/model_comparison/r001/audit.zip",
-      "member": "rag/data/runs/model_comparison/r001/__pycache__/work.cpython-311.pyc"
-    },
-    "rag/data/runs/generation_diagnosis/r001/check_links.py": {
-      "archive": "rag/data/archive/experiment_process/generation_diagnosis/r001/audit.zip",
-      "member": "rag/data/runs/generation_diagnosis/r001/check_links.py"
-    },
-    "rag/data/runs/generation_diagnosis/r001/finish_record.py": {
-      "archive": "rag/data/archive/experiment_process/generation_diagnosis/r001/audit.zip",
-      "member": "rag/data/runs/generation_diagnosis/r001/finish_record.py"
-    },
-    "rag/data/runs/generation_diagnosis/r001/observe_runtime.py": {
-      "archive": "rag/data/archive/experiment_process/generation_diagnosis/r001/audit.zip",
-      "member": "rag/data/runs/generation_diagnosis/r001/observe_runtime.py"
-    },
-    "rag/data/runs/generation_diagnosis/r001/prepare_inputs.py": {
-      "archive": "rag/data/archive/experiment_process/generation_diagnosis/r001/audit.zip",
-      "member": "rag/data/runs/generation_diagnosis/r001/prepare_inputs.py"
-    },
-    "rag/data/runs/generation_diagnosis/r001/summarize_diagnosis.py": {
-      "archive": "rag/data/archive/experiment_process/generation_diagnosis/r001/audit.zip",
-      "member": "rag/data/runs/generation_diagnosis/r001/summarize_diagnosis.py"
-    },
-    "rag/data/runs/generation_diagnosis/r001/verify_experiment.py": {
-      "archive": "rag/data/archive/experiment_process/generation_diagnosis/r001/audit.zip",
-      "member": "rag/data/runs/generation_diagnosis/r001/verify_experiment.py"
-    },
-    "rag/data/runs/generation_diagnosis/r001/view_calls.py": {
-      "archive": "rag/data/archive/experiment_process/generation_diagnosis/r001/audit.zip",
-      "member": "rag/data/runs/generation_diagnosis/r001/view_calls.py"
-    },
-    "rag/data/archive/housekeeping/r004/archived_files.json": {
-      "archive": "rag/data/archive/housekeeping/r004/audit.zip",
-      "member": "rag/data/archive/housekeeping/r004/archived_files.json"
-    },
-    "rag/data/archive/housekeeping/r004/baseline.json": {
-      "archive": "rag/data/archive/housekeeping/r004/audit.zip",
-      "member": "rag/data/archive/housekeeping/r004/baseline.json"
-    },
-    "rag/data/archive/housekeeping/r004/deletion_targets.json": {
-      "archive": "rag/data/archive/housekeeping/r004/audit.zip",
-      "member": "rag/data/archive/housekeeping/r004/deletion_targets.json"
-    },
-    "rag/data/archive/housekeeping/r004/legacy_check.json": {
-      "archive": "rag/data/archive/housekeeping/r004/audit.zip",
-      "member": "rag/data/archive/housekeeping/r004/legacy_check.json"
-    },
-    "rag/data/archive/housekeeping/r004/links.json": {
-      "archive": "rag/data/archive/housekeeping/r004/audit.zip",
-      "member": "rag/data/archive/housekeeping/r004/links.json"
-    },
-    "rag/data/archive/housekeeping/r004/migrate.py": {
-      "archive": "rag/data/archive/housekeeping/r004/audit.zip",
-      "member": "rag/data/archive/housekeeping/r004/migrate.py"
-    },
-    "rag/data/archive/housekeeping/r004/original_docs.json": {
-      "archive": "rag/data/archive/housekeeping/r004/audit.zip",
-      "member": "rag/data/archive/housekeeping/r004/original_docs.json"
-    },
-    "rag/data/archive/housekeeping/r004/overwrite_check.log": {
-      "archive": "rag/data/archive/housekeeping/r004/audit.zip",
-      "member": "rag/data/archive/housekeeping/r004/overwrite_check.log"
-    },
-    "rag/data/archive/housekeeping/r004/plan.md": {
-      "archive": "rag/data/archive/housekeeping/r004/audit.zip",
-      "member": "rag/data/archive/housekeeping/r004/plan.md"
-    },
-    "rag/data/archive/housekeeping/r004/red.log": {
-      "archive": "rag/data/archive/housekeeping/r004/audit.zip",
-      "member": "rag/data/archive/housekeeping/r004/red.log"
-    },
-    "rag/data/archive/housekeeping/r004/tests.log": {
-      "archive": "rag/data/archive/housekeeping/r004/audit.zip",
-      "member": "rag/data/archive/housekeeping/r004/tests.log"
-    },
-    "rag/data/archive/housekeeping/r004/update_catalog.py": {
-      "archive": "rag/data/archive/housekeeping/r004/audit.zip",
-      "member": "rag/data/archive/housekeeping/r004/update_catalog.py"
-    }
-  },
-  "prepared": {
-    "story_dev/v0.5/r001": {
-      "dataset_id": "story_dev",
-      "input_version": "0.5",
-      "generation_id": "r001",
-      "path": "rag/data/prepared/story_dev/v0.5/r001/questions.json",
-      "status": "completed",
-      "legacy_path": "rag/data/eval_dev/20261012_batch06_v0_5/questions_dev_prepared_final.json",
-      "metadata": {
-        "input_sha256": "114c9c47f5241f9a4ef77750fb77826a2938ef839cc37523cf7f55cf966aee1e",
-        "source_snapshot": "genshin_wiki_data_20260605"
-      }
-    },
-    "story_dev/v0.5/r002": {
-      "dataset_id": "story_dev",
-      "input_version": "0.5",
-      "generation_id": "r002",
-      "path": "rag/data/prepared/story_dev/v0.5/r002/questions.json",
-      "status": "completed",
-      "created_at": "2026-10-13T15:08:38.681736+00:00",
-      "finished_at": "2026-10-13T15:08:38.695251+00:00",
-      "metadata": {
-        "input_sha256": "114c9c47f5241f9a4ef77750fb77826a2938ef839cc37523cf7f55cf966aee1e",
-        "output_sha256": "0cd7f9b4f33d7d683ccae006f9a3dd37bb951a9ee3160d775cb015c8572e0138",
-        "source_snapshot": "genshin_wiki_data_20260605",
-        "source_files": {
-          "parsed/archon-quests/尾声的尾声__e4ed1de066.json": "66195703c85146cc7a2827413a020e330c1bdefde4240f2a7ead26fc02838f49",
-          "parsed/archon-quests/黑潮与白露的歌剧__4c342bcaa2.json": "0f676fea4e4b62c5cd341f32ab1eccaf2ab759861f6797950f965e563154220a",
-          "parsed/books/白夜国馆藏__c8cd49814d.json": "2d3e68ae47bfa0e7cbbe5f555938cb738f905c88150cdc63f41aa359f41d8521",
-          "parsed/character-quests/在云间__1bf5a7a928.json": "d8096c0ff16aebbfa8ed98b65b70ea51f6ca1eaf7c992941e1208f74e95a04c3",
-          "parsed/character-quests/慈盐之末__8bcf204f26.json": "8833590e79baa2b6eb35084053e432dfd7f4d947fd68271d7f87e99e9e4fb570",
-          "parsed/artifacts/流浪大地的乐团__e73c1fcaf5.json": "509b68fbec1882427a0687deae3c0242c1a57bf66971f91fd78ba90d4df29163",
-          "parsed/weapons/钟剑__9e7d55e42d.json": "1e38534c191f612c7dc54e6d64e09bc9ebfc19266d145d7ff94ac4fc1bafd69e",
-          "parsed/artifacts/如雷的盛怒__963d986348.json": "87876343c6ae8fc0b2f186bb934ab22effd97aadda02081e4e8eee75648e7f19",
-          "parsed/character-quests/变乱似流，磐石不转__ce8c05142f.json": "a3919df5827d202a44febfbcbbe11db5bbee6ec8cb0edd68a1e7acb001b21296",
-          "parsed/characters/钟离__34330e4aba.json": "506a76f011a850e37c345a0fb5ac24aa36c8093c437f7c13d4c51db71db41d60",
-          "parsed/artifacts/乐园遗落之花__e56aa6e271.json": "d5a6b42d5d9e801416b50ec363254667dad3e01c65319a902563124bcb4e45a8",
-          "parsed/archon-quests/愿望__f4edc69750.json": "ecc93cde9f31f81ca45e004003c4f936522267f07ef581ba044ed26409761dad",
-          "parsed/archon-quests/意识之舟所至之处__b75d3f7033.json": "9074a7fc83fa88dcc5414aeef250f0876f82e4dc8479c9bb531822663f84210c",
-          "parsed/characters/阿贝多__334fcb5576.json": "e30af614b481ef812d76925285a16f88459b75058910f1495bd4ddf79c4165e4",
-          "parsed/character-quests/命运的题解__1d2e086f03.json": "579c91fb8e385ebf149a52546f3ef3e33d9b387f2dcc663ffba5c33e04f3e182",
-          "parsed/weapons/腐殖之剑__f6f631e81d.json": "ad381b89581658615fea236360d9db99c73f09464746b8ae81010590bac783e8",
-          "parsed/characters/雷电将军__bb768ff878.json": "539e40fcb52c966e8a9c77d53693d787e1f5b6c07fe4f61998c30de8cb398ec7",
-          "parsed/characters/魈__fb88c811da.json": "04f41243741539988569620464e8c9db8b46068ff4432c0c38713fe2abb3f550",
-          "parsed/archon-quests/归火圣夜巡礼__3ed968fafb.json": "8abb88470ca424f4f35b50e56a3b268cf4dabaceecf0f64c88e8129de26565ec",
-          "parsed/character-quests/海祇见闻__280a3c2da0.json": "22f00aab18c558f2da34178a75e3f9801a11cd59c9641884b26f137f6165ca94",
-          "parsed/archon-quests/在终曲之前__06a9b6be4c.json": "fc76893f4e8ac6a60e02f0c6863cc3800732b298ad675fa8f76a5e062b98bddb",
-          "parsed/archon-quests/温迪的计划__a145014ba0.json": "3311ebc0b0442f841d04cd7fe94574dcf7fe2aa770db23412e91d8f2de350472",
-          "parsed/archon-quests/因果命运的花神诞祭__15fd58cb52.json": "7a8ab5e90faed255470fb3371a3ae28fe8dc4d3774993c9778833014924f2750",
-          "parsed/books/雷穆利亚衰亡史__9513b52ac8.json": "d8f2c6bf0cc078ff3d3f25cd133a2ba2e2532ddde6c321ed7114e78de9f86bea",
-          "parsed/books/古老的考察日志__55e5732f26.json": "c488d351a507e3c0b33bc7f36676e090149d83bd4245340f971c2a738634ee64",
-          "parsed/weapons/雪葬的星银__be6620303a.json": "26f250772497fea62300ffd38e98520ffc5b2001f20d6d2fe72aedb91165f3de",
-          "parsed/characters/凯亚__ea89d56e10.json": "6cf8999940952a9b8ecb0baee99b6b381281c67b24ae7d937fb03af8a6ae560b",
-          "parsed/characters/迪卢克__7221b34128.json": "41084ecc70f1f901983ea82d0e001efe18d95888dc1db948e29b41444bb62eae",
-          "parsed/characters/闲云__a74afcfa9c.json": "ef29b2517488519eee39dde526e43963ca52911e787030cb32366ea6819a84ae",
-          "parsed/characters/申鹤__274466bd04.json": "ad811e01536eaf362897101bb33351389bb5cee8d644ba49dd62015817ee5db0",
-          "parsed/characters/提纳里__03904f0389.json": "914040f945708265e4d6ecf6014dc69e9d9f6d4b8370523e00ecf48b1a71b143",
-          "parsed/characters/柯莱__c729b711eb.json": "a25a35195f80a2248b2b86a236818fedf9b9c5fa349b7b578cd7717c6a81944d",
-          "parsed/artifacts/深林的记忆__6f5f925534.json": "47eaec9348e3b09abdb0e228b312def4ee192889b7e18d01de8d20f18570e174",
-          "parsed/archon-quests/皆为崇高之名__873b512cde.json": "185d393899e9dc2b0d1bc4f736f38c1d39576074dd98a6f3561c2b0846bb42bc",
-          "parsed/characters/甘雨__58c54e7b5c.json": "c0e6229b65cdf4364da328952aba757e4c2c615156765541b9e0d9dbc9e59c91",
-          "parsed/characters/赛诺__749e471dcc.json": "7a5afa22d1587968cf3e670202dbbd1e107dc41141779f580854f4b733365eb9",
-          "parsed/characters/琴__aef8cdec9f.json": "e073d8e2b1d0c866b690a3b5b32dea34c595ae1732449a1bb840a0258c4d9041",
-          "parsed/characters/诺艾尔__367ecafc74.json": "5e1ae8a1c54272e2a1169e6cae05cc74d8a43bb0d16025d426cefd523096d825",
-          "parsed/characters/那维莱特__a7d9752856.json": "7c182bb6e90d397c83f876475dab903f9589121cd1da446655a4c8d4faee61e0",
-          "parsed/characters/阿蕾奇诺__a6da15e18b.json": "11f2ec9e42cff83e66171323d1ef51d3891ce794652f6291b835badbcf5399ef",
-          "parsed/artifacts/绝缘之旗印__599f10a672.json": "877e31de5535fa7cca94cc282926e9cdfb92e1cc6f1fa71f0ab6a05afe754513",
-          "parsed/characters/绮良良__6e1d8ee674.json": "350f5ef7eb519fa283a5c741e3ebbb396a04003af186e6317c794c3e7fa4133c",
-          "parsed/characters/芭芭拉__5bced2a0fd.json": "b0cc13d49c66e6f9a16da1e1997ba91a6b14eeaf888dd8fb58e6c2fbda62d806",
-          "parsed/characters/莱欧斯利__519e242ad0.json": "c387af5e809c51ae2da94a96a1dcf548457cf6383d703045c7b17ecd2fe1f12e",
-          "parsed/artifacts/逐影猎人__d0e93c1a4e.json": "6bd04f261cf2d5e0c3a832765c8a84e5efd6f69e3f6187713733dc0d51e5c6f2",
-          "parsed/artifacts/海染砗磲__bb9421a06d.json": "2c3e20e58e1d5bc3b3a536cc783d38d441674780cd27fb4b703f2e29293e854b",
-          "parsed/artifacts/千岩牢固__a1b108dc10.json": "c8eae70f138abd7eee3a7db5996c955d8126a81d77eec818e56d7f02edc1a1f1",
-          "parsed/characters/神里绫人__5484e56f0e.json": "0401446714d1e5b8964f5f49858cae9285acf9b20f77aeed9bbec97474b19f8e",
-          "parsed/characters/神里绫华__c2546e54d3.json": "14e3aabd25ff210a15d5edaf4da0f9ecc094c93a12bb52a53cd86ef41a6dfed8",
-          "parsed/characters/白术__d5f4ec5bc3.json": "fd8215d29b50113c641dcc72ed0ca36d4f8d088c264111d63942624ac1b13106",
-          "parsed/characters/优菈__2c1e5178d2.json": "8e309881f5bad3fe7677dfabc2c5b5507bc3af022c8fe3a1ef129ae09750839f",
-          "parsed/characters/北斗__7d13526937.json": "78cde80aa5f8c7b6779d450a6025cec7d9d2a67c7366a2095ff29893124614b3",
-          "parsed/characters/娜维娅__50d9109ecd.json": "d273cf26027464fa4bce9054ac778ffd164e1c154eea2383c52a4ee8644bedc3",
-          "parsed/characters/迪希雅__8969081125.json": "d264e7b8598e01399130ecb486fd6fd0f322dd930c231cc2f135634c27071c55",
-          "parsed/characters/雷泽__cf06cb4427.json": "68176777f4ebe235fcd996e6dc28cb7b825fe42db9b7f6180956a31953f14066",
-          "parsed/characters/安柏__3aa0a86d07.json": "ac5fc0e8582738afdff818a0a090f405069b9bbbd335943098abed88c78ec7ee",
-          "parsed/characters/凝光__eccdb02de8.json": "168e96e3b7bc37177e6fb3ffaafde0c4a5c614a03bab88645e153d59c2278352",
-          "parsed/characters/胡桃__7303c1b0d5.json": "0634a05819fd27933e4fa912d4c22443b756f5114dd4de4f625753078285477b",
-          "parsed/archon-quests/请饮下祝胜之酒__c78c714fdb.json": "9b3d05bb449126c55795117158b9c953432a47404503700e6d8d704e9e6d2d2e",
-          "parsed/archon-quests/终幕礼__2832f60895.json": "eb8ad22544c832883cbdb41bb9d3892c76ba148bf66aff4c8164c588205f562e",
-          "parsed/archon-quests/秘源之下__0f81c9d00e.json": "82c61aa3ea35ad8d8b62aa0bffee8d3eaac9622c4db70d32f85a5210be8209b2",
-          "parsed/archon-quests/你我交错的时空__980c0dcdb5.json": "9014d8284d2b06d94bbcb1c2884b6f6e3523e77718883fbc91ce4b883ac634a0",
-          "parsed/archon-quests/最初的那抹月光__b51474fddc.json": "af926f129a476f4726a48f3dd6c2c70b14d5fd288f3a258183877c5e7ca98761",
-          "parsed/characters/妮露__8e0616e63a.json": "16961ea1d9390065d2a448daf8572eb40984a504b0278bfeeab3c74eceb0191d",
-          "parsed/characters/烟绯__0634c28765.json": "7830758b1248409fcde45088cf977d9ce2022f25dd43280a9d6e9c813c4d83fe",
-          "parsed/archon-quests/妄念与真知的通天塔__a68463fa97.json": "0302b1f5e4dea1a04a039d6451b0afd7c4fb779c6e3edcaedd2c43c8a3f9594b",
-          "parsed/archon-quests/名于何处？__6e940bdaec.json": "a824b3b3b98c3fa2987a360a1585413c49e9cd66330cd562ea8ed882afef154b",
-          "parsed/archon-quests/你所不在的时空__a14eb4d1c3.json": "de1b47346c5ff7d97f4d5b50587dc68d3a42fe075a58c4785dc5bc52bfdee128",
-          "parsed/archon-quests/以世界之格的诉说__4bbab786b1.json": "a311dc9a8a10fa93553d51d3e3c5028cf1c73907d76cfafa2453743871fdc148",
-          "parsed/archon-quests/旧影重现__05ec673f13.json": "5206550bae03530ca2795851afaa500728d1f75588b286eb1500cdd684c69567",
-          "parsed/archon-quests/虚空劫灰往世书__04ef0abaf9.json": "392648bf373b9d5aa71a0568e999093e43cbe409fef9e1094fc358dfcac5e493",
-          "parsed/archon-quests/循着过往的足迹__942a657281.json": "c145b97d88c5dea432d3b02acf2ddfc88e1b49b0fe7f228572c0346f9f702455",
-          "parsed/archon-quests/通向自我的歧途__c0e25c4b13.json": "68a0c7ec372935cc8969ba0c484366433416437e1188005cf66e3f46b319c715",
-          "parsed/archon-quests/幽暗时分__250721001d.json": "e1ee74b9666affa64d18ea625a0bcc43535d4f6582bb1cd6962b429937be92e0",
-          "parsed/characters/可莉__bba2a7d7c9.json": "271c5b610468ab4c862e2bb8ae9178166500464695188189ba2f5b48388ecf0c",
-          "parsed/characters/瑶瑶__ea33f0dfed.json": "5ec59c64604efd41db9d67004f72b2fc4d5050e8b6f790c0ca3829f616130218",
-          "parsed/archon-quests/回到月亮上去__a9f4234a38.json": "2db09ff8b10debc75a053e08d8c507417f122405f1b7c33d77d5c9f10aea79e8",
-          "parsed/archon-quests/月亮升起的地方__bc1dde7c06.json": "59e9dc5603147e130770ea9adca0c9a53679718fd1c8fd9a06b02755f061ce29",
-          "parsed/character-quests/似曾相识的威胁__20e7d0b4af.json": "c2490f89c20ad030415e058890859c0596f463f67ad49c27427e875fd25f25d8",
-          "parsed/archon-quests/空月归乡__3e730efcd5.json": "97fdc5e189f6e75be41e4b72150336a408dd9a0fc0fc959d4ebdc809f80d4f22",
-          "parsed/character-quests/若忘记我为何物__b8c0d1a9aa.json": "4af51a4e99c6285465335d6a1d68e03338f81a85ad178a218ea5935e4cf6bc3b",
-          "parsed/archon-quests/当一切镌刻成碑__135625aef1.json": "9eca73fff05dd817e31d8c4c19bdc521e6537d23345f4f34cd7fa190ed31532e"
-        },
-        "sources": 445,
-        "runner_sha256": "810fd458c0c4b662af5b64a73512b2af476aa38fed88062727630545277351a6"
-      }
-    }
-  },
-  "baselines": {
-    "wiki_snapshot/v1": {
-      "path": "rag/data/baselines/wiki_snapshot/v1/snapshot_manifest.json",
-      "snapshot": "genshin_wiki_data_20260605",
-      "availability": "local_optional",
-      "legacy_path": "rag/data/recovery_handoff/genshin_wiki_data_20260605/snapshot_manifest.json"
-    }
-  },
-  "releases": {
-    "review/v1": {
-      "directory": "rag/data/releases/review/v1",
-      "availability": "not_published",
-      "state": "withdrawn_candidate",
-      "bundle_id": "review-20261010-v1",
-      "source_commit": "b904a87901cb3745373aaac04edc90a7db0af57f",
-      "files": [
-        {
-          "path": "rag/data/releases/review/v1/bundle_index.json",
-          "sha256": "edfa74b4146608ebee6d88b2dde7b61b1013edddd9d3709774d16bb038585ecf",
-          "bytes": 903
-        },
-        {
-          "path": "rag/data/releases/review/v1/DO_NOT_UPLOAD.md",
-          "sha256": "9263aacf94bf57aa6e3ef48d7f201bb3d417e84331c30e691749a6816605be2f",
-          "bytes": 203
-        },
-        {
-          "path": "rag/data/releases/review/v1/focused_manifest.json",
-          "sha256": "d7042998d26f5fd97c5e0d3cfa2a6160c0a0185dd4f2dc084c29ffa6d245becd",
-          "bytes": 28722
-        },
-        {
-          "path": "rag/data/releases/review/v1/full_manifest.json",
-          "sha256": "2ce1121fb22c88cda9a54de9a4c300ef938b84cfeaee920bc89ecc512aa1dba5",
-          "bytes": 2577029
-        },
-        {
-          "path": "rag/data/releases/review/v1/review-20261010-v1-focused.zip",
-          "sha256": "a17d3b734bb061a999b84266edd5306b7a67b530ced5f9de1ce10fd31de4ea98",
-          "bytes": 3200415
-        },
-        {
-          "path": "rag/data/releases/review/v1/review-20261010-v1-full.zip",
-          "sha256": "adc02ef8104fdb779e64a9b80928d2fcc814f6f98c9023972b7695f0c6483fbd",
-          "bytes": 48539157
-        },
-        {
-          "path": "rag/data/releases/review/v1/SHA256SUMS.txt",
-          "sha256": "5080d7d0abae7927a72ba8e38ee7cb92790951167e4cd1116d3e0513363160ad",
-          "bytes": 193
-        }
-      ],
-      "legacy_directory": "rag/data/publication/review-20261010-v1"
-    },
-    "review/v2": {
-      "directory": "rag/data/releases/review/v2",
-      "availability": "pending_upload",
-      "state": "frozen",
-      "bundle_id": "review-20261010-v2",
-      "source_commit": "030acd91bf43950cf054ef429d8a5a5dedd65bcf",
-      "files": [
-        {
-          "path": "rag/data/releases/review/v2/bundle_index.json",
-          "sha256": "b34ffded2f7fb51bd112256225e4e245c26905121b8b6f550f4ca2474b3cf7c9",
-          "bytes": 878
-        },
-        {
-          "path": "rag/data/releases/review/v2/focused_manifest.json",
-          "sha256": "c8e95cadc76dec81d976c13e5076880909b374cbb89284f06b7b7fcd2767b0bd",
-          "bytes": 27984
-        },
-        {
-          "path": "rag/data/releases/review/v2/full_manifest.json",
-          "sha256": "a46926362dcd81383bcf5ea063546a98ddaf05257ebb53c88da8ebea62b35717",
-          "bytes": 2519001
-        },
-        {
-          "path": "rag/data/releases/review/v2/review-20261010-v2-focused.zip",
-          "sha256": "0e14bd5c05ccb896695e71c78bdbc50d635a9a527241a1dc48bfca8bec2cad6a",
-          "bytes": 3201792
-        },
-        {
-          "path": "rag/data/releases/review/v2/review-20261010-v2-full.zip",
-          "sha256": "1938e8d1c7f502ee1edc9000a42bf0849d8fe27cf9ee50f88b59285b97db7d4a",
-          "bytes": 48540530
-        },
-        {
-          "path": "rag/data/releases/review/v2/SHA256SUMS.txt",
-          "sha256": "9eebe1d555b0c9df338d6ccbfcee4233f3807a2d640c2ba0e3cc064f7b24630f",
-          "bytes": 193
-        }
-      ],
-      "legacy_directory": "rag/data/publication/review-20261010-v2"
-    },
-    "review/v3": {
-      "directory": "rag/data/releases/review/v3",
-      "availability": "pending_upload",
-      "state": "current",
-      "bundle_id": "review-20261010-v3",
-      "source_commit": "569175ff73fb3ef9a9f206a9308b627240e44a06",
-      "files": [
-        {
-          "path": "rag/data/releases/review/v3/bundle_index.json",
-          "sha256": "734caa181fb46f530d4ed9c8148f8dfe6676bb6584c4b8d4c77ff1ecf135e2ae",
-          "bytes": 878
-        },
-        {
-          "path": "rag/data/releases/review/v3/focused_manifest.json",
-          "sha256": "da0bb40debb0f62ee12737600e1163f5c824350c3988b9598e972f3f5ef61b17",
-          "bytes": 28464
-        },
-        {
-          "path": "rag/data/releases/review/v3/full_manifest.json",
-          "sha256": "116302b928be95d523e5ffb3d6e4034179699ade11a546562a45c186f0291688",
-          "bytes": 2519481
-        },
-        {
-          "path": "rag/data/releases/review/v3/review-20261010-v3-focused.zip",
-          "sha256": "d428ec5d0af81eaf80f314895d2ff9e2c679c94cebf2200e396eea116fd64d5b",
-          "bytes": 2879846
-        },
-        {
-          "path": "rag/data/releases/review/v3/review-20261010-v3-full.zip",
-          "sha256": "f7a19c5102bc92ce6ec0ff131cd71e15d33bf639db817e9b3c27be25a831bd7c",
-          "bytes": 48218582
-        },
-        {
-          "path": "rag/data/releases/review/v3/SHA256SUMS.txt",
-          "sha256": "8057ea331267119f94b7f38995db2c8ddb843d46ac8fdca20919d865acbeeff9",
-          "bytes": 193
-        }
-      ],
-      "legacy_directory": "rag/data/publication/review-20261010-v3"
-    }
-  },
-  "archives": {
-    "housekeeping/r001": {
-      "directory": "rag/data/archive/housekeeping/r001",
-      "availability": "local_optional",
-      "files": [
-        {
-          "path": "rag/data/archive/housekeeping/r001/archive_index.json",
-          "sha256": "90c6d4e4cca46d56109c9f5e5b0d46d32ca88af88e85fb2846c97cf7a7c6d1a2",
-          "bytes": 2103
-        },
-        {
-          "path": "rag/data/archive/housekeeping/r001/audit.zip",
-          "sha256": "0bc1328cf5b8bbb359bf7445b72069be56bde8aae340e0cc0d4895fc21246fc1",
-          "bytes": 786367
-        },
-        {
-          "path": "rag/data/archive/housekeeping/r001/documentation-before.zip",
-          "sha256": "58d051fadeca7e62f84017cad3e9d047f7cd995ffbf14b926d95657c434a050d",
-          "bytes": 38995
-        },
-        {
-          "path": "rag/data/archive/housekeeping/r001/eval-annotations.zip",
-          "sha256": "0d01132b6d848680abc3f88e7689aedd2749e4577befecd3f8a82c8e186c4c24",
-          "bytes": 9572949
-        },
-        {
-          "path": "rag/data/archive/housekeeping/r001/eval-coverage.zip",
-          "sha256": "1c81394781731d3e198578501c0d36ccadb3b7556d9e83b8031650290c9a5c22",
-          "bytes": 94425
-        },
-        {
-          "path": "rag/data/archive/housekeeping/r001/eval-dev.zip",
-          "sha256": "6b1ed42f0aa04a8597172e6db576764371bbb6ecd09616d2892ef9496ac360d9",
-          "bytes": 1477332
-        },
-        {
-          "path": "rag/data/archive/housekeeping/r001/eval-rebuild.zip",
-          "sha256": "5b37c1e8b73189ef5b8e4f431a0fb51c02bb679036b27be2c4ad4e69bc407823",
-          "bytes": 3198131
-        },
-        {
-          "path": "rag/data/archive/housekeeping/r001/publication-checks.zip",
-          "sha256": "36af65a63f42cefc04ecf51c7780b51ad585350de09b0c0e7c4c11077d34a37b",
-          "bytes": 2958343
-        },
-        {
-          "path": "rag/data/archive/housekeeping/r001/SHA256SUMS.txt",
-          "sha256": "dea3fd9dd71142066640def6e0ed729cf1721882788b6042e1699ce6a1f27054",
-          "bytes": 519
-        }
-      ]
-    },
-    "housekeeping/r002": {
-      "directory": "rag/data/archive/housekeeping/r002",
-      "availability": "local_optional",
-      "files": [
-        {
-          "path": "rag/data/archive/housekeeping/r002/audit.zip",
-          "sha256": "e693b401ae9dc02fba979470523e05f9dc340b3372a6e5de10e0667fb3168a8b",
-          "bytes": 880664
-        },
-        {
-          "path": "rag/data/archive/housekeeping/r002/before.zip",
-          "sha256": "efafd6d967e5dbbbc5aa8f2f60ee66f8ba0367271e0d8cdf4155133936764561",
-          "bytes": 243492
-        }
-      ]
-    },
-    "housekeeping/r003": {
-      "directory": "rag/data/archive/housekeeping/r003",
-      "availability": "local_optional",
-      "files": [
-        {
-          "path": "rag/data/archive/housekeeping/r003/audit.zip",
-          "sha256": "d7e40c36a4d458a0accdcec153a90281144ea1e46446a1b7584cfacf7863e65b",
-          "bytes": 885423
-        },
-        {
-          "path": "rag/data/archive/housekeeping/r003/before.zip",
-          "sha256": "b34564fb09faf79db69829cc739b42e24d53d1f9fe6b5a9edc21ab1275b17e70",
-          "bytes": 380780
-        }
-      ]
-    },
-    "git_history/r001": {
-      "directory": "rag/data/archive/git_history/r001",
-      "availability": "local_optional",
-      "files": [
-        {
-          "path": "rag/data/archive/git_history/r001/precompact-cc17b40.bundle",
-          "sha256": "deb9bd6f46546df00a1968c5aefcfc4137f133d947a65ad9644a88fe39f892a6",
-          "bytes": 600498
-        },
-        {
-          "path": "rag/data/archive/git_history/r001/precompact-cc17b40.sha256",
-          "sha256": "6b1d6551ace980f4f2d5ef0a8c34bd46c3b64e980f862de6e75b19a72eee4941",
-          "bytes": 92
-        }
-      ]
-    },
-    "experiment_process/model_comparison/r001": {
-      "directory": "rag/data/archive/experiment_process/model_comparison/r001",
-      "availability": "local_optional",
-      "files": [
-        {
-          "path": "rag/data/archive/experiment_process/model_comparison/r001/audit.zip",
-          "sha256": "aa9d48016d47a4fb47f2e6642fd4741a18be55d1dff906526b107a01f72e3cff",
-          "bytes": 20219
-        }
-      ]
-    },
-    "experiment_process/generation_diagnosis/r001": {
-      "directory": "rag/data/archive/experiment_process/generation_diagnosis/r001",
-      "availability": "local_optional",
-      "files": [
-        {
-          "path": "rag/data/archive/experiment_process/generation_diagnosis/r001/audit.zip",
-          "sha256": "474d87ec3f16c4bc346b1b94461ab1c997afe88aa1008198ad9740e00a7d3dc9",
-          "bytes": 13442
-        }
-      ]
-    },
-    "housekeeping/r004": {
-      "directory": "rag/data/archive/housekeeping/r004",
-      "availability": "local_optional",
-      "files": [
-        {
-          "path": "rag/data/archive/housekeeping/r004/audit.zip",
-          "bytes": 941461,
-          "sha256": "905ca7c48816d577c2be9503e937cb120cc24b0a888735465c37c93fd0a124bb"
-        },
-        {
-          "path": "rag/data/archive/housekeeping/r004/before.zip",
-          "bytes": 392927,
-          "sha256": "1a59a00eeece189787ab8690462257268287017b9e436c36c26386dfaf8b5318"
-        },
-        {
-          "path": "rag/data/archive/housekeeping/r004/checks.json",
-          "bytes": 558,
-          "sha256": "4f7c724e690cdb7aee74a4e8cf44f57beaece1e0ccad84b0b92808e0b4b55809"
-        },
-        {
-          "path": "rag/data/archive/housekeeping/r004/verification.json",
-          "bytes": 72,
-          "sha256": "964cc1bc4dc89931e7dde0197011f30630f8017cbc317aee835e2d00ef130c9b"
-        }
-      ]
-    }
-  },
-  "legacy_input_paths": {
-    "rag/experiments/full/questions.jsonl": "rag/experiments/full_retrieval/questions.jsonl",
-    "rag/experiments/mvp/questions.jsonl": "rag/experiments/sample_retrieval/questions.jsonl",
-    "rag/experiments/mvp/selection.json": "rag/experiments/sample_retrieval/selection.json"
-  }
+  "supersedes": "current-002"
 }
