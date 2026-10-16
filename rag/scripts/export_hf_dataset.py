@@ -91,29 +91,75 @@ configs:
 
 # Genshin Agent RAG corpus
 
-中文剧情检索语料，共 {manifest['rows']} 条。发布格式版本：`{manifest['release_version']}`；
-原始快照：`{manifest['input_snapshot']}`。`story/train` 只加载 `data/corpus.jsonl`，
-train 是加载分区名；用途为剧情检索和回查。metadata 下为审计、排除记录和覆盖说明。
+这是为原神剧情讨论与 RAG 检索准备的中文语料，当前发布包含 **{manifest['rows']:,} 条记录**。
 
-## 来源与限制
+| 属性 | 值 |
+| --- | --- |
+| 发布格式 | `{manifest['release_version']}` |
+| 基线 | `{manifest['baseline_id']}` |
+| 来源快照 | `{manifest['input_snapshot']}` |
+| 主数据文件 | `data/corpus.jsonl`（JSON Lines，UTF-8） |
 
-记录保留 source_file、RFC 6901 source_pointer、解码后原字段的零基半开字符范围
-source_spans 及 source_kind。wiki_excerpt 是 Wiki 摘录，wiki_compilation 是 Wiki
-编纂，均不自动等同于官方事实。人物说法、传说和推测须保持原限定。
+## 加载数据
 
-本发布不包含原始快照、题库、模型回答、复核资料、权重或缓存。路径不是公开原文 URL；
-完整回查需要另行提供相同冻结快照。
+数据集提供 `story` 配置。其 `train` split **只读取** `data/corpus.jsonl`；`train` 是加载器的分区名称，不表示这些记录是模型训练样本。审计、排除记录和覆盖说明不进入该 split。
 
-## 许可
+```python
+from datasets import load_dataset
 
-原神及 Wiki 来源文本未通过本仓库获得再许可，权利和使用限制仍由相应权利人及来源决定。
-license: other 表示未授予这些文本开放数据许可。发布者原创脚本、清单和说明可按 MIT
-使用，此声明不扩展到语料文本。
+corpus = load_dataset(
+    "shiphex/genshin_agent_RAG",
+    name="story",
+    split="train",
+)
+print(len(corpus))
+print(corpus[0])
+```
 
-## 校验
+## 数据内容与字段
 
-manifest.json 记录发布身份、行数、文件大小与 SHA-256；下载后先核对哈希，再逐行解析。
-corpus.jsonl 通过 Git LFS 分发。本次发布不表示已完成语义质量或用户验收。
+每行是一条剧情相关的语料片段。记录保留片段文本及其来源定位信息，便于检索后回查原材料。
+
+| 字段 | 含义 |
+| --- | --- |
+| `id` | 语料记录的稳定标识 |
+| `title` | 来源条目的标题或路径标签 |
+| `type` | 来源内容的分类 |
+| `parent_id` | 解析记录对应的来源条目标识 |
+| `text` | 用于检索的中文片段文本 |
+| `source_file` | 冻结快照内的来源文件相对路径 |
+| `source_pointer` | RFC 6901 JSON Pointer 路径数组，用于定位来源 JSON 中的字段 |
+| `source_spans` | 与 `source_pointer` 顺序对应的字符范围；起点包含、终点不包含，按解码后的原字段文本计数，字符位置从零开始 |
+| `source_kind` | 来源性质：`wiki_excerpt`（Wiki 摘录）或 `wiki_compilation`（Wiki 编纂） |
+
+Wiki 摘录与 Wiki 编纂都不能自动视作官方确认事实。引用人物说法、传说、推测及存在争议的内容时，应保留来源语气和不确定限定；检索结果适合作为回查线索，不单独构成事实核验结论。
+
+## 发布文件
+
+| 路径 | 用途 | 是否载入 `story/train` |
+| --- | --- | --- |
+| `data/corpus.jsonl` | 完整剧情检索语料 | 是 |
+| `metadata/audit.json` | 纳入语料的审计信息 | 否 |
+| `metadata/exclusions.jsonl` | 排除项记录 | 否 |
+| `metadata/coverage.md` | 覆盖范围与限制说明 | 否 |
+| `manifest.json` | 发布身份、行数、大小与文件 SHA-256 | 否 |
+| `README.md` | 数据集卡与加载配置 | 否 |
+
+## 来源与回查
+
+语料由冻结 Wiki 快照 `{manifest['input_snapshot']}` 派生。`source_file` 和 `source_pointer` 是该快照内部的路径，不是可直接访问的网页 URL。本发布不包含原始快照；若要按记录精确回查，需要另行取得相同版本的快照。来源文件路径、快照版本与记录 ID 应一并保留，避免把片段脱离上下文使用。
+
+本数据集面向剧情文本检索与证据回查，不包含游戏数值、养成、配队或攻略类语料作为目标内容，也不是带有题目、标准答案或训练标签的基准集。本发布不包含题库、模型回答、人工复核材料、模型权重或缓存。
+
+## 许可与使用边界
+
+Hugging Face 元数据中的 `license: other` 不授予语料文本开放数据许可。原神及 Wiki 来源文本没有通过本仓库获得再许可；相关权利与使用限制仍由相应权利人和来源条款决定。发布者原创的脚本、清单及说明可按 MIT 许可使用，该声明不扩展到语料文本。使用者应自行确认其使用方式符合适用的来源条款和法律要求。
+
+## 完整性校验
+
+`manifest.json` 记录发布版本、基线标识、来源快照、语料行数，以及每个数据文件的字节数和 SHA-256。下载后可先按清单核对文件大小与哈希，再解析 JSON Lines 并确认记录数为 **{manifest['rows']:,}**。`data/corpus.jsonl` 使用 Git LFS 分发。
+
+文件完整性校验只能确认下载内容与该发布清单一致，不代表语义质量、覆盖完整性或逐条事实正确性已经获得验收。
 """
 
 
