@@ -1,16 +1,32 @@
+---
+kind: reference
+description: "提供 RAG 语料、检索、模型实验和模块检查的使用说明。"
+---
 # 原神剧情 RAG
+
+## 摘要
 
 本模块为主角／派蒙剧情讨论 Agent 提供可追溯证据。当前实现为冻结 Wiki 剧情提取、词面检索、本地模型对照与离线题库维护；Python 使用标准库并通过 uv 运行。
 
-开发前阅读[模块上下文](context.md)。旧阶段详记见[开发历史](docs/history/development_20261013.md)，本地旧过程资料见[归档说明](docs/archives.md)。
+本页维护模块接口、命令与使用限制；当前问题、反馈和最近验证见[模块上下文](context.md)，总体关系见[架构](../docs/architecture.md)。开发前阅读模块上下文。旧阶段详记见[开发历史](docs/history/development_20261013.md)，本地旧过程资料见[归档说明](docs/archives.md)。
+
+## 目录
+
+- [目录与入口](#目录与入口)
+- [当前题库](#当前题库)
+- [语料与检索](#语料与检索)
+- [模型实验与审阅](#模型实验与审阅)
+- [发布与本地归档](#发布与本地归档)
+- [验证](#验证)
+- [Dev Note](#dev-note)
 
 ## 目录与入口
 
 | 目录 | 内容 |
 | --- | --- |
 | `catalog.json` | 题库、实验、运行、复核与报告的统一索引 |
-| `scripts/` | 9 个正式 Python 实现文件 |
-| `tests/` | 7 个行为测试文件 |
+| `scripts/` | 正式 Python 实现 |
+| `tests/` | 模块行为测试 |
 | `eval/` | 当前开发题库、保留的 v2 题库与字段说明 |
 | `config/` | 共享本地模型连接配置 |
 | `docs/` | 开发历史、观察、归档恢复和爬虫交接 |
@@ -103,3 +119,7 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 ```
 
 整理前各阶段的测试数量和调用状态保留在开发历史；当前验证结果和未解决问题以模块上下文为准。
+
+## Dev Note
+
+无。

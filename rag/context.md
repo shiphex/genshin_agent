@@ -1,4 +1,29 @@
+---
+kind: context
+description: "记录 RAG 当前问题与验证边界，保留既有历史上下文原文。"
+---
 # RAG 开发上下文
+
+## 摘要
+
+更新：2026-10-16。当前操作入口见 [README](README.md)，资料定位由 [catalog](catalog.json)维护。下面的历史保留区完整保留此前正文；新工作只更新当前状态，不追加过程流水账。
+
+## 目录
+
+- [当前状态与遗留问题](#当前状态与遗留问题)
+- [历史保留区](#历史保留区)
+
+## 当前状态与遗留问题
+
+当前仍聚焦检索遗漏、生成忠实性和独立语义复核；程序验证不替代用户逐题验收。文档体系现将模块命令、当前问题、实验执行和历史分别维护，详见[文档规范](../docs/AGENTS.md)。
+
+已核对的遗留冲突：开发题 skill 的“准备副本与验收”仍指定 rag/data/eval_dev/，而 prepare_eval.py 调用 artifact_catalog.reserve_prepared，后者的 output_namespace 只允许 prepared 或新 tmp 任务。原 skill 本轮未修改；下次开发题任务须先对照[现行产物规则](docs/data.md)。
+
+本轮既有 101 项 RAG 测试、catalog 与精确摘录检查通过；文档及 skill 核验见[Agent Note](../.agents/notes/implemented/2026-10-16-ai-native-documentation.md#验证)。未生成 RAG 产物或改变用户验收状态。
+
+## 历史保留区
+
+以下为截至 2026-10-14 的既有正文，按原阶段理解测试数量、状态与时间词。本轮不重新判定其历史实验或用户验收。
 
 更新：2026-10-14。本文件记录当前实现、事实、用户反馈和未解决问题。运行命令见 [README](README.md)，旧阶段详记见[开发历史](docs/history/development_20261013.md)。
 

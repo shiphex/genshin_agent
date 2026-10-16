@@ -1,6 +1,20 @@
+---
+kind: reference
+description: "维护本地产物类别、生成边界、保留和恢复规则。"
+---
 # 本地产物管理
 
+## 摘要
+
 `rag/data/` 是本地产物库，整个目录继续由Git忽略；[catalog](../catalog.json)登记位置、版本、编号、旧坐标和保留方式。[身份与运行规则](artifacts.md)。原始爬虫快照仍位于共享 `data/raw/`，不迁入本目录。
+
+## 目录
+
+- [八类目录](#八类目录)
+- [入口与兼容](#入口与兼容)
+- [生成与关闭](#生成与关闭)
+- [历史资料](#历史资料)
+- [Dev Note](#dev-note)
 
 ## 八类目录
 
@@ -51,3 +65,7 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 - 三轮整理资料在archive/housekeeping/r001～r003，本次数据迁移闭环为r004，仅本地保存。
 
 新克隆须独立提供或恢复本地资料；Git、索引和公开摘要不能代替完整数据备份。
+
+## Dev Note
+
+无。
