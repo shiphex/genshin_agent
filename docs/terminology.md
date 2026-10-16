@@ -23,7 +23,7 @@ description: "统一中文文档和 skill 中实际使用的技术术语写法�
 | Agent Note | 无需改译文档类型 | Agent Note；[记录约定](../.agents/notes/README.md) |
 | Dev Note | Dev Note（开发备注） | Dev Note；[文档规范](AGENTS.md) |
 | RAG | RAG（检索增强生成） | RAG；[模块说明](../rag/README.md) |
-| manifest | manifest（元数据清单） | manifest；[资料管理](../rag/docs/artifacts.md) |
+| manifest | manifest（元数据清单） | manifest；[资料管理](../rag/docs/data.md) |
 | API／CLI／JSONL | 必要时解释 CLI 为命令行界面 | 保留缩写 |
 | context | 普通说明写“上下文” | 路径及代码保留 context |
 | Table of Contents | 页内目录 | 章节导航，区别于文件夹索引 |

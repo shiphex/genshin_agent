@@ -1,6 +1,5 @@
 # 爬虫项目 AI 交接任务：冻结快照剧情恢复实验
 
-阅读提示（2026-10-16）：下文快照哈希基线链接仅本地可用，获取与恢复见[数据获取说明](../../reports/data_access.md)；该清单不在 Hugging Face 语料发布范围内。原交接任务保留如下。
 
 日期：2026-10-10。状态：**本文件是修复任务说明；当前聊天窗口没有修改爬虫代码，也没有实现 recover_snapshot.py。** 实际实现请在爬虫项目的独立 AI 会话中完成。
 
@@ -17,7 +16,7 @@
 - 实现项目：`E:\Workplace\Learn_project\get_genshin_wiki`。
 - 冻结输入：`E:\Workplace\Learn_project\genshin_agent\data\raw\genshin_wiki_data_20260605`。
 - 新输出：`E:\Workplace\Learn_project\get_genshin_wiki\data\recovery\genshin_wiki_data_20260605`。
-- 源文件哈希基线：[snapshot_manifest.json](../../data/baselines/wiki_snapshot/v1/snapshot_manifest.json)。清单使用相对输入根目录路径，不包含源正文副本。
+- 旧全快照哈希清单已按用户基线重整决定淘汰；本任务恢复前须对当前共享快照重新生成独立工作基线，不沿用旧位置。下方回归清单仍保留指定页面哈希；它不包含完整源正文。
 - 真实回归页面清单：[regression_cases.json](regression_cases.json)。包含页面身份、文件与WikiText哈希、标记位置和预期检查；预期检查尚未被实现验收。
 - 当前RAG已实现22,822片段及来源切分校验，但该校验针对parsed，不证明WikiText到parsed完整。当前数据集不切换，也不在本任务优化检索或模型。
 

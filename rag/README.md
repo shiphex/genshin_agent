@@ -1,124 +1,90 @@
 ---
 kind: reference
-description: "提供 RAG 语料、检索、模型实验和模块检查的使用说明。"
+description: "提供当前 RAG 基线、语料检索、题库准备和 Hugging Face 导出的使用说明。"
 ---
 # 原神剧情 RAG
 
 ## 摘要
 
-本模块为主角／派蒙剧情讨论 Agent 提供可追溯证据。当前实现为冻结 Wiki 剧情提取、词面检索、本地模型对照与离线题库维护；Python 使用标准库并通过 uv 运行。
-
-本页维护模块接口、命令与使用限制；当前问题、反馈和最近验证见[模块上下文](context.md)，总体关系见[架构](../docs/architecture.md)。开发前阅读模块上下文。旧阶段详记见[开发历史](docs/history/development_20261013.md)，本地旧过程资料见[归档说明](docs/archives.md)。
+本模块为主角／派蒙剧情讨论 agent 提供可追溯证据。当前采用冻结 Wiki 剧情语料、词面检索和本地模型对照；Python 实现只用标准库，通过 uv 运行。当前基线身份、路径和哈希由 [catalog](catalog.json)维护，问题与最近验证见[模块上下文](context.md)。
 
 ## 目录
 
-- [目录与入口](#目录与入口)
-- [当前题库](#当前题库)
+- [当前入口](#当前入口)
 - [语料与检索](#语料与检索)
-- [模型实验与审阅](#模型实验与审阅)
-- [发布与本地归档](#发布与本地归档)
-- [验证](#验证)
+- [问题集与 Smoke](#问题集与-smoke)
+- [Hugging Face 导出](#hugging-face-导出)
+- [数据获取与验证](#数据获取与验证)
 - [Dev Note](#dev-note)
 
-## 目录与入口
+## 当前入口
 
-| 目录 | 内容 |
+| 位置 | 用途 |
 | --- | --- |
-| `catalog.json` | 题库、实验、运行、复核与报告的统一索引 |
-| `scripts/` | 正式 Python 实现 |
-| `tests/` | 模块行为测试 |
-| `eval/` | 当前开发题库、保留的 v2 题库与字段说明 |
-| `config/` | 共享本地模型连接配置 |
-| `docs/` | 开发历史、观察、归档恢复和爬虫交接 |
-| `experiments/` | 复现实验的输入、采样参数和执行说明 |
-| `reports/` | 批准公开的摘要、逐题关键摘录与发布清单 |
-| `data/` | 本地语料、模型结果、原文副本、发布包、归档和临时工作文件 |
+| `scripts/`、`tests/` | 六个当前功能脚本与行为测试 |
+| `config/local_api.json` | 本地 chat-completions 服务连接与生成参数 |
+| [eval](eval/README.md) | 110题开发集与20题独立事实核验 |
+| [smoke](eval/smoke/README.md) | 三题 Q4 模型完整链路验证 |
+| [数据管理](docs/data.md) | 基线、独立输出、保留与更新规则 |
+| [开发文档](docs/README.md) | 当前规则与爬虫恢复交接 |
 
-`data/` 按corpora、prepared、runs、reviews、releases、baselines、archive和tmp管理，位置由catalog定位；封存记录保留原字节及旧坐标。[本地产物管理](docs/data.md)。
-
-## 当前题库
-
-[questions_dev.json](eval/questions_dev.json)为工程迭代入口：0.5 版、110 题，仅维护 `id/type/difficulty/question/answer/keywords/criteria/sources`。原文位置指向冻结快照，`text` 由脚本读取后加入本地副本。当前保留的[最终原文副本](data/prepared/story_dev/v0.5/r001/questions.json)仅本地可用。
-
-在项目根目录运行，输出替换为新的路径：
-
-```powershell
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/prepare_eval.py
-```
-
-[questions.json](eval/questions.json)保留为未来 benchmark 资产：2.0.1-pilot、14 题，暂停扩展。[14 题历史复核表](data/reviews/benchmark_source/r001/review.md)仅本地可用；覆盖统计属于 2.0.0 的旧口径。v2 离线工具为 `prepare_eval_cases.py`，字段及命令见[题库说明](eval/README.md)。本地资料不随 Git 提供，获取与恢复见[数据获取说明](reports/data_access.md)。
-
-两套 JSON 题库尚未接通读取 JSONL 的 `evaluate_rag_mvp.py`；关键词命中不等于语义正确。全部题目仍待用户逐题验收；第三方复核和程序校验单独记录。
+`data/` 仅保留 corpus、review20、smoke 三组原件；说明留在上述文档中。旧实验、题库原型、审阅包和兼容映射已按用户决定淘汰，不再是恢复入口。
 
 ## 语料与检索
 
-原始快照位于项目共享的 `data/raw/genshin_wiki_data_20260605/`。新克隆须另行提供该快照，才能构建语料或按原文位置回查。当前[全量语料](https://huggingface.co/datasets/shiphex/genshin_agent_RAG/resolve/592d198a9cde390005323a9f849c0d3981fb5a33/data/full/genshin_wiki_data_20260605/corpus.jsonl)有 22,822 个片段；处理状态和边界见[覆盖说明](https://huggingface.co/datasets/shiphex/genshin_agent_RAG/blob/592d198a9cde390005323a9f849c0d3981fb5a33/data/full/genshin_wiki_data_20260605/coverage.md)、[审计](https://huggingface.co/datasets/shiphex/genshin_agent_RAG/resolve/592d198a9cde390005323a9f849c0d3981fb5a33/data/full/genshin_wiki_data_20260605/audit.json)及[排除记录](https://huggingface.co/datasets/shiphex/genshin_agent_RAG/resolve/592d198a9cde390005323a9f849c0d3981fb5a33/data/full/genshin_wiki_data_20260605/exclusions.jsonl)。上述链接固定到全量语料 v1 的已发布 revision，本地位置由 catalog 定位。
+原始快照在共享 `data/raw/genshin_wiki_data_20260605/`；当前全量语料在 `rag/data/corpus/`，22,822条片段，附审计、排除记录和覆盖说明。来源包含原文件、RFC 6901 Pointer、解码后字符串的零基半开字符范围 `[start,end)` 和来源性质。`wiki_excerpt` 与 `wiki_compilation` 分别表示 Wiki 摘录和编纂，均不自动等于官方事实；保留人物说法、传说、未知分支与不确定性。
 
-构建使用新输出目录；评测由索引分配独立运行编号，保留已存在的语料和人工复核：
+构建默认扫描全量；`--all` 保留为兼容参数。新构建写入独立输出，不自动替换基线：
 
 ```powershell
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/prepare_rag_mvp.py --all
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/evaluate_rag_mvp.py --dataset full --retrieval-only
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/prepare_rag_mvp.py
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/evaluate_rag_mvp.py --retrieval-only
 ```
 
-第二条默认读取保留的当前全量语料；如需测试新构建的语料，显式传入 `--corpus`。`--dataset full` 是评测默认值，缺少全量语料时报错；`--dataset sample` 明确选择历史 30 片段样本。`--retrieval-only` 不访问模型服务。
-
-每次评测登记新运行，默认写入 `data/runs/<实验ID>/rNNN/`；显式输出也拒绝已有目录。日期记录在清单中，旧完整结果通过索引定位。身份、版本、状态与保留规则见[资料管理说明](docs/artifacts.md)。
-
-`prepare_rag_mvp.py` 是准备入口，`full_corpus.py` 实现全量提取。保留人物、武器、圣遗物及其他剧情字段；排除培养、技能数值和攻略，不因出现“力量”“战斗”而删除故事。未解析结构和不能分离的混合文本记录到排除资料中，不用模型补原文。
-
-来源记录包括原文件、RFC 6901 Pointer 和解码后字符串的零基半开字符范围 `[start,end)`。`wiki_excerpt` 与 `wiki_compilation` 区分 Wiki 摘录和编纂，均不自动代表官方确认事实。人物观点、传说和不确定性应保持原限定。
-
-检索使用中文相邻双字／英文词的 IDF 加权重合和一次构建的内存倒排索引。默认 Top5；分数用于排序，不代表语义置信度。可复用接口：
+第二条先核对默认语料／三题输入的基线指纹，再检索，不访问模型服务。词面检索使用中文相邻双字／英文词的 IDF 加权重合，内存倒排索引每轮构建一次，默认 Top5；分数不是语义置信度。`--dataset full` 继续有效，sample 模式已移除。可通过 `--corpus`、`--questions` 指定其他语料及 JSONL 输入。
 
 ```python
+from rag.scripts.artifact_catalog import PROJECT, dataset_path
 from rag.scripts.evaluate_rag_mvp import LexicalIndex, load_jsonl
-
-from rag.scripts.artifact_catalog import dataset_path, PROJECT
 index = LexicalIndex(load_jsonl(dataset_path(PROJECT, "full_corpus")))
 hits = index.search("钟离如何看待契约与公平？", top_k=5)
 ```
 
-## 模型实验与审阅
+过滤排除数值强度、技能倍率、培养、配队与攻略，保留剧情力量描述。已知漏项与语义问题见 context。
 
-共享配置在 `config/local_api.json`，连接用户部署的本地 chat-completions 服务；鉴权值从环境变量读取。脚本不启动服务或下载模型。实验输入和状态见[实验索引](experiments/README.md)，开发记录见[文档索引](docs/README.md)。
+## 问题集与 Smoke
 
-- [24 题模型对照](experiments/model_comparison/README.md)：无检索／RAG 正式对照，完整记录在 `data/runs/model_comparison/r001/`。
-- [六题受控诊断](experiments/generation_diagnosis/README.md)：检索／人工证据与采样配置对照，入口为 `diagnose_rag_generation.py`，完整记录在 `data/runs/generation_diagnosis/r001/`。
-- [公开审阅入口](reports/README.md)：实验概要、关键回答原句、必要原文和初审；完整上下文不能由摘录替代。
-
-`baseline` 为无检索条件，`rag` 为检索条件。检索覆盖、API 完成、引用格式／ID／支持关系和语义正确性分别核验；`ok` 或 `finish_reason=stop` 不代表答案正确。重跑产生新结果，不能恢复历史回答或人工反馈。
-
-## 发布与本地归档
-
-语料发布文件与审阅 ZIP 的版本、哈希和状态见[数据获取](reports/data_access.md)。现有 v1／v2／v3 ZIP 和历史 Git bundle 保留；重复的 `verified_restore_*` 展开目录已清除，需要时恢复到新目录。
-
-生成新的 Hugging Face staging；工具只导出固定白名单，不上传：
+[110题](eval/questions.json)是唯一正式开发题库，0.5版；[20题输入](eval/review20.json)及其本地完整结果用于核验题目事实，不是模型作答记录。原文准备命令：
 
 ```powershell
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/export_hf_dataset.py build --output rag/data/tmp/<新的目录>/hf_dataset
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/export_hf_dataset.py verify rag/data/tmp/<新的目录>/hf_dataset
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/prepare_eval.py
 ```
 
-`export_review_bundle.py` 负责公开摘录和独立审阅 ZIP。摘录位置在 `reports/inputs/excerpts_v3.json`，生成后检查精确原句、来源、哈希及全部条件／种子：
+该工具读取冻结原文、输出带 `sources[].text` 的副本，不评分、不调用模型。JSON题库尚未接通 JSONL 模型 runner。准备副本按需生成，不是基线的重复常驻文件。
+
+[三题 Smoke](eval/smoke/README.md)保留六份完整回答、实际检索上下文、结构化初审与必要依据。再次运行模型对照的命令是 `evaluate_rag_mvp.py`（不加 `--retrieval-only`）；它会真实访问配置的本地服务并产生新输出，不会重现历史回答。脚本不启动服务或下载权重，鉴权从环境变量读取。
+
+## Hugging Face 导出
+
+只发布剧情语料；导出工具读取当前 catalog，明确配置 `story/train` 仅加载 `data/corpus.jsonl`。审计、排除和覆盖资料放入 metadata 附件；不上传题库、回答或原始快照。新输出路径必须尚不存在：
 
 ```powershell
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/export_review_bundle.py check-views
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/export_hf_dataset.py build --output rag/data/outputs/hf/release-v2
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/export_hf_dataset.py verify rag/data/outputs/hf/release-v2
 ```
 
-新包使用新的版本和输出目录；包内源码 commit 与后续链接索引分别记录。恢复方式与发布边界见数据获取说明。现有 ZIP 不覆盖最近题库制作资料，后者独立存于[本地归档](docs/archives.md)。
+发布格式版本为 `rag-full-20260605-v2`，沿用相同语料内容；`train` 是加载分区名，数据卡保留来源与 `license: other` 声明。工具验证白名单、JSONL字段、动态行数和哈希，不上传。配置参考 [Hugging Face 官方文档](https://huggingface.co/docs/hub/datasets-manual-configuration)。
 
-`rag/` 默认忽略新增文件，只跟踪正式脚本、测试、文档、列出的实验输入和批准的报告副本。整个 `rag/data/`、共享快照与缓存保持本地忽略；新克隆中的本地产物链接可能不可用。清除 `tmp/` 前仍须确认没有唯一模型输出、复核或其他未备份内容。
+## 数据获取与验证
 
-## 验证
-
-项目根目录运行，无需真实模型：
+已有[公开语料 revision](https://huggingface.co/datasets/shiphex/genshin_agent_RAG/tree/592d198a9cde390005323a9f849c0d3981fb5a33)保留原发布布局，其四个数据文件与当前语料相同；新格式尚未上传。新克隆不含本地 `data/`，须另行提供当前基线原件。重建语料不能恢复模型回答或第三方核验，公开语料也不包含原始快照。
 
 ```powershell
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/artifact_catalog.py
 uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s rag/tests -v
 ```
 
-整理前各阶段的测试数量和调用状态保留在开发历史；当前验证结果和未解决问题以模块上下文为准。
+catalog 检查核对本地基线字节及题库元数据；缺少原件会失败。检索覆盖、API完成、引用合法性、语义支持与用户验收分别判断；程序通过不代表用户逐题通过。离线命令需要已有 Python 3.11。
 
 ## Dev Note
 

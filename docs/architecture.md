@@ -22,19 +22,19 @@ description: "说明项目当前模块、证据数据流和扩展位置。"
 | --- | --- |
 | 项目层 | 项目导航、共同开发约束、共享原始快照及公共缓存 |
 | [RAG 模块](../rag/README.md) | 从冻结 Wiki 快照提取剧情，提供带出处的检索证据及模型对照工具 |
-| [题库](../rag/eval/README.md) | 维护开发题和保留的 benchmark 证据；原文准备与模型评测是分开的流程 |
-| [资料索引](../rag/docs/artifacts.md) | 定位资源、独立运行和复核；详细执行事实留在对应产物 |
-| [审阅入口](../rag/reports/README.md) | 受控发布的概要、原句摘录和待验收诊断，链接本地完整结果 |
+| [题库](../rag/eval/README.md) | 维护110题与20题事实核验；原文准备与模型评测分开 |
+| [基线索引](../rag/docs/data.md) | 固定当前资源与指纹，新运行写入独立输出 |
+| [Smoke](../rag/eval/smoke/README.md) | 三题模型链路、完整结果与初审依据 |
 
 RAG 通过配置连接用户已部署的 chat-completions 服务，不负责下载模型或启动服务。外部爬虫属于独立项目，恢复任务通过既有交接说明传递。
 
 ## 证据与执行数据流
 
-共享冻结快照 → 剧情提取、过滤与切块 → 本地带来源语料 → 词面检索 → 证据和问题组成模型输入 → 回答与调用记录 → 独立审阅与发布副本。
+共享冻结快照 → 剧情提取、过滤与切块 → 本地带来源语料 → 词面检索 → 证据和问题组成模型输入 → 回答与调用记录 → 独立语义核验。
 
-语料准备入口是 [prepare_rag_mvp.py](../rag/scripts/prepare_rag_mvp.py)，全量提取由 [full_corpus.py](../rag/scripts/full_corpus.py) 负责；检索和模型对照由 [evaluate_rag_mvp.py](../rag/scripts/evaluate_rag_mvp.py) 负责。题库原文准备另由 [prepare_eval.py](../rag/scripts/prepare_eval.py) 和 [prepare_eval_cases.py](../rag/scripts/prepare_eval_cases.py) 执行，当前 JSON 题库未接通 JSONL 评测 runner。
+语料准备入口是 [prepare_rag_mvp.py](../rag/scripts/prepare_rag_mvp.py)，全量提取由 [full_corpus.py](../rag/scripts/full_corpus.py) 负责；检索和模型对照由 [evaluate_rag_mvp.py](../rag/scripts/evaluate_rag_mvp.py) 负责。题库原文准备另由 [prepare_eval.py](../rag/scripts/prepare_eval.py) 执行，当前 JSON 题库未接通 JSONL 评测 runner。
 
-[catalog](../rag/catalog.json) 定位当前资源和历史身份；[产物管理](../rag/docs/data.md)规定版本、运行与保留。正式运行的 manifest（元数据清单）记录实际输入、执行参数及源码指纹。公开概要和重新运行均不能恢复历史回答或人工反馈。
+[catalog](../rag/catalog.json) 定位当前基线资源、路径和哈希；[产物管理](../rag/docs/data.md)规定独立生成与基线更新。正式运行的 manifest（元数据清单）记录实际输入、执行参数及源码指纹。公开概要和重新运行均不能恢复历史回答或人工反馈。
 
 ## 边界与扩展
 
