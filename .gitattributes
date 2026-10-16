@@ -1,3 +1,2 @@
 # Publication fingerprints must survive checkout on Windows and Unix.
 rag/reports/** text eol=lf
-rag/experiments/publication_review_v3/excerpts.json text eol=lf

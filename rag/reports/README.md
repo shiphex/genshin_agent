@@ -6,8 +6,20 @@
 
 ## 阅读顺序
 
-1. [24题双组摘要](full_validation_20261010_105700/summary.md)：逐题查看关键原句、必要原文和初审。
-2. [六题全部条件／种子](generation_diagnosis_20261010_145424/summary.md)：比较证据与参数作用，不挑最佳种子。
+本目录保留两轮历史审阅发布副本；具体实验题目、参数和执行说明见[实验索引](../experiments/README.md)，开发题复核见[第三方摘要](../eval/reviews/dev_sample/r001/result_by_deepseek_summary.md)。
+
+报告按实验用途／运行编号组织，目录与完整结果的对应关系见[catalog](../catalog.json)。原日期ID保留为legacy_id，仍用于冻结原件核验；命名与保留规则见[资料管理](../docs/artifacts.md)。
+
+| 位置 | 内容 |
+| --- | --- |
+| `full_validation_20261010_105700/` | 24题无检索／RAG对照概要和逐题关键摘录 |
+| `generation_diagnosis_20261010_145424/` | 六题全部证据／参数／种子条件的诊断概要和逐题摘录 |
+| `inputs/excerpts_v3.json` | 导出工具读取的冻结摘录位置与哈希，不是模型回答 |
+| `manifest.json` | 当前发布副本的来源、文件、案例和哈希清单 |
+| `data_access.md` | 独立资料包、语料和历史版本的获取／恢复说明 |
+
+1. [24题双组摘要](model_comparison/r001/summary.md)：逐题查看关键原句、必要原文和初审。
+2. [六题全部条件／种子](generation_diagnosis/r001/summary.md)：比较证据与参数作用，不挑最佳种子。
 3. [Hugging Face RAG 语料集](https://huggingface.co/datasets/shiphex/genshin_agent_RAG)：当前全量派生语料、审计、排除记录、覆盖说明和哈希清单。
 4. [完整资料获取与版本](data_access.md)：完整回答、实际证据、请求和封存记录仍属于独立审阅资料包。
 5. [发布清单](manifest.json)、[RAG运行说明](../README.md)和[模块上下文](../context.md)。
@@ -21,4 +33,4 @@ GitHub案例是精简诊断，Hugging Face 是仅供检索/回查的派生 RAG �
 - 分别核验检索覆盖、API完成、引用格式／ID／支持关系和答案语义；不用模型记忆补剧情，资料不足不证明游戏没有答案。
 - 建议输出案例ID、错误原句、原文定位、原因、最小修复与控制变量实验。不把六题计数外推全库正确率，不直接认定量化故障或4B永久上限。
 
-全部初审待用户逐题验收；摘录不穷尽所有错误。案例由[导出脚本](../scripts/export_review_bundle.py)和[冻结摘录位置](../experiments/publication_review_v3/excerpts.json)生成，概要与任务单独维护。v3清理了旧完整报告的公开Git历史，旧视图保留在本地历史备份及v2资料包。manifest的published_files不包含自身，避免自哈希循环。
+全部初审待用户逐题验收；摘录不穷尽所有错误。案例由[导出脚本](../scripts/export_review_bundle.py)和[冻结摘录位置](inputs/excerpts_v3.json)生成，概要与任务单独维护。v3清理了旧完整报告的公开Git历史，旧视图保留在本地历史备份及v2资料包。manifest的published_files不包含自身，避免自哈希循环。

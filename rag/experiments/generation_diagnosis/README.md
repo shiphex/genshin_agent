@@ -34,19 +34,18 @@ calibrated依据[Qwen3.5-4B官方通用非思考建议](https://huggingface.co/Q
 - `cases.jsonl`保存原问题、原文参考锚点、去重后的`curated_ids`与封存核验要点。每题使用参考锚点映射出的完整语料片段；q07补充子民赐予解脱的对白，n11补充《愿望》的身份解释。不以模型摘要替代原文，不补写解析缺失的说话者。
 - `generation_profiles.json`显式保存两组采样参数。历史配置不改。
 - `evaluate_rag_mvp.chat(config, messages, generation=None)`新增可选覆盖参数，只允许上述七个参数及seed。不传入时保留原请求和返回行为；不能覆盖模型、消息、输出上限、鉴权或思考开关。普通评测CLI默认行为不变。
-- `diagnose_rag_generation.py`提供`--cases`、`--profiles`、`--corpus`、`--raw-root`、`--config`和必填`--output-dir`。缺少输入、原文不符或人工证据缺参考组时，在模型调用前失败。已有输出目录、原始快照与历史样本目录不能写入。
+- `diagnose_rag_generation.py`提供`--cases`、`--profiles`、`--corpus`、`--raw-root`、`--config`和可选`--output-dir`。默认通过catalog分配新运行，保存到 `rag/data/runs/generation_diagnosis/rNNN/`，模型结果位于 `model/`。缺少输入、原文不符或人工证据缺参考组时，在模型调用前失败。显式已有输出目录、原始快照与历史样本目录不能写入。
 
 ## 执行与本地产物
 
-本轮辅助记录位于`../../data/generation_diagnosis/20261010_145424/`，模型输出子目录为`model/`。输入、上下文、有效请求参数及服务版本／模板在首个模型调用前封存；模板预检不运行推理。每次请求前写入`requests.jsonl`，响应后立即追加`results.jsonl`，中断保留已完成结果。API错误只保存异常类型，不保存响应体或鉴权值。
+本轮辅助记录位于`../../data/runs/generation_diagnosis/r001/`，模型输出子目录为`model/`。输入、上下文、有效请求参数及服务版本／模板在首个模型调用前封存；模板预检不运行推理。每次请求前写入`requests.jsonl`，响应后立即追加`results.jsonl`，中断保留已完成结果。API错误只保存异常类型，不保存响应体或鉴权值。
 
 完成后输出`summary.json`和`review.md`；调用状态、引用ID检查、来源初审与用户验收分开记录。所有种子的回答都保留，不挑选最好的一次；截断保留但不计完整回答，不自动增大长度或重试。
 
 复跑时使用新的唯一目录；配置沿用本地服务环境，实际请求会覆盖采样参数：
 
 ```powershell
-$diagnosisRunDir = "rag/data/generation_diagnosis/" + [guid]::NewGuid().ToString("N")
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/diagnose_rag_generation.py --output-dir $diagnosisRunDir
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/diagnose_rag_generation.py
 ```
 
 题目、profiles、脚本、测试和开发文档可跟踪；封存记录、请求、模型回答、哈希、原文报告和辅助脚本仅本地保存。从Git不能恢复历史模型回答，须独立备份。

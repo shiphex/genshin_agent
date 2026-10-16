@@ -106,7 +106,7 @@ class PublicationTests(unittest.TestCase):
             for rel in (m.FULL_RUN, m.DIAG_RUN, 'rag/data/mvp', 'rag/data/full/genshin_wiki_data_20260605'):
                 with self.assertRaises(ValueError):
                     m.validate_bundle_output(root, root / rel / 'publish')
-            m.validate_bundle_output(root, root / 'rag/data/publication/new')
+            m.validate_bundle_output(root, root / 'rag/data/releases/review/v4')
 
     def test_compact_excerpt_is_exact_and_rejects_changed_answer(self):
         m = self.exporter()
@@ -166,7 +166,7 @@ class PublicationTests(unittest.TestCase):
             git('init', '--quiet')
             (root / '.gitattributes').write_bytes(attrs.read_bytes())
             paths = ['rag/reports/full_validation_20261010_105700/cases/q01.md',
-                     'rag/reports/manifest.json', 'rag/experiments/publication_review_v3/excerpts.json']
+                     'rag/reports/manifest.json', 'rag/reports/inputs/excerpts_v3.json']
             for rel in paths:
                 path = root / rel
                 path.parent.mkdir(parents=True, exist_ok=True)
@@ -185,6 +185,22 @@ class PublicationTests(unittest.TestCase):
         m.validate_speaker({'speaker': 'Zhongli'}, {'角色': 'Zhongli'})
         with self.assertRaises(ValueError):
             m.validate_speaker({'speaker': 'Paimon'}, {'角色': 'Zhongli'})
+
+    def test_report_location_uses_catalog_but_preserves_old_package_layout(self):
+        m = self.exporter()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            legacy = 'full_validation_20261010_105700'
+            self.assertEqual(m.report_case_path(root, legacy, 'q01'),
+                             root / 'rag/reports' / legacy / 'cases/q01.md')
+            (root / 'rag').mkdir()
+            catalog = {'schema_version': 1, 'datasets': {}, 'experiments': {}, 'reviews': {},
+                       'runs': {'model_comparison/r001': {'legacy_id': legacy, 'report': 'rag/reports/model_comparison/r001'}}}
+            (root / 'rag/catalog.json').write_text(json.dumps(catalog), encoding='utf-8')
+            self.assertEqual(m.report_case_path(root, legacy, 'q01'),
+                             root / 'rag/reports/model_comparison/r001/cases/q01.md')
+            with self.assertRaises(ValueError):
+                m.report_case_path(root, 'unknown', 'q01')
 
 
 if __name__ == '__main__':

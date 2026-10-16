@@ -6,23 +6,84 @@ import argparse
 from collections import Counter
 import hashlib
 import json
+import os
 from pathlib import Path, PurePosixPath
 import re
 import subprocess
 import sys
 import zipfile
 
+try:
+    from rag.scripts import artifact_catalog
+except ModuleNotFoundError:
+    import artifact_catalog
+
 ROOT = Path(__file__).resolve().parents[2]
-FULL_RUN = 'rag/data/full_validation/20261010_105700'
-DIAG_RUN = 'rag/data/generation_diagnosis/20261010_145424'
-CORPUS = 'rag/data/full/genshin_wiki_data_20260605/corpus.jsonl'
+FULL_RECORD = artifact_catalog.run_record(ROOT, 'model_comparison', 'r001')
+DIAG_RECORD = artifact_catalog.run_record(ROOT, 'generation_diagnosis', 'r001')
+FULL_RUN = FULL_RECORD['artifacts']
+DIAG_RUN = DIAG_RECORD['artifacts']
+LEGACY_FULL_ID = FULL_RECORD['legacy_id']
+LEGACY_DIAG_ID = DIAG_RECORD['legacy_id']
+CORPUS = FULL_RECORD.get('corpus_path', artifact_catalog.dataset_path(ROOT, 'full_corpus').relative_to(ROOT).as_posix())
 RAW = 'data/raw/genshin_wiki_data_20260605'
 REPORTS = 'rag/reports'
 VERSION = 'review-20261010-v3'
-EXCERPTS = 'rag/experiments/publication_review_v3/excerpts.json'
-DATA_ROOTS = (FULL_RUN, DIAG_RUN, 'rag/data/mvp',
-              'rag/data/full/genshin_wiki_data_20260605',
-              'rag/data/recovery_handoff/genshin_wiki_data_20260605')
+EXCERPTS = 'rag/reports/inputs/excerpts_v3.json'
+CATALOG = artifact_catalog.load_catalog(ROOT)
+DATA_ROOTS = (FULL_RUN, DIAG_RUN,
+              str(Path(CATALOG['datasets']['sample_corpus']['path']).parent).replace('\\', '/'),
+              str(Path(CORPUS).parent).replace('\\', '/'),
+              str(Path(CATALOG['baselines']['wiki_snapshot/v1']['path']).parent).replace('\\', '/'),
+              *(CATALOG['runs'][key]['artifacts'] for key in ('full_retrieval/r001', 'sample_retrieval/r001',
+                 'sample_model_comparison/r001', 'sample_model_comparison/r002')))
+
+
+def data_location(root, relative):
+    if not relative.startswith('rag/data/'):
+        return root / relative
+    if (root / 'rag/catalog.json').exists():
+        return artifact_catalog.resolve_data_path(root, relative)
+    candidate = root / relative
+    if candidate.exists():
+        return candidate
+    # Older frozen packages contain the legacy coordinates, not the new catalog.
+    for old, new in sorted(CATALOG.get('legacy_paths', {}).items(), key=lambda pair: -len(pair[1])):
+        if relative == new or relative.startswith(new + '/'):
+            historical = root / (old + relative[len(new):])
+            if historical.exists():
+                return historical
+    return candidate
+
+
+def executed_input_bytes(root, relative, digest):
+    safe_name(relative)
+    catalog = artifact_catalog.load_catalog(root) if (root / 'rag/catalog.json').exists() else {}
+    try:
+        if relative.startswith('rag/data/') and catalog:
+            data = artifact_catalog.read_data_bytes(root, relative)
+        else:
+            actual = catalog.get('legacy_input_paths', {}).get(relative, relative)
+            data = (root / actual).read_bytes()
+        if sha(data) == digest:
+            return data
+    except FileNotFoundError:
+        pass
+    # Live Git inputs can change later; existing sealed ZIPs retain exact executed bytes.
+    for release in catalog.get('releases', {}).values():
+        for entry in release['files']:
+            if not entry['path'].endswith('.zip'):
+                continue
+            path = root / entry['path']
+            if sha(path.read_bytes()) != entry['sha256']:
+                raise ValueError('Changed frozen release ZIP')
+            with zipfile.ZipFile(path) as archive:
+                member = 'publication/historical_inputs/' + relative
+                if member in archive.namelist():
+                    data = archive.read(member)
+                    if sha(data) == digest:
+                        return data
+    raise ValueError('Executed input unavailable or changed: ' + relative)
 
 
 def sha(data):
@@ -92,10 +153,14 @@ def data_files(root, full=False):
     roots = (RAW,) + DATA_ROOTS if full else (FULL_RUN, DIAG_RUN)
     files = []
     for rel in roots:
-        for path in sorted((root / rel).rglob('*')):
+        for path in sorted(data_location(root, rel).rglob('*')):
             if path.is_file() and not path.is_symlink() and path.suffix.lower() in {'.json', '.jsonl', '.md', '.py', '.html', '.txt'}:
                 if '__pycache__' not in path.parts and not any(s.startswith('.') for s in path.relative_to(root).parts):
                     files.append(path)
+    if full and (root / 'rag/catalog.json').exists():
+        for record in (FULL_RECORD, DIAG_RECORD):
+            if record.get('process_archive'):
+                files.append(root / record['process_archive'])
     return files
 
 
@@ -105,9 +170,9 @@ def inventory(root, paths):
 
 
 def sources(root):
-    a = {batch: read_jsonl(root / FULL_RUN / batch / 'results.jsonl') for batch in ('regression', 'independent')}
-    b = read_jsonl(root / DIAG_RUN / 'model/results.jsonl')
-    trials = read_json(root / DIAG_RUN / 'model/trials.json')
+    a = {batch: read_jsonl(data_location(root, FULL_RUN) / batch / 'results.jsonl') for batch in ('regression', 'independent')}
+    b = read_jsonl(data_location(root, DIAG_RUN) / 'model/results.jsonl')
+    trials = read_json(data_location(root, DIAG_RUN) / 'model/trials.json')
     return a, b, trials
 
 
@@ -148,8 +213,8 @@ def validate_speaker(ref, parent):
         raise ValueError('Review speaker label disagrees with original parent record')
 
 
-def render_compact_case(qid, question, calls, references, coverage=None):
-    lines = [f'# {qid}：{question}', '', '[实验概要与参数](../summary.md) · [完整记录获取](../../data_access.md)', '',
+def render_compact_case(qid, question, calls, references, coverage=None, access_link='../../data_access.md'):
+    lines = [f'# {qid}：{question}', '', f'[实验概要与参数](../summary.md) · [完整记录获取]({access_link})', '',
              '这是关键摘录与原文初审，不是完整回答／实际输入上下文。所有结果待用户逐题验收；ok只表示调用完成。', '']
     if coverage is not None:
         total = coverage.get('total_groups', 0)
@@ -184,16 +249,37 @@ def render_compact_case(qid, question, calls, references, coverage=None):
     return '\n'.join(lines) + '\n'
 
 
+def report_case_path(root, legacy_id, qid):
+    safe_name(qid + '.md')
+    if (root / 'rag/catalog.json').exists():
+        return root / artifact_catalog.report_directory(root, legacy_id) / 'cases' / (qid + '.md')
+    # Frozen packages precede the catalog and retain their original layout.
+    if legacy_id not in {LEGACY_FULL_ID, LEGACY_DIAG_ID}:
+        raise ValueError('Unknown historical report')
+    return root / REPORTS / legacy_id / 'cases' / (qid + '.md')
+
+
+def excerpt_path(root):
+    if (root / 'rag/catalog.json').exists():
+        return root / EXCERPTS
+    return root / 'rag/experiments/publication_review_v3/excerpts.json'
+
+
+def render_case_at(root, path, case):
+    access_link = os.path.relpath(root / REPORTS / 'data_access.md', path.parent).replace(os.sep, '/')
+    return render_compact_case(case['question_id'], case['question'], case['calls'], case['references'], case['coverage'], access_link)
+
+
 def compact_cases(root):
     a, b, trials = sources(root)
-    initial = read_json(root / FULL_RUN / 'preliminary_review.json')
-    review = read_json(root / DIAG_RUN / 'source_review.json')['reviews']
-    inputs = read_json(root / EXCERPTS)
+    initial = read_json(data_location(root, FULL_RUN) / 'preliminary_review.json')
+    review = read_json(data_location(root, DIAG_RUN) / 'source_review.json')['reviews']
+    inputs = read_json(excerpt_path(root))
     available = {}
     evidence = {}
     for batch, results in a.items():
         for row in results:
-            key = ('full_validation_20261010_105700', row['question_id'])
+            key = (LEGACY_FULL_ID, row['question_id'])
             calls = []
             for condition, answer in row['answers'].items():
                 calls.append({'condition': condition, 'seed': 42, 'answer': answer,
@@ -202,12 +288,12 @@ def compact_cases(root):
                               'evidence_ids': [e['id'] for e in row['retrieved']]}
             evidence.update({e['id']: e for e in row['retrieved']})
     trial_map = {(t['question_id'], t['condition'], t['seed']): t for t in trials}
-    requests = read_jsonl(root / DIAG_RUN / 'model/requests.jsonl')
+    requests = read_jsonl(data_location(root, DIAG_RUN) / 'model/requests.jsonl')
     request_map = {(r['question_id'], r['condition'], r['seed']): r['payload'] for r in requests}
     if len(b) != 48 or len(trial_map) != 48 or len(request_map) != 48:
         raise ValueError('Diagnosis request/trial matrix incomplete')
     for row in b:
-        key = ('generation_diagnosis_20261010_145424', row['question_id'])
+        key = (LEGACY_DIAG_ID, row['question_id'])
         trial_key = (row['question_id'], row['condition'], row['seed'])
         trial, request = trial_map[trial_key], request_map[trial_key]
         if trial['messages'] != request['messages'] or trial['evidence_ids'] != row['evidence_ids']:
@@ -225,8 +311,8 @@ def compact_cases(root):
     slice_path = root / 'publication/selected_source_fields.jsonl'
     field_slices = {(r['source_file'], r['pointer']): r for r in read_jsonl(slice_path)} if slice_path.exists() else {}
     documents = {}
-    if (root / CORPUS).exists():
-        reference_rows = {r['id']: r for r in read_jsonl(root / CORPUS)}
+    if (data_location(root, CORPUS)).exists():
+        reference_rows = {r['id']: r for r in read_jsonl(data_location(root, CORPUS))}
     elif (root / 'publication/selected_evidence_records.jsonl').exists():
         reference_rows = {r['id']: r for r in read_jsonl(root / 'publication/selected_evidence_records.jsonl')}
     else:
@@ -276,25 +362,32 @@ def export_views(root):
     cases, evidence = compact_cases(root)
     entries = []
     for case in cases:
-        path = root / REPORTS / case['experiment_id'] / 'cases' / (case['question_id'] + '.md')
+        path = report_case_path(root, case['experiment_id'], case['question_id'])
         path.parent.mkdir(parents=True, exist_ok=True)
-        write_utf8(path, render_compact_case(case['question_id'], case['question'], case['calls'], case['references'], case['coverage']))
+        write_utf8(path, render_case_at(root, path, case))
+        identity = artifact_catalog.resolve_run(root, case['experiment_id'])
         entries.append({'path': path.relative_to(root).as_posix(), 'question_id': case['question_id'],
+            'experiment_id': identity['experiment_id'], 'run_id': identity['run_id'], 'legacy_id': case['experiment_id'],
             'answers': len(case['calls']), 'evidence_ids': sorted(set(case['evidence_ids'])),
             'calls': [{'condition': c['condition'], 'seed': c['seed'],
                        'answer_sha256': sha(c['answer']['text'].encode('utf-8')),
                        'status': c['answer'].get('status'), 'finish_reason': c['answer'].get('finish_reason')}
                       for c in case['calls']]})
-    source_paths = [root / FULL_RUN / p for p in ('run_manifest.json', 'experiment_summary.json', 'preliminary_review.json',
+    source_paths = [data_location(root, FULL_RUN) / p for p in ('run_manifest.json', 'experiment_summary.json', 'preliminary_review.json',
         'user_feedback.json', 'sealed_inputs.json', 'regression/results.jsonl', 'independent/results.jsonl')]
-    source_paths += [root / DIAG_RUN / p for p in ('diagnosis_summary.json', 'source_review.json', 'model/results.jsonl',
+    source_paths += [data_location(root, DIAG_RUN) / p for p in ('diagnosis_summary.json', 'source_review.json', 'model/results.jsonl',
         'model/requests.jsonl', 'model/trials.json', 'model/sealed_inputs.json', 'runner_executed.py', 'post_run_fix_manifest.json')]
     source_paths.append(root / EXCERPTS)
     old = read_json(root / REPORTS / 'manifest.json')
-    manifest = {'schema_version': 2, 'view': 'curated_excerpts', 'bundle_id': VERSION, 'package_version': 3,
+    experiments = []
+    for experiment in old['experiments']:
+        legacy = experiment.get('legacy_id', experiment['id'])
+        record = artifact_catalog.resolve_run(root, legacy)
+        experiments.append(dict(experiment, id=record['experiment_id'], run_id=record['run_id'], legacy_id=legacy))
+    manifest = {'schema_version': 3, 'view': 'curated_excerpts', 'bundle_id': VERSION, 'package_version': 3,
         'source_commit': None, 'source_commit_note': 'ZIP内清单固定重写后的源码版本；后续索引独立登记。',
         'availability': 'pending_upload', 'github_url': None, 'drive_urls': {'focused': None, 'full': None},
-        'corpus': old['corpus'], 'experiments': old['experiments'],
+        'corpus': old['corpus'], 'experiments': experiments,
         'sources': inventory(root, source_paths), 'cases': entries,
         'published_files': inventory(root, list((root / REPORTS).rglob('*.md'))),
         'acceptance': 'preliminary_pending_user_acceptance'}
@@ -313,9 +406,11 @@ def pointer_get(doc, pointer):
 def historical_relative(path):
     known = ('rag/experiments/generation_diagnosis/cases.jsonl',
              'rag/experiments/generation_diagnosis/generation_profiles.json',
-             CORPUS, DIAG_RUN + '/local_api.json')
+             CORPUS, DIAG_RUN + '/local_api.json',
+             'rag/data/full/genshin_wiki_data_20260605/corpus.jsonl',
+             DIAG_RECORD.get('legacy_artifacts', DIAG_RUN) + '/local_api.json')
     normalized = str(path).replace('\\', '/')
-    matches = [rel for rel in known if normalized == rel or normalized.endswith('/' + rel)]
+    matches = [rel for rel in set(known) if normalized == rel or normalized.endswith('/' + rel)]
     if len(matches) != 1:
         raise ValueError('Unknown historical input mapping: ' + str(path))
     return matches[0]
@@ -351,14 +446,18 @@ def verify_views(root):
     answers = 0
     total_bytes = 0
     for case in cases:
-        rel = REPORTS + '/' + case['experiment_id'] + '/cases/' + case['question_id'] + '.md'
+        rel = report_case_path(root, case['experiment_id'], case['question_id']).relative_to(root).as_posix()
         expected_paths.add(rel)
-        expected = render_compact_case(case['question_id'], case['question'], case['calls'], case['references'], case['coverage'])
+        expected = render_case_at(root, root / rel, case)
         if (root / rel).read_bytes() != expected.encode('utf-8'):
             raise ValueError('Changed compact view, excerpt or answer metadata: ' + rel)
         entry = next((c for c in manifest['cases'] if c['path'] == rel), None)
         if entry is None or entry['answers'] != len(case['calls']):
             raise ValueError('Missing compact manifest entry')
+        if (root / 'rag/catalog.json').exists():
+            identity = artifact_catalog.resolve_run(root, case['experiment_id'])
+            if (entry.get('experiment_id'), entry.get('run_id'), entry.get('legacy_id')) != (identity['experiment_id'], identity['run_id'], case['experiment_id']):
+                raise ValueError('Manifest run identity mismatch')
         call_records = [{'condition': c['condition'], 'seed': c['seed'],
                          'answer_sha256': sha(c['answer']['text'].encode('utf-8')),
                          'status': c['answer'].get('status'), 'finish_reason': c['answer'].get('finish_reason')}
@@ -369,7 +468,7 @@ def verify_views(root):
         total_bytes += (root / rel).stat().st_size
     if {c['path'] for c in manifest['cases']} != expected_paths or len(manifest['cases']) != 30:
         raise ValueError('Manifest case inventory mismatch')
-    actual_paths = {p.relative_to(root).as_posix() for p in (root / REPORTS).glob('*/cases/*.md')}
+    actual_paths = {p.relative_to(root).as_posix() for p in (root / REPORTS).rglob('cases/*.md')}
     if actual_paths != expected_paths or answers != 96 or total_bytes > 300_000:
         raise ValueError('Unexpected cases, calls or compact page size')
     for entry in manifest['sources'] + manifest['published_files']:
@@ -414,7 +513,7 @@ def verify_archive(path, extract_to=None):
             extract_to.mkdir(parents=True)
             z.extractall(extract_to)
             if manifest.get('kind') == 'full':
-                corpus = read_jsonl(extract_to / CORPUS)
+                corpus = read_jsonl(data_location(extract_to, CORPUS))
                 if len(corpus) != manifest['corpus']['rows']:
                     raise ValueError('Restored corpus row count')
                 # Restore source pointers using the new root, without replaying old absolute paths.
@@ -439,9 +538,11 @@ def validate_bundle_output(root, output):
     resolved = output.resolve()
     if output.exists():
         raise ValueError('Bundle output must be new; keep previous publications')
-    publication_root = (root / 'rag/data/publication').resolve()
+    publication_root = (root / 'rag/data/releases').resolve()
     if resolved == publication_root or not resolved.is_relative_to(publication_root):
-        raise ValueError('Local bundles must be under ignored rag/data/publication')
+        raise ValueError('Local bundles must be under ignored rag/data/releases')
+    if (root / 'rag/catalog.json').exists():
+        artifact_catalog.assert_writable_output(root, output)
     for rel in DATA_ROOTS:
         protected = (root / rel).resolve()
         if resolved.is_relative_to(protected) or protected.is_relative_to(resolved):
@@ -459,15 +560,15 @@ def build_bundles(root, output):
     code = {}
     for rel in paths:
         safe_name(rel)
-        if not (rel in {'.gitignore', '.gitattributes', 'AGENTS.md', 'README.md', 'context.md'} or rel.startswith(('rag/scripts/', 'rag/tests/', 'rag/experiments/', 'rag/reports/')) or rel in {'rag/README.md', 'rag/context.md'}):
+        if not (rel in {'.gitignore', '.gitattributes', 'AGENTS.md', 'README.md', 'context.md', '.agents/skills/genshin-dev-questions/SKILL.md'} or rel.startswith(('rag/scripts/', 'rag/tests/', 'rag/experiments/', 'rag/reports/', 'rag/config/', 'rag/docs/', 'rag/eval/')) or rel in {'rag/README.md', 'rag/context.md', 'rag/catalog.json'}):
             raise ValueError('Unapproved source file: ' + rel)
         code[rel] = git(root, 'show', 'HEAD:' + rel)
     # Views are already verified; gather original rows without regenerating committed files.
     a, b, trials = sources(root)
-    corpus = {r['id']: r for r in read_jsonl(root / CORPUS)}
+    corpus = {r['id']: r for r in read_jsonl(data_location(root, CORPUS))}
     manifest = read_json(root / REPORTS / 'manifest.json')
     evidence = {eid: corpus[eid] for c in manifest['cases'] for eid in c['evidence_ids']}
-    initial = read_json(root / FULL_RUN / 'preliminary_review.json')
+    initial = read_json(data_location(root, FULL_RUN) / 'preliminary_review.json')
     for batch, rs in a.items():
         for r in rs:
             for eid in initial[batch][r['question_id']].get('source_ids', []):
@@ -482,7 +583,7 @@ def build_bundles(root, output):
     anchors += [dict(ref, source_pointer=ref['pointer']) for case in inputs['cases'] for ref in case['references']]
     evidence.update({ref['source_id']: corpus[ref['source_id']] for case in inputs['cases'] for ref in case['references']})
     slices = focused_slices(root, evidence, anchors)
-    sealed = read_json(root / DIAG_RUN / 'model/sealed_inputs.json')
+    sealed = read_json(data_location(root, DIAG_RUN) / 'model/sealed_inputs.json')
     output.mkdir(parents=True)
     results = []
     for kind in ('focused', 'full'):
@@ -496,12 +597,12 @@ def build_bundles(root, output):
         # so sealed input hashes remain checkable without confusing them with the Git tree.
         input_specs = [(historical_relative(path), digest)
                        for path, digest in sealed['input_manifest']['files'].items()
-                       if historical_relative(path) != CORPUS]
-        old_manifest = read_json(root / FULL_RUN / 'run_manifest.json')
+                       if not historical_relative(path).endswith('/corpus.jsonl')]
+        old_manifest = read_json(data_location(root, FULL_RUN) / 'run_manifest.json')
         input_specs.append((old_manifest['actual_regression_input']['path'], old_manifest['actual_regression_input']['sha256']))
         for rel, digest in sorted(set(input_specs)):
             safe_name(rel)
-            data = (root / rel).read_bytes()
+            data = executed_input_bytes(root, rel, digest)
             if sha(data) != digest:
                 raise ValueError('Executed input changed: ' + rel)
             archive_path = 'publication/historical_inputs/' + rel

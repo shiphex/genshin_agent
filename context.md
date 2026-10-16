@@ -1,34 +1,39 @@
 # 项目上下文
 
-更新：2026-10-10。此文件为开发导航，不是剧情事实来源。
+更新：2026-10-14。本文件是项目导航；开发约定见 [AGENTS.md](AGENTS.md)。
 
-项目目标为主角／派蒙身份的原神剧情分析讨论Agent。当前处于RAG全量实验、错误诊断和审阅发布准备阶段；角色Agent、界面、玩家进度分析和防剧透尚未实现。约定见 [AGENTS.md](AGENTS.md)。
+项目目标是以主角／派蒙身份参与原神剧情分析、解读与讨论的 Agent。当前集中于 RAG 实验、错误诊断与评测资产维护；角色 Agent、界面、玩家进度分析和防剧透尚未实现。
 
-## 当前阶段与入口
+## 当前入口
 
-- [公开审阅入口](rag/reports/README.md)：24题双组及六题全部条件／种子的精简诊断，只放关键原句、必要原文和初审；完整记录在云盘包；六题为前轮子集。
-- [24题结果](rag/reports/full_validation_20261010_105700/summary.md)：48次正式调用中47stop、1length；旧题Top5找齐6/9、新题0/10，参考不穷尽，不能代表答案正确率。
-- [六题诊断](rag/reports/generation_diagnosis_20261010_145424/summary.md)：48次stop；人工原文改善部分答案，仍有身份、主体、比例和时序误读，校准参数未稳定修复。未证明量化／运行时故障或4B永久能力上限。
-- [RAG说明](rag/README.md)和[模块上下文](rag/context.md)：具体实现、原文验证、历史与未解决问题。当前冻结语料22,822片段，未切换数据、重建语料或修改检索。
-- [Hugging Face RAG语料集](https://huggingface.co/datasets/shiphex/genshin_agent_RAG)：`rag-full-20260605-v1` 的四个派生语料文件已公开；许可、哈希、revision与匿名下载校验见[数据获取](rag/reports/data_access.md)。
-- [数据与发布步骤](rag/reports/data_access.md)：重点分析包和完整复现包由uv标准库脚本生成，同一bundle_id／源码commit。审阅包的GitHub／Drive地址仍待登记、pending_upload；包源码版本与后续链接索引分别记录。
+- [RAG 使用说明](rag/README.md)与[模块上下文](rag/context.md)：实现、运行方式、验证结果和未解决问题。
+- [资料统一索引](rag/catalog.json)与[管理规则](rag/docs/artifacts.md)：稳定用途名称、题库版本、独立运行／复核编号，以及历史ID映射。日期只作为元数据或旧封存坐标。
+- 本地 `rag/data/readme.md` 说明数据目录的用途、八类结构和保留边界；随整个数据目录忽略，新克隆参考[本地产物管理](rag/docs/data.md)。
+- [开发题库](rag/eval/questions_dev.json)：0.5 版、110 题；原定 100 道核心题和 10 道跨故事题的配额已填满。原文准备使用 `rag/scripts/prepare_eval.py`，尚未接通评测 runner 或自动评分；全部题目仍待用户逐题验收。
+- [保留的 v2 题库](rag/eval/questions.json)：2.0.1-pilot、14 题，作为未来 benchmark 资产，暂停扩展；独立模型复核和程序校验不等于用户验收。[题库说明](rag/eval/README.md)。
+- [开发题随机抽样](rag/eval/reviews/dev_sample/r001/selected_questions.json)与[第三方复核摘要](rag/eval/reviews/dev_sample/r001/result_by_deepseek_summary.md)：20 题核验材料；摘要已记录四组初审，完整第三方结果仅本地保存，仍待用户确认。
+- [公开审阅入口](rag/reports/README.md)：24 题模型对照及其中六题的受控诊断；API 完成、引用合法性、检索覆盖和语义正确性分别报告。
+- [数据获取与发布状态](rag/reports/data_access.md)：已登记的语料发布版本和审阅包状态；实际 GitHub 推送和云盘上传由用户操作。
+- [历史记录](rag/docs/history/development_20261013.md)与[本地归档说明](rag/docs/archives.md)：旧开发阶段、过程资料的位置与恢复方法。
 
-用户认为前轮错误“极其多”，这是总体反馈，不等于逐题验收。全部初审仍待用户确认；独立用户题目尚未收到。
+## 当前工作边界
 
-## Hugging Face 语料发布（2026-10-10）
+冻结快照为 `data/raw/genshin_wiki_data_20260605/`；当前派生语料为 22,822 片段。原文、Wiki 整理／推测和模型生成内容须可区分，保留来源。当前词面索引、无数据库／Embedding 是 MVP 选择，不是永久要求。
 
-用户批准先发布当前全量派生 RAG 语料，不发布 `rag/data/` 整体、原始快照、模型回答、审阅 ZIP、Git bundle或缓存。新增 `rag/scripts/export_hf_dataset.py` 只从 `rag/data/full/genshin_wiki_data_20260605/` 导出四个批准文件、manifest、Dataset Card和LFS规则；它不上传、不会修改源数据。实际 staging 已验证22,822条记录和全部哈希，64项 RAG 测试通过。
+用户认为前轮模型错误“极其多”，属于总体反馈；不能登记为逐题评分。当前仍有检索遗漏、主体／时序误读、错引和机制文本漏项。候选下一步为短原句抽取及限定保持、实体／多来源检索、更强模型或运行时对照，尚未实施。
 
-Dataset Card 标为 `license: other`，不将原神或 Wiki 文本宣称为 MIT；MIT 仅适用于发布者原创的脚本、清单和说明。目标数据集已 **available**：远端 revision 为 `592d198a9cde390005323a9f849c0d3981fb5a33`，已从该公开 revision 进行未登录 HTTP 下载并重算哈希、解析 JSONL、确认22,822条记录与LFS对象可访问。完整审阅包的 Google Drive 策略不变，继续独立于语料集。
+本窗口不修改爬虫代码；恢复任务通过[交接说明](rag/docs/recovery/crawler_handoff.md)交给爬虫项目独立会话，新版数据接入另行安排。
 
-## 工作边界
+2026-10-13 按用户批准方案完成本地资料整理：重复解压副本与缓存清除，旧题库制作／迁移／发布检查过程已核验归档；正式语料、题库、模型结果、第三方复核、已有发布 ZIP 和历史 Git bundle 保持原路径。详细保护哈希、归档清单和验收记录只保留本地；Git 继续忽略这些资料。
 
-原快照、语料和历史实验保持完整。Git继续忽略大数据，只批准rag/reports中的可追溯发布副本作为例外；历史输出需独立资料包备份。发布检查原回答、哈希、薄Git链接与ZIP恢复，不调用模型。
+随后按用户确认将必要资料继续保留 Git 并按用途归位：共享配置在 `rag/config/`，开发历史和恢复交接在 `rag/docs/`，开发题复核在 `rag/eval/reviews/`，摘录输入在 `rag/reports/inputs/`。[实验索引](rag/experiments/README.md)与[文档索引](rag/docs/README.md)为新增导航；第三方原始复核JSON仍仅本地保存。数据语义与历史发布包不变。
 
-爬虫修复通过 [交接任务](rag/experiments/recovery/crawler_handoff.md) 交给独立会话；本项目未改其代码，新版接入另行安排。
+用户随后批准统一身份管理：新增catalog及标准库辅助脚本，实验输入按用途命名，题库复核与报告按用途／rNNN组织；两个执行入口分配新编号和独立本地目录，拒绝已有输出。原始快照、旧运行结果和ZIP保持原样，日期旧ID通过catalog映射；执行、发布和用户验收状态分开维护。本轮只运行纯检索验证，没有调用真实模型。
 
-候选下一步为短原句抽取及主体／时间／不确定性保持，然后做更强模型或运行时对照、实体／多来源检索。角色口吻与可展开出处是后续设计倾向；当前词面索引、无数据库／Embedding是MVP选择，不是永久要求。
+随后批准本地产物管理：`rag/data/` 按八类归位，[规则与入口](rag/docs/data.md)由catalog管理。语料、准备副本、运行、复核、发布、基线与任务归档分开；封存正文及ZIP不重写，旧地址通过索引读取。生成入口采用新版本／编号，完成才切换当前指针；完整第三方原件移入data，Git只保留输入和摘要。
 
-v2资料包已完成恢复验证，保留其原始源码哈希和ZIP，不重写。本轮在970c114后合并发布历史，生成对应新源码的v3包；旧完整报告由本地Git bundle与v2包保留，旧提交不要求在公开仓库可访问。初步精简验证覆盖30页、96份回答，原数据不变。交付与状态见[数据获取](rag/reports/data_access.md)。
+2026-10-14 按用户要求运行 RAG 纯检索 Smoke Test：全量语料前 3 题均成功返回 Top5，结果登记为本地 `full_retrieval/r005`；未调用模型，语义状态仍待人工复核。详见 [RAG 模块上下文](rag/context.md)。
 
-本轮已验证：以970c114为边界的发布源码合并提交为569175ff73fb3ef9a9f206a9308b627240e44a06；旧完整报告／清单33个blob不再被根仓库分支或标签引用，内部Codex引用和reflog保留未gc。30页110953字节，96份回答均有精确摘录，60项测试通过；11,536个保护文件及21个源码／输入blob未变。v3两包和新Git克隆校验通过，完整包可读22,822片段。最终分享仍pending_upload，版本及哈希见[数据获取](rag/reports/data_access.md)。
+同日使用本地 `Qwen3.5-4B-Q4_K_M.gguf`、llama.cpp b9837 和 RTX 4060 Vulkan 后端完成完整链路 Smoke Test，登记为 `model_comparison/r002`：q01–q03 的六次正式调用均正常结束，三题预期证据组全部覆盖。Codex 对冻结原文初审发现无检索回答错误，以及 RAG 扩写主体错置、错引和引用格式问题；技术通过不表示语义或用户验收通过。结果与复核依据仅本地保存，入口见 [RAG 模块上下文](rag/context.md)。
+
+随后按用户要求将本次已确认的 Smoke 方案整理保存为[方案 v1](rag/experiments/model_comparison/smoke_qwen35_q4_v1.md)，保留原方案正文并关联执行清单、参数、输入哈希及本地核验材料；明确为运行后保存，不冒充执行前封存。

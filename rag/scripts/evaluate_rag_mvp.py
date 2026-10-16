@@ -15,6 +15,11 @@ from urllib.error import URLError
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
+try:
+    from . import artifact_catalog
+except ImportError:
+    import artifact_catalog
+
 RAG_ROOT = Path(__file__).resolve().parents[1]
 PROJECT = RAG_ROOT.parent
 SYSTEM = (
@@ -221,6 +226,7 @@ def validate_output_dir(output, raw_root=PROJECT / "data/raw", input_paths=(), p
     output = Path(output).resolve()
     if output.is_relative_to(Path(raw_root).resolve()):
         raise ValueError("evaluation output must be outside raw data")
+    artifact_catalog.assert_writable_output(PROJECT, output)
     if protect_sample and output.is_relative_to((RAG_ROOT / "data/mvp").resolve()):
         raise ValueError("full output must not overwrite historical sample data")
     # Also protect custom snapshots recognizable by their parsed/pages layout.
@@ -284,23 +290,28 @@ def main():
                         help="full is the current dataset; sample explicitly selects the historical MVP")
     parser.add_argument("--corpus", type=Path)
     parser.add_argument("--questions", type=Path)
-    parser.add_argument("--config", type=Path, default=RAG_ROOT / "experiments/mvp/local_api.json")
+    parser.add_argument("--config", type=Path, default=RAG_ROOT / "config/local_api.json")
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--retrieval-only", action="store_true", help="do not call or probe any model API")
     parser.add_argument("--limit", type=int, help="smoke-test only the first N questions")
     args = parser.parse_args()
+    run_key = None
     try:
-        dataset_dir = RAG_ROOT / "data/full/genshin_wiki_data_20260605" if args.dataset == "full" else RAG_ROOT / "data/mvp"
-        args.corpus = args.corpus or dataset_dir / "corpus.jsonl"
-        args.questions = args.questions or RAG_ROOT / ("experiments/full/questions.jsonl" if args.dataset == "full" else "experiments/mvp/questions.jsonl")
-        if args.output_dir is None:
-            args.output_dir = dataset_dir / ("retrieval" if args.retrieval_only else "model_comparison")
+        args.corpus = args.corpus or artifact_catalog.dataset_path(PROJECT, 'full_corpus' if args.dataset == 'full' else 'sample_corpus')
+        retrieval_experiment = 'full_retrieval' if args.dataset == 'full' else 'sample_retrieval'
+        args.questions = args.questions or artifact_catalog.experiment_input(PROJECT, retrieval_experiment, 'questions')
+        experiment = retrieval_experiment if args.retrieval_only else ('model_comparison' if args.dataset == 'full' else 'sample_model_comparison')
+        run_key, args.output_dir = artifact_catalog.reserve_run(PROJECT, experiment, args.output_dir)
         validate_output_dir(args.output_dir, input_paths=(args.corpus, args.questions, args.config),
                             protect_sample=args.dataset == "full")
         config = json.loads(args.config.read_text(encoding="utf-8-sig"))
         config["dataset"] = args.dataset
         if config.get("top_k", 5) < 1 or (args.limit is not None and args.limit < 1):
             raise ValueError("top_k and limit must be positive")
+        artifact_catalog.seal_inputs(PROJECT, run_key, (args.corpus, args.questions, args.config, Path(__file__), Path(artifact_catalog.__file__)),
+                                     {'dataset': args.dataset, 'retrieval_only': args.retrieval_only, 'limit': args.limit,
+                                      'retrieval_top_k': config.get('top_k', 5), 'max_tokens': config.get('max_tokens'),
+                                      'temperature': config.get('temperature', 0), 'seed': config.get('seed', 42)})
         corpus, questions = load_jsonl(args.corpus), load_jsonl(args.questions)
         questions = map_source_evidence(questions, corpus)
         validate_inputs(corpus, questions)
@@ -314,8 +325,16 @@ def main():
         results = evaluate(corpus, questions, config, args.retrieval_only)
         summary = write_report(args.output_dir, results, config, args.retrieval_only)
         print(json.dumps(summary, ensure_ascii=False))
-        return 1 if any(summary[key] for key in ("failed_model_calls", "truncated_model_calls", "incomplete_model_calls")) else 0
+        incomplete = any(summary[key] for key in ("failed_model_calls", "truncated_model_calls", "incomplete_model_calls"))
+        artifact_catalog.finish_run(PROJECT, run_key, 'completed_with_errors' if incomplete else 'completed')
+        return int(incomplete)
+    except KeyboardInterrupt:
+        if run_key:
+            artifact_catalog.finish_run(PROJECT, run_key, 'interrupted')
+        return 130
     except (HTTPException, OSError, URLError, ValueError, KeyError, IndexError, TypeError) as error:
+        if run_key:
+            artifact_catalog.finish_run(PROJECT, run_key, 'failed')
         print(f"Evaluation failed ({type(error).__name__}). Check input files and the local API/config.", file=sys.stderr)
         return 1
 
