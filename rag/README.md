@@ -75,7 +75,7 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 
 默认从 catalog 取得题库与语料，Top-K=5。`--questions` 接受同格式 JSON，`--corpus` 接受当前字段的 JSONL，`--top-k` 设置正整数。默认分配 `data/outputs/retrieval/r001/`；r001 是第1次检索运行，随后 r002、r003，失败编号也保留，无需手填路径。`--output-dir` 只接受同一用途下尚不存在的目录。
 
-每轮保存 results.jsonl、summary.json、report.md及离线图表metrics.svg，以及输入哈希、实际参数和执行源码副本。简报包含指标、覆盖分布、题型／难度分组及耗时表格；SVG不显示时仍可阅读精确数值。默认输入须通过 catalog 指纹／元数据校验；自定义语料记录实际身份，快照未知时不继承基线声明。失败或中断保留已写结果并非零退出，不覆盖当前基线。
+每轮保存 results.jsonl、summary.json、report.md，以及输入哈希、实际参数和执行源码副本。简报包含指标、覆盖分布、题型／难度分组及耗时表格。默认输入须通过 catalog 指纹／元数据校验；自定义语料记录实际身份，快照未知时不继承基线声明。失败或中断保留已写结果并非零退出，不覆盖当前基线。
 
 指标协议、空标注与分母、A/B 对齐见[题库说明](eval/README.md#检索评测协议-v0)，产物和状态见[数据管理](docs/data.md#新输出与更新)。来源位置命中不代表论据完整覆盖或答案正确；单次逐题计时不作为性能门槛。
 

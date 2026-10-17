@@ -73,7 +73,7 @@ class RunTests(unittest.TestCase):
         self.root = Path(self.temp.name)
         scripts = self.root / 'rag/scripts'
         scripts.mkdir(parents=True)
-        for module in (evaluate, retriever, evaluate.artifact_catalog, evaluate.retrieval_report):
+        for module in (evaluate, retriever, evaluate.artifact_catalog):
             target = scripts / Path(module.__file__).name
             target.write_bytes(Path(module.__file__).read_bytes())
         (self.root / 'rag/eval').mkdir(parents=True)
@@ -104,7 +104,6 @@ class RunTests(unittest.TestCase):
              patch.object(evaluate, '__file__', str(self.root / 'rag/scripts/evaluate_retrieval.py')), \
              patch.object(retriever, '__file__', str(self.root / 'rag/scripts/evaluate_rag_mvp.py')), \
              patch.object(evaluate.artifact_catalog, '__file__', str(self.root / 'rag/scripts/artifact_catalog.py')), \
-             patch.object(evaluate.retrieval_report, '__file__', str(self.root / 'rag/scripts/retrieval_report.py')), \
              patch.object(retriever, 'api_request', side_effect=AssertionError('no API allowed')), \
              redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
             return evaluate.main(list(args))
@@ -126,11 +125,12 @@ class RunTests(unittest.TestCase):
         self.assertIn('python', manifest['parameters']['runtime'])
         self.assertIn('source_commit', manifest)
         self.assertEqual(manifest['metadata']['processed_questions'], 1)
-        for name in ('results.jsonl', 'summary.json', 'report.md', 'metrics.svg'):
+        self.assertEqual(set(manifest['metadata']['artifacts']), {'results.jsonl', 'summary.json', 'report.md'})
+        for name in ('results.jsonl', 'summary.json', 'report.md'):
             self.assertEqual(manifest['metadata']['artifacts'][name]['sha256'],
                              hashlib.sha256((output / name).read_bytes()).hexdigest())
         copied = {p.name for p in (output / 'executed_source').glob('*.py')}
-        self.assertEqual(copied, {'evaluate_retrieval.py', 'evaluate_rag_mvp.py', 'artifact_catalog.py', 'retrieval_report.py'})
+        self.assertEqual(copied, {'evaluate_retrieval.py', 'evaluate_rag_mvp.py', 'artifact_catalog.py'})
         result = json.loads((output / 'results.jsonl').read_text(encoding='utf-8'))
         self.assertEqual(result['question'], '契约')
         self.assertNotIn('GOLD_NOT_A_QUERY', json.dumps(result))

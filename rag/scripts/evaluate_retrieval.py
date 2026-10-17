@@ -1,6 +1,7 @@
 """Evaluate JSON development questions offline using source-location proxies."""
 import argparse
 import hashlib
+from html import escape
 import json
 from pathlib import Path, PurePosixPath
 import platform
@@ -10,16 +11,22 @@ import sys
 import time
 
 try:
-    from . import artifact_catalog, evaluate_rag_mvp, retrieval_report
+    from . import artifact_catalog, evaluate_rag_mvp
 except ImportError:
     import artifact_catalog
     import evaluate_rag_mvp
-    import retrieval_report
 
 LexicalIndex = evaluate_rag_mvp.LexicalIndex
 PROJECT = Path(__file__).resolve().parents[2]
 PROTOCOL_ID = 'retrieval-source-location-v0'
 SCHEMA_VERSION = 1
+METRICS = [('来源位置 Hit', 'source_location_hit_at_k'),
+           ('宏平均 Coverage', 'source_location_macro_coverage_at_k'),
+           ('微平均 Coverage', 'source_location_micro_coverage_at_k')]
+BINS = ['未命中 · 0%', '部分命中 · (0, 50%)', '部分命中 · [50%, 100%)',
+        '全部标注位置 · 100%', '无标注 · 未计分']
+LABELS = {'fact': '事实', 'causal': '因果', 'worldbuilding': '世界观', 'relationship': '关系',
+          'easy': '简单', 'medium': '中等', 'hard': '困难'}
 
 
 def _text(value, label):
@@ -132,8 +139,90 @@ def _write_json(path, value):
         stream.write(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + '\n')
 
 
+def percentage(value):
+    return '未计分' if value is None else f'{value:.2%}'
+
+
+def coverage_distribution(results):
+    counts = [0] * len(BINS)
+    for row in results:
+        location = row['source_location']
+        n, d = location['matched_locations'], location['annotated_locations']
+        index = 4 if not d else 0 if not n else 3 if n == d else 1 if n * 2 < d else 2
+        counts[index] += 1
+    return counts
+
+
+def group_metrics(results, field):
+    groups = {}
+    for result in results:
+        groups.setdefault(result[field], []).append(result['source_location'])
+    rows = []
+    order = ('easy', 'medium', 'hard') if field == 'difficulty' else ('fact', 'causal', 'worldbuilding', 'relationship')
+    for label, locations in sorted(groups.items(), key=lambda item: (order.index(item[0]) if item[0] in order else len(order), item[0])):
+        scored = [r for r in locations if r['annotated_locations']]
+        annotated = sum(r['annotated_locations'] for r in scored)
+        rows.append({'label': label, 'questions': len(locations), 'scored': len(scored),
+                     'hits': sum(r['matched_locations'] > 0 for r in scored),
+                     'macro': sum(r['matched_locations'] / r['annotated_locations'] for r in scored) / len(scored) if scored else None,
+                     'micro': sum(r['matched_locations'] for r in scored) / annotated if annotated else None})
+    return rows
+
+
+def _cell(value):
+    return escape(str(value)).replace('|', '\\|').replace('\n', ' ')
+
+
+def _seconds(value, milliseconds=False):
+    if value is None:
+        return '未测量'
+    return f'{value * 1000:.2f} ms' if milliseconds else f'{value:.3f} s'
+
+
 def _write_report(output, summary, results):
-    retrieval_report.write_report(output, summary, results)
+    """Write retrieval tables without requiring optional visualizations."""
+    state = '执行完成' if summary['complete'] else '未完成，以下仅统计已处理题目'
+    lines = ['# 检索评测 V0', '',
+             f"运行：`{_cell(output.name)}` · **{state}** · {summary['processed_questions']}/{summary['expected_questions']} 题 · Top-K={summary['top_k']}。", '',
+             '> 指标只表示已标注来源的位置命中，是证据获取的代理指标。字段中某个片段命中不证明论据完整召回；'
+             '语义覆盖和最终答案正确性均未评测。来源标注也不穷尽等价出处。', '',
+             '## 指标总览', '', '| 指标 | 结果 | 统计口径 |', '| --- | ---: | --- |']
+    definitions = ['命中至少一个标注位置的题数／计分题数', '每道计分题 Coverage 的等权平均',
+                   f"命中 {summary['matched_locations']}/{summary['annotated_locations']} 个逐题唯一标注位置"]
+    lines.extend(f"| {label}@{summary['top_k']} | {percentage(summary[key])} | {definition} |"
+                 for (label, key), definition in zip(METRICS, definitions))
+    lines.extend(['', f"计分 {summary['scored_questions']} 题；无标注 {summary['unscored_questions']} 题。"
+                  '未进入语料的位置保留在分母中；失败或中断结果不构成完整评测。', '',
+                  '| 逐题覆盖分组 | 题数 |', '| --- | ---: |'])
+    lines.extend(f'| {label} | {count} |' for label, count in zip(BINS, coverage_distribution(results)))
+    for field, heading in (('type', '按题型'), ('difficulty', '按难度')):
+        lines.extend(['', f'## {heading}', '', '| 分组 | 已处理／计分 | 命中题数 | Hit@K | 宏 Coverage@K | 微 Coverage@K |',
+                      '| --- | ---: | ---: | ---: | ---: | ---: |'])
+        for group in group_metrics(results, field):
+            label = _cell(LABELS.get(group['label'], group['label']))
+            hit = group['hits'] / group['scored'] if group['scored'] else None
+            lines.append(f"| {label} | {group['questions']}/{group['scored']} | {group['hits']} | "
+                         f"{percentage(hit)} | {percentage(group['macro'])} | {percentage(group['micro'])} |")
+    timings = summary['retrieval_seconds']
+    lines.extend(['', '## 耗时', '', '| 阶段／统计 | 耗时 |', '| --- | ---: |',
+                  f"| 索引构建 | {_seconds(summary['index_build_seconds'])} |",
+                  f"| 检索总计 | {_seconds(timings['total'])} |"])
+    lines.extend(f"| 每题{label} | {_seconds(timings[key], True)} |" for label, key in (('平均', 'mean'), ('中位数', 'median'), ('最大', 'max')))
+    lines.extend(['', '每题只计一次 search 调用，不含加载、匹配、写盘；不是端到端耗时或性能回退判定。', '',
+                  '## 未进入语料的标注位置', '', '| 题号 | 文件 | Pointer |', '| --- | --- | --- |'])
+    lines.extend(f"| {_cell(s['question_id'])} | {_cell(s['file'])} | {_cell(s['pointer'])} |" for s in summary['unmapped_locations'])
+    if not summary['unmapped_locations']:
+        lines.append('| 无（仅指已处理题目） | — | — |')
+    identity = summary['identity']
+    lines.extend(['', '## 复现与比较', '',
+                  f"协议：`{summary['protocol_id']}`；题库版本：`{_cell(identity['questions']['version'])}`。", '',
+                  f"题库 SHA-256：`{identity['questions']['sha256']}`。", '',
+                  f"语料 SHA-256：`{identity['corpus']['sha256']}`。", '',
+                  '[逐题结果](results.jsonl) · [机器可读汇总](summary.json) · [运行记录](run_manifest.json)。', '',
+                  '复现按运行记录的 parameters、inputs 和 executed_source 核对。A/B 固定协议、题库与语料哈希及 Top-K，'
+                  '按 question_id 对齐；有意改变的因素单列。运行编号和时间戳不参与指标比较，耗时需同等环境重复采样。'])
+    with (output / 'report.md').open('x', encoding='utf-8', newline='\n') as stream:
+        stream.write('\n'.join(lines) + '\n')
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
@@ -174,7 +263,7 @@ def main(argv=None):
                 raise ValueError('question metadata differs from catalog')
         if corpus_path == artifact_catalog.dataset_path(PROJECT, 'full_corpus') and len(corpus) != doc['datasets']['full_corpus']['rows']:
             raise ValueError('corpus row count differs from catalog')
-        sources = [Path(__file__).resolve(), Path(evaluate_rag_mvp.__file__).resolve(), Path(artifact_catalog.__file__).resolve(), Path(retrieval_report.__file__).resolve()]
+        sources = [Path(__file__).resolve(), Path(evaluate_rag_mvp.__file__).resolve(), Path(artifact_catalog.__file__).resolve()]
         identity = {'questions': {**fingerprints[questions_path], 'path': str(questions_path),
                                  'dataset': document['dataset'], 'version': document['version'],
                                  'source_snapshot': document['source_snapshot'], 'rows': expected,
