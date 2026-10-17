@@ -1,0 +1,148 @@
+{
+  "schema_version": 2,
+  "baseline_id": "current-003",
+  "established_on": "2026-10-16",
+  "source_snapshot": "genshin_wiki_data_20260605",
+  "raw_root": "data/raw/genshin_wiki_data_20260605",
+  "datasets": {
+    "full_corpus": {
+      "path": "rag/data/corpus/corpus.jsonl",
+      "rows": 22822
+    },
+    "story_dev": {
+      "path": "rag/eval/questions.json",
+      "version": "0.5",
+      "questions": 110,
+      "review_status": "not_reviewed"
+    }
+  },
+  "review20": {
+    "input": "rag/eval/review20.json",
+    "result": "rag/data/review20/result.json",
+    "questions": 20,
+    "execution_status": "completed_as_reported",
+    "review_status": "not_reviewed",
+    "summary": "rag/data/review20/summary.md",
+    "summary_role": "third_party_summary_and_historical_prompt_record",
+    "summary_origin": "user-provided result_by_deepseek_summary.md"
+  },
+  "smoke": {
+    "input": "rag/eval/smoke/questions.jsonl",
+    "results": "rag/data/smoke/results.jsonl",
+    "review": "rag/data/smoke/semantic_review.json",
+    "sources": "rag/data/smoke/frozen_review_sources.json",
+    "questions": 3,
+    "model_calls": 6,
+    "execution_status": "completed",
+    "review_status": "not_reviewed",
+    "parameters": {
+      "dataset": "full",
+      "retrieval_only": false,
+      "limit": 3,
+      "retrieval_top_k": 5,
+      "max_tokens": 1536,
+      "temperature": 0,
+      "seed": 42
+    },
+    "source_commit": "0bf881628d99f1c66ed82f51628540ff9b22602b",
+    "source_dirty": true,
+    "model": {
+      "name": "Qwen3.5-4B-Q4_K_M",
+      "bytes": 2740937888,
+      "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4"
+    },
+    "runtime": {
+      "version": "version: 9837 (b3fed31b9)\nbuilt with Clang 20.1.8 for Windows x86_64",
+      "server_sha256": "28713f013309fc1ad213232b429547e046d8928d6352ef006f47cb4e6515b388",
+      "device": "RTX 4060 / Vulkan0",
+      "context_size": 8192,
+      "enable_thinking": false,
+      "context_shift": false
+    },
+    "provenance": {
+      "original_run_id": "model_comparison/r002",
+      "original_manifest_sha256": "62b59dcae46fc16d96a01012287e6bbf9c1ec12ad155a79a30e0b6931acec693",
+      "original_input_sha256": "669cdee767006906246a595f31476a2219d98dee3db2c1c06c8eed2edc618988",
+      "original_input_questions": 12,
+      "selection": "first 3 records, original execution limit=3; selected file was not the historical execution input"
+    },
+    "executed_sources": {
+      "evaluate_rag_mvp.py": {
+        "path": "rag/data/smoke/executed_source/evaluate_rag_mvp.py",
+        "sha256": "112fba29bd19ba24133a9e9b7b746a459841c3c5b72708e9a5a22491c5ab5391"
+      },
+      "artifact_catalog.py": {
+        "path": "rag/data/smoke/executed_source/artifact_catalog.py",
+        "sha256": "63d76f8b14e8cc2b1892d9b1de26176b70b62cded61c1a2ce688a37d1b5b924c"
+      }
+    }
+  },
+  "files": {
+    "rag/data/corpus/corpus.jsonl": {
+      "bytes": 33087738,
+      "sha256": "1fafb904a22126b1fa757d1f6a2c119f1fa10f5637d5d75bcccfb9425c6efed3"
+    },
+    "rag/data/corpus/audit.json": {
+      "bytes": 1073603,
+      "sha256": "7aec9fc7e7ec6d12c625d75e20168b33e6e18d38dc2e54d178866e6732d75a58"
+    },
+    "rag/data/corpus/exclusions.jsonl": {
+      "bytes": 438694,
+      "sha256": "39079f6248bf8ed8fe227eb52c4b4906793740b1b35c3bb43145967c5228c269"
+    },
+    "rag/data/corpus/coverage.md": {
+      "bytes": 58645,
+      "sha256": "1dd52c27ccd5db96165b5a588a28e7f67f969478ee4335f63300c086c3bf3aa6"
+    },
+    "rag/eval/questions.json": {
+      "bytes": 176961,
+      "sha256": "114c9c47f5241f9a4ef77750fb77826a2938ef839cc37523cf7f55cf966aee1e"
+    },
+    "rag/eval/review20.json": {
+      "bytes": 71362,
+      "sha256": "a35fa6993fde18896c71f8d6f6173d2a7477089f80ff893fdfe57e3c0fce67e7"
+    },
+    "rag/data/review20/result.json": {
+      "bytes": 81622,
+      "sha256": "395142c3d32b970ffe1d71a1adbacf0f4c8dd0c46460a63be41c47d57ff194e3"
+    },
+    "rag/data/smoke/results.jsonl": {
+      "bytes": 52081,
+      "sha256": "3c80614bbcad55e12638817c353a39a46a4acb8be3c4abdbbc70e92a983a815c"
+    },
+    "rag/data/smoke/semantic_review.json": {
+      "bytes": 9963,
+      "sha256": "21573b57f259b8306250bea3229c688c755745f179913c3da2f8b73f923cfcfa"
+    },
+    "rag/data/smoke/frozen_review_sources.json": {
+      "bytes": 10879,
+      "sha256": "2127102d8cbf5eac2ca3459ed71daebe46a48f7f5714669383f67abb02749e57"
+    },
+    "rag/data/smoke/executed_source/artifact_catalog.py": {
+      "bytes": 18858,
+      "sha256": "63d76f8b14e8cc2b1892d9b1de26176b70b62cded61c1a2ce688a37d1b5b924c"
+    },
+    "rag/data/smoke/executed_source/evaluate_rag_mvp.py": {
+      "bytes": 19823,
+      "sha256": "112fba29bd19ba24133a9e9b7b746a459841c3c5b72708e9a5a22491c5ab5391"
+    },
+    "rag/eval/smoke/questions.jsonl": {
+      "bytes": 1871,
+      "sha256": "1925157a0a8c1d0af252f77d6c0ecc9cd32ce42a83d24b9d7ed841c8186e1841"
+    },
+    "rag/data/review20/summary.md": {
+      "bytes": 13966,
+      "sha256": "02139d404950c400de60c8088ab44137edc92e4a44a47758962be72eb4b4c3d7"
+    }
+  },
+  "hf": {
+    "release_version": "rag-full-20260605-v2",
+    "publication_status": "available",
+    "previous_revision": "592d198a9cde390005323a9f849c0d3981fb5a33",
+    "repository": "shiphex/genshin_agent_RAG",
+    "published_revision": "bd7862b586956c41b35cd4ce95edd8236318d1ea",
+    "publication_url": "https://huggingface.co/datasets/shiphex/genshin_agent_RAG/tree/bd7862b586956c41b35cd4ce95edd8236318d1ea",
+    "merged_pull_request": 3
+  },
+  "supersedes": "current-002"
+}

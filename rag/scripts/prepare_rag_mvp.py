@@ -1,31 +1,18 @@
-"""Extract manually selected lore fields, leaving the raw snapshot untouched."""
-
+"""Build a traceable full lore corpus in a new output; never replace the baseline."""
 import argparse
 import json
 from pathlib import Path
 import re
 import sys
 
-RAG_ROOT = Path(__file__).resolve().parents[1]
-PROJECT = RAG_ROOT.parent
-DEFAULT_ROOT = PROJECT / "data/raw/genshin_wiki_data_20260605"
-DEFAULT_SELECTION = RAG_ROOT / "experiments/mvp/selection.json"
-DEFAULT_OUTPUT = RAG_ROOT / "data/mvp"
+try:
+    from . import artifact_catalog
+except ImportError:
+    import artifact_catalog
 
-# This is a field allowlist, not a blanket deletion of combat-related words.
-ALLOWED = {
-    "weapons": r"/(名称|介绍|故事)",
-    "artifacts": r"/名称|/(时之沙|死之羽|理之冠|生之花|空之杯)/(名称|描述|故事)",
-    "characters": (
-        r"/角色/(名称|称号|全名|所属|出身|种族|介绍|性别|昵称~1外号|归属|职业)"
-        r"|/角色故事/(角色详细|角色故事[1-5])|/角色语音/[^/]+"
-        r"|/权能/(神之眼|神之心)"
-    ),
-    "books": r"/title|/volumes/\d+/(name|content)",
-    "archon-quests": r"/任务标题/中文|/(章节|章节名称|幕|幕名称|描述)|/任务流程/\d+|/对话/\d+",
-    "character-quests": r"/(任务名称|所属章|所属幕|所属幕名称|任务描述)|/任务流程/\d+|/对话/\d+",
-    "event-quests": r"/(任务名称|所属任务|任务描述)|/任务列表/\d+|/剧情对话/\d+/对话/\d+",
-}
+PROJECT = Path(__file__).resolve().parents[2]
+DEFAULT_ROOT = PROJECT / "data/raw/genshin_wiki_data_20260605"
+
 GAMEPLAY = re.compile(
     r"(?:攻击力|防御力|生命值|暴击率|暴击伤害|元素充能效率|伤害加成|护盾强效|治疗加成|伤害)"
     r"[^。！？\n]{0,30}(?:\d+(?:\.\d+)?\s*[%％]|百分之)"
@@ -49,165 +36,44 @@ def resolve_pointer(value, pointer):
     return value
 
 
-def render_value(value):
-    if isinstance(value, str):
-        return value.strip()
-    if not isinstance(value, dict):
-        raise ValueError("selected field must be text or a dialogue row")
-    kind = value.get("类型")
-    if kind in ("option", "选项"):
-        options = value.get("选项", [value.get("内容", "")])
-        if not isinstance(options, list) or not all(isinstance(x, str) for x in options):
-            raise ValueError("invalid dialogue options")
-        return "\n".join("[玩家选项；分支关系未知] " + x.strip() for x in options if x.strip())
-    content = value.get("内容", "")
-    if not isinstance(content, str):
-        raise ValueError("invalid dialogue content")
-    if not content.strip():
-        return ""
-    if kind in ("narration", "旁白"):
-        return "[旁白] " + content.strip()
-    speaker = value.get("说话者", "")
-    if not isinstance(speaker, str):
-        raise ValueError("invalid speaker")
-    return (speaker.strip() or "[原文说话者为空]") + "：" + content.strip()
-
-
-def extract_entry(root, entry):
-    """Return (record, None), or (None, an explicit exclusion reason)."""
-    root = Path(root).resolve()
-
-    def skip(reason):
-        return None, {"id": entry.get("id"), "source_file": entry.get("source_file"),
-                      "source_pointer": entry.get("source_pointer"), "reason": reason}
-
-    if entry.get("exclude_reason"):
-        return skip(entry["exclude_reason"])
-    try:
-        source = (root / entry["source_file"]).resolve()
-        parsed = root / "parsed"
-        if not source.is_relative_to(parsed):
-            return skip("source_outside_parsed")
-        family = source.relative_to(parsed).parts[0]
-        if family not in ALLOWED:
-            return skip("unsupported_type")
-        value = read_json(source)
-        page_path = root / "pages" / source.name
-        if not page_path.exists():
-            return skip("missing_raw_page")
-        pages = read_json(page_path).get("query", {}).get("pages", {})
-        if len(pages) != 1:
-            return skip("ambiguous_raw_page")
-        page = next(iter(pages.values()))
-        if page.get("ns") != 0 or "missing" in page:
-            return skip("non_content_page")
-        raw = page.get("revisions", [{}])[0].get("slots", {}).get("main", {}).get("*", "")
-        if re.match(r"\s*#(?:REDIRECT|重定向)", raw, re.IGNORECASE):
-            return skip("redirect_page")
-        if family.endswith("-quests") and not re.search(r"\{\{\s*任务(?:\s|\||\})", raw):
-            return skip("wrong_task_page")
-        pointers = entry["source_pointer"]
-        if not isinstance(pointers, list) or not pointers:
-            return skip("missing_source_pointer")
-        if any(not isinstance(p, str) or not re.fullmatch(ALLOWED[family], p) for p in pointers):
-            return skip("field_not_allowed")
-        values = [resolve_pointer(value, p) for p in pointers]
-        dialogue_paths = [p for p in pointers if re.search(r"/对话/\d+$", p)]
-        if dialogue_paths:
-            if len(dialogue_paths) != len(pointers) or len({p.rsplit("/", 1)[0] for p in pointers}) != 1:
-                return skip("discontinuous_dialogue")
-            indices = [int(p.rsplit("/", 1)[1]) for p in pointers]
-            if indices != list(range(indices[0], indices[0] + len(indices))):
-                return skip("discontinuous_dialogue")
-            if family != "event-quests":
-                stages = {v.get("所属任务流程") for v in values}
-                if len(stages) != 1 or not next(iter(stages)):
-                    return skip("cross_stage_dialogue")
-        texts = [render_value(v) for v in values]
-        # An empty selected field is an issue, even if other selected fields contain text.
-        if any(not text for text in texts):
-            return skip("empty_text")
-        text = "\n\n".join(texts)
-        if GAMEPLAY.search(text):
-            return skip("mixed_gameplay")
-        if any(marker in text for marker in ("<!--", "{{", "[[")):
-            return skip("unresolved_markup")
-        title = value.get("title") or value.get("名称") or value.get("任务名称")
-        title = title or value.get("任务标题", {}).get("中文")
-        title = title or value.get("角色", {}).get("名称")
-        if not isinstance(title, str) or not title.strip():
-            return skip("missing_title")
-        relative = source.relative_to(root).as_posix()
-        labels = "、".join(p.rsplit("/", 1)[-1].replace("~1", "/").replace("~0", "~") for p in pointers)
-        if dialogue_paths:
-            labels = values[0].get("所属任务流程", "剧情对话")
-        return {"id": entry["id"], "title": title + " / " + labels, "type": family,
-                "parent_id": relative, "text": text, "source_file": relative,
-                "source_pointer": pointers}, None
-    except (OSError, ValueError, KeyError, IndexError, TypeError, AttributeError):
-        return skip("invalid_or_missing_source")
-
-
-def prepare(root, manifest):
-    entries = manifest["entries"]
-    ids = [entry.get("id") for entry in entries]
-    if any(not isinstance(x, str) or not re.fullmatch(r"[A-Za-z][A-Za-z0-9_-]*", x) for x in ids):
-        raise ValueError("selection IDs must be nonempty ASCII identifiers")
-    if len(ids) != len(set(ids)):
-        raise ValueError("duplicate selection IDs")
-    records, issues = [], []
-    for entry in entries:
-        record, issue = extract_entry(root, entry)
-        (issues if issue else records).append(issue if issue else record)
-    return records, issues
-
-
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--raw-root", type=Path, default=DEFAULT_ROOT)
-    mode = parser.add_mutually_exclusive_group()
-    mode.add_argument("--selection", type=Path, help="explicit sample selection; default is the existing 30 chunks")
-    mode.add_argument("--all", action="store_true", help="scan all parsed JSON files in this snapshot")
-    parser.add_argument("--max-chars", type=int, default=800, help="full-mode target chunk length")
-    parser.add_argument("--output-dir", type=Path)
-    args = parser.parse_args()
+    parser.add_argument('--raw-root', type=Path, default=DEFAULT_ROOT)
+    parser.add_argument('--all', action='store_true', help='compatibility flag; full extraction is the default')
+    parser.add_argument('--max-chars', type=int, default=800)
+    parser.add_argument('--output-dir', type=Path)
+    args = parser.parse_args(argv)
+    output = None
     try:
-        if args.output_dir is None:
-            args.output_dir = RAG_ROOT / "data/full" / args.raw_root.name if args.all else DEFAULT_OUTPUT
-        if args.output_dir.resolve().is_relative_to(args.raw_root.resolve()):
-            raise ValueError("output directory must be outside the raw snapshot")
+        if args.max_chars < 1:
+            raise ValueError('max-chars must be positive')
+        if args.output_dir is not None and args.output_dir.resolve().is_relative_to(args.raw_root.resolve()):
+            raise ValueError('output must be outside the raw snapshot')
         if __package__:
-            from .evaluate_rag_mvp import validate_output_dir
+            from . import full_corpus
         else:
-            from evaluate_rag_mvp import validate_output_dir
-        validate_output_dir(args.output_dir, protect_sample=args.all)
-        if args.all:
-            if args.output_dir.resolve().is_relative_to(DEFAULT_OUTPUT.resolve()):
-                raise ValueError("full output must not overwrite the historical sample dataset")
-            if __package__:
-                from .full_corpus import build_full, write_full
-            else:
-                from full_corpus import build_full, write_full
-            records, issues, audit = build_full(args.raw_root, args.max_chars)
-            if not records:
-                raise ValueError("no usable full-corpus records; inspect the source snapshot")
-            write_full(args.output_dir, records, issues, audit)
-            print(json.dumps({"files_scanned": audit["files_scanned"], "chunks": len(records),
-                              "issues": len(issues), "elapsed_seconds": audit["elapsed_seconds"],
-                              "output_dir": str(args.output_dir)}, ensure_ascii=False))
-            return 0
-        records, issues = prepare(args.raw_root, read_json(args.selection or DEFAULT_SELECTION))
-        args.output_dir.mkdir(parents=True, exist_ok=True)
-        for name, rows in (("corpus.jsonl", records), ("exclusions.jsonl", issues)):
-            (args.output_dir / name).write_text(
-                "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
-        print(json.dumps({"chunks": len(records), "excluded": len(issues),
-                          "output_dir": str(args.output_dir)}, ensure_ascii=False))
-        return 0 if records else 1
+            import full_corpus
+        output = artifact_catalog.reserve_output(PROJECT, 'corpus', args.output_dir)
+        artifact_catalog.seal_inputs(PROJECT, output, [Path(__file__), Path(full_corpus.__file__), Path(artifact_catalog.__file__)],
+                                     {'raw_root': str(args.raw_root.resolve()), 'max_chars': args.max_chars})
+        records, issues, audit = full_corpus.build_full(args.raw_root, args.max_chars)
+        if not records:
+            raise ValueError('no usable full-corpus records; inspect the source snapshot')
+        full_corpus.write_full(output, records, issues, audit)
+        metadata = {'source_snapshot': args.raw_root.name, 'chunks': len(records), 'files_scanned': audit['files_scanned']}
+        artifact_catalog.finish_output(PROJECT, output, 'completed', metadata)
+        print(json.dumps(dict(metadata, output_dir=str(output))))
+        return 0
+    except KeyboardInterrupt:
+        if output:
+            artifact_catalog.finish_output(PROJECT, output, 'interrupted')
+        return 130
     except (OSError, ValueError, KeyError, TypeError) as error:
-        print(f"Preparation failed: {error}", file=sys.stderr)
+        if output:
+            artifact_catalog.finish_output(PROJECT, output, 'failed')
+        print(f'Preparation failed: {error}', file=sys.stderr)
         return 1
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     raise SystemExit(main())

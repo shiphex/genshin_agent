@@ -15,6 +15,11 @@ from urllib.error import URLError
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 
+try:
+    from . import artifact_catalog
+except ImportError:
+    import artifact_catalog
+
 RAG_ROOT = Path(__file__).resolve().parents[1]
 PROJECT = RAG_ROOT.parent
 SYSTEM = (
@@ -217,12 +222,14 @@ def evaluate(corpus, questions, config, retrieval_only=False):
     return results
 
 
-def validate_output_dir(output, raw_root=PROJECT / "data/raw", input_paths=(), protect_sample=False):
+def validate_output_dir(output, raw_root=PROJECT / "data/raw", input_paths=()):
     output = Path(output).resolve()
     if output.is_relative_to(Path(raw_root).resolve()):
         raise ValueError("evaluation output must be outside raw data")
-    if protect_sample and output.is_relative_to((RAG_ROOT / "data/mvp").resolve()):
-        raise ValueError("full output must not overwrite historical sample data")
+    artifact_catalog.assert_writable_output(PROJECT, output)
+    manifest = output / 'run_manifest.json'
+    if manifest.is_file() and json.loads(manifest.read_text(encoding='utf-8'))['execution_status'] != 'running':
+        raise ValueError('Output is already finished')
     # Also protect custom snapshots recognizable by their parsed/pages layout.
     if any((parent / "parsed").is_dir() and (parent / "pages").is_dir()
            for parent in (output, *output.parents)):
@@ -233,10 +240,15 @@ def validate_output_dir(output, raw_root=PROJECT / "data/raw", input_paths=(), p
 
 
 def write_report(output, results, config, retrieval_only):
-    validate_output_dir(output, protect_sample=config.get("dataset") == "full")
-    output.mkdir(parents=True, exist_ok=True)
-    (output / "results.jsonl").write_text(
-        "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in results), encoding="utf-8")
+    output = Path(output)
+    validate_output_dir(output)
+    manifest_path = output / 'run_manifest.json'
+    if not manifest_path.is_file() or json.loads(manifest_path.read_text(encoding='utf-8'))['execution_status'] != 'running':
+        raise ValueError('Report requires an active reserved output')
+    if any((output / name).exists() for name in ('results.jsonl', 'summary.json', 'review.md')):
+        raise ValueError('Report targets already exist')
+    with (output / 'results.jsonl').open('x', encoding='utf-8', newline='\n') as stream:
+        stream.write(''.join(json.dumps(row, ensure_ascii=False) + '\n' for row in results))
     scored = [r["evidence_coverage"] for r in results if r["evidence_coverage"] is not None]
     summary = {"timestamp_utc": datetime.now(timezone.utc).isoformat(),
                "mode": "retrieval_only" if retrieval_only else "model_comparison",
@@ -254,7 +266,8 @@ def write_report(output, results, config, retrieval_only):
                "truncated_model_calls": sum(a["status"] == "truncated" for r in results for a in r["answers"].values()),
                "incomplete_model_calls": sum(a["status"] == "incomplete" for r in results for a in r["answers"].values()),
                "semantic_evaluation": "pending_human_review"}
-    (output / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    with (output / 'summary.json').open('x', encoding='utf-8', newline='\n') as stream:
+        stream.write(json.dumps(summary, ensure_ascii=False, indent=2) + '\n')
     lines = ["# RAG MVP 人工检查", "", "baseline 为无检索对照组，rag 为检索后实验组。",
              "ok 仅表示模型调用正常结束，不代表事实或引用通过核验。以下正文是实验输出，不是最终角色 Agent 的界面。",
              "引用 ID 存在不等于结论被原文支持。请逐项检查；空值尚未评分。", ""]
@@ -274,33 +287,44 @@ def write_report(output, results, config, retrieval_only):
                           answer.get("text", "调用失败：" + answer.get("error", "")), ""])
         lines.extend(["- [ ] 引用支持对应结论", "- [ ] 无无依据断言或传说事实化",
                       "- [ ] 无强度数值或攻略泄漏", "", "复核备注：", ""])
-    (output / "review.md").write_text("\n".join(lines), encoding="utf-8")
+    with (output / 'review.md').open('x', encoding='utf-8', newline='\n') as stream:
+        stream.write('\n'.join(lines))
     return summary
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--dataset", choices=("full", "sample"), default="full",
-                        help="full is the current dataset; sample explicitly selects the historical MVP")
+    parser.add_argument("--dataset", choices=("full",), default="full",
+                        help="current full corpus; the default questions are the three smoke cases")
     parser.add_argument("--corpus", type=Path)
     parser.add_argument("--questions", type=Path)
-    parser.add_argument("--config", type=Path, default=RAG_ROOT / "experiments/mvp/local_api.json")
+    parser.add_argument("--config", type=Path, default=RAG_ROOT / "config/local_api.json")
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--retrieval-only", action="store_true", help="do not call or probe any model API")
     parser.add_argument("--limit", type=int, help="smoke-test only the first N questions")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
+    output = None
     try:
-        dataset_dir = RAG_ROOT / "data/full/genshin_wiki_data_20260605" if args.dataset == "full" else RAG_ROOT / "data/mvp"
-        args.corpus = args.corpus or dataset_dir / "corpus.jsonl"
-        args.questions = args.questions or RAG_ROOT / ("experiments/full/questions.jsonl" if args.dataset == "full" else "experiments/mvp/questions.jsonl")
-        if args.output_dir is None:
-            args.output_dir = dataset_dir / ("retrieval" if args.retrieval_only else "model_comparison")
-        validate_output_dir(args.output_dir, input_paths=(args.corpus, args.questions, args.config),
-                            protect_sample=args.dataset == "full")
+        doc = artifact_catalog.load_catalog(PROJECT)
+        defaults = []
+        if args.corpus is None:
+            defaults.append(doc['datasets']['full_corpus']['path'])
+        if args.questions is None:
+            defaults.append(doc['smoke']['input'])
+        artifact_catalog.verify_files(PROJECT, defaults)
+        args.corpus = args.corpus or artifact_catalog.dataset_path(PROJECT, 'full_corpus')
+        args.questions = args.questions or artifact_catalog.local_path(PROJECT, doc['smoke']['input'])
+        output = artifact_catalog.reserve_output(PROJECT, 'retrieval' if args.retrieval_only else 'model', args.output_dir)
+        args.output_dir = output
+        validate_output_dir(output, input_paths=(args.corpus, args.questions, args.config))
         config = json.loads(args.config.read_text(encoding="utf-8-sig"))
         config["dataset"] = args.dataset
         if config.get("top_k", 5) < 1 or (args.limit is not None and args.limit < 1):
             raise ValueError("top_k and limit must be positive")
+        artifact_catalog.seal_inputs(PROJECT, output, (args.corpus, args.questions, args.config, Path(__file__), Path(artifact_catalog.__file__)),
+                                     {'dataset': args.dataset, 'retrieval_only': args.retrieval_only, 'limit': args.limit,
+                                      'retrieval_top_k': config.get('top_k', 5), 'max_tokens': config.get('max_tokens'),
+                                      'temperature': config.get('temperature', 0), 'seed': config.get('seed', 42)})
         corpus, questions = load_jsonl(args.corpus), load_jsonl(args.questions)
         questions = map_source_evidence(questions, corpus)
         validate_inputs(corpus, questions)
@@ -314,8 +338,16 @@ def main():
         results = evaluate(corpus, questions, config, args.retrieval_only)
         summary = write_report(args.output_dir, results, config, args.retrieval_only)
         print(json.dumps(summary, ensure_ascii=False))
-        return 1 if any(summary[key] for key in ("failed_model_calls", "truncated_model_calls", "incomplete_model_calls")) else 0
+        incomplete = any(summary[key] for key in ("failed_model_calls", "truncated_model_calls", "incomplete_model_calls"))
+        artifact_catalog.finish_output(PROJECT, output, 'completed_with_errors' if incomplete else 'completed')
+        return int(incomplete)
+    except KeyboardInterrupt:
+        if output:
+            artifact_catalog.finish_output(PROJECT, output, 'interrupted')
+        return 130
     except (HTTPException, OSError, URLError, ValueError, KeyError, IndexError, TypeError) as error:
+        if output:
+            artifact_catalog.finish_output(PROJECT, output, 'failed')
         print(f"Evaluation failed ({type(error).__name__}). Check input files and the local API/config.", file=sys.stderr)
         return 1
 

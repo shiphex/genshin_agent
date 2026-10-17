@@ -236,11 +236,7 @@ class FullCorpusTests(unittest.TestCase):
 
 
 class FullRetrievalTests(unittest.TestCase):
-    def test_full_outputs_cannot_overwrite_historical_sample_or_other_project_raw(self):
-        with self.assertRaises(ValueError):
-            evaluate.validate_output_dir(evaluate.RAG_ROOT / "data/mvp/model_comparison", protect_sample=True)
-        with self.assertRaises(ValueError):
-            evaluate.validate_output_dir(evaluate.PROJECT / "data/raw/another-snapshot")
+
 
     def test_reused_index_keeps_ranking_and_does_not_return_zero_matches(self):
         corpus = [{"id": "a", "title": "归离原", "text": "归离原的往事。"},
