@@ -16,6 +16,7 @@
 - 创建或同步文档时读[文档规范](docs/AGENTS.md)、[术语](docs/terminology.md)和 [doc skill](.agents/skills/doc/SKILL.md)；精简文字按需用 [prose-standard](.agents/skills/prose-standard/SKILL.md)。
 - 设计 skill 或上下文加载时用 [agent-experience](.agents/skills/agent-experience/SKILL.md)。编写／修订开发题用 [genshin-dev-questions](.agents/skills/genshin-dev-questions/SKILL.md)，独立核验题目事实与证据用 [genshin-question-review](.agents/skills/genshin-question-review/SKILL.md)；不将编题自评或模型作答评分混为独立核验。
 - 小改动不要求读取全部历史、创建 Agent Note 或重跑模型实验。重要决策按 [Notes 入口](.agents/notes/README.md)记录；文档完成前检查预算、链接、事实依据和受影响导航。
+- 性能实验／回退判断用 [speed-up-perf](.agents/skills/speed-up-perf/SKILL.md)；CI、资源型测试或偶发失败用 [ci-test-reliability](.agents/skills/ci-test-reliability/SKILL.md)；推送／交付前用 [pre-push-checks](.agents/skills/pre-push-checks/SKILL.md)选择必要验证，不要求所有任务加载三者。
 
 ## 已确认的工作约定
 

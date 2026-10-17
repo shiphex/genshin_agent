@@ -28,6 +28,8 @@ Agent Note 保存实现和普通文档不能充分解释的重要决策原因、
 
 ## 当前记录
 
+- [检索评测V0与工作流适配](implemented/2026-10-17-retrieval-evaluation-v0.md)：来源定位协议、运行记录、三个Skill及上游取舍。
+
 - [文档体系适配](implemented/2026-10-16-ai-native-documentation.md)：职责分层、中文术语、模板与预算机制的取舍。
 - [RAG当前状态基线](implemented/2026-10-16-rag-current-baseline.md)：当前资料集合、历史淘汰、独立输出与HF格式。
 
