@@ -30,7 +30,11 @@ description: "维护当前基线文件、独立输出和后续更新规则。"
 
 ## 新输出与更新
 
-新生成内容统一写入 `data/outputs/<用途>/rNNN/`；用途为 corpus、prepared、retrieval、model、review 或 hf，目录按需创建。已有目录、原始目录、基线及已有运行的嵌套目录拒绝写入；失败／中断编号不复用。普通运行不修改 catalog 或当前入口。
+新生成内容统一写入 `data/outputs/<用途>/` 的独立编号目录；用途为 corpus、prepared、retrieval、model、review 或 hf，目录按需创建。例如 retrieval/r001 是第1次检索运行，随后 r002、r003；由工具自动分配，无需手填，编号不代表版本或基线。已有目录、原始目录、基线及已有运行的嵌套目录拒绝写入；失败／中断编号不复用。普通运行不修改 catalog 或当前入口。
+
+检索评测 V0 的 results.jsonl 逐题刷新，summary.json 保存指标、分母、计时与完整性，report.md 提供简短说明；manifest 记录输入及执行源码指纹、实际参数、运行环境和终态产物哈希。失败／中断保留已完成题目与不完整汇总，不能当成完整评测。review_status 仍为 not_reviewed；语义覆盖和答案正确性保持未评测。操作和协议分别由[模块说明](../README.md#110题检索评测)与[题库说明](../eval/README.md#检索评测协议-v0)维护。
+
+仅调整简报展示时，保留原执行身份、执行源码、结果、汇总和计时，更新已登记的产物哈希；不将排版调整登记为重新评测。
 
 review用于新的题库核验记录，沿用 `artifact_catalog.reserve_output(root, 'review')` 的目录分配、`seal_inputs` 的输入封存和 `finish_output` 的执行登记；当前没有自动核验runner。用户要求落盘时才生成，执行完成仍保持review_status=not_reviewed，不把外部模型初审登记为用户验收。
 
@@ -41,6 +45,8 @@ review用于新的题库核验记录，沿用 `artifact_catalog.reserve_output(r
 ## 获取与清理
 
 整个 `data/` 继续忽略；Git 保留正式实现、当前题目输入和文档，不能代替原件备份。新克隆缺本地文件时，catalog 校验明确失败；获取入口见[模块说明](../README.md#数据获取与验证)。
+
+用户明确清理运行目录的源码副本时，删除副本及清单中的对应路径，保留已记录的源码哈希与运行身份；不将当前脚本冒充历史执行源码。
 
 本次用户明确淘汰旧题库原型、实验、发布ZIP、Git bundle和整理归档，不另建完整备份。后续清理仍须明确范围；唯一回答、核验与用户反馈不能按临时文件自动删除。临时 HF 导出和原文副本在核验后可移除；保留需要交付的真实模型输出。
 

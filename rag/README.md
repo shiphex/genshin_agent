@@ -13,6 +13,7 @@ description: "提供当前 RAG 基线、语料检索、题库准备和 Hugging F
 - [当前入口](#当前入口)
 - [语料与检索](#语料与检索)
 - [问题集与 Smoke](#问题集与-smoke)
+- [110题检索评测](#110题检索评测)
 - [Hugging Face 导出](#hugging-face-导出)
 - [数据获取与验证](#数据获取与验证)
 - [Dev Note](#dev-note)
@@ -21,7 +22,7 @@ description: "提供当前 RAG 基线、语料检索、题库准备和 Hugging F
 
 | 位置 | 用途 |
 | --- | --- |
-| `scripts/`、`tests/` | 六个当前功能脚本与行为测试 |
+| `scripts/`、`tests/` | 语料、检索评测与导出脚本及行为测试 |
 | `config/local_api.json` | 本地 chat-completions 服务连接与生成参数 |
 | [eval](eval/README.md) | 110题开发集与20题独立事实核验 |
 | [smoke](eval/smoke/README.md) | 三题 Q4 模型完整链路验证 |
@@ -63,6 +64,20 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 该工具读取冻结原文、输出带 `sources[].text` 的副本，不评分、不调用模型。JSON题库尚未接通 JSONL 模型 runner。准备副本按需生成，不是基线的重复常驻文件。
 
 [三题 Smoke](eval/smoke/README.md)保留六份完整回答、实际检索上下文、结构化初审与必要依据。再次运行模型对照的命令是 `evaluate_rag_mvp.py`（不加 `--retrieval-only`）；它会真实访问配置的本地服务并产生新输出，不会重现历史回答。脚本不启动服务或下载权重，鉴权从环境变量读取。
+
+## 110题检索评测
+
+标准化入口直接读取原 JSON 开发集，复用词面索引，每轮构建一次，不读取模型配置或访问 API：
+
+```powershell
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/evaluate_retrieval.py
+```
+
+默认从 catalog 取得题库与语料，Top-K=5。`--questions` 接受同格式 JSON，`--corpus` 接受当前字段的 JSONL，`--top-k` 设置正整数。默认分配 `data/outputs/retrieval/r001/`；r001 是第1次检索运行，随后 r002、r003，失败编号也保留，无需手填路径。`--output-dir` 只接受同一用途下尚不存在的目录。
+
+每轮保存 results.jsonl、summary.json、report.md，以及输入哈希、实际参数和执行源码副本。简报包含指标、覆盖分布、题型／难度分组及耗时表格。默认输入须通过 catalog 指纹／元数据校验；自定义语料记录实际身份，快照未知时不继承基线声明。失败或中断保留已写结果并非零退出，不覆盖当前基线。
+
+指标协议、空标注与分母、A/B 对齐见[题库说明](eval/README.md#检索评测协议-v0)，产物和状态见[数据管理](docs/data.md#新输出与更新)。来源位置命中不代表论据完整覆盖或答案正确；单次逐题计时不作为性能门槛。
 
 ## Hugging Face 导出
 
