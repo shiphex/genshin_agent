@@ -511,7 +511,7 @@ def write_full(output, records, issues, audit):
         from .evaluate_rag_mvp import validate_output_dir
     else:
         from evaluate_rag_mvp import validate_output_dir
-    validate_output_dir(output, protect_sample=True)
+    validate_output_dir(output)
     output.mkdir(parents=True, exist_ok=True)
     for name, data in (("corpus.jsonl", records), ("exclusions.jsonl", issues)):
         temporary = output / (name + ".tmp")

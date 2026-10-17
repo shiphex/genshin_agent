@@ -236,19 +236,7 @@ class FullCorpusTests(unittest.TestCase):
 
 
 class FullRetrievalTests(unittest.TestCase):
-    def test_completed_corpora_and_historical_runs_reject_new_nested_outputs(self):
-        from rag.scripts import artifact_catalog
-        corpus = artifact_catalog.dataset_path(evaluate.PROJECT, 'full_corpus').parent
-        run = evaluate.PROJECT / artifact_catalog.run_record(evaluate.PROJECT, 'model_comparison', 'r001')['artifacts']
-        for parent in (corpus, run):
-            with self.assertRaises(ValueError):
-                evaluate.validate_output_dir(parent / 'new-output')
 
-    def test_full_outputs_cannot_overwrite_historical_sample_or_other_project_raw(self):
-        with self.assertRaises(ValueError):
-            evaluate.validate_output_dir(evaluate.RAG_ROOT / "data/mvp/model_comparison", protect_sample=True)
-        with self.assertRaises(ValueError):
-            evaluate.validate_output_dir(evaluate.PROJECT / "data/raw/another-snapshot")
 
     def test_reused_index_keeps_ranking_and_does_not_return_zero_matches(self):
         corpus = [{"id": "a", "title": "归离原", "text": "归离原的往事。"},

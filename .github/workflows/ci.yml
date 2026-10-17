@@ -1,0 +1,46 @@
+name: CI
+
+"on":
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  docs:
+    name: Docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - uses: astral-sh/setup-uv@v10.3.0
+        with:
+          version: "0.10.11"
+          enable-cache: false
+      - name: Check document budgets
+        run: uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B scripts/verify_doc_budgets.py
+      - name: Test document budget checker
+        run: uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s tests -v
+
+  python:
+    name: Python
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - uses: astral-sh/setup-uv@v10.3.0
+        with:
+          version: "0.10.11"
+          enable-cache: false
+      - name: Test RAG
+        run: uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s rag/tests -v

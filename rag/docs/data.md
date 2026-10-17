@@ -1,53 +1,49 @@
-# 本地产物管理
+---
+kind: reference
+description: "维护当前基线文件、独立输出和后续更新规则。"
+---
+# 当前基线与输出管理
 
-`rag/data/` 是本地产物库，整个目录继续由Git忽略；[catalog](../catalog.json)登记位置、版本、编号、旧坐标和保留方式。[身份与运行规则](artifacts.md)。原始爬虫快照仍位于共享 `data/raw/`，不迁入本目录。
+## 摘要
 
-## 八类目录
+[catalog](../catalog.json)的 schema_version=2，当前baseline_id=current-003，保留20题摘要与历史提示词原件，Smoke输入及说明归入eval/smoke；本次迁移未改题目或结果字节，不表示语义或用户验收通过。资源身份、路径、大小及 SHA-256 只有这一份权威登记；不保留旧实验索引、归档映射或重复 manifest。
 
-| 目录 | 内容与保留 |
+## 目录
+
+- [基线内容](#基线内容)
+- [新输出与更新](#新输出与更新)
+- [获取与清理](#获取与清理)
+- [Dev Note](#dev-note)
+
+## 基线内容
+
+| 位置 | 内容 |
 | --- | --- |
-| `corpora/<资源>/vN/` | 派生语料、审计、排除、覆盖与来源清单；已完成版本不覆盖 |
-| `prepared/<题库>/v<输入版本>/rNNN/` | 原文准备副本及生成清单；当前入口由datasets.prepared_current指定 |
-| `runs/<实验>/rNNN/` | 完整请求、回答、清单、配置和实际执行代码；历史原件长期保留 |
-| `reviews/<复核>/rNNN/` | 完整第三方复核与本地历史复核材料；摘要与输入仍在Git中的eval/reviews |
-| `releases/<发布物>/vN/` | ZIP、原清单和校验值；原文件名、包内源码commit与字节保持不变 |
-| `baselines/<资源>/vN/` | 原快照保护／恢复核验哈希；生成基线不是恢复完成 |
-| `archive/<任务>/rNNN/` | 已结束任务的资料包、before.zip、audit.zip和索引；恢复使用新目录 |
-| `tmp/<任务>/rNNN/` | 一次性生成、检查、解压工作区；无唯一原件后结束清理 |
+| `data/corpus/` | corpus.jsonl、audit.json、exclusions.jsonl、coverage.md |
+| `eval/questions.json` | 110题定义，版本仍为0.5 |
+| `eval/review20.json`、`data/review20/result.json` | 固定20题、原文与完整第三方核验原件 |
+| `data/review20/summary.md` | 用户提供的第三方摘要与历史提示词记录，保持原字节 |
+| `eval/smoke/questions.jsonl` | 历史运行实际处理的前三题，逐行提取 |
+| `data/smoke/` | 完整结果、语义初审、冻结原文依据、两个实际执行源码副本 |
 
-运行的请求、结果和保护清单保持成组，不按扩展名跨目录拆散。实际执行的 `work.py`、`runner_executed.py` 留在运行组；辅助整理／检查脚本与闭环任务日志压缩到audit.zip，保留原项目路径和逐文件SHA。
+`data/` 共11个原件；现行说明在模块 README、eval 与 smoke 文档中维护，第三方历史摘要作为核验记录随结果保留。共享原始快照留在项目层。语料、题库及模型原件迁移时字节不变，管理信息重新登记。Smoke provenance 区分旧12题输入哈希与新三题文件；不声称新文件曾作为当时的输入。旧运行ID仅为原件内的历史身份，不提供路径兼容。
 
-## 入口与兼容
+## 新输出与更新
 
-通过 `artifact_catalog.dataset_path()` 读取当前语料，指定版本则读取固定版本。runs指向具体执行，prepared_current指向选定成功副本，不按目录日期排序选latest。失败构建不会替换当前语料或副本。
+新生成内容统一写入 `data/outputs/<用途>/rNNN/`；用途为 corpus、prepared、retrieval、model、review 或 hf，目录按需创建。已有目录、原始目录、基线及已有运行的嵌套目录拒绝写入；失败／中断编号不复用。普通运行不修改 catalog 或当前入口。
 
-legacy_paths保存旧地址到新位置的最长前缀映射。resolve_data_path解析旧绝对／相对坐标并拒绝越界；read_data_bytes还可以读取已归档的辅助文件。封存JSON的旧路径、参数、结束状态和哈希不改写。
+review用于新的题库核验记录，沿用 `artifact_catalog.reserve_output(root, 'review')` 的目录分配、`seal_inputs` 的输入封存和 `finish_output` 的执行登记；当前没有自动核验runner。用户要求落盘时才生成，执行完成仍保持review_status=not_reviewed，不把外部模型初审登记为用户验收。
 
-旧Git输入通过legacy_input_paths定位；若当前输入修订或换行变化，发布工具只接受封存哈希一致的字节，必要时从原ZIP读取。未知或不符的输入拒绝打包，不补猜内容。旧ZIP仍按原布局恢复。历史报告及已有Hugging Face发布绑定全量语料v1，不把当前新版本冒充原输入。
+构建、原文准备和评测的 run_manifest.json 记录执行状态、实际参数、输入文件哈希、Git commit、source_dirty和执行源码副本；配置只记指纹，不复制鉴权。新全量构建的原始目录目前仅记路径与快照名，未保存逐文件输入指纹。原文准备被手动中断时可能留下running状态，需人工核对，编号不复用。HF 导出由包内 manifest.json 维护固定白名单与发布信息，显式指定新目录。已发布的 `rag-full-20260605-v2` revision、状态与远端入口以 catalog 的 `hf` 字段为准。
 
-## 生成与关闭
+基线更新是独立操作：明确替换集合，在新输出验证通过后再更新 catalog 的基线身份、路径、哈希及题库版本，完成所有引用核对。失败保持当前基线不变；现有工具没有自动提升基线的接口。不默认保留每次可重建副本，也不在生成成功时升级用户验收状态。
 
-```powershell
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/prepare_rag_mvp.py --all
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/prepare_eval.py
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python rag/scripts/evaluate_rag_mvp.py --dataset full --retrieval-only
-```
+## 获取与清理
 
-上述命令分别生成新语料版本、新原文副本、新检索运行；本次整理未重建用户语料或调用真实模型。成功构建／准备才切换对应入口。显式输出须位于相应类别或新的tmp任务目录，拒绝已有目录和已完成产物的嵌套写入。题库版本修改须同步catalog；自定义输入先登记资源ID。
+整个 `data/` 继续忽略；Git 保留正式实现、当前题目输入和文档，不能代替原件备份。新克隆缺本地文件时，catalog 校验明确失败；获取入口见[模块说明](../README.md#数据获取与验证)。
 
-完成生成不表示语义或用户验收通过。任务关闭时，可再生成临时文件可以清除，唯一回答、复核、反馈和实际执行程序必须保留。归档前逐文件核对并实际恢复读取，之后才移除展开资料。最终包与索引保持可读，过程脚本、日志集中audit.zip，不反复留下完整解压树。
+本次用户明确淘汰旧题库原型、实验、发布ZIP、Git bundle和整理归档，不另建完整备份。后续清理仍须明确范围；唯一回答、核验与用户反馈不能按临时文件自动删除。临时 HF 导出和原文副本在核验后可移除；保留需要交付的真实模型输出。
 
-新运行清单的executed_copy保存实际执行的RAG源码字节，便于工作区未提交或之后修正时回查；配置内容只记哈希，不复制鉴权值。早期纯检索验证仅有指纹时保留该限制，不补写为完整源码快照。
+## Dev Note
 
-## 历史资料
-
-- 全量／样本语料在corpora/story_full/v1和story_sample/v1；原检索记录分别在runs/full_retrieval/r001、sample_retrieval/r001。
-- 24题对照／六题诊断在runs/model_comparison/r001、generation_diagnosis/r001。
-- 样本两轮模型回答在runs/sample_model_comparison/r001（旧版未记录结束原因）与r002，不继承successful计数为完整API响应证明。
-- 导入开发题副本为prepared/story_dev/v0.5/r001，本轮准备验证为r002，110题／445处来源，仍待用户验收。
-- 第三方原件在reviews/dev_sample/r001；benchmark_source/r001的历史表仍按2.0.0旧覆盖口径阅读。
-- releases/review/v1是不交付候选，v2历史封存，v3当前待上传；包内容不变。
-- Git bundle在archive/git_history/r001，原快照基线在baselines/wiki_snapshot/v1。
-- 三轮整理资料在archive/housekeeping/r001～r003，本次数据迁移闭环为r004，仅本地保存。
-
-新克隆须独立提供或恢复本地资料；Git、索引和公开摘要不能代替完整数据备份。
+无。

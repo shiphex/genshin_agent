@@ -4,7 +4,6 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from rag.scripts import export_hf_dataset as hf
 
 
 def write_json(path, value):
@@ -12,6 +11,11 @@ def write_json(path, value):
 
 
 class HuggingFaceDatasetExportTests(unittest.TestCase):
+    def setUp(self):
+        from rag.scripts import export_hf_dataset
+        global hf
+        hf = export_hf_dataset
+
     def make_source(self, root, rows=None):
         source = root / "source"
         source.mkdir()
@@ -39,20 +43,20 @@ class HuggingFaceDatasetExportTests(unittest.TestCase):
 
             manifest = hf.build_release(source, output, expected_rows=2, input_snapshot="snapshot-test")
 
-            data = output / "data/full/genshin_wiki_data_20260605"
+            data = output / "data"
             self.assertEqual(
                 {p.relative_to(output).as_posix() for p in output.rglob("*") if p.is_file()},
-                {"README.md", ".gitattributes", "data/full/genshin_wiki_data_20260605/corpus.jsonl",
-                 "data/full/genshin_wiki_data_20260605/audit.json",
-                 "data/full/genshin_wiki_data_20260605/exclusions.jsonl",
-                 "data/full/genshin_wiki_data_20260605/coverage.md",
-                 "data/full/genshin_wiki_data_20260605/manifest.json"},
+                {"README.md", ".gitattributes", "data/corpus.jsonl", "metadata/audit.json",
+                 "metadata/exclusions.jsonl", "metadata/coverage.md", "manifest.json"},
             )
             self.assertEqual(manifest["rows"], 2)
             self.assertEqual(manifest["input_snapshot"], "snapshot-test")
-            self.assertEqual(manifest["files"]["corpus.jsonl"]["sha256"],
+            self.assertEqual(manifest["files"]["data/corpus.jsonl"]["sha256"],
                              hashlib.sha256((data / "corpus.jsonl").read_bytes()).hexdigest())
             self.assertIn("license: other", (output / "README.md").read_text(encoding="utf-8"))
+            card = (output / 'README.md').read_text(encoding='utf-8')
+            self.assertIn('config_name: story', card)
+            self.assertIn('path: data/corpus.jsonl', card)
             self.assertIn("filter=lfs", (output / ".gitattributes").read_text(encoding="utf-8"))
             self.assertNotIn("not-for-release", "\n".join(str(path) for path in output.rglob("*")))
             self.assertEqual(hf.verify_release(output, expected_rows=2), manifest)
@@ -83,11 +87,22 @@ class HuggingFaceDatasetExportTests(unittest.TestCase):
             source = self.make_source(root)
             output = root / "release"
             hf.build_release(source, output, expected_rows=2, input_snapshot="snapshot-test")
-            corpus = output / "data/full/genshin_wiki_data_20260605/corpus.jsonl"
+            corpus = output / "data/corpus.jsonl"
             corpus.write_text(corpus.read_text(encoding="utf-8") + "{}\n", encoding="utf-8")
 
             with self.assertRaisesRegex(ValueError, "row count|hash"):
                 hf.verify_release(output, expected_rows=2)
+
+    def test_default_row_count_is_derived_and_card_cannot_include_metadata(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = self.make_source(root)
+            output = root / 'release'
+            self.assertEqual(hf.build_release(source, output)['rows'], 2)
+            card = output / 'README.md'
+            card.write_text(card.read_text(encoding='utf-8').replace('path: data/corpus.jsonl', 'path: "**/*.jsonl"'), encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'configuration|card'):
+                hf.verify_release(output)
 
 
 if __name__ == "__main__":

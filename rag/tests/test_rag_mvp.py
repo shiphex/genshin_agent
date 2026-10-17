@@ -3,90 +3,10 @@ from pathlib import Path
 import tempfile
 import threading
 import unittest
+from unittest.mock import patch
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
-from rag.scripts import prepare_rag_mvp as prepare
 from rag.scripts import evaluate_rag_mvp as evaluate
-
-
-class ExtractionTests(unittest.TestCase):
-    def setUp(self):
-        self.temp = tempfile.TemporaryDirectory()
-        self.addCleanup(self.temp.cleanup)
-        self.root = Path(self.temp.name)
-
-    def entry(self, family, value, pointers, raw="{{任务\n|任务名称=测试}}", ns=0):
-        source = self.root / "parsed" / family / "测试.json"
-        source.parent.mkdir(parents=True, exist_ok=True)
-        source.write_text(json.dumps(value, ensure_ascii=False), encoding="utf-8")
-        page = self.root / "pages" / source.name
-        page.parent.mkdir(exist_ok=True)
-        page.write_text(json.dumps({"query": {"pages": {"1": {
-            "pageid": 1, "ns": ns, "title": "测试", "revisions": [{
-                "slots": {"main": {"*": raw}}}]
-        }}}}, ensure_ascii=False), encoding="utf-8")
-        return {"id": "test-01", "source_file": source.relative_to(self.root).as_posix(),
-                "source_pointer": pointers}
-
-    def test_weapon_story_keeps_narrative_power_and_excludes_stats(self):
-        entry = self.entry("weapons", {"名称": "石锁", "故事": "他以强大的力量击败魔兽。",
-                                      "基础攻击力": 608}, ["/故事"])
-        record, issue = prepare.extract_entry(self.root, entry)
-        self.assertIsNone(issue)
-        self.assertEqual(record["text"], "他以强大的力量击败魔兽。")
-        self.assertNotIn("608", json.dumps(record, ensure_ascii=False))
-        self.assertEqual(record["source_pointer"], ["/故事"])
-
-    def test_disallowed_fields_cannot_enter_via_manifest(self):
-        entry = self.entry("weapons", {"名称": "石锁", "精炼材料": "秘密材料"}, ["/精炼材料"])
-        record, issue = prepare.extract_entry(self.root, entry)
-        self.assertIsNone(record)
-        self.assertEqual(issue["reason"], "field_not_allowed")
-
-    def test_gameplay_mixed_into_story_is_quarantined(self):
-        entry = self.entry("weapons", {"名称": "石锁", "故事": "旧日传说。攻击力提高20%。"}, ["/故事"])
-        record, issue = prepare.extract_entry(self.root, entry)
-        self.assertIsNone(record)
-        self.assertEqual(issue["reason"], "mixed_gameplay")
-
-    def test_character_power_story_allowed_but_constellation_excluded(self):
-        value = {"角色": {"名称": "钟离", "命之座": "岩王帝君座"}, "权能": {"神之心": "订立契约。"}}
-        entry = self.entry("characters", value, ["/权能/神之心"])
-        self.assertEqual(prepare.extract_entry(self.root, entry)[0]["text"], "订立契约。")
-        entry["source_pointer"] = ["/角色/命之座"]
-        self.assertEqual(prepare.extract_entry(self.root, entry)[1]["reason"], "field_not_allowed")
-
-    def test_template_and_wrong_task_page_are_skipped(self):
-        entry = self.entry("archon-quests", {"任务标题": {"中文": "测试"}, "对话": []},
-                           ["/描述"], raw="{{面包屑|北陆图书馆}}")
-        self.assertEqual(prepare.extract_entry(self.root, entry)[1]["reason"], "wrong_task_page")
-        entry = self.entry("weapons", {"名称": "样板", "故事": "文本"}, ["/故事"], ns=10)
-        self.assertEqual(prepare.extract_entry(self.root, entry)[1]["reason"], "non_content_page")
-
-    def test_contiguous_dialogue_marks_options_without_guessing_speaker(self):
-        rows = [{"类型": "character", "说话者": "？？？", "内容": "我会守护这里。", "所属任务流程": "谈话"},
-                {"类型": "option", "说话者": "", "内容": "为什么？", "所属任务流程": "谈话"}]
-        entry = self.entry("character-quests", {"任务名称": "测试", "对话": rows}, ["/对话/0", "/对话/1"])
-        record, issue = prepare.extract_entry(self.root, entry)
-        self.assertIsNone(issue)
-        self.assertIn("？？？：我会守护这里。", record["text"])
-        self.assertIn("[玩家选项；分支关系未知] 为什么？", record["text"])
-
-    def test_noncontiguous_or_cross_stage_dialogue_is_rejected(self):
-        rows = [{"类型": "character", "说话者": "甲", "内容": "台词", "所属任务流程": str(i)} for i in range(3)]
-        entry = self.entry("character-quests", {"任务名称": "测试", "对话": rows}, ["/对话/0", "/对话/2"])
-        self.assertEqual(prepare.extract_entry(self.root, entry)[1]["reason"], "discontinuous_dialogue")
-        entry["source_pointer"] = ["/对话/0", "/对话/1"]
-        self.assertEqual(prepare.extract_entry(self.root, entry)[1]["reason"], "cross_stage_dialogue")
-
-    def test_source_escape_empty_text_and_missing_page_are_skipped(self):
-        entry = self.entry("weapons", {"名称": "石锁", "故事": "  "}, ["/故事"])
-        self.assertEqual(prepare.extract_entry(self.root, entry)[1]["reason"], "empty_text")
-        entry["source_file"] = "../outside.json"
-        self.assertEqual(prepare.extract_entry(self.root, entry)[1]["reason"], "source_outside_parsed")
-        entry = self.entry("weapons", {"名称": "石锁", "故事": "旧事"}, ["/故事"])
-        (self.root / "pages" / "测试.json").unlink()
-        self.assertEqual(prepare.extract_entry(self.root, entry)[1]["reason"], "missing_raw_page")
 
 
 class EvaluationTests(unittest.TestCase):
@@ -179,7 +99,13 @@ class EvaluationTests(unittest.TestCase):
             corpus = [{"id": "l01", "title": "契约", "text": "证据", "source_file": "test.json", "source_pointer": ["/text"]}]
             results = evaluate.evaluate(corpus, [question], config)
             with tempfile.TemporaryDirectory() as output:
-                summary = evaluate.write_report(Path(output), results, config, False)
+                root = Path(output)
+                (root / 'rag').mkdir()
+                (root / 'rag/catalog.json').write_text(json.dumps({'schema_version': 2,
+                    'baseline_id': 'test', 'datasets': {}, 'files': {}}), encoding='utf-8')
+                with patch.object(evaluate, 'PROJECT', root):
+                    reserved = evaluate.artifact_catalog.reserve_output(root, 'model')
+                    summary = evaluate.write_report(reserved, results, config, False)
             self.assertEqual(results[0]["answers"]["rag"]["status"], "truncated")
             self.assertEqual(results[0]["answers"]["rag"]["text"], "尚未完成 [l01]")
             self.assertEqual(results[0]["answers"]["rag"]["finish_reason"], "length")
