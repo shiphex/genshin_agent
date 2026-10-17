@@ -32,7 +32,7 @@ RAG 通过配置连接用户已部署的 chat-completions 服务，不负责下�
 
 共享冻结快照 → 剧情提取、过滤与切块 → 本地带来源语料 → 词面检索 → 证据和问题组成模型输入 → 回答与调用记录 → 独立语义核验。
 
-语料准备入口是 [prepare_rag_mvp.py](../rag/scripts/prepare_rag_mvp.py)，全量提取由 [full_corpus.py](../rag/scripts/full_corpus.py) 负责；检索和模型对照由 [evaluate_rag_mvp.py](../rag/scripts/evaluate_rag_mvp.py) 负责。题库原文准备另由 [prepare_eval.py](../rag/scripts/prepare_eval.py) 执行，当前 JSON 题库未接通 JSONL 评测 runner。
+语料准备入口是 [prepare_rag_mvp.py](../rag/scripts/prepare_rag_mvp.py)，全量提取由 [full_corpus.py](../rag/scripts/full_corpus.py) 负责；三题检索和模型对照由 [evaluate_rag_mvp.py](../rag/scripts/evaluate_rag_mvp.py) 负责。新增 [evaluate_retrieval.py](../rag/scripts/evaluate_retrieval.py) 直接适配110题 JSON，复用前者的 LexicalIndex 和既有 catalog／运行编号，只计算来源定位代理指标。题库原文准备另由 [prepare_eval.py](../rag/scripts/prepare_eval.py) 执行，JSON 题库仍未接通模型生成评测。
 
 [catalog](../rag/catalog.json) 定位当前基线资源、路径和哈希；[产物管理](../rag/docs/data.md)规定独立生成与基线更新。正式运行的 manifest（元数据清单）记录实际输入、执行参数及源码指纹。公开概要和重新运行均不能恢复历史回答或人工反馈。
 

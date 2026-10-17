@@ -27,5 +27,9 @@
   "rag/eval/smoke/README.md": 1600,
   ".agents/notes/implemented/2026-10-16-rag-current-baseline.md": 1800,
   ".agents/skills/genshin-dev-questions/SKILL.md": 1800,
-  ".agents/skills/genshin-question-review/SKILL.md": 2000
+  ".agents/skills/genshin-question-review/SKILL.md": 2000,
+  ".agents/skills/speed-up-perf/SKILL.md": 1400,
+  ".agents/skills/ci-test-reliability/SKILL.md": 1400,
+  ".agents/skills/pre-push-checks/SKILL.md": 1400,
+  ".agents/notes/implemented/2026-10-17-retrieval-evaluation-v0.md": 2200
 }
