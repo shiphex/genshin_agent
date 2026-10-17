@@ -13,6 +13,7 @@ description: "指导分析、设计、实施、验证和文档更新，并维护
 - [开始与分析](#开始与分析)
 - [设计与实施](#设计与实施)
 - [验证](#验证)
+- [CI V0](#ci-v0)
 - [知识更新与交付](#知识更新与交付)
 - [Dev Note](#dev-note)
 
@@ -52,6 +53,14 @@ git diff --check
 | 受控发布文档 | 核验修改后来源与 manifest；只刷新当前可维护文档的指纹，不改旧包或实验事实 |
 
 修文档不默认执行会生成新产物、调用模型、上传或推送的命令。静态读到的默认值与实际执行结果分别报告；缺少环境、数据或授权时给出未验证项。对于本地数据链接，分别报告本机存在与新克隆不自带，不能混算成公共入口可用。
+
+### CI V0
+
+[GitHub Actions workflow](../.github/workflows/ci.yml) 在 Pull Request 创建、更新或重新打开，以及 `main` 分支 push 时运行，不按文件路径过滤。Docs 和 Python 两个独立 Job 使用 Ubuntu、Python 3.11 和 uv，权限仅为 `contents: read`，不启用依赖缓存。
+
+本地复现从仓库根目录运行：Docs 对应上方预算门禁与项目级 unittest 命令；Python 对应 [RAG 验证入口](../rag/README.md#数据获取与验证)中的 `unittest discover -s rag/tests -v` 命令。各检查独立成步骤，非零退出码使所属 Job 失败；另一个 Job 独立运行。`--list` 不作为门禁，CI 不运行本地工作区的 `git diff --check`。
+
+这些测试使用临时合成数据和回环 HTTP 假服务，无需 API Key，不调用真实 LLM，也不下载模型或剧情数据。CI 不覆盖真实基线指纹、全量语料构建、检索 Smoke、模型评测及人工语义验收；通过 CI 不代表 GitHub 已配置合并必需检查。
 
 ## 知识更新与交付
 
