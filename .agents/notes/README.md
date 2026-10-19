@@ -28,6 +28,7 @@ Agent Note 保存实现和普通文档不能充分解释的重要决策原因、
 
 ## 当前记录
 
+- [Doc Sync V0](implemented/2026-10-19-doc-sync-v0.md)：单 CLI 生成、链接检查、统一入口及 type-equiv 暂缓取舍。
 - [检索评测V0与工作流适配](implemented/2026-10-17-retrieval-evaluation-v0.md)：来源定位协议、运行记录、三个Skill及上游取舍。
 
 - [文档体系适配](implemented/2026-10-16-ai-native-documentation.md)：职责分层、中文术语、模板与预算机制的取舍。
