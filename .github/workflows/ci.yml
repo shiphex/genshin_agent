@@ -23,9 +23,9 @@ jobs:
         with:
           version: "0.10.11"
           enable-cache: false
-      - name: Check document budgets
-        run: uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B scripts/verify_doc_budgets.py
-      - name: Test document budget checker
+      - name: Check documentation sync
+        run: uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B scripts/doc_sync.py
+      - name: Test document checkers
         run: uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s tests -v
 
   python:

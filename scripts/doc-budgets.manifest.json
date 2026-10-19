@@ -31,5 +31,6 @@
   ".agents/skills/speed-up-perf/SKILL.md": 1400,
   ".agents/skills/ci-test-reliability/SKILL.md": 1400,
   ".agents/skills/pre-push-checks/SKILL.md": 1400,
-  ".agents/notes/implemented/2026-10-17-retrieval-evaluation-v0.md": 2200
+  ".agents/notes/implemented/2026-10-17-retrieval-evaluation-v0.md": 2200,
+  ".agents/notes/implemented/2026-10-19-doc-sync-v0.md": 1600
 }

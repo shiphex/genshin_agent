@@ -14,6 +14,7 @@ description: "提供当前 RAG 基线、语料检索、题库准备和 Hugging F
 - [语料与检索](#语料与检索)
 - [问题集与 Smoke](#问题集与-smoke)
 - [110题检索评测](#110题检索评测)
+- [检索 CLI 参考](#检索-cli-参考)
 - [Hugging Face 导出](#hugging-face-导出)
 - [数据获取与验证](#数据获取与验证)
 - [Dev Note](#dev-note)
@@ -73,11 +74,33 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/evaluate_retrieval.py
 ```
 
-默认从 catalog 取得题库与语料，Top-K=5。`--questions` 接受同格式 JSON，`--corpus` 接受当前字段的 JSONL，`--top-k` 设置正整数。默认分配 `data/outputs/retrieval/r001/`；r001 是第1次检索运行，随后 r002、r003，失败编号也保留，无需手填路径。`--output-dir` 只接受同一用途下尚不存在的目录。
+解析参数及默认值见下方生成表；运行时未指定题库／语料时从 catalog 取得，接受同格式 JSON／JSONL，Top-K 必须为正整数。输出默认分配 `data/outputs/retrieval/r001/`；r001 是第1次检索运行，随后 r002、r003，失败编号也保留。指定输出只接受同一用途下尚不存在的目录。
 
 每轮保存 results.jsonl、summary.json、report.md，以及输入哈希、实际参数和执行源码副本。简报包含指标、覆盖分布、题型／难度分组及耗时表格。默认输入须通过 catalog 指纹／元数据校验；自定义语料记录实际身份，快照未知时不继承基线声明。失败或中断保留已写结果并非零退出，不覆盖当前基线。
 
 指标协议、空标注与分母、A/B 对齐见[题库说明](eval/README.md#检索评测协议-v0)，产物和状态见[数据管理](docs/data.md#新输出与更新)。来源位置命中不代表论据完整覆盖或答案正确；单次逐题计时不作为性能门槛。
+
+### 检索 CLI 参考
+
+下表由[生成器](scripts/gen_retrieval_cli.py)从[evaluate_retrieval.py](scripts/evaluate_retrieval.py)的直接 `argparse` 定义提取，源码是唯一参数依据。验证参数名、解析类型、字面默认值和 help；`None` 是解析结果，运行时 catalog 回退、目录分配、正整数限制及失败语义由上文人工维护和行为测试核对。内建 `--help` 未列入表；不根据 help 文案推断运行时默认值。
+
+```powershell
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/gen_retrieval_cli.py
+uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/gen_retrieval_cli.py --check
+```
+
+生成只替换标记间内容；检查不写文件，过期或标记缺失／重复／反向均失败。仅支持试点的直接定义和字面默认值；出现动态表达式、分组、choices／action 等未支持定义时失败，需审查并显式扩展提取器，不静默漏项。
+
+<!-- BEGIN GENERATED: retrieval-cli -->
+
+| 参数 | 解析类型 | 解析默认值 | 源码 help |
+| --- | --- | --- | --- |
+| `--questions` | `Path` | `None` | JSON development set; defaults to catalog story_dev |
+| `--corpus` | `Path` | `None` | JSONL corpus; defaults to catalog full_corpus |
+| `--top-k` | `int` | `5` | — |
+| `--output-dir` | `Path` | `None` | new retrieval output directory; allocated automatically by default |
+
+<!-- END GENERATED: retrieval-cli -->
 
 ## Hugging Face 导出
 

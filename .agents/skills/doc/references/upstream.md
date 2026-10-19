@@ -20,12 +20,16 @@
 | 文档分类及模板 | 七种本地类型；删除插件安装、生成 API、Cordis、TypeScript SDK 形式，不虚构对应能力 |
 | 双语配对与网站投影 | 删除；项目只维护中文说明，不引入译文或网站 |
 | 按空白分词预算 | 改为汉字与 ASCII 连续词混合计数；Python 标准库实现，适用于当前中文资料 |
-| 完整文档门禁 | 本轮只新增字数自动门禁和测试；链接、模板、术语及 Notes 格式实际审查，不冒充已有自动体系 |
+| 完整文档门禁 | 首轮仅引入预算；Doc Sync V0 后续补充链接、单 CLI 生成检查与统一入口，模板、术语及 Notes 格式仍人工审查 |
 | Notes 分类、归档及门禁 | 暂缓，只保留按需创建的三个状态，避免无实际需求的子树与工具 |
 | 全量原仓库操作核验 | 定向检查本项目真实命令，区分静态与实测；不因核验而调用模型或生成未授权数据 |
 
 仓库原有历史正文、冻结包和结果不移植成新体系的当前规范。只读审查与写任务分开；小改动不强制增加记录或全量实验。模板、skill 和 Python 检查器包含对上游机制的改编，必要许可保存在 [LICENSE.deepseek](../LICENSE.deepseek)。
 
 ## 已知限制
+
+2026-10-19 Doc Sync V0 另读实际源码：[verify-type-equiv.ts](https://github.com/deepseek-ai/deepseek-harness/blob/master/scripts/verify-type-equiv.ts) 用 manifest 将声明与标记代码块一对一绑定，拒绝重复和孤立项；[gen-config-catalog.ts](https://github.com/deepseek-ai/deepseek-harness/blob/master/scripts/gen-config-catalog.ts) 从源码提取并确定性渲染，`--check` 比较而不写入；[verify-md-links.ts](https://github.com/deepseek-ai/deepseek-harness/blob/master/scripts/verify-md-links.ts) 检查链接及标题／显式锚点；[run-gates.ts](https://github.com/deepseek-ai/deepseek-harness/blob/master/scripts/run-gates.ts) 的 docSyncLeafGates 聚合上述 verify 检查，调用方汇总失败。采用独立 Python 实现与标准库，不复制 TS 调度器、类型系统或网站构建。dsh-doc 的来源定位、生成事实与实测区分沿用现有 Skill。
+
+此次网页读取的是 master 版本，未确认统一 commit。上游 verify-cli-help／gen-cli-help 路径未能取得，不声称研究过其实现；生成／验证模式依据已读的 gen-config-catalog，具体取舍见[Doc Sync Note](../../../notes/implemented/2026-10-19-doc-sync-v0.md)。
 
 上游 website-sync 参考页此次未能取得，网站机制仅根据 dsh-doc 对投影和发布边界的说明核对，未复现；本项目不采用该机制。未运行上游 Node/pnpm 检查，也未声称本地实现与其全部门禁等价。
