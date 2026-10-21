@@ -23,6 +23,8 @@ def load_scenarios(root, path=None):
         for question in scene["reference_material"]:
             scene["criteria"].extend({"id": f"{question['id']}-c{i + 1}", "text": text, "required": True}
                                      for i, text in enumerate(question["criteria"]))
+        scene["criteria"].extend({"id": f"f{i + 1}", "text": f"候选在整个场景中未出现以下禁止行为：{text}",
+                                  "required": True} for i, text in enumerate(scene["forbidden"]))
         for turn in scene["turns"]:
             if "question_id" in turn and turn["question_id"] not in scene["question_ids"]:
                 raise ValueError("turn references a question outside the scenario")
