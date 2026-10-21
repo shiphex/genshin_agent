@@ -2,6 +2,9 @@
   "AGENTS.md": 1800,
   "README.md": 1200,
   "context.md": 700,
+  "Benchmarks/AGENTS.md": 700,
+  "Benchmarks/README.md": 850,
+  "Benchmarks/context.md": 700,
   "docs/AGENTS.md": 2200,
   "docs/architecture.md": 2000,
   "docs/development.md": 2200,
@@ -32,5 +35,12 @@
   ".agents/skills/ci-test-reliability/SKILL.md": 1400,
   ".agents/skills/pre-push-checks/SKILL.md": 1400,
   ".agents/notes/implemented/2026-10-17-retrieval-evaluation-v0.md": 2200,
-  ".agents/notes/implemented/2026-10-19-doc-sync-v0.md": 1600
+  ".agents/notes/implemented/2026-10-19-doc-sync-v0.md": 1600,
+  "Benchmarks/agent_core/README.md": 1400,
+  "Benchmarks/agent_core/evaluation.md": 1000,
+  "Benchmarks/agent_story/README.md": 1800,
+  "Benchmarks/agent_story/evaluation.md": 1500,
+  "Benchmarks/support/README.md": 600,
+  "Benchmarks/support/protocol.md": 2200,
+  "Benchmarks/support/measurement.md": 1400
 }

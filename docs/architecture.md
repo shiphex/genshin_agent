@@ -20,11 +20,12 @@ description: "说明项目当前模块、证据数据流和扩展位置。"
 
 | 部分 | 职责与依赖 |
 | --- | --- |
-| 项目层 | 项目导航、共同开发约束、共享原始快照及公共缓存 |
+| 项目层 | 项目导航、共同开发约束、统一uv配置与根环境、共享原始快照及公共缓存 |
 | [RAG 模块](../rag/README.md) | 从冻结 Wiki 快照提取剧情，提供带出处的检索证据及模型对照工具 |
 | [题库](../rag/eval/README.md) | 维护110题与20题事实核验；原文准备与模型评测分开 |
 | [基线索引](../rag/docs/data.md) | 固定当前资源与指纹，新运行写入独立输出 |
 | [Smoke](../rag/eval/smoke/README.md) | 三题模型链路、完整结果与初审依据 |
+| [Benchmarks](../Benchmarks/README.md) | 按被测任务分类；agent_core测确定性行为与开销，agent_story用Qwen与既有词面检索测多轮任务 |
 
 RAG 通过配置连接用户已部署的 chat-completions 服务，不负责下载模型或启动服务。外部爬虫属于独立项目，恢复任务通过既有交接说明传递。
 
@@ -37,6 +38,8 @@ RAG 通过配置连接用户已部署的 chat-completions 服务，不负责下�
 [catalog](../rag/catalog.json) 定位当前基线资源、路径和哈希；[产物管理](../rag/docs/data.md)规定独立生成与基线更新。正式运行的 manifest（元数据清单）记录实际输入、执行参数及源码指纹。公开概要和重新运行均不能恢复历史回答或人工反馈。
 
 ## 边界与扩展
+
+Benchmarks只编排场景、统一provider、收集轨迹和评分，不实现agent core。分类自持用例、runner和判定；support供所有分类共享协议、记录和测量，不导入分类实现，薄入口组合报告。候选adapter内保留工具循环、历史和恢复决策；RAG实现与catalog只读复用。新运行写入Benchmarks/outputs/分类/用途/运行号，跨分类报告写outputs/reports；旧输出原位只读，RAG eval暂留rag。实际候选与真实模型尚未验证。
 
 当前词面检索和脚本组合是 MVP 选择。以后引入向量检索、数据库、角色 agent 或界面时，先说明新增职责、依赖和兼容影响，再更新本页；不把未实施方案画成现有组件。
 

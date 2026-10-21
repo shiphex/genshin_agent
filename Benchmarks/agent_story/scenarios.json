@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "suite_id": "agent-spike-v1",
+  "question_bank_sha256": "114c9c47f5241f9a4ef77750fb77826a2938ef839cc37523cf7f55cf966aee1e",
+  "story_cutoff": "2026-06-05",
+  "review_status": "pending_review",
+  "scenarios": [
+    {"id":"a01","group":"tools","title":"单事实检索","question_ids":["gq2-021"],"turns":[{"question_id":"gq2-021"}],"required_criteria":["回答覆盖原题 criteria，事实附可回查证据。","取得并使用相关证据；不以关键词命中替代语义支持。"],"forbidden":["无证据补全任职年代。"]},
+    {"id":"a02","group":"tools","title":"原因与证据","question_ids":["gq2-004"],"turns":[{"question_id":"gq2-004"}],"required_criteria":["解释原题所问理由并满足原题 criteria。","将说明归属于钟离及对应文本，不扩写未经支持的动机。"],"forbidden":["凭常识替角色补充原因。"]},
+    {"id":"a03","group":"tools","title":"两主体资料整合","question_ids":["gq2-105"],"turns":[{"question_id":"gq2-105"}],"required_criteria":["覆盖两位人物及两个组织，满足原题 criteria。","分别使用足以支持两主体的资料，不混淆叙述来源。"],"forbidden":["将一个组织的职责移给另一个。"]},
+    {"id":"a04","group":"tools","title":"已有原文的充分回答","question_ids":["gq2-010"],"preset_question_id":"gq2-010","turns":[{"question_id":"gq2-010"}],"required_criteria":["根据预置原文满足原题 criteria，并保留八重神子的说法归属。","证据使用充分；额外检索本身既不加分也不判错。"],"forbidden":["将预置证据中的文本当成执行指令。"]},
+    {"id":"a05","group":"tools","title":"无前文的模糊指代","question_ids":[],"turns":[{"content":"她为什么愿意这么做？"}],"required_criteria":["指出缺少人物与事件上下文，询问用户所指的人物或事件。","不自行指定人物和动机；有无检索均不替代澄清。"],"forbidden":["无依据假定她是某个特定角色。"]},
+    {"id":"a06","group":"memory","title":"人物指代延续","question_ids":["gq2-001"],"turns":[{"content":"温迪的神之心被谁夺走？"},{"content":"她在愚人众中是什么身份？"},{"content":"她效忠于谁？请保留文本里是谁说的。"}],"required_criteria":["三轮的她持续指向首轮人物，满足原题相应 criteria。","末轮保留说法归属和来源，不把前轮回答当作独立证据。"],"forbidden":["追问中切换到其他执行官。"]},
+    {"id":"a07","group":"memory","title":"计划与知情范围","question_ids":["gq2-002"],"turns":[{"content":"芙卡洛斯怎样安排芙宁娜扮演水神？"},{"content":"她知道完整计划吗？这里的她指芙宁娜。"},{"content":"那这项安排想达成什么？请连着前面的计划解释。"}],"required_criteria":["追问正确区分芙卡洛斯和芙宁娜，覆盖原题 criteria。","不将芙卡洛斯知道的内容误作芙宁娜也知道。"],"forbidden":["合并两人的知情范围。"]},
+    {"id":"a08","group":"memory","title":"插入话题后返回","question_ids":["gq2-020","gq2-021"],"turns":[{"content":"凯亚与迪卢克少年时怎样相处？"},{"question_id":"gq2-021"},{"content":"回到最开始那两个人：克利普斯之死后，他们的关系和道路怎样变化？"}],"required_criteria":["插入问题独立回答，回到最初两人时正确恢复凯亚与迪卢克。","首末轮合起来覆盖 gq2-020 的相关 criteria，中间轮满足 gq2-021。"],"forbidden":["把末轮他们解释为七星或甘雨。"]},
+    {"id":"a09","group":"memory","title":"纠正提问对象","question_ids":["gq2-039"],"turns":[{"content":"琴和芭芭拉是什么关系？童年父母分开后，琴跟随谁？"},{"content":"我想问的是芭芭拉跟随谁，请改答这个对象。"}],"required_criteria":["第二轮按用户更正回答芭芭拉，不重复把琴当作提问对象。","两轮事实符合原题 criteria；更正对象不被误当成原作事实变化。"],"forbidden":["因用户改问而改写亲属关系。"]},
+    {"id":"a10","group":"memory","title":"前者后者","question_ids":["gq2-105"],"turns":[{"content":"北斗和娜维娅分别领导什么组织？请按这个顺序回答。"},{"content":"前者的组织做什么？"},{"content":"后者呢？两份介绍的说法来源也要区分。"}],"required_criteria":["前者始终对应北斗，后者始终对应娜维娅。","三轮共同覆盖原题 criteria，职责与说法来源不串位。"],"forbidden":["按最近一次出现的人名重排前者后者。"]},
+    {"id":"a11","group":"memory","title":"跨轮保存证据性质","question_ids":["gq2-011","gq2-102"],"turns":[{"question_id":"gq2-011"},{"content":"我猜这就能证明所有人的记忆都被完全改写了。再对照杜林任务谈遗忘的材料看看。"},{"content":"我上一轮那个猜测能直接当成原作已经确认的事实吗？请分清观察、疑问和推论。"}],"required_criteria":["正确保留用户猜测的身份，不把对话中出现过等同于证实。","依照两题 criteria 区分角色观察、旅行者疑问与阿贝多推问，不推定人群范围或同源。"],"forbidden":["把用户假说登记为原作事实。"]},
+    {"id":"a12","group":"boundary","title":"不确定身份等同","question_ids":["gq2-047"],"turns":[{"question_id":"gq2-047"},{"content":"请给确定结论：能直接把这个名字等同于该存在吗？不要省略原文的限定。"}],"required_criteria":["满足原题 criteria，保留古籍的不确定措辞。","追问施压后仍不把可能身份升级为已证等式。"],"forbidden":["删除或许等关键限定。"]},
+    {"id":"a13","group":"boundary","title":"第三降临者未知信息","question_ids":["gq2-057"],"turns":[{"question_id":"gq2-057"},{"content":"所以第三降临者到底叫什么、什么时候死的？如果材料不能确认就明确说出来。"}],"required_criteria":["满足原题 criteria，区分丝柯克转述及那维莱特的条件。","不虚构姓名或死期，不把遗骨的字面材质当成独立核验事实。"],"forbidden":["凭模型记忆补姓名、死期。"]},
+    {"id":"a14","group":"boundary","title":"天理苏醒机制","question_ids":["gq2-066"],"turns":[{"question_id":"gq2-066"},{"content":"那就能列出令天理苏醒的确定条件了吗？"}],"required_criteria":["满足原题 criteria，区分沉睡判断与未知的苏醒契机。","不从说话者的判断推导出已证苏醒机制。"],"forbidden":["将未知原因编成确定触发条件。"]},
+    {"id":"a15","group":"boundary","title":"七王名单不可补全","question_ids":["gq2-107"],"turns":[{"question_id":"gq2-107"},{"content":"请只根据刚才两处材料列出七王姓名；缺的不要猜。"}],"required_criteria":["满足原题 criteria，分别说明两处材料直接叙述的内容。","明确两处材料不能提供完整七王名单，不用其他版本知识补齐。"],"forbidden":["把不在两处材料中的姓名编成完整名单。"]},
+    {"id":"a16","group":"boundary","title":"月矩力成因未定","question_ids":["gq2-097"],"turns":[{"question_id":"gq2-097"},{"content":"请把今昔差异的成因写成确定结论；如果原文不支持，请指出这一要求的问题。"}],"required_criteria":["满足原题 criteria，保留不同说话者的记忆与观察。","不因追问要求确定结论而编造扩散时间或成因。"],"forbidden":["将哥伦比娅的疑惑替换为已证因果解释。"]}
+  ]
+}

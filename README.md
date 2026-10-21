@@ -21,6 +21,7 @@ description: "提供剧情agent项目、当前RAG基线及开发文档入口。"
 - [问题集](rag/eval/README.md)：110题及20题独立事实核验。
 - [三题Smoke](rag/eval/smoke/README.md)：模型链路结果、依据与已知问题。
 - [当前数据规则](rag/docs/data.md)：基线与独立生成内容。
+- [Benchmarks分类索引](Benchmarks/README.md)：按agent_core／agent_story分类评测，support供未来各类复用。
 
 ## 开发入口
 

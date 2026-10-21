@@ -6,7 +6,7 @@ description: "记录项目当前阶段、模块入口及后续工作边界。"
 
 ## 摘要
 
-更新：2026-10-19。项目目标是以主角／派蒙身份参与剧情讨论的agent；现进入 dev/v0.2 agent 首版开发阶段，分支从包含 dev/v0.1 合并结果的 main 创建。v0.1 建立了基础 RAG 和项目 AI-native 文档流程；角色对话、界面、玩家进度和防剧透尚未实现。用户选择将当前语料、110题、20题核验和三题Smoke设为新基线，旧实验与过程资料不再维护。
+更新：2026-10-21。项目目标是以主角／派蒙身份参与剧情讨论的agent；当前dev/v0.2阶段先建立候选agent core的Spike benchmarks，尚未实现core。分支从包含dev/v0.1合并结果的main创建。v0.1建立了基础RAG和项目AI-native文档流程；角色对话、界面、玩家进度和防剧透尚未实现。当前语料、110题、20题核验和三题Smoke保持既有基线，旧实验不再维护。
 
 ## 目录
 
@@ -15,6 +15,7 @@ description: "记录项目当前阶段、模块入口及后续工作边界。"
 
 ## 当前入口
 
+- [Benchmarks分类索引](Benchmarks/README.md)、[模块context](Benchmarks/context.md)：按任务分类的Core与剧情评测、共享support及根uv环境。
 - [RAG说明](rag/README.md)、[模块context](rag/context.md)：操作、当前问题和最近验证。
 - [catalog](rag/catalog.json)、[基线规则](rag/docs/data.md)：当前资源、来源与新输出。
 - [110题与20题核验](rag/eval/README.md)、[三题Smoke](rag/eval/smoke/README.md)：用途和独立验收状态。
