@@ -13,6 +13,7 @@ description: "指导分析、设计、实施、验证和文档更新，并维护
 - [开始与分析](#开始与分析)
 - [设计与实施](#设计与实施)
 - [文档同步](#文档同步)
+- [Python环境](#python环境)
 - [验证](#验证)
 - [CI V0](#ci-v0)
 - [知识更新与交付](#知识更新与交付)
@@ -42,14 +43,25 @@ description: "指导分析、设计、实施、验证和文档更新，并维护
 
 V0 支持行内／引用式链接、图片、ATX／Setext 标题、重复标题后缀及显式 `<a id>`；排除代码和注释。HTML 链接、复杂嵌套 Markdown、外链可访问性及源码行号锚点未验证。生成只核对登记 CLI 的解析定义，运行时回退与语义靠测试和审查；独立 type-equiv [暂缓原因](../.agents/notes/implemented/2026-10-19-doc-sync-v0.md)。
 
+## Python环境
+
+根pyproject.toml、uv.lock和.python-version统一管理Python 3.11，环境为根`.venv`、缓存为`.cache/uv`。模块不另建项目／环境；普通检查仅用标准库，psutil属于可选benchmark依赖组。
+
+```powershell
+uv --cache-dir .cache/uv sync --locked --no-python-downloads --python 3.11
+uv --cache-dir .cache/uv sync --locked --group benchmark --no-python-downloads --python 3.11
+```
+
+第一条准备普通环境，第二条安装benchmark依赖；缓存齐备后可加`--offline`。`uv sync`精确同步，可能卸载未选组；`uv run`保留额外依赖，benchmark命令须加`--group benchmark`。运行带`--locked`防止隐式改锁，依赖变更才更新锁文件。模块命令见各README，不用`--project Benchmarks`。
+
 ## 验证
 
 以下项目级检查从仓库根目录通过 uv 执行，离线运行要求本机已有 Python 3.11：
 
 ```powershell
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B scripts/doc_sync.py
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B scripts/verify_doc_budgets.py --list
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s tests -v
+uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B scripts/doc_sync.py
+uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B scripts/verify_doc_budgets.py --list
+uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s tests -v
 git diff --check
 ```
 

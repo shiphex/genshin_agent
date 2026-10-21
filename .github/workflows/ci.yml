@@ -24,9 +24,9 @@ jobs:
           version: "0.10.11"
           enable-cache: false
       - name: Check documentation sync
-        run: uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B scripts/doc_sync.py
+        run: uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B scripts/doc_sync.py
       - name: Test document checkers
-        run: uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s tests -v
+        run: uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s tests -v
 
   python:
     name: Python
@@ -43,4 +43,4 @@ jobs:
           version: "0.10.11"
           enable-cache: false
       - name: Test RAG
-        run: uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s rag/tests -v
+        run: uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s rag/tests -v

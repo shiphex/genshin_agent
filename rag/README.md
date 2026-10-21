@@ -6,7 +6,7 @@ description: "提供当前 RAG 基线、语料检索、题库准备和 Hugging F
 
 ## 摘要
 
-本模块为主角／派蒙剧情讨论 agent 提供可追溯证据。当前采用冻结 Wiki 剧情语料、词面检索和本地模型对照；Python 实现只用标准库，通过 uv 运行。当前基线身份、路径和哈希由 [catalog](catalog.json)维护，问题与最近验证见[模块上下文](context.md)。
+本模块为主角／派蒙剧情讨论 agent 提供可追溯证据。当前采用冻结 Wiki 剧情语料、词面检索和本地模型对照；Python 实现只用标准库，通过根项目uv运行，环境见[开发说明](../docs/development.md#python环境)。当前基线身份、路径和哈希由 [catalog](catalog.json)维护，问题与最近验证见[模块上下文](context.md)。
 
 ## 目录
 
@@ -39,8 +39,8 @@ description: "提供当前 RAG 基线、语料检索、题库准备和 Hugging F
 构建默认扫描全量；`--all` 保留为兼容参数。新构建写入独立输出，不自动替换基线：
 
 ```powershell
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/prepare_rag_mvp.py
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/evaluate_rag_mvp.py --retrieval-only
+uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/prepare_rag_mvp.py
+uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/evaluate_rag_mvp.py --retrieval-only
 ```
 
 第二条先核对默认语料／三题输入的基线指纹，再检索，不访问模型服务。词面检索使用中文相邻双字／英文词的 IDF 加权重合，内存倒排索引每轮构建一次，默认 Top5；分数不是语义置信度。`--dataset full` 继续有效，sample 模式已移除。可通过 `--corpus`、`--questions` 指定其他语料及 JSONL 输入。
@@ -59,7 +59,7 @@ hits = index.search("钟离如何看待契约与公平？", top_k=5)
 [110题](eval/questions.json)是唯一正式开发题库，0.5版；[20题输入](eval/review20.json)及其本地完整结果用于核验题目事实，不是模型作答记录。原文准备命令：
 
 ```powershell
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/prepare_eval.py
+uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/prepare_eval.py
 ```
 
 该工具读取冻结原文、输出带 `sources[].text` 的副本，不评分、不调用模型。JSON题库尚未接通 JSONL 模型 runner。准备副本按需生成，不是基线的重复常驻文件。
@@ -71,7 +71,7 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 标准化入口直接读取原 JSON 开发集，复用词面索引，每轮构建一次，不读取模型配置或访问 API：
 
 ```powershell
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/evaluate_retrieval.py
+uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/evaluate_retrieval.py
 ```
 
 解析参数及默认值见下方生成表；运行时未指定题库／语料时从 catalog 取得，接受同格式 JSON／JSONL，Top-K 必须为正整数。输出默认分配 `data/outputs/retrieval/r001/`；r001 是第1次检索运行，随后 r002、r003，失败编号也保留。指定输出只接受同一用途下尚不存在的目录。
@@ -85,8 +85,8 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 下表由[生成器](scripts/gen_retrieval_cli.py)从[evaluate_retrieval.py](scripts/evaluate_retrieval.py)的直接 `argparse` 定义提取，源码是唯一参数依据。验证参数名、解析类型、字面默认值和 help；`None` 是解析结果，运行时 catalog 回退、目录分配、正整数限制及失败语义由上文人工维护和行为测试核对。内建 `--help` 未列入表；不根据 help 文案推断运行时默认值。
 
 ```powershell
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/gen_retrieval_cli.py
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/gen_retrieval_cli.py --check
+uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/gen_retrieval_cli.py
+uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/gen_retrieval_cli.py --check
 ```
 
 生成只替换标记间内容；检查不写文件，过期或标记缺失／重复／反向均失败。仅支持试点的直接定义和字面默认值；出现动态表达式、分组、choices／action 等未支持定义时失败，需审查并显式扩展提取器，不静默漏项。
@@ -107,8 +107,8 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 只发布剧情语料；导出工具读取当前 catalog，明确配置 `story/train` 仅加载 `data/corpus.jsonl`。审计、排除和覆盖资料放入 metadata 附件；不上传题库、回答或原始快照。新输出路径必须尚不存在：
 
 ```powershell
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/export_hf_dataset.py build --output rag/data/outputs/hf/release-v2
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/export_hf_dataset.py verify rag/data/outputs/hf/release-v2
+uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/export_hf_dataset.py build --output rag/data/outputs/hf/release-v2
+uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/export_hf_dataset.py verify rag/data/outputs/hf/release-v2
 ```
 
 发布格式版本为 `rag-full-20260605-v2`，沿用相同语料内容；`train` 是加载分区名，数据卡保留来源与 `license: other` 声明。工具验证白名单、JSONL字段、动态行数和哈希，不上传。配置参考 [Hugging Face 官方文档](https://huggingface.co/docs/hub/datasets-manual-configuration)。
@@ -120,8 +120,8 @@ uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 pytho
 新克隆不含本地 `data/`，须另行提供当前基线原件。重建语料不能恢复模型回答或第三方核验，公开语料也不包含原始快照。
 
 ```powershell
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B rag/scripts/artifact_catalog.py
-uv --cache-dir .cache/uv run --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s rag/tests -v
+uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/artifact_catalog.py
+uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s rag/tests -v
 ```
 
 catalog 检查核对本地基线字节及题库元数据；缺少原件会失败。检索覆盖、API完成、引用合法性、语义支持与用户验收分别判断；程序通过不代表用户逐题通过。离线命令需要已有 Python 3.11。
