@@ -44,3 +44,7 @@ jobs:
           enable-cache: false
       - name: Test RAG
         run: uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s rag/tests -v
+      - name: Install benchmark dependencies
+        run: uv --cache-dir .cache/uv sync --locked --group benchmark --no-python-downloads --python 3.11
+      - name: Test Benchmarks
+        run: uv --cache-dir .cache/uv run --locked --group benchmark --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s Benchmarks -t . -v

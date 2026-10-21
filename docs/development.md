@@ -81,7 +81,7 @@ git diff --check
 
 [GitHub Actions workflow](../.github/workflows/ci.yml) 在 Pull Request 创建、更新或重新打开，以及 `main` 分支 push 时运行，不按文件路径过滤。Docs 和 Python 两个独立 Job 使用 Ubuntu、Python 3.11 和 uv，权限仅为 `contents: read`，不启用依赖缓存。
 
-本地复现：Docs 运行上方 doc-sync 与项目级 unittest；Python 运行 [RAG 验证入口](../rag/README.md#数据获取与验证)的 unittest。非零退出码使所属 Job 失败，两 Job 独立运行。`--list` 不作门禁，CI 不运行本地 `git diff --check`。
+Docs 运行上方 doc-sync 与项目级 unittest；Python 依次运行 [RAG unittest](../rag/README.md#数据获取与验证)、联网安装 benchmark 依赖组、[Benchmark 离线测试](../Benchmarks/README.md)。安装命令见上方 Python 环境；空缓存需下载 psutil，不加 `--offline`。安装或测试非零退出使所属 Job 失败，两 Job 独立。`--list` 不作门禁；CI 不运行 `git diff --check`。
 
 这些测试使用临时合成数据和回环 HTTP 假服务，无需 API Key，不调用真实 LLM，也不下载模型或剧情数据。CI 不覆盖真实基线指纹、全量语料构建、检索 Smoke、模型评测及人工语义验收；通过 CI 不代表 GitHub 已配置合并必需检查。
 

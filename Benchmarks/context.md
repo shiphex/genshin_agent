@@ -20,7 +20,7 @@ Core使用模型／工具替身，Agent接入已部署Qwen和既有词面检索�
 
 Windows离线测试覆盖15个Core正例、ID错配、串扰、步数超限、协议错误、并发provider乱序、worker挂起／崩溃、子进程回收及停止读取stdin的期限。合成模型／语料验证多轮重复、原生工具消息、usage缺失、冻结证据和AI／人工独立评分导入。
 
-本轮Windows全套73项Benchmark离线测试通过，含新增9项禁止约束回归。forbidden已逐条生成必需评分项，验证漏项拒绝、fail／uncertain阻止通过、空列表及输入隔离；合成旧运行验证导出和导入不改原件、不补评分项。新旧评分口径见[评审定义](agent_story/evaluation.md#评审与报告)。文档同步与差异检查通过。
+CI已接入[离线测试](../docs/development.md#ci-v0)；Windows空环境、空缓存按workflow联网安装psutil后，73项离线测试通过，远端CI待验证。测试含9项禁止约束回归：forbidden逐条生成必需评分项，覆盖漏项拒绝、fail／uncertain阻止通过、空列表及输入隔离；合成旧运行验证导出和导入不改原件、不补评分项。新旧评分口径见[评审定义](agent_story/evaluation.md#评审与报告)。
 
 迁移轮已验证154个历史文件路径及SHA-256、场景字节、current-003基线指纹、计时／内存回放和根配置追溯；项目15项与RAG 68项测试通过。本轮未重跑这些数据核验或RAG测试，RAG eval仍在原处。
 
