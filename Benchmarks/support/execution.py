@@ -5,7 +5,7 @@ import sys
 import time
 import psutil
 from .common import ROOT, RunStore, digest, provenance, read_json
-from .contracts import validate_policy
+from .contracts import validate_adaptation, validate_policy
 from .protocol import Worker
 
 
@@ -19,6 +19,8 @@ def load_adapters(path):
                 ch.isascii() and (ch.isalnum() or ch in "_-") for ch in adapter["id"]):
             raise ValueError("adapter ID must use ASCII letters, digits, _ or -")
         validate_policy(adapter["policies"])
+        if "adaptation" in adapter:
+            validate_adaptation(adapter["adaptation"], adapter["id"])
         command = adapter["command"]
         if not isinstance(command, list) or not command or not all(isinstance(s, str) and s for s in command):
             raise ValueError("adapter command must be an argv array")
@@ -34,10 +36,16 @@ def load_adapters(path):
     return adapters
 
 
-def _store(output, suite, adapters, planned, parameters, paths=(), *, implementation, snapshot_paths=()):
+def _store(output, suite, adapters, planned, parameters, paths=(), *, implementation, snapshot_paths=(),
+           evaluation_profile=None):
+    # Runners can also be used directly, without the CLI config loader.
+    for adapter in adapters:
+        if "adaptation" in adapter:
+            validate_adaptation(adapter["adaptation"], adapter["id"])
     files = [Path(p) for a in adapters for p in a.get("identity", {}).get("files", [])]
     identity = provenance([*paths, *snapshot_paths, *files], implementation=implementation)
-    store = RunStore(output, {"suite": suite, "protocol_id": "spike-jsonl-v1", "adapters": adapters,
+    profile = {"evaluation_profile": evaluation_profile} if evaluation_profile is not None else {}
+    store = RunStore(output, {"suite": suite, "protocol_id": "spike-jsonl-v1", "adapters": adapters, **profile,
         "planned_samples": planned, "parameters": parameters, "provenance": identity,
         "environment": {"platform": platform.platform(), "python": sys.version, "psutil": psutil.__version__,
                         "logical_cpus": os.cpu_count()}, "user_acceptance": "not_evaluated"})

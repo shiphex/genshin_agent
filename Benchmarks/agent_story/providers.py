@@ -139,6 +139,12 @@ class QwenClient:
 
 
 class LiveProvider:
+    """Run story providers under the V0 fixed-history contract.
+
+    Semantic scoring is separate, but these runs still constrain SDK history
+    handling. A changed history fails this contract without proving worse prose.
+    """
+
     def __init__(self, client, corpus, top_k=5, max_steps=8, system="", policies=None):
         self.client, self.top_k, self.max_steps, self.system = client, top_k, max_steps, system
         self.policy = dict(policies or {"tool_error": "recover", "context": "truncate",

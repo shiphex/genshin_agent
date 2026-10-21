@@ -1,4 +1,8 @@
-"""Deterministic oracles observe requests; they never execute an agent loop."""
+"""Observe V0 fixed-history conformance, not general agent architecture quality.
+
+The oracle never executes an agent loop. History and mock context requirements
+are prescribed behaviors; valid alternative context strategies need other probes.
+"""
 from copy import deepcopy
 import json
 import threading

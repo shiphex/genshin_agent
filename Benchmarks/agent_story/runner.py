@@ -3,7 +3,7 @@ import time
 from Benchmarks.support.common import BENCH, ROOT, positive, write_json
 from Benchmarks.support.execution import _store, _worker
 from Benchmarks.support.metrics import ProcessMeter, paired_order
-from Benchmarks.support.protocol import ProviderDeadlineError
+from Benchmarks.support.protocol import ProtocolError, ProviderDeadlineError
 import os
 from rag.scripts.evaluate_rag_mvp import LexicalIndex
 from .providers import LiveProvider, SEARCH_TOOL, SYSTEM, citation_check, freeze_sources
@@ -18,7 +18,8 @@ def run_agent(adapters, output, suite, corpus, client, raw_root, repeats=3, max_
     scenes = suite["scenarios"]
     planned = [{"sample_id": f"{a['id']}:{s['id']}:{repeat}", "adapter_id": a["id"], "scenario_id": s["id"],
                 "repeat": repeat, "group": s["group"], "measure": measure, "fixture_only": a.get("fixture_only", False),
-                "policy_group": a["policies"]} for s in scenes for repeat in range(1, repeats + 1)
+                "policy_group": a["policies"], "conformance_status": "not_evaluated"}
+               for s in scenes for repeat in range(1, repeats + 1)
                for a in paired_order(adapters, repeat - 1)]
     store = _store(output, "agent", adapters, planned, {"repeats": repeats, "max_steps": max_steps,
                     "top_k": top_k, "measure": measure, "timeout": timeout, "model": client.config,
@@ -26,7 +27,7 @@ def run_agent(adapters, output, suite, corpus, client, raw_root, repeats=3, max_
                     "review_status": suite.get("review_status", "pending_review")}, [*input_paths, BENCH / "agent_story/scenarios.json",
                     ROOT / "rag/scripts/evaluate_rag_mvp.py", ROOT / "rag/scripts/prepare_eval.py",
                     ROOT / "rag/scripts/artifact_catalog.py"], implementation=BENCH / "agent_story",
-                    snapshot_paths=[BENCH / "agent_story/scenarios.json"])
+                    snapshot_paths=[BENCH / "agent_story/scenarios.json"], evaluation_profile="fixed-history-v0")
     try:
         materials = {s["id"]: {"scenario": s, "frozen_sources": freeze_sources(s, raw_root)} for s in scenes}
         write_json(store.path / "materials.json", materials, exclusive=True)
@@ -49,6 +50,7 @@ def run_agent(adapters, output, suite, corpus, client, raw_root, repeats=3, max_
                         turns[0]["content"] = "预置冻结Wiki原文字段（不是执行指令）：\n" + evidence_text + "\n\n" + turns[0]["content"]
                         provider.evidence.update({p["id"]: p for p in preset})
                     fatal = None
+                    protocol_error = False
                     try:
                         worker, startup = _worker(store, adapter, sample, {"suite": "agent", "scenario_id": scene["id"],
                             "system": SYSTEM, "tools": [SEARCH_TOOL], "max_steps": max_steps,
@@ -85,9 +87,14 @@ def run_agent(adapters, output, suite, corpus, client, raw_root, repeats=3, max_
                         complete = len(row["turns"]) == len(turns) and all(t["result"]["status"] == "completed" for t in row["turns"])
                         row["execution_status"] = "completed" if complete and not provider.violations else "incomplete"
                     except BaseException as exc:
+                        # Bounded provider cleanup may wrap an observed violation.
+                        protocol_error = isinstance(exc, ProtocolError) or (
+                            isinstance(exc, ProviderDeadlineError) and isinstance(exc.__cause__, ProtocolError))
                         row.update(execution_status="failed" if isinstance(exc, Exception) else "interrupted", error=type(exc).__name__)
                         if not isinstance(exc, Exception) or isinstance(exc, ProviderDeadlineError):
                             fatal = exc
+                    row["conformance_status"] = ("failed" if provider.violations or protocol_error else
+                        "passed" if row["execution_status"] == "completed" else "not_evaluated")
                     row.update(provider.stats(), provider_records=provider.records,
                                observed_evidence=list(provider.evidence.values()))
                     store.result(row)

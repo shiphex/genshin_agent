@@ -78,6 +78,7 @@ class ReviewRegressions(unittest.TestCase):
         self.assertEqual(len(rows[0]["turns"]), 1)
         self.assertEqual(rows[0]["model_calls"], 1)
         self.assertEqual([r["execution_status"] for r in rows[1:]], ["not_started", "not_started"])
+        self.assertEqual([r.get("conformance_status") for r in rows], ["not_evaluated"] * 3)
         report = make_report([run], self.path / "report")
         groups = read_json(report / "summary.json")["runs"][0]["groups"]
         self.assertEqual(len(groups), 1)

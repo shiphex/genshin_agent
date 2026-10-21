@@ -14,6 +14,7 @@ description: "定义adapter配置、双向JSONL消息、provider接口和失败�
 - [控制消息](#控制消息)
 - [provider消息](#provider消息)
 - [分类约定](#分类约定)
+- [运行结果](#运行结果)
 - [限制与失败](#限制与失败)
 - [Dev Note](#dev-note)
 
@@ -31,6 +32,22 @@ description: "定义adapter配置、双向JSONL消息、provider接口和失败�
 ```
 
 命令与源码路径相对仓库根目录。tool_execution为serial／parallel，tool_error为recover／terminate，context为error／truncate／compress；工具失败按声明可重试0–3次，成功工具不得重复执行。fixture_only=true专供有限回放，不当真实候选。
+
+adapter可选填`adaptation`，人工声明SDK适配成本；不填写仍可运行，报告记“未记录”，不表示零改动或低成本。示例对象放在对应adapter内：
+
+```json
+{"adaptation":{
+  "target":"SDK-name 1.0 or custom revision",
+  "ownership":{"loop":"candidate","history":"adapter","recovery":"shared"},
+  "changes":[{"area":"history","default_behavior":"SDK structured items",
+    "adapted_behavior":"chat messages","reason":"fixed-history interface"}],
+  "effort_notes":"Integration effort and maintenance limitations"
+}}
+```
+
+target声明SDK名称及版本或自研revision。ownership的loop/history/recovery分别声明循环、历史、恢复由candidate／adapter／shared负责；candidate指被测实现。changes每项须含area/default_behavior/adapted_behavior/reason四个非空字符串，空数组明确声明未修改默认行为。effort_notes可省略，填写时须为非空字符串；target也须为非空字符串。对象不接受额外字段；结构、必填项或枚举错误在创建运行前拒绝，并定位adapter和字段。
+
+声明原样随manifest保存并按候选展示，不评分、不视为框架已核验事实；不进入匿名语义评审包，也不发送给worker。
 
 ## 控制消息
 
@@ -80,6 +97,22 @@ Agent只提供search_story，参数是非空字符串query；Top-K由runner固�
 ## 分类约定
 
 Core模拟工具及上下文见[Core定义](../agent_core/evaluation.md#策略与上下文)；剧情场景、证据与评审见[Story定义](../agent_story/evaluation.md)。
+
+## 运行结果
+
+Core、perf、Agent新manifest登记`evaluation_profile="fixed-history-v0"`。V0指评测范围，传输仍为spike-jsonl-v1，配置及产物schema_version保持1。
+
+样本新增`conformance_status`，与execution_status独立：
+
+| 值 | 条件 |
+| --- | --- |
+| passed | 完整执行且通过全部适用检查 |
+| failed | 已观察到oracle／provider违规或明确ProtocolError（含被ProviderDeadlineError显式包装），后续中断仍保留失败 |
+| not_evaluated | 未开始、中断或无违规证据的执行失败／不完整 |
+
+超时或模型服务故障不自动判协议失败。原correct/checks_failed/violations及执行字段行为保留；已知违规优先于未判定。runner负责判定，共享层只存储和汇总。
+
+summary及组合报告的conformance包含total/passed/failed/not_evaluated/not_recorded，分母含全部计划样本；not_recorded计缺少新字段的样本，不能从旧correct推断。旧manifest口径缺失显示“历史口径未声明”，适配声明缺失显示“未记录”；旧统计保留，不改写原运行或并入新符合性通过／失败数。JSON报告的候选adaptation为`{status:"declared",declaration:原声明}`或`{status:"not_recorded"}`。
 
 ## 限制与失败
 

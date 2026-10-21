@@ -3,7 +3,7 @@ import time
 from Benchmarks.support.common import BENCH, ROOT, positive, write_json
 from Benchmarks.support.execution import _store, _worker
 from Benchmarks.support.metrics import ProcessMeter, paired_order
-from Benchmarks.support.protocol import ProviderDeadlineError
+from Benchmarks.support.protocol import ProtocolError, ProviderDeadlineError
 import sys
 from .cases import CASES, ECHO_TOOL, CoreOracle
 
@@ -24,12 +24,24 @@ def _core_turn(worker, oracle, turn):
     return result
 
 
+def _conformance(oracle, complete=False, error=None):
+    # An execution failure alone is not evidence of a contract violation.
+    # Worker wraps the original violation if provider cleanup exceeds its bound.
+    protocol_error = isinstance(error, ProtocolError) or (
+        isinstance(error, ProviderDeadlineError) and isinstance(error.__cause__, ProtocolError))
+    if oracle.errors or protocol_error:
+        return "failed"
+    return "passed" if complete else "not_evaluated"
+
+
 def run_core(adapters, output, cases=None, timeout=10):
     cases = CASES if cases is None else cases
     planned = [{"sample_id": f"{a['id']}:{c['id']}", "adapter_id": a["id"], "case_id": c["id"],
-                "fixture_only": a.get("fixture_only", False), "policy_group": a["policies"]}
+                "fixture_only": a.get("fixture_only", False), "policy_group": a["policies"],
+                "conformance_status": "not_evaluated"}
                for c in cases for a in adapters]
-    store = _store(output, "core", adapters, planned, {"timeout": timeout}, implementation=BENCH / "agent_core")
+    store = _store(output, "core", adapters, planned, {"timeout": timeout}, implementation=BENCH / "agent_core",
+                   evaluation_profile="fixed-history-v0")
     try:
         for case in cases:
             for adapter in adapters:
@@ -46,9 +58,11 @@ def run_core(adapters, output, cases=None, timeout=10):
                         for turn in case["turns"]:
                             row["turns"].append(_core_turn(worker, oracle, turn))
                     row.update(execution_status="completed", **oracle.verdict())
+                    row["conformance_status"] = _conformance(oracle, complete=True)
                 except BaseException as exc:
                     row.update(execution_status="failed" if isinstance(exc, Exception) else "interrupted", correct=False, error=type(exc).__name__,
                                checks_failed=oracle.errors)
+                    row["conformance_status"] = _conformance(oracle, error=exc)
                     if not isinstance(exc, Exception) or isinstance(exc, ProviderDeadlineError):
                         fatal = exc
                 row["elapsed_ms"] = (time.perf_counter() - started) * 1000
@@ -74,12 +88,13 @@ def run_perf(adapters, output, rounds=7, batch=100, warmup=2, measure="timing", 
         raise ValueError("transport_replay is a reserved adapter ID")
     planned = [{"sample_id": f"{a['id']}:r{r + 1}", "adapter_id": a["id"], "round": r + 1,
                 "is_baseline": a is baseline, "measure": measure, "fixture_only": a.get("fixture_only", False),
-                "policy_group": a["policies"]} for r in range(rounds)
+                "policy_group": a["policies"], "conformance_status": "not_evaluated"} for r in range(rounds)
                for a in paired_order(adapters, r) + [baseline]]
     store = _store(output, "perf", adapters, planned, {"rounds": rounds, "batch": batch,
                     "warmup_batches": warmup, "measure": measure, "timeout": timeout,
                     "timed_scope": "reset + turn + broker, oracle and JSONL trace; excludes startup and warmup"},
-                    [BENCH / "agent_core/tapes.py", BENCH / "support/replay_worker.py"], implementation=BENCH / "agent_core")
+                    [BENCH / "agent_core/tapes.py", BENCH / "support/replay_worker.py"], implementation=BENCH / "agent_core",
+                    evaluation_profile="fixed-history-v0")
     tape_path = store.path / "transport-tape.json"
     write_json(tape_path, core_tape(CASES[-1], baseline["policies"]) * (batch * (warmup + 1)), exclusive=True)
     baseline["command"] = [sys.executable, "-B", str(BENCH / "support/replay_worker.py"), "--tape", str(tape_path)]
@@ -112,8 +127,11 @@ def run_perf(adapters, output, rounds=7, batch=100, warmup=2, measure="timing", 
                             row["elapsed_ms"] = (time.perf_counter() - started) * 1000
                             row["resources"] = meter.finish()
                     row.update(execution_status="completed", per_iteration_ms=row["elapsed_ms"] / batch, **oracle.verdict())
+                    row["conformance_status"] = _conformance(oracle, complete=True)
                 except BaseException as exc:
-                    row.update(execution_status="failed" if isinstance(exc, Exception) else "interrupted", correct=False, error=type(exc).__name__)
+                    row.update(execution_status="failed" if isinstance(exc, Exception) else "interrupted", correct=False,
+                               error=type(exc).__name__, checks_failed=oracle.errors)
+                    row["conformance_status"] = _conformance(oracle, error=exc)
                     if not isinstance(exc, Exception) or isinstance(exc, ProviderDeadlineError):
                         fatal = exc
                 row["completed_iterations"] = len(row["iterations_ms"])

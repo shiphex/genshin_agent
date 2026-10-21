@@ -61,6 +61,10 @@ def summarize(rows):
             "correct": sum(r.get("correct") is True for r in rows),
             "incorrect": sum(r.get("correct") is False for r in rows),
             "unjudged": sum(r.get("correct") is None for r in rows),
+            "conformance": {"total": len(rows),
+                **{status: sum(r.get("conformance_status") == status for r in rows)
+                   for status in ("passed", "failed", "not_evaluated")},
+                "not_recorded": sum("conformance_status" not in r for r in rows)},
             "elapsed_ms": distribution([r.get("elapsed_ms") for r in rows]),
             "semantic_status": "not_evaluated", "user_acceptance": "not_evaluated"}
 
