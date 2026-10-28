@@ -1,0 +1,158 @@
+uv : test_cannot_nest_outputs_inside_hf_release_or_partial_release (test_artifact_catalog.CatalogTests.test_cannot_nest
+_outputs_inside_hf_release_or_partial_release) ... ok
+所在位置 行:2 字符: 1
++ uv --cache-dir E:/Workplace/Learn_project/genshin_agent/.cache/uv run ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_cannot_nes...release) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_detects_changed_baseline_bytes (test_artifact_catalog.CatalogTests.test_detects_changed_baseline_bytes) ... ok
+test_failed_output_reserves_number_and_never_upgrades_acceptance (test_artifact_catalog.CatalogTests.test_failed_output
+_reserves_number_and_never_upgrades_acceptance) ... ok
+test_parallel_outputs_are_distinct_and_do_not_change_catalog (test_artifact_catalog.CatalogTests.test_parallel_outputs_
+are_distinct_and_do_not_change_catalog) ... ok
+test_rejects_baseline_raw_escape_and_existing_explicit_outputs (test_artifact_catalog.CatalogTests.test_rejects_baselin
+e_raw_escape_and_existing_explicit_outputs) ... ok
+test_rejects_catalog_path_traversal (test_artifact_catalog.CatalogTests.test_rejects_catalog_path_traversal) ... ok
+test_resolves_current_baseline_without_old_version_registry (test_artifact_catalog.CatalogTests.test_resolves_current_b
+aseline_without_old_version_registry) ... ok
+test_review_output_preserves_previous_review_and_current_baseline (test_artifact_catalog.CatalogTests.test_review_outpu
+t_preserves_previous_review_and_current_baseline) ... ok
+test_seals_executed_source_without_config_credentials (test_artifact_catalog.CatalogTests.test_seals_executed_source_wi
+thout_config_credentials) ... ok
+test_default_evaluation_rejects_changed_baseline_corpus_or_questions (test_current_cli.CurrentEntryTests.test_default_e
+valuation_rejects_changed_baseline_corpus_or_questions) ... Evaluation failed (ValueError). Check input files and the l
+ocal API/config.
+Evaluation failed (ValueError). Check input files and the local API/config.
+ok
+test_evaluation_rejects_removed_sample_mode (test_current_cli.CurrentEntryTests.test_evaluation_rejects_removed_sample_
+mode) ... ok
+test_explicit_custom_inputs_still_work_with_pure_retrieval (test_current_cli.CurrentEntryTests.test_explicit_custom_inp
+uts_still_work_with_pure_retrieval) ... [1/1] q
+ok
+test_full_preparation_is_default_and_does_not_promote_baseline (test_current_cli.CurrentEntryTests.test_full_preparatio
+n_is_default_and_does_not_promote_baseline) ... ok
+test_preparation_help_describes_full_default_and_has_no_sample_selection (test_current_cli.CurrentEntryTests.test_prepa
+ration_help_describes_full_default_and_has_no_sample_selection) ... ok
+test_question_preparation_reads_current_input_and_never_changes_baseline (test_current_cli.CurrentEntryTests.test_quest
+ion_preparation_reads_current_input_and_never_changes_baseline) ... Preparation failed: output already exists; choose a
+ new file
+ok
+test_report_writer_cannot_overwrite_completed_or_existing_results (test_current_cli.CurrentEntryTests.test_report_write
+r_cannot_overwrite_completed_or_existing_results) ... ok
+test_builds_exact_release_inventory_and_manifest (test_export_hf_dataset.HuggingFaceDatasetExportTests.test_builds_exac
+t_release_inventory_and_manifest) ... ok
+test_default_row_count_is_derived_and_card_cannot_include_metadata (test_export_hf_dataset.HuggingFaceDatasetExportTest
+s.test_default_row_count_is_derived_and_card_cannot_include_metadata) ... ok
+test_rejects_existing_output (test_export_hf_dataset.HuggingFaceDatasetExportTests.test_rejects_existing_output) ... ok
+test_rejects_invalid_corpus_row_before_writing_output (test_export_hf_dataset.HuggingFaceDatasetExportTests.test_reject
+s_invalid_corpus_row_before_writing_output) ... ok
+test_verification_detects_hash_and_row_count_tampering (test_export_hf_dataset.HuggingFaceDatasetExportTests.test_verif
+ication_detects_hash_and_row_count_tampering) ... ok
+test_all_new_description_families_exclude_mechanics (test_full_corpus.FullCorpusTests.test_all_new_description_families
+_exclude_mechanics) ... ok
+test_bad_field_does_not_remove_good_text_in_same_file (test_full_corpus.FullCorpusTests.test_bad_field_does_not_remove_
+good_text_in_same_file) ... ok
+test_category_matching_does_not_equate_landing_pages_with_missing_quests (test_full_corpus.FullCorpusTests.test_categor
+y_matching_does_not_equate_landing_pages_with_missing_quests) ... ok
+test_character_adventure_and_power_stories_are_included (test_full_corpus.FullCorpusTests.test_character_adventure_and_
+power_stories_are_included) ... ok
+test_compilation_trees_keep_hierarchy_and_uncertainty (test_full_corpus.FullCorpusTests.test_compilation_trees_keep_hie
+rarchy_and_uncertainty) ... ok
+test_display_cleanup_keeps_text_but_rejects_unknown_templates (test_full_corpus.FullCorpusTests.test_display_cleanup_ke
+eps_text_but_rejects_unknown_templates) ... ok
+test_event_options_keep_their_own_source_locations (test_full_corpus.FullCorpusTests.test_event_options_keep_their_own_
+source_locations) ... ok
+test_every_file_and_unparsed_page_is_accounted_for (test_full_corpus.FullCorpusTests.test_every_file_and_unparsed_page_
+is_accounted_for) ... ok
+test_full_prepare_refuses_another_snapshot_with_custom_input (test_full_corpus.FullCorpusTests.test_full_prepare_refuse
+s_another_snapshot_with_custom_input) ... Preparation failed: Output must be a new, non-nested directory under rag/data
+/outputs/<purpose>
+ok
+test_invalid_event_stage_is_reported_at_the_group_field_once (test_full_corpus.FullCorpusTests.test_invalid_event_stage
+_is_reported_at_the_group_field_once) ... ok
+test_long_display_markup_does_not_split_a_short_cleaned_word (test_full_corpus.FullCorpusTests.test_long_display_markup
+_does_not_split_a_short_cleaned_word) ... ok
+test_long_field_is_split_without_loss_and_reconstructs_original_spans (test_full_corpus.FullCorpusTests.test_long_field
+_is_split_without_loss_and_reconstructs_original_spans) ... ok
+test_long_single_dialogue_is_not_split_and_stages_do_not_mix (test_full_corpus.FullCorpusTests.test_long_single_dialogu
+e_is_not_split_and_stages_do_not_mix) ... ok
+test_mechanics_paragraph_is_removed_without_losing_neighboring_lore (test_full_corpus.FullCorpusTests.test_mechanics_pa
+ragraph_is_removed_without_losing_neighboring_lore) ... ok
+test_monster_element_units_and_reverse_stat_percentages_are_quarantined (test_full_corpus.FullCorpusTests.test_monster_
+element_units_and_reverse_stat_percentages_are_quarantined) ... ok
+test_page_css_is_quarantined_and_story_percentage_is_preserved (test_full_corpus.FullCorpusTests.test_page_css_is_quara
+ntined_and_story_percentage_is_preserved) ... ok
+test_repeated_builds_keep_ids_and_corpus_identical (test_full_corpus.FullCorpusTests.test_repeated_builds_keep_ids_and_
+corpus_identical) ... ok
+test_speaker_and_stage_templates_do_not_enter_text_or_titles (test_full_corpus.FullCorpusTests.test_speaker_and_stage_t
+emplates_do_not_enter_text_or_titles) ... ok
+test_prompt_marks_compilation_and_preserves_its_original_uncertainty (test_full_corpus.FullRetrievalTests.test_prompt_m
+arks_compilation_and_preserves_its_original_uncertainty) ... ok
+test_reused_index_keeps_ranking_and_does_not_return_zero_matches (test_full_corpus.FullRetrievalTests.test_reused_index
+_keeps_ranking_and_does_not_return_zero_matches) ... ok
+test_source_anchor_mapping_requires_the_original_character_range (test_full_corpus.FullRetrievalTests.test_source_ancho
+r_mapping_requires_the_original_character_range) ... ok
+test_bigrams_do_not_cross_punctuation_and_ascii_words_are_matched (test_rag_mvp.EvaluationTests.test_bigrams_do_not_cro
+ss_punctuation_and_ascii_words_are_matched) ... ok
+test_citation_ids_must_belong_to_context_and_faithfulness_is_not_auto_scored (test_rag_mvp.EvaluationTests.test_citatio
+n_ids_must_belong_to_context_and_faithfulness_is_not_auto_scored) ... ok
+test_evaluation_cannot_write_inside_a_raw_snapshot (test_rag_mvp.EvaluationTests.test_evaluation_cannot_write_inside_a_
+raw_snapshot) ... ok
+test_http_chat_uses_configured_local_api_and_rejects_empty_content (test_rag_mvp.EvaluationTests.test_http_chat_uses_co
+nfigured_local_api_and_rejects_empty_content) ... ok
+test_incomplete_http_response_does_not_lose_previous_answers (test_rag_mvp.EvaluationTests.test_incomplete_http_respons
+e_does_not_lose_previous_answers) ... [1/1] q
+  rag: IncompleteRead
+ok
+test_multi_source_coverage_requires_every_evidence_group (test_rag_mvp.EvaluationTests.test_multi_source_coverage_requi
+res_every_evidence_group) ... ok
+test_prompts_share_policy_and_never_leak_gold_answers (test_rag_mvp.EvaluationTests.test_prompts_share_policy_and_never
+_leak_gold_answers) ... ok
+test_retrieval_finds_evidence_and_does_not_pad_with_zero_matches (test_rag_mvp.EvaluationTests.test_retrieval_finds_evi
+dence_and_does_not_pad_with_zero_matches) ... ok
+test_truncated_answers_are_preserved_but_not_reported_as_success (test_rag_mvp.EvaluationTests.test_truncated_answers_a
+re_preserved_but_not_reported_as_success) ... [1/1] q
+ok
+test_exact_locations_deduplicate_both_annotations_and_retrieved_chunks (test_retrieval_eval.MetricTests.test_exact_loca
+tions_deduplicate_both_annotations_and_retrieved_chunks) ... ok
+test_same_file_or_same_pointer_alone_is_not_a_hit_and_negative_control_drops_metric (test_retrieval_eval.MetricTests.te
+st_same_file_or_same_pointer_alone_is_not_a_hit_and_negative_control_drops_metric) ... ok
+test_summary_has_explicit_macro_micro_denominators_and_unscored_count (test_retrieval_eval.MetricTests.test_summary_has
+_explicit_macro_micro_denominators_and_unscored_count) ... ok
+test_changed_default_inputs_are_rejected_before_allocating_output (test_retrieval_eval.RunTests.test_changed_default_in
+puts_are_rejected_before_allocating_output) ... ok
+test_explicit_inputs_record_custom_identity_without_baseline_snapshot_claim (test_retrieval_eval.RunTests.test_explicit
+_inputs_record_custom_identity_without_baseline_snapshot_claim) ... ok
+test_failures_and_interruptions_keep_flushed_results_and_terminal_status (test_retrieval_eval.RunTests.test_failures_an
+d_interruptions_keep_flushed_results_and_terminal_status) ... ok
+test_input_changing_while_loaded_cannot_complete_with_a_misleading_hash (test_retrieval_eval.RunTests.test_input_changi
+ng_while_loaded_cannot_complete_with_a_misleading_hash) ... ok
+test_invalid_inputs_fail_without_changing_baseline (test_retrieval_eval.RunTests.test_invalid_inputs_fail_without_chang
+ing_baseline) ... ok
+test_records_actual_inputs_parameters_source_copies_and_artifact_hashes (test_retrieval_eval.RunTests.test_records_actu
+al_inputs_parameters_source_copies_and_artifact_hashes) ... ok
+test_rejects_raw_baseline_and_nested_output_targets (test_retrieval_eval.RunTests.test_rejects_raw_baseline_and_nested_
+output_targets) ... ok
+test_repeated_runs_keep_rankings_and_metrics_and_never_overwrite (test_retrieval_eval.RunTests.test_repeated_runs_keep_
+rankings_and_metrics_and_never_overwrite) ... ok
+test_seal_failure_still_finishes_failed_run_and_keeps_number (test_retrieval_eval.RunTests.test_seal_failure_still_fini
+shes_failed_run_and_keeps_number) ... ok
+test_uses_one_real_index_and_only_question_text_for_every_query (test_retrieval_eval.RunTests.test_uses_one_real_index_
+and_only_question_text_for_every_query) ... ok
+test_distribution_includes_empty_labels_and_exact_ratio_boundaries (test_retrieval_report.ReportTests.test_distribution
+_includes_empty_labels_and_exact_ratio_boundaries) ... ok
+test_group_metrics_use_only_labelled_questions_and_preserve_macro_micro_difference (test_retrieval_report.ReportTests.t
+est_group_metrics_use_only_labelled_questions_and_preserve_macro_micro_difference) ... ok
+test_markdown_preserves_metrics_and_summary (test_retrieval_report.ReportTests.test_markdown_preserves_metrics_and_summ
+ary) ... ok
+test_partial_unlabelled_run_is_explicit_and_not_reported_as_zero_success (test_retrieval_report.ReportTests.test_partia
+l_unlabelled_run_is_explicit_and_not_reported_as_zero_success) ... ok
+
+----------------------------------------------------------------------
+Ran 68 tests in 2.924s
+
+OK
+{"timestamp_utc": "2026-10-28T08:19:21.626811+00:00", "mode": "retrieval_only", "model": null, "top_k": 5, "dataset": "full", "max_tokens": 768, "temperature": 0, "seed": 42, "questions": 1, "answerable_questions": 1, "unscored_questions": 0, "index_build_seconds": 0.0, "retrieval_seconds": 0.0, "mean_evidence_group_recall": 1.0, "all_evidence_found": 1, "successful_model_calls": 0, "failed_model_calls": 0, "truncated_model_calls": 0, "incomplete_model_calls": 0, "semantic_evaluation": "pending_human_review"}
+{"source_snapshot": "test-snapshot", "chunks": 1, "files_scanned": 1, "output_dir": "C:\\Users\\ZHmso\\AppData\\Local\\Temp\\tmph2_3h2dt\\rag\\data\\outputs\\corpus\\r001"}
+Prepared 1 questions / 1 sources: C:\Users\ZHmso\AppData\Local\Temp\tmp6o9p3j3v\rag\data\outputs\prepared\r001\questions.json

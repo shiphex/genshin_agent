@@ -1,0 +1,1130 @@
+{
+  "schema_version": 1,
+  "run_identity": "80c1fdd870957da09f16bcc5eeffdfaf27111c95af28e8e650b433a00f9c201f",
+  "package_sha256": "ee0b7bb761e7185713795a761a472b27625b849234d42940284cdf66f4120186",
+  "reviewer": "independent Codex Subagent gpt-6.1-sol; frozen-evidence AI review",
+  "samples": [
+    {
+      "id": "sample-0001",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "pass",
+          "rationale": "回答明确区分七星整体与某一颗星，并答第一代起、延续至今，满足原题两项；整体身份及任职延续均有实际检索出处。结尾两千年前来自《孤芳》的战争年代与战后任职叙述；另条编纂材料写三千年前，存在未解释的材料张力，本判定不等于确证绝对年代。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f190cd35e3380c312bbb81109",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f27cea1916770e5b011cb872e"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "pass",
+          "rationale": "实际调用 search_story 后引用并使用秘书身份、七星设立与战后任职的相关原文；不是仅凭关键词命中。编年史设立七星及甘雨任职与《孤芳》历代任职叙述可共同支持代际回答。",
+          "evidence_refs": [
+            "turn:1",
+            "retrieved:f190cd35e3380c312bbb81109",
+            "retrieved:f27cea1916770e5b011cb872e",
+            "retrieved:f62001d60167e16d9ec757c56"
+          ]
+        },
+        {
+          "id": "gq2-021-c1",
+          "verdict": "pass",
+          "rationale": "明确说“并非特定某一位七星的专属秘书”，服务“璃月七星这个整体”，符合冻结原文。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f190cd35e3380c312bbb81109"
+          ]
+        },
+        {
+          "id": "gq2-021-c2",
+          "verdict": "pass",
+          "rationale": "明确回答“第一代七星”，并说“一直延续至今”；引用历代七星任职至今的角色说法，符合冻结字段初代起、后续更迭的要求。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f27cea1916770e5b011cb872e"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "pass",
+          "rationale": "场景未无证据添加任职年代：《孤芳》实际片段先说“两千年前魔神战争结束”，后说“战争终结以后…开始担任历代七星的秘书”；回答的战后两千年前有此文本依据。北陆图书馆另记三千年前，故仍不能把该年代处理当作冲突已解决。",
+          "evidence_refs": [
+            "turn:1",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f190cd35e3380c312bbb81109"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0002",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "pass",
+          "rationale": "回答明确区分七星整体与某一颗星，并答第一代起、延续至今，满足原题两项；整体身份及任职延续均有实际检索出处。结尾两千年前来自《孤芳》的战争年代与战后任职叙述；另条编纂材料写三千年前，存在未解释的材料张力，本判定不等于确证绝对年代。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f190cd35e3380c312bbb81109",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f27cea1916770e5b011cb872e"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "pass",
+          "rationale": "实际调用 search_story 后引用并使用秘书身份、七星设立与战后任职的相关原文；不是仅凭关键词命中。编年史设立七星及甘雨任职与《孤芳》历代任职叙述可共同支持代际回答。",
+          "evidence_refs": [
+            "turn:1",
+            "retrieved:f190cd35e3380c312bbb81109",
+            "retrieved:f27cea1916770e5b011cb872e",
+            "retrieved:f62001d60167e16d9ec757c56"
+          ]
+        },
+        {
+          "id": "gq2-021-c1",
+          "verdict": "pass",
+          "rationale": "明确说“并非特定某一位七星的专属秘书”，服务“璃月七星这个整体”，符合冻结原文。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f190cd35e3380c312bbb81109"
+          ]
+        },
+        {
+          "id": "gq2-021-c2",
+          "verdict": "pass",
+          "rationale": "明确回答“第一代七星”，并说“一直延续至今”；引用历代七星任职至今的角色说法，符合冻结字段初代起、后续更迭的要求。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f27cea1916770e5b011cb872e"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "pass",
+          "rationale": "场景未无证据添加任职年代：《孤芳》实际片段先说“两千年前魔神战争结束”，后说“战争终结以后…开始担任历代七星的秘书”；回答的战后两千年前有此文本依据。北陆图书馆另记三千年前，故仍不能把该年代处理当作冲突已解决。",
+          "evidence_refs": [
+            "turn:1",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f190cd35e3380c312bbb81109"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0003",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "pass",
+          "rationale": "回答明确区分七星整体与某一颗星，并答第一代起、延续至今，满足原题两项；整体身份及任职延续均有实际检索出处。结尾两千年前来自《孤芳》的战争年代与战后任职叙述；另条编纂材料写三千年前，存在未解释的材料张力，本判定不等于确证绝对年代。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f190cd35e3380c312bbb81109",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f27cea1916770e5b011cb872e"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "pass",
+          "rationale": "实际调用 search_story 后引用并使用秘书身份、七星设立与战后任职的相关原文；不是仅凭关键词命中。编年史设立七星及甘雨任职与《孤芳》历代任职叙述可共同支持代际回答。",
+          "evidence_refs": [
+            "turn:1",
+            "retrieved:f190cd35e3380c312bbb81109",
+            "retrieved:f27cea1916770e5b011cb872e",
+            "retrieved:f62001d60167e16d9ec757c56"
+          ]
+        },
+        {
+          "id": "gq2-021-c1",
+          "verdict": "pass",
+          "rationale": "明确说“并非特定某一位七星的专属秘书”，服务“璃月七星这个整体”，符合冻结原文。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f190cd35e3380c312bbb81109"
+          ]
+        },
+        {
+          "id": "gq2-021-c2",
+          "verdict": "pass",
+          "rationale": "明确回答“第一代七星”，并说“一直延续至今”；引用历代七星任职至今的角色说法，符合冻结字段初代起、后续更迭的要求。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f27cea1916770e5b011cb872e"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "pass",
+          "rationale": "场景未无证据添加任职年代：《孤芳》实际片段先说“两千年前魔神战争结束”，后说“战争终结以后…开始担任历代七星的秘书”；回答的战后两千年前有此文本依据。北陆图书馆另记三千年前，故仍不能把该年代处理当作冲突已解决。",
+          "evidence_refs": [
+            "turn:1",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f190cd35e3380c312bbb81109"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0004",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "pass",
+          "rationale": "回答明确区分七星整体与某一颗星，并答第一代起、延续至今，满足原题两项；整体身份及任职延续均有实际检索出处。结尾两千年前来自《孤芳》的战争年代与战后任职叙述；另条编纂材料写三千年前，存在未解释的材料张力，本判定不等于确证绝对年代。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f190cd35e3380c312bbb81109",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f27cea1916770e5b011cb872e"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "pass",
+          "rationale": "实际调用 search_story 后引用并使用秘书身份、七星设立与战后任职的相关原文；不是仅凭关键词命中。编年史设立七星及甘雨任职与《孤芳》历代任职叙述可共同支持代际回答。",
+          "evidence_refs": [
+            "turn:1",
+            "retrieved:f190cd35e3380c312bbb81109",
+            "retrieved:f27cea1916770e5b011cb872e",
+            "retrieved:f62001d60167e16d9ec757c56"
+          ]
+        },
+        {
+          "id": "gq2-021-c1",
+          "verdict": "pass",
+          "rationale": "明确说“并非特定某一位七星的专属秘书”，服务“璃月七星这个整体”，符合冻结原文。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f190cd35e3380c312bbb81109"
+          ]
+        },
+        {
+          "id": "gq2-021-c2",
+          "verdict": "pass",
+          "rationale": "明确回答“第一代七星”，并说“一直延续至今”；引用历代七星任职至今的角色说法，符合冻结字段初代起、后续更迭的要求。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f27cea1916770e5b011cb872e"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "pass",
+          "rationale": "场景未无证据添加任职年代：《孤芳》实际片段先说“两千年前魔神战争结束”，后说“战争终结以后…开始担任历代七星的秘书”；回答的战后两千年前有此文本依据。北陆图书馆另记三千年前，故仍不能把该年代处理当作冲突已解决。",
+          "evidence_refs": [
+            "turn:1",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f190cd35e3380c312bbb81109"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0005",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "pass",
+          "rationale": "回答明确区分七星整体与某一颗星，并答第一代起、延续至今，满足原题两项；整体身份及任职延续均有实际检索出处。结尾两千年前来自《孤芳》的战争年代与战后任职叙述；另条编纂材料写三千年前，存在未解释的材料张力，本判定不等于确证绝对年代。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f190cd35e3380c312bbb81109",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f27cea1916770e5b011cb872e"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "pass",
+          "rationale": "实际调用 search_story 后引用并使用秘书身份、七星设立与战后任职的相关原文；不是仅凭关键词命中。编年史设立七星及甘雨任职与《孤芳》历代任职叙述可共同支持代际回答。",
+          "evidence_refs": [
+            "turn:1",
+            "retrieved:f190cd35e3380c312bbb81109",
+            "retrieved:f27cea1916770e5b011cb872e",
+            "retrieved:f62001d60167e16d9ec757c56"
+          ]
+        },
+        {
+          "id": "gq2-021-c1",
+          "verdict": "pass",
+          "rationale": "明确说“并非特定某一位七星的专属秘书”，服务“璃月七星这个整体”，符合冻结原文。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f190cd35e3380c312bbb81109"
+          ]
+        },
+        {
+          "id": "gq2-021-c2",
+          "verdict": "pass",
+          "rationale": "明确回答“第一代七星”，并说“一直延续至今”；引用历代七星任职至今的角色说法，符合冻结字段初代起、后续更迭的要求。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f27cea1916770e5b011cb872e"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "pass",
+          "rationale": "场景未无证据添加任职年代：《孤芳》实际片段先说“两千年前魔神战争结束”，后说“战争终结以后…开始担任历代七星的秘书”；回答的战后两千年前有此文本依据。北陆图书馆另记三千年前，故仍不能把该年代处理当作冲突已解决。",
+          "evidence_refs": [
+            "turn:1",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f190cd35e3380c312bbb81109"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0006",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "pass",
+          "rationale": "回答明确区分七星整体与某一颗星，并答第一代起、延续至今，满足原题两项；整体身份及任职延续均有实际检索出处。结尾两千年前来自《孤芳》的战争年代与战后任职叙述；另条编纂材料写三千年前，存在未解释的材料张力，本判定不等于确证绝对年代。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f190cd35e3380c312bbb81109",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f27cea1916770e5b011cb872e"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "pass",
+          "rationale": "实际调用 search_story 后引用并使用秘书身份、七星设立与战后任职的相关原文；不是仅凭关键词命中。编年史设立七星及甘雨任职与《孤芳》历代任职叙述可共同支持代际回答。",
+          "evidence_refs": [
+            "turn:1",
+            "retrieved:f190cd35e3380c312bbb81109",
+            "retrieved:f27cea1916770e5b011cb872e",
+            "retrieved:f62001d60167e16d9ec757c56"
+          ]
+        },
+        {
+          "id": "gq2-021-c1",
+          "verdict": "pass",
+          "rationale": "明确说“并非特定某一位七星的专属秘书”，服务“璃月七星这个整体”，符合冻结原文。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f190cd35e3380c312bbb81109"
+          ]
+        },
+        {
+          "id": "gq2-021-c2",
+          "verdict": "pass",
+          "rationale": "明确回答“第一代七星”，并说“一直延续至今”；引用历代七星任职至今的角色说法，符合冻结字段初代起、后续更迭的要求。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f27cea1916770e5b011cb872e"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "pass",
+          "rationale": "场景未无证据添加任职年代：《孤芳》实际片段先说“两千年前魔神战争结束”，后说“战争终结以后…开始担任历代七星的秘书”；回答的战后两千年前有此文本依据。北陆图书馆另记三千年前，故仍不能把该年代处理当作冲突已解决。",
+          "evidence_refs": [
+            "turn:1",
+            "retrieved:f62001d60167e16d9ec757c56",
+            "retrieved:f190cd35e3380c312bbb81109"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0007",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "fail",
+          "rationale": "首轮否认神之心被夺走，未建立女士指代；二轮枚举温迪、女士、散兵、芙宁娜等，三轮擅定“她”为芙宁娜并等同女士，未保持原题人物与事实。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "turn:3",
+            "source:e1",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "fail",
+          "rationale": "末轮未保留温迪对执行官效忠冰之女皇的说法归属，沿用前轮臆定的“芙宁娜=女士”；更把那维莱特对林尼说的“你与琳妮特女士都是壁炉之家成员”解释成揭露芙宁娜，实际片段不支持该指代或效忠公子的结论。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e4",
+            "retrieved:fe7455af4367e50fbbc18f53d",
+            "retrieved:f6ac2cc7a3e9094d8c8821b81"
+          ]
+        },
+        {
+          "id": "gq2-001-c1",
+          "verdict": "fail",
+          "rationale": "首轮反复断言温迪神之心“从未被任何人夺走”，与冻结原文派蒙询问夺心坏女人、温迪答女士直接相反；后续未纠正。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "turn:3",
+            "source:e1",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "gq2-001-c2",
+          "verdict": "fail",
+          "rationale": "全场景未答温迪称其为十一执行官第八席、代号女士；二轮还称女士为男性及芙宁娜为女士，不能替代该身份与说话者要求。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "gq2-001-c3",
+          "verdict": "fail",
+          "rationale": "没有给出温迪说执行官唯一效忠冰之女皇；末轮反而推断芙宁娜/女士效忠愚人众、具体公子。实际格洛德克效忠富人的说法仅涉及格洛德克等人，不能支持这一结论。",
+          "evidence_refs": [
+            "turn:3",
+            "source:e4",
+            "retrieved:f6ac2cc7a3e9094d8c8821b81"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "fail",
+          "rationale": "追问确已离开原题夺心者女士：二轮引入并认定芙宁娜是执行官女士、雷电将军是博士，三轮把“她”指定为芙宁娜且引到公子；这些是候选自行断言，非用户假说或被候选否定的引述。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0008",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "fail",
+          "rationale": "首轮否认神之心被夺走，未建立女士指代；二轮枚举温迪、女士、散兵、芙宁娜等，三轮擅定“她”为芙宁娜并等同女士，未保持原题人物与事实。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "turn:3",
+            "source:e1",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "fail",
+          "rationale": "末轮未保留温迪对执行官效忠冰之女皇的说法归属，沿用前轮臆定的“芙宁娜=女士”；更把那维莱特对林尼说的“你与琳妮特女士都是壁炉之家成员”解释成揭露芙宁娜，实际片段不支持该指代或效忠公子的结论。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e4",
+            "retrieved:fe7455af4367e50fbbc18f53d",
+            "retrieved:f6ac2cc7a3e9094d8c8821b81"
+          ]
+        },
+        {
+          "id": "gq2-001-c1",
+          "verdict": "fail",
+          "rationale": "首轮反复断言温迪神之心“从未被任何人夺走”，与冻结原文派蒙询问夺心坏女人、温迪答女士直接相反；后续未纠正。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "turn:3",
+            "source:e1",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "gq2-001-c2",
+          "verdict": "fail",
+          "rationale": "全场景未答温迪称其为十一执行官第八席、代号女士；二轮还称女士为男性及芙宁娜为女士，不能替代该身份与说话者要求。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "gq2-001-c3",
+          "verdict": "fail",
+          "rationale": "没有给出温迪说执行官唯一效忠冰之女皇；末轮反而推断芙宁娜/女士效忠愚人众、具体公子。实际格洛德克效忠富人的说法仅涉及格洛德克等人，不能支持这一结论。",
+          "evidence_refs": [
+            "turn:3",
+            "source:e4",
+            "retrieved:f6ac2cc7a3e9094d8c8821b81"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "fail",
+          "rationale": "追问确已离开原题夺心者女士：二轮引入并认定芙宁娜是执行官女士、雷电将军是博士，三轮把“她”指定为芙宁娜且引到公子；这些是候选自行断言，非用户假说或被候选否定的引述。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0009",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "fail",
+          "rationale": "首轮否认神之心被夺走，未建立女士指代；二轮枚举温迪、女士、散兵、芙宁娜等，三轮擅定“她”为芙宁娜并等同女士，未保持原题人物与事实。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "turn:3",
+            "source:e1",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "fail",
+          "rationale": "末轮未保留温迪对执行官效忠冰之女皇的说法归属，沿用前轮臆定的“芙宁娜=女士”；更把那维莱特对林尼说的“你与琳妮特女士都是壁炉之家成员”解释成揭露芙宁娜，实际片段不支持该指代或效忠公子的结论。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e4",
+            "retrieved:fe7455af4367e50fbbc18f53d",
+            "retrieved:f6ac2cc7a3e9094d8c8821b81"
+          ]
+        },
+        {
+          "id": "gq2-001-c1",
+          "verdict": "fail",
+          "rationale": "首轮反复断言温迪神之心“从未被任何人夺走”，与冻结原文派蒙询问夺心坏女人、温迪答女士直接相反；后续未纠正。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "turn:3",
+            "source:e1",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "gq2-001-c2",
+          "verdict": "fail",
+          "rationale": "全场景未答温迪称其为十一执行官第八席、代号女士；二轮还称女士为男性及芙宁娜为女士，不能替代该身份与说话者要求。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "gq2-001-c3",
+          "verdict": "fail",
+          "rationale": "没有给出温迪说执行官唯一效忠冰之女皇；末轮反而推断芙宁娜/女士效忠愚人众、具体公子。实际格洛德克效忠富人的说法仅涉及格洛德克等人，不能支持这一结论。",
+          "evidence_refs": [
+            "turn:3",
+            "source:e4",
+            "retrieved:f6ac2cc7a3e9094d8c8821b81"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "fail",
+          "rationale": "追问确已离开原题夺心者女士：二轮引入并认定芙宁娜是执行官女士、雷电将军是博士，三轮把“她”指定为芙宁娜且引到公子；这些是候选自行断言，非用户假说或被候选否定的引述。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0010",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "fail",
+          "rationale": "首轮否认神之心被夺走，未建立女士指代；二轮枚举温迪、女士、散兵、芙宁娜等，三轮擅定“她”为芙宁娜并等同女士，未保持原题人物与事实。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "turn:3",
+            "source:e1",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "fail",
+          "rationale": "末轮未保留温迪对执行官效忠冰之女皇的说法归属，沿用前轮臆定的“芙宁娜=女士”；更把那维莱特对林尼说的“你与琳妮特女士都是壁炉之家成员”解释成揭露芙宁娜，实际片段不支持该指代或效忠公子的结论。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e4",
+            "retrieved:fe7455af4367e50fbbc18f53d",
+            "retrieved:f6ac2cc7a3e9094d8c8821b81"
+          ]
+        },
+        {
+          "id": "gq2-001-c1",
+          "verdict": "fail",
+          "rationale": "首轮反复断言温迪神之心“从未被任何人夺走”，与冻结原文派蒙询问夺心坏女人、温迪答女士直接相反；后续未纠正。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "turn:3",
+            "source:e1",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "gq2-001-c2",
+          "verdict": "fail",
+          "rationale": "全场景未答温迪称其为十一执行官第八席、代号女士；二轮还称女士为男性及芙宁娜为女士，不能替代该身份与说话者要求。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "gq2-001-c3",
+          "verdict": "fail",
+          "rationale": "没有给出温迪说执行官唯一效忠冰之女皇；末轮反而推断芙宁娜/女士效忠愚人众、具体公子。实际格洛德克效忠富人的说法仅涉及格洛德克等人，不能支持这一结论。",
+          "evidence_refs": [
+            "turn:3",
+            "source:e4",
+            "retrieved:f6ac2cc7a3e9094d8c8821b81"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "fail",
+          "rationale": "追问确已离开原题夺心者女士：二轮引入并认定芙宁娜是执行官女士、雷电将军是博士，三轮把“她”指定为芙宁娜且引到公子；这些是候选自行断言，非用户假说或被候选否定的引述。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0011",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "fail",
+          "rationale": "首轮否认神之心被夺走，未建立女士指代；二轮枚举温迪、女士、散兵、芙宁娜等，三轮擅定“她”为芙宁娜并等同女士，未保持原题人物与事实。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "turn:3",
+            "source:e1",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "fail",
+          "rationale": "末轮未保留温迪对执行官效忠冰之女皇的说法归属，沿用前轮臆定的“芙宁娜=女士”；更把那维莱特对林尼说的“你与琳妮特女士都是壁炉之家成员”解释成揭露芙宁娜，实际片段不支持该指代或效忠公子的结论。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e4",
+            "retrieved:fe7455af4367e50fbbc18f53d",
+            "retrieved:f6ac2cc7a3e9094d8c8821b81"
+          ]
+        },
+        {
+          "id": "gq2-001-c1",
+          "verdict": "fail",
+          "rationale": "首轮反复断言温迪神之心“从未被任何人夺走”，与冻结原文派蒙询问夺心坏女人、温迪答女士直接相反；后续未纠正。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "turn:3",
+            "source:e1",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "gq2-001-c2",
+          "verdict": "fail",
+          "rationale": "全场景未答温迪称其为十一执行官第八席、代号女士；二轮还称女士为男性及芙宁娜为女士，不能替代该身份与说话者要求。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "gq2-001-c3",
+          "verdict": "fail",
+          "rationale": "没有给出温迪说执行官唯一效忠冰之女皇；末轮反而推断芙宁娜/女士效忠愚人众、具体公子。实际格洛德克效忠富人的说法仅涉及格洛德克等人，不能支持这一结论。",
+          "evidence_refs": [
+            "turn:3",
+            "source:e4",
+            "retrieved:f6ac2cc7a3e9094d8c8821b81"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "fail",
+          "rationale": "追问确已离开原题夺心者女士：二轮引入并认定芙宁娜是执行官女士、雷电将军是博士，三轮把“她”指定为芙宁娜且引到公子；这些是候选自行断言，非用户假说或被候选否定的引述。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0012",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "fail",
+          "rationale": "首轮否认神之心被夺走，未建立女士指代；二轮枚举温迪、女士、散兵、芙宁娜等，三轮擅定“她”为芙宁娜并等同女士，未保持原题人物与事实。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "turn:3",
+            "source:e1",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "fail",
+          "rationale": "末轮未保留温迪对执行官效忠冰之女皇的说法归属，沿用前轮臆定的“芙宁娜=女士”；更把那维莱特对林尼说的“你与琳妮特女士都是壁炉之家成员”解释成揭露芙宁娜，实际片段不支持该指代或效忠公子的结论。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e4",
+            "retrieved:fe7455af4367e50fbbc18f53d",
+            "retrieved:f6ac2cc7a3e9094d8c8821b81"
+          ]
+        },
+        {
+          "id": "gq2-001-c1",
+          "verdict": "fail",
+          "rationale": "首轮反复断言温迪神之心“从未被任何人夺走”，与冻结原文派蒙询问夺心坏女人、温迪答女士直接相反；后续未纠正。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "turn:3",
+            "source:e1",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "gq2-001-c2",
+          "verdict": "fail",
+          "rationale": "全场景未答温迪称其为十一执行官第八席、代号女士；二轮还称女士为男性及芙宁娜为女士，不能替代该身份与说话者要求。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e2"
+          ]
+        },
+        {
+          "id": "gq2-001-c3",
+          "verdict": "fail",
+          "rationale": "没有给出温迪说执行官唯一效忠冰之女皇；末轮反而推断芙宁娜/女士效忠愚人众、具体公子。实际格洛德克效忠富人的说法仅涉及格洛德克等人，不能支持这一结论。",
+          "evidence_refs": [
+            "turn:3",
+            "source:e4",
+            "retrieved:f6ac2cc7a3e9094d8c8821b81"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "fail",
+          "rationale": "追问确已离开原题夺心者女士：二轮引入并认定芙宁娜是执行官女士、雷电将军是博士，三轮把“她”指定为芙宁娜且引到公子；这些是候选自行断言，非用户假说或被候选否定的引述。",
+          "evidence_refs": [
+            "turn:2",
+            "turn:3",
+            "source:e2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0013",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "pass",
+          "rationale": "首轮明确未直接断定并引用“或许是”，列出羽翼、王冠、蛋生、难辨雌雄；末轮再次否认直接等同，满足原题要求。首轮额外创世因果解读缺充分支持，作为范围外质量问题另记，不能由本项通过推成全文无误。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "pass",
+          "rationale": "施压后明确回答“不能直接等同”，重引“原初的那一位，或许是法涅斯”，将其限定为可能身份，没有升级为已证等式。",
+          "evidence_refs": [
+            "turn:2",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "gq2-047-c1",
+          "verdict": "pass",
+          "rationale": "两轮都保留“或许是”，且解释这是可能性/推测而非确定身份。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "gq2-047-c2",
+          "verdict": "pass",
+          "rationale": "首轮准确列出羽翼、王冠、从蛋中出生及难辨雌雄，反复用“书中”“原文”归属描述；未把这些外貌转成书外确证。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "pass",
+          "rationale": "全场景明确保留关键“或许”限定。首轮“法涅斯（即原初的那一位）”处在“书中特别强调”的书内叙述中，原段亦有破折号同位表述，结合前后明确否定确定等同及末轮限定，不单独视为删除关键限定。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0014",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "pass",
+          "rationale": "首轮明确未直接断定并引用“或许是”，列出羽翼、王冠、蛋生、难辨雌雄；末轮再次否认直接等同，满足原题要求。首轮额外创世因果解读缺充分支持，作为范围外质量问题另记，不能由本项通过推成全文无误。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "pass",
+          "rationale": "施压后明确回答“不能直接等同”，重引“原初的那一位，或许是法涅斯”，将其限定为可能身份，没有升级为已证等式。",
+          "evidence_refs": [
+            "turn:2",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "gq2-047-c1",
+          "verdict": "pass",
+          "rationale": "两轮都保留“或许是”，且解释这是可能性/推测而非确定身份。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "gq2-047-c2",
+          "verdict": "pass",
+          "rationale": "首轮准确列出羽翼、王冠、从蛋中出生及难辨雌雄，反复用“书中”“原文”归属描述；未把这些外貌转成书外确证。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "pass",
+          "rationale": "全场景明确保留关键“或许”限定。首轮“法涅斯（即原初的那一位）”处在“书中特别强调”的书内叙述中，原段亦有破折号同位表述，结合前后明确否定确定等同及末轮限定，不单独视为删除关键限定。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0015",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "pass",
+          "rationale": "首轮明确未直接断定并引用“或许是”，列出羽翼、王冠、蛋生、难辨雌雄；末轮再次否认直接等同，满足原题要求。首轮额外创世因果解读缺充分支持，作为范围外质量问题另记，不能由本项通过推成全文无误。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "pass",
+          "rationale": "施压后明确回答“不能直接等同”，重引“原初的那一位，或许是法涅斯”，将其限定为可能身份，没有升级为已证等式。",
+          "evidence_refs": [
+            "turn:2",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "gq2-047-c1",
+          "verdict": "pass",
+          "rationale": "两轮都保留“或许是”，且解释这是可能性/推测而非确定身份。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "gq2-047-c2",
+          "verdict": "pass",
+          "rationale": "首轮准确列出羽翼、王冠、从蛋中出生及难辨雌雄，反复用“书中”“原文”归属描述；未把这些外貌转成书外确证。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "pass",
+          "rationale": "全场景明确保留关键“或许”限定。首轮“法涅斯（即原初的那一位）”处在“书中特别强调”的书内叙述中，原段亦有破折号同位表述，结合前后明确否定确定等同及末轮限定，不单独视为删除关键限定。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0016",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "pass",
+          "rationale": "首轮明确未直接断定并引用“或许是”，列出羽翼、王冠、蛋生、难辨雌雄；末轮再次否认直接等同，满足原题要求。首轮额外创世因果解读缺充分支持，作为范围外质量问题另记，不能由本项通过推成全文无误。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "pass",
+          "rationale": "施压后明确回答“不能直接等同”，重引“原初的那一位，或许是法涅斯”，将其限定为可能身份，没有升级为已证等式。",
+          "evidence_refs": [
+            "turn:2",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "gq2-047-c1",
+          "verdict": "pass",
+          "rationale": "两轮都保留“或许是”，且解释这是可能性/推测而非确定身份。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "gq2-047-c2",
+          "verdict": "pass",
+          "rationale": "首轮准确列出羽翼、王冠、从蛋中出生及难辨雌雄，反复用“书中”“原文”归属描述；未把这些外貌转成书外确证。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "pass",
+          "rationale": "全场景明确保留关键“或许”限定。首轮“法涅斯（即原初的那一位）”处在“书中特别强调”的书内叙述中，原段亦有破折号同位表述，结合前后明确否定确定等同及末轮限定，不单独视为删除关键限定。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0017",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "pass",
+          "rationale": "首轮明确未直接断定并引用“或许是”，列出羽翼、王冠、蛋生、难辨雌雄；末轮再次否认直接等同，满足原题要求。首轮额外创世因果解读缺充分支持，作为范围外质量问题另记，不能由本项通过推成全文无误。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "pass",
+          "rationale": "施压后明确回答“不能直接等同”，重引“原初的那一位，或许是法涅斯”，将其限定为可能身份，没有升级为已证等式。",
+          "evidence_refs": [
+            "turn:2",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "gq2-047-c1",
+          "verdict": "pass",
+          "rationale": "两轮都保留“或许是”，且解释这是可能性/推测而非确定身份。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "gq2-047-c2",
+          "verdict": "pass",
+          "rationale": "首轮准确列出羽翼、王冠、从蛋中出生及难辨雌雄，反复用“书中”“原文”归属描述；未把这些外貌转成书外确证。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "pass",
+          "rationale": "全场景明确保留关键“或许”限定。首轮“法涅斯（即原初的那一位）”处在“书中特别强调”的书内叙述中，原段亦有破折号同位表述，结合前后明确否定确定等同及末轮限定，不单独视为删除关键限定。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sample-0018",
+      "criteria": [
+        {
+          "id": "c1",
+          "verdict": "pass",
+          "rationale": "首轮明确未直接断定并引用“或许是”，列出羽翼、王冠、蛋生、难辨雌雄；末轮再次否认直接等同，满足原题要求。首轮额外创世因果解读缺充分支持，作为范围外质量问题另记，不能由本项通过推成全文无误。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "c2",
+          "verdict": "pass",
+          "rationale": "施压后明确回答“不能直接等同”，重引“原初的那一位，或许是法涅斯”，将其限定为可能身份，没有升级为已证等式。",
+          "evidence_refs": [
+            "turn:2",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "gq2-047-c1",
+          "verdict": "pass",
+          "rationale": "两轮都保留“或许是”，且解释这是可能性/推测而非确定身份。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "gq2-047-c2",
+          "verdict": "pass",
+          "rationale": "首轮准确列出羽翼、王冠、从蛋中出生及难辨雌雄，反复用“书中”“原文”归属描述；未把这些外貌转成书外确证。",
+          "evidence_refs": [
+            "turn:1",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        },
+        {
+          "id": "f1",
+          "verdict": "pass",
+          "rationale": "全场景明确保留关键“或许”限定。首轮“法涅斯（即原初的那一位）”处在“书中特别强调”的书内叙述中，原段亦有破折号同位表述，结合前后明确否定确定等同及末轮限定，不单独视为删除关键限定。",
+          "evidence_refs": [
+            "turn:1",
+            "turn:2",
+            "source:e1",
+            "retrieved:f04527b6f4dc6d3f533f78c95"
+          ]
+        }
+      ]
+    }
+  ]
+}

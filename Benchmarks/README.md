@@ -4,10 +4,11 @@ description: "按被测任务导航各类benchmark、共享组件与统一执行
 ---
 # Benchmarks
 
-本目录按被测任务分类。统一入口 `python -m Benchmarks` 只解析、分派和组合报告；各分类维护自己的场景、判定、命令与测试。当前是agent core Spike评测框架，没有候选core实现。
+本目录按被测任务分类。统一入口 `python -m Benchmarks` 只解析、分派和组合报告；各分类维护自己的场景、判定、命令与测试。两套真实候选放在仓库probes下，统一结果由本次评审入口维护。
 
 | 入口 | 内容 |
 | --- | --- |
+| [Core探针评审](reviews/core-probe-20261028/README.md) | 两套候选快照、精选证据、验证及重跑命令 |
 | [agent_core](agent_core/README.md) | 15个确定性用例、oracle和独立开销测量；`core`／`perf` |
 | [agent_story](agent_story/README.md) | 16个剧情场景、Qwen／RAG接入与AI／人工评审；`agent`／`preflight`／`review` |
 | [support](support/README.md) | 面向所有分类的共享协议、产物、资源测量和测试辅助 |
@@ -20,6 +21,6 @@ uv --cache-dir .cache/uv run --locked --group benchmark --offline --no-python-do
 uv --cache-dir .cache/uv run --locked --group benchmark --offline --no-python-downloads --python 3.11 python -B -m Benchmarks list
 ```
 
-新输出使用 `outputs/<分类>/<用途>/<运行号>/`，跨分类 `report` 写 `outputs/reports/<运行号>/`。显式 `--output` 也须位于对应用途下的新目录；重跑使用新名称。历史输出原位只读，保留旧manifest、源码副本和路径绑定；可读取和生成新报告，不能追加评分。全部输出被Git忽略，须独立备份。
+新输出使用 `outputs/<分类>/<用途>/<运行号>/`，跨分类 `report` 写 `outputs/reports/<运行号>/`。显式 `--output` 也须位于对应用途下的新目录；重跑使用新名称。历史输出原位只读，保留旧manifest、源码副本和路径绑定；可读取和生成新报告，不能追加评分。全部原运行输出被Git忽略，须独立备份。本次用户授权的评审副本仅在reviews下的固定白名单发布，不解除outputs忽略。
 
 RAG eval目前仍由 [rag](../rag/README.md) 维护，尚未迁移。未来新增分类按实际任务建目录；多类确实共用的能力再提取到support，不预建空目录或通用插件框架。

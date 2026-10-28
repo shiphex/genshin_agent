@@ -1,2 +1,22 @@
 # Publication fingerprints must survive checkout on Windows and Unix.
 rag/reports/** text eol=lf
+
+# Approved Core review snapshot: preserve executed and frozen evidence bytes.
+probes/** -text whitespace=cr-at-eol
+Benchmarks/experiment-contract.md -text whitespace=cr-at-eol
+pyproject.toml -text whitespace=cr-at-eol
+uv.lock -text whitespace=cr-at-eol
+Benchmarks/reviews/core-probe-20261028/** -text whitespace=cr-at-eol
+
+# Newly maintained publication metadata uses stable LF on every platform.
+.gitattributes text eol=lf
+.agents/notes/README.md text eol=lf
+.agents/notes/*/2026-10-28-core-probe-review-publication.md text eol=lf
+Benchmarks/.gitignore text eol=lf
+Benchmarks/README.md text eol=lf
+Benchmarks/context.md text eol=lf
+README.md text eol=lf
+context.md text eol=lf
+scripts/doc-budgets.manifest.json text eol=lf
+Benchmarks/agent_story/README.md text eol=lf
+docs/architecture.md text eol=lf

@@ -1,0 +1,90 @@
+{
+  "status": "local_checks_passed_fresh_clone_pending",
+  "date": "2026-10-28",
+  "base_commit": "1b25d92510dcaa0d4ff6e0216e589f2b3a881bb4",
+  "checks": [
+    {
+      "name": "candidate-self",
+      "command": "uv --cache-dir E:/Workplace/Learn_project/genshin_agent/.cache/uv run --locked --group benchmark --group core-sdk --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s probes/core_self/tests -v",
+      "exit_code": 0,
+      "tests": 5
+    },
+    {
+      "name": "candidate-sdk",
+      "command": "uv --cache-dir E:/Workplace/Learn_project/genshin_agent/.cache/uv run --locked --group benchmark --group core-sdk --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s probes/core_sdk/tests -v",
+      "exit_code": 0,
+      "tests": 6
+    },
+    {
+      "name": "project-and-rag",
+      "command": "uv --cache-dir E:/Workplace/Learn_project/genshin_agent/.cache/uv run --locked --group benchmark --group core-sdk --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "tests": 15
+    },
+    {
+      "name": "rag",
+      "command": "uv --cache-dir E:/Workplace/Learn_project/genshin_agent/.cache/uv run --locked --group benchmark --group core-sdk --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s rag/tests -v",
+      "exit_code": 0,
+      "tests": 68
+    },
+    {
+      "name": "docs",
+      "command": "uv --cache-dir E:/Workplace/Learn_project/genshin_agent/.cache/uv run --locked --group benchmark --group core-sdk --offline --no-python-downloads --python 3.11 python -B scripts/doc_sync.py",
+      "exit_code": 0,
+      "tests": null
+    },
+    {
+      "name": "analyze_results.py",
+      "command": "uv --cache-dir E:/Workplace/Learn_project/genshin_agent/.cache/uv run --locked --group benchmark --group core-sdk --offline --no-python-downloads --python 3.11 python -B Benchmarks/reviews/core-probe-20261028/scripts/analyze_results.py .cache/core-review-recalc-r001",
+      "exit_code": 0,
+      "tests": null
+    },
+    {
+      "name": "analyze_story.py",
+      "command": "uv --cache-dir E:/Workplace/Learn_project/genshin_agent/.cache/uv run --locked --group benchmark --group core-sdk --offline --no-python-downloads --python 3.11 python -B Benchmarks/reviews/core-probe-20261028/scripts/analyze_story.py .cache/core-review-recalc-r001",
+      "exit_code": 0,
+      "tests": null
+    },
+    {
+      "name": "audit_citation_format.py",
+      "command": "uv --cache-dir E:/Workplace/Learn_project/genshin_agent/.cache/uv run --locked --group benchmark --group core-sdk --offline --no-python-downloads --python 3.11 python -B Benchmarks/reviews/core-probe-20261028/scripts/audit_citation_format.py .cache/core-review-recalc-r001",
+      "exit_code": 0,
+      "tests": null
+    },
+    {
+      "name": "benchmarks",
+      "command": "uv --cache-dir E:/Workplace/Learn_project/genshin_agent/.cache/uv run --locked --group benchmark --group core-sdk --offline --no-python-downloads --python 3.11 python -B -m unittest discover -s Benchmarks -t . -v",
+      "exit_code": 0,
+      "tests": 73,
+      "observed_summary": "Ran 73 tests in 22.894s; OK; completion collected from session 64840"
+    },
+    {
+      "name": "relative-adapters-core",
+      "command": "uv ... python -B -m Benchmarks core --adapters Benchmarks/reviews/core-probe-20261028/inputs/adapters.json --timeout 10 --output Benchmarks/outputs/agent_core/core/publication-check-r001",
+      "exit_code": 0,
+      "samples": 30,
+      "completed": 30,
+      "correct": 30,
+      "conformance_passed": 30
+    },
+    {
+      "name": "statistics-and-negative-case",
+      "command": "uv ... python -B .cache/check_review_recalculation.py (local packaging check; not published)",
+      "exit_code": 0,
+      "observed_summary": "perf and citation JSON identical; Story JSON identical except omitted standalone trace hash; tamper rejected and original restored"
+    }
+  ],
+  "independent_publication_review": {
+    "status": "no_must_fix",
+    "scope": "Source and Git blob hashes, unchanged public code, all 18 anonymous traces vs originals, credential scan, paired performance statistics, denominator and documented limitations.",
+    "reviewed_publication_file_count": 65,
+    "later_changes": "Corrected inherited current-status docs; final clone and Note transition follow."
+  },
+  "not_run": [
+    "real Story/model calls during publication",
+    "performance remeasurement",
+    "user semantic acceptance",
+    "remote CI"
+  ],
+  "remote_publication": "pending"
+}

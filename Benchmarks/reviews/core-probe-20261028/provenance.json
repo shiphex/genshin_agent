@@ -1,0 +1,538 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-28",
+  "base_commit": "1b25d92510dcaa0d4ff6e0216e589f2b3a881bb4",
+  "source_commits": {
+    "core_self": "2de247252c064a40029b04bdcb9d4f8760a78f39",
+    "core_sdk": "6e3e72f5f61954f154a077bf84b8bf2015c25033",
+    "comparison": "9892c1d7e5e624c56a1e4329a8d3b063e5d15560"
+  },
+  "purpose": "Single-branch snapshot for third-party review; original source commits are provenance labels, not promised remote refs.",
+  "records": [
+    {
+      "path": "probes/core_self/worker.py",
+      "source": ".cache/worktrees/core-self/probes/core_self/worker.py",
+      "source_sha256": "8a44e5fcee9fe75fa531cae10aab24baa8872da1b7e8d7c0703514087a6ba865",
+      "published_sha256": "8a44e5fcee9fe75fa531cae10aab24baa8872da1b7e8d7c0703514087a6ba865",
+      "bytes": 8631,
+      "copy": "byte_exact",
+      "source_commit": "2de247252c064a40029b04bdcb9d4f8760a78f39",
+      "git_blob_sha256": "8a44e5fcee9fe75fa531cae10aab24baa8872da1b7e8d7c0703514087a6ba865"
+    },
+    {
+      "path": "probes/core_self/adapters.json",
+      "source": ".cache/worktrees/core-self/probes/core_self/adapters.json",
+      "source_sha256": "3255b715ce6635f19f566ab9c8853fb2c15416020d38ec63098ae887c4d00ba9",
+      "published_sha256": "3255b715ce6635f19f566ab9c8853fb2c15416020d38ec63098ae887c4d00ba9",
+      "bytes": 810,
+      "copy": "byte_exact",
+      "source_commit": "2de247252c064a40029b04bdcb9d4f8760a78f39",
+      "git_blob_sha256": "3255b715ce6635f19f566ab9c8853fb2c15416020d38ec63098ae887c4d00ba9"
+    },
+    {
+      "path": "probes/core_self/README.md",
+      "source": ".cache/worktrees/core-self/probes/core_self/README.md",
+      "source_sha256": "4679574dea4ca3945d7da88988764abb515324c58edd078d1de6413b5bccd9b9",
+      "published_sha256": "4679574dea4ca3945d7da88988764abb515324c58edd078d1de6413b5bccd9b9",
+      "bytes": 7165,
+      "copy": "byte_exact",
+      "source_commit": "2de247252c064a40029b04bdcb9d4f8760a78f39",
+      "git_blob_sha256": "4679574dea4ca3945d7da88988764abb515324c58edd078d1de6413b5bccd9b9"
+    },
+    {
+      "path": "probes/core_self/tests/test_bridge.py",
+      "source": ".cache/worktrees/core-self/probes/core_self/tests/test_bridge.py",
+      "source_sha256": "e01a5d5ee1ce9ee7cecd5088e9f39bef61baa2ba8213d4646dcc8b7c2cc621af",
+      "published_sha256": "e01a5d5ee1ce9ee7cecd5088e9f39bef61baa2ba8213d4646dcc8b7c2cc621af",
+      "bytes": 6345,
+      "copy": "byte_exact",
+      "source_commit": "2de247252c064a40029b04bdcb9d4f8760a78f39",
+      "git_blob_sha256": "e01a5d5ee1ce9ee7cecd5088e9f39bef61baa2ba8213d4646dcc8b7c2cc621af"
+    },
+    {
+      "path": "probes/core_sdk/worker.py",
+      "source": ".cache/worktrees/core-sdk/probes/core_sdk/worker.py",
+      "source_sha256": "fe46c17ded22ea55037bf128158f55931c0f0726a2b0a2e1dcc49ac21132982f",
+      "published_sha256": "fe46c17ded22ea55037bf128158f55931c0f0726a2b0a2e1dcc49ac21132982f",
+      "bytes": 3055,
+      "copy": "byte_exact",
+      "source_commit": "6e3e72f5f61954f154a077bf84b8bf2015c25033",
+      "git_blob_sha256": "fe46c17ded22ea55037bf128158f55931c0f0726a2b0a2e1dcc49ac21132982f"
+    },
+    {
+      "path": "probes/core_sdk/agent.py",
+      "source": ".cache/worktrees/core-sdk/probes/core_sdk/agent.py",
+      "source_sha256": "0257c43793cccc7b7785235e81249c1ca897dd0dc75f8e156d83ae08a2fd81fc",
+      "published_sha256": "0257c43793cccc7b7785235e81249c1ca897dd0dc75f8e156d83ae08a2fd81fc",
+      "bytes": 8587,
+      "copy": "byte_exact",
+      "source_commit": "6e3e72f5f61954f154a077bf84b8bf2015c25033",
+      "git_blob_sha256": "0257c43793cccc7b7785235e81249c1ca897dd0dc75f8e156d83ae08a2fd81fc"
+    },
+    {
+      "path": "probes/core_sdk/adapters.json",
+      "source": ".cache/worktrees/core-sdk/probes/core_sdk/adapters.json",
+      "source_sha256": "4bc68421da235abd3c0707f93b745327939eee54ab7e67a07cdcb20ed6cf5982",
+      "published_sha256": "4bc68421da235abd3c0707f93b745327939eee54ab7e67a07cdcb20ed6cf5982",
+      "bytes": 4447,
+      "copy": "byte_exact",
+      "source_commit": "6e3e72f5f61954f154a077bf84b8bf2015c25033",
+      "git_blob_sha256": "4bc68421da235abd3c0707f93b745327939eee54ab7e67a07cdcb20ed6cf5982"
+    },
+    {
+      "path": "probes/core_sdk/README.md",
+      "source": ".cache/worktrees/core-sdk/probes/core_sdk/README.md",
+      "source_sha256": "b7593888c3e549f70f531b4b29a568f511fd35e85a999b5a9772e4bb54bf6af3",
+      "published_sha256": "b7593888c3e549f70f531b4b29a568f511fd35e85a999b5a9772e4bb54bf6af3",
+      "bytes": 8451,
+      "copy": "byte_exact",
+      "source_commit": "6e3e72f5f61954f154a077bf84b8bf2015c25033",
+      "git_blob_sha256": "b7593888c3e549f70f531b4b29a568f511fd35e85a999b5a9772e4bb54bf6af3"
+    },
+    {
+      "path": "probes/core_sdk/tests/test_bridge.py",
+      "source": ".cache/worktrees/core-sdk/probes/core_sdk/tests/test_bridge.py",
+      "source_sha256": "635aa18a055c3753572b3f2a1e086935128693d213d02d5cafc898dc58816111",
+      "published_sha256": "635aa18a055c3753572b3f2a1e086935128693d213d02d5cafc898dc58816111",
+      "bytes": 7054,
+      "copy": "byte_exact",
+      "source_commit": "6e3e72f5f61954f154a077bf84b8bf2015c25033",
+      "git_blob_sha256": "635aa18a055c3753572b3f2a1e086935128693d213d02d5cafc898dc58816111"
+    },
+    {
+      "path": "pyproject.toml",
+      "source": ".cache/worktrees/core-compare/pyproject.toml",
+      "source_sha256": "ae7c3aa5536a43eea00f7f07f870cc079921a4ac7f30314747f80db1714bbf66",
+      "published_sha256": "ae7c3aa5536a43eea00f7f07f870cc079921a4ac7f30314747f80db1714bbf66",
+      "bytes": 214,
+      "copy": "byte_exact",
+      "source_commit": "9892c1d7e5e624c56a1e4329a8d3b063e5d15560",
+      "git_blob_sha256": "ae7c3aa5536a43eea00f7f07f870cc079921a4ac7f30314747f80db1714bbf66"
+    },
+    {
+      "path": "uv.lock",
+      "source": ".cache/worktrees/core-compare/uv.lock",
+      "source_sha256": "0b453e917fbbf77941962c3016fed55ab594d7bd60426af498c0a7103c846054",
+      "published_sha256": "0b453e917fbbf77941962c3016fed55ab594d7bd60426af498c0a7103c846054",
+      "bytes": 315400,
+      "copy": "byte_exact",
+      "source_commit": "9892c1d7e5e624c56a1e4329a8d3b063e5d15560",
+      "git_blob_sha256": "0b453e917fbbf77941962c3016fed55ab594d7bd60426af498c0a7103c846054"
+    },
+    {
+      "path": "Benchmarks/experiment-contract.md",
+      "source": ".cache/worktrees/core-compare/Benchmarks/experiment-contract.md",
+      "source_sha256": "c212cbd4b2ab83fa7b1ff1410742427b35a5f01804d529b9946233d02b35e582",
+      "published_sha256": "c212cbd4b2ab83fa7b1ff1410742427b35a5f01804d529b9946233d02b35e582",
+      "bytes": 4968,
+      "copy": "byte_exact",
+      "source_commit": "9892c1d7e5e624c56a1e4329a8d3b063e5d15560",
+      "git_blob_sha256": "fa2310c732ebf713f8c772ccfb41d5ea7934f2000d6ec6d282067ff91027c7b7"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-self-smoke-r001/manifest.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_core/core/core-self-smoke-r001/manifest.json",
+      "source_sha256": "627cfcec9b49af3dc2eeb8fa41aa342d422f3038cf77d4cfebce34cf7435f6e2",
+      "published_sha256": "627cfcec9b49af3dc2eeb8fa41aa342d422f3038cf77d4cfebce34cf7435f6e2",
+      "bytes": 8936,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-self-smoke-r001/results.jsonl",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_core/core/core-self-smoke-r001/results.jsonl",
+      "source_sha256": "e7c38252ae85659969b5eca29f514ec278d85f1f2894ef3ebfb7e6ed6269c91e",
+      "published_sha256": "e7c38252ae85659969b5eca29f514ec278d85f1f2894ef3ebfb7e6ed6269c91e",
+      "bytes": 4805,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-sdk-smoke-r002/manifest.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_core/core/core-sdk-smoke-r002/manifest.json",
+      "source_sha256": "b36788641ae837b362bfbe657bd6507072e08304f9b89810f4e5ef5cf9ef4ad0",
+      "published_sha256": "b36788641ae837b362bfbe657bd6507072e08304f9b89810f4e5ef5cf9ef4ad0",
+      "bytes": 12973,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-sdk-smoke-r002/results.jsonl",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_core/core/core-sdk-smoke-r002/results.jsonl",
+      "source_sha256": "b0433cc7cd829715142121a0ec835f1b1a8396482d51f18858f107c808b337d1",
+      "published_sha256": "b0433cc7cd829715142121a0ec835f1b1a8396482d51f18858f107c808b337d1",
+      "bytes": 4798,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-probe-full-r001/manifest.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_core/core/core-probe-full-r001/manifest.json",
+      "source_sha256": "14897a2f2e5b9bb05ed7a6fddfb9d57d642bbbafeeb3cfad044b83076df53dad",
+      "published_sha256": "14897a2f2e5b9bb05ed7a6fddfb9d57d642bbbafeeb3cfad044b83076df53dad",
+      "bytes": 22611,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-probe-full-r001/results.jsonl",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_core/core/core-probe-full-r001/results.jsonl",
+      "source_sha256": "28b8c8702fbe875c49068bc80443bfca25192fe934c034926a22605ea965f06d",
+      "published_sha256": "28b8c8702fbe875c49068bc80443bfca25192fe934c034926a22605ea965f06d",
+      "bytes": 15497,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-sdk-full-r002/manifest.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_core/core/core-sdk-full-r002/manifest.json",
+      "source_sha256": "4ae7e9e8988037f315ebf340cada4a8b6ac4c6a27b20cb62aa039d9912f086a4",
+      "published_sha256": "4ae7e9e8988037f315ebf340cada4a8b6ac4c6a27b20cb62aa039d9912f086a4",
+      "bytes": 14994,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-sdk-full-r002/results.jsonl",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_core/core/core-sdk-full-r002/results.jsonl",
+      "source_sha256": "dd9354188a37e8d7ffc1e969869f7ddf529f90a1b58e9103887c3b079927d90a",
+      "published_sha256": "dd9354188a37e8d7ffc1e969869f7ddf529f90a1b58e9103887c3b079927d90a",
+      "bytes": 7741,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/perf/core-probe-timing-r001/manifest.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_core/perf/core-probe-timing-r001/manifest.json",
+      "source_sha256": "9b8fb432f519aea07ddec041366dfd2e2d751b6aa9e160ed7cf603fc3962aa7d",
+      "published_sha256": "9b8fb432f519aea07ddec041366dfd2e2d751b6aa9e160ed7cf603fc3962aa7d",
+      "bytes": 20951,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/perf/core-probe-timing-r001/results.jsonl",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_core/perf/core-probe-timing-r001/results.jsonl",
+      "source_sha256": "bca87b890ca88f43b2e08955109ad92f67961adb281ced6f0fcc9b8a8b2685d4",
+      "published_sha256": "bca87b890ca88f43b2e08955109ad92f67961adb281ced6f0fcc9b8a8b2685d4",
+      "bytes": 56813,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/perf/core-probe-memory-r001/manifest.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_core/perf/core-probe-memory-r001/manifest.json",
+      "source_sha256": "21dbb90eb30358cd0fb799d1ca3d07a59873604539f974809a841affd625ca5a",
+      "published_sha256": "21dbb90eb30358cd0fb799d1ca3d07a59873604539f974809a841affd625ca5a",
+      "bytes": 20951,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/perf/core-probe-memory-r001/results.jsonl",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_core/perf/core-probe-memory-r001/results.jsonl",
+      "source_sha256": "f04e83cec5184b832e8b060502a87633195d70e75134b454a14ddc434285cedf",
+      "published_sha256": "f04e83cec5184b832e8b060502a87633195d70e75134b454a14ddc434285cedf",
+      "bytes": 56881,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_story/agent/core-probe-live-r001/manifest.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_story/agent/core-probe-live-r001/manifest.json",
+      "source_sha256": "d4f19620f4d0bbdfd42490f32f5aaeca5826bd588dee072b6de0ac0e0f70c8e8",
+      "published_sha256": "d4f19620f4d0bbdfd42490f32f5aaeca5826bd588dee072b6de0ac0e0f70c8e8",
+      "bytes": 24633,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_story/agent/core-probe-live-r001/results.jsonl",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_story/agent/core-probe-live-r001/results.jsonl",
+      "source_sha256": "ea6f1be9f4a5d1a77ef59fe56a3b12aeabe9424523224545ac9a8608cf1e47cf",
+      "published_sha256": "ea6f1be9f4a5d1a77ef59fe56a3b12aeabe9424523224545ac9a8608cf1e47cf",
+      "bytes": 808747,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_story/agent/core-probe-live-r001/summary.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_story/agent/core-probe-live-r001/summary.json",
+      "source_sha256": "07ee1dc01ae0e74daed060b0d46b43cc018f0cfb35c04a28a0a930bc34933775",
+      "published_sha256": "07ee1dc01ae0e74daed060b0d46b43cc018f0cfb35c04a28a0a930bc34933775",
+      "bytes": 415,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_story/agent/core-probe-live-r001/materials.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_story/agent/core-probe-live-r001/materials.json",
+      "source_sha256": "a9c8a4c394034f0a067ddf108cb7e04f6b6c7a16fc1ed88c83ccc477da96fea2",
+      "published_sha256": "a9c8a4c394034f0a067ddf108cb7e04f6b6c7a16fc1ed88c83ccc477da96fea2",
+      "bytes": 17526,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_story/review/core-probe-live-r001/package.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_story/review/core-probe-live-r001/package.json",
+      "source_sha256": "ee0b7bb761e7185713795a761a472b27625b849234d42940284cdf66f4120186",
+      "published_sha256": "ee0b7bb761e7185713795a761a472b27625b849234d42940284cdf66f4120186",
+      "bytes": 2614646,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_story/review/core-probe-live-r001/binding.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_story/review/core-probe-live-r001/binding.json",
+      "source_sha256": "5cc56f448bbbac4be0d484fe1d3f0b41a694e9dac8319295751677f8c4c9cf20",
+      "published_sha256": "5cc56f448bbbac4be0d484fe1d3f0b41a694e9dac8319295751677f8c4c9cf20",
+      "bytes": 1028,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/agent_story/review/core-probe-live-r001/scored.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_story/review/core-probe-live-r001/scored.json",
+      "source_sha256": "3baa6fbb0b66341ed9c0241331235c648eb4481fc7fc3e05bb94cb6402413d48",
+      "published_sha256": "3baa6fbb0b66341ed9c0241331235c648eb4481fc7fc3e05bb94cb6402413d48",
+      "bytes": 48256,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-comparison-r001/comparison.md",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-comparison-r001/comparison.md",
+      "source_sha256": "b5652077cf7e9c2ee09383f32097aa278cd3ed511b53380b7f812de5b0aeffbf",
+      "published_sha256": "b5652077cf7e9c2ee09383f32097aa278cd3ed511b53380b7f812de5b0aeffbf",
+      "bytes": 10321,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-comparison-r002/comparison.md",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-comparison-r002/comparison.md",
+      "source_sha256": "0010db475d33dd26899c7969eed5e69f97668c116f1bbdcc76b80f6f0749d1f8",
+      "published_sha256": "0010db475d33dd26899c7969eed5e69f97668c116f1bbdcc76b80f6f0749d1f8",
+      "bytes": 8949,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-comparison-r002/independent-core-review.md",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-comparison-r002/independent-core-review.md",
+      "source_sha256": "7544c1e2dc08e2b4ccc5434b3002b9cc44e81c94f7af27bd31c52ed44e42941d",
+      "published_sha256": "7544c1e2dc08e2b4ccc5434b3002b9cc44e81c94f7af27bd31c52ed44e42941d",
+      "bytes": 18852,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-comparison-r002/independent-story-review.md",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-comparison-r002/independent-story-review.md",
+      "source_sha256": "f8cfaa200096011f354148e739ff471f02e902e33778cd74a3d0acf27d3f8c5a",
+      "published_sha256": "f8cfaa200096011f354148e739ff471f02e902e33778cd74a3d0acf27d3f8c5a",
+      "bytes": 7529,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-evaluation-r001/environment.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-evaluation-r001/environment.json",
+      "source_sha256": "9132a4fbe585fd82bd4546e271521b6d6857cc3447b9a36e7918fb78e0be4885",
+      "published_sha256": "9132a4fbe585fd82bd4546e271521b6d6857cc3447b9a36e7918fb78e0be4885",
+      "bytes": 3123,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-evaluation-r001/benchmark-offline.log",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-evaluation-r001/benchmark-offline.log",
+      "source_sha256": "06821bd8635cbf87ce779dd055d1d1ebe4ece1c9175dc22d60702103baa14410",
+      "published_sha256": "531147f222f0779e07b11213a44dd380e112f3b002898200c1dbe64542ed9afa",
+      "bytes": 13525,
+      "copy": "derived",
+      "source_encoding": "utf-16",
+      "transformation": "UTF-16LE BOM to UTF-8; decoded text unchanged, original byte hash retained",
+      "decoded_text_identical": true
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-evaluation-r001/project-offline.log",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-evaluation-r001/project-offline.log",
+      "source_sha256": "f8f4512bf382619629100f3a4b81f565d111131e8a85cbdb22ea78868347452e",
+      "published_sha256": "32d0848776165e2ca417f654cc452a39df8adc2ca0f25c1a691556bd078218a6",
+      "bytes": 2893,
+      "copy": "derived",
+      "source_encoding": "utf-16",
+      "transformation": "UTF-16LE BOM to UTF-8; decoded text unchanged, original byte hash retained",
+      "decoded_text_identical": true
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-evaluation-r001/rag-offline.log",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-evaluation-r001/rag-offline.log",
+      "source_sha256": "cb51bd0650fcc3f3e0096dd2055545e61be10fbf1fed634b283ecd504f8f684a",
+      "published_sha256": "3844a3cdc9eba257b0b93fe7111fdf5faff8b5bbe3213f08934b319b8d20569b",
+      "bytes": 13140,
+      "copy": "derived",
+      "source_encoding": "utf-16",
+      "transformation": "UTF-16LE BOM to UTF-8; decoded text unchanged, original byte hash retained",
+      "decoded_text_identical": true
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-evaluation-r001/core-self-tests.log",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-evaluation-r001/core-self-tests.log",
+      "source_sha256": "67990a63e210de079e8148da8e2f746f6e38089933a4a031e255aff73d0f2819",
+      "published_sha256": "56d67f0b3d43903a1fc32ff5916ddc10f244b785683afcc379573488cc6bf1dd",
+      "bytes": 1175,
+      "copy": "derived",
+      "source_encoding": "utf-16",
+      "transformation": "UTF-16LE BOM to UTF-8; decoded text unchanged, original byte hash retained",
+      "decoded_text_identical": true
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-evaluation-r001/core-sdk-tests-r003.log",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-evaluation-r001/core-sdk-tests-r003.log",
+      "source_sha256": "af81e2380e075b251dc0475fd2e2d2c46b8c93ef722aaafc1fa6aa53e01b4f46",
+      "published_sha256": "9ef9e57c427c8749ea277e923d9bb354b577800731a346a841ee1a2efd8a0766",
+      "bytes": 1423,
+      "copy": "derived",
+      "source_encoding": "utf-16",
+      "transformation": "UTF-16LE BOM to UTF-8; decoded text unchanged, original byte hash retained",
+      "decoded_text_identical": true
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-evaluation-r001/doc-sync-delivery.log",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-evaluation-r001/doc-sync-delivery.log",
+      "source_sha256": "595cf2bbd362843da144ec446c03d81d4d39eba63ce02dc05bfec2f6e884dac0",
+      "published_sha256": "113057af2805947f6548e786b6f923d363f8ea1f81564b483203cd2350114418",
+      "bytes": 3872,
+      "copy": "derived",
+      "source_encoding": "utf-16",
+      "transformation": "UTF-16LE BOM to UTF-8; decoded text unchanged, original byte hash retained",
+      "decoded_text_identical": true
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-live-r001/citation-format-audit.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-live-r001/citation-format-audit.json",
+      "source_sha256": "257557520a28c0c413c1134e8f1b70cd8cab64b306ccc875840fbf149973e54a",
+      "published_sha256": "257557520a28c0c413c1134e8f1b70cd8cab64b306ccc875840fbf149973e54a",
+      "bytes": 12225,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-live-r001/execution-analysis.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-live-r001/execution-analysis.json",
+      "source_sha256": "b9c72e32b0ddd08014ef45cfce5fd3e097072821f664316a8d8f636a591913a7",
+      "published_sha256": "b9c72e32b0ddd08014ef45cfce5fd3e097072821f664316a8d8f636a591913a7",
+      "bytes": 4854,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-live-r001/model-identity.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-live-r001/model-identity.json",
+      "source_sha256": "8bccfbeb7edc517839fa95b5250e6ba17a4ef8ecf66c292431566f9ba03c7fed",
+      "published_sha256": "8bccfbeb7edc517839fa95b5250e6ba17a4ef8ecf66c292431566f9ba03c7fed",
+      "bytes": 815,
+      "copy": "byte_exact"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/scripts/analyze_results.py",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-evaluation-r001/analyze_results.py",
+      "source_sha256": "83ae4d7e7ee21de34e43a4c4d6aab58d95e084ad6ad826520c477ae09c906c2b",
+      "published_sha256": "3a53d008a4ddb8c4715e885aa2b0ee87a7ee901be19fc0ede0a026598d6b15a6",
+      "bytes": 2585,
+      "copy": "derived",
+      "patch_from_source": "--- .cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-evaluation-r001/analyze_results.py\n+++ Benchmarks/reviews/core-probe-20261028/scripts/analyze_results.py\n@@ -1,13 +1,16 @@\n \"\"\"Describe existing benchmark rows; never execute candidates or change verdicts.\"\"\"\n import json\n+import sys\n from pathlib import Path\n+sys.path.insert(0, str(Path(__file__).resolve().parents[4]))\n from Benchmarks.support.common import distribution, read_json, read_rows\n \n-root = Path.cwd()\n-output = Path(__file__).parent\n+root = Path(__file__).resolve().parents[1] / \"evidence\"\n+output = Path(sys.argv[1])\n+output.mkdir(parents=True, exist_ok=True)\n analysis = {}\n for phase in (\"timing\", \"memory\"):\n-    run = root / \"Benchmarks/outputs/agent_core/perf\" / f\"core-probe-{phase}-r001\"\n+    run = root / \"agent_core/perf\" / f\"core-probe-{phase}-r001\"\n     rows = read_rows(run / \"results.jsonl\")\n     assert len(rows) == 21\n     assert all(r[\"execution_status\"] == \"completed\" and r[\"correct\"] is True\n"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/scripts/analyze_story.py",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-live-r001/analyze_story.py",
+      "source_sha256": "027949cc7f34efed10ca39508ae4f656a93e2ace853e7b695517f8920b717485",
+      "published_sha256": "32dbb1c3b202899890f3e7ee71556d9ad9aacca6564a7fcfcbd423e33391091a",
+      "bytes": 3515,
+      "copy": "derived",
+      "patch_from_source": "--- .cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-live-r001/analyze_story.py\n+++ Benchmarks/reviews/core-probe-20261028/scripts/analyze_story.py\n@@ -1,11 +1,12 @@\n \"\"\"Summarize frozen Story execution; semantic verdicts come from independent review.\"\"\"\n import hashlib\n import json\n+import sys\n import statistics\n from pathlib import Path\n \n-root = Path.cwd()\n-run = root / \"Benchmarks/outputs/agent_story/agent/core-probe-live-r001\"\n+root = Path(__file__).resolve().parents[1] / \"evidence\"\n+run = root / \"agent_story/agent/core-probe-live-r001\"\n rows = [json.loads(line) for line in (run / \"results.jsonl\").read_text(encoding=\"utf-8\").splitlines()]\n assert len(rows) == 18\n assert all(r[\"execution_status\"] == \"completed\" and r[\"conformance_status\"] == \"passed\" for r in rows)\n@@ -45,8 +46,10 @@\n            \"additional_successful_preflight_calls\": 2,\n            \"execution_order\": [r[\"adapter_id\"] + \":\" + r[\"scenario_id\"] + \":\" + str(r[\"repeat\"]) for r in rows],\n            \"run_sha256\": {n: hashlib.sha256((run / n).read_bytes()).hexdigest()\n-                          for n in (\"manifest.json\", \"results.jsonl\", \"trace.jsonl\", \"materials.json\")}}\n-target = Path(__file__).parent / \"execution-analysis.json\"\n+                          for n in (\"manifest.json\", \"results.jsonl\", \"materials.json\")}}\n+output = Path(sys.argv[1])\n+output.mkdir(parents=True, exist_ok=True)\n+target = output / \"execution-analysis.json\"\n with target.open(\"x\", encoding=\"utf-8\") as handle:\n     json.dump(summary, handle, ensure_ascii=False, indent=2)\n print(json.dumps(summary, ensure_ascii=False, indent=2))\n"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/scripts/audit_citation_format.py",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-live-r001/audit_citation_format.py",
+      "source_sha256": "1f5b5360c5054c744948530780d31c80d6246e5fc6517c071fed63fda37513aa",
+      "published_sha256": "1ec9e66066d1f42decb100aadf614ead8c8de65d57ef8ab7304b93e15ecf22ec",
+      "bytes": 2072,
+      "copy": "derived",
+      "patch_from_source": "--- .cache/worktrees/core-compare/Benchmarks/outputs/reports/core-probe-live-r001/audit_citation_format.py\n+++ Benchmarks/reviews/core-probe-20261028/scripts/audit_citation_format.py\n@@ -1,10 +1,11 @@\n \"\"\"Supplemental membership audit only; leave the public citation checker unchanged.\"\"\"\n from collections import defaultdict\n import json\n+import sys\n from pathlib import Path\n import re\n \n-run = Path(\"Benchmarks/outputs/agent_story/agent/core-probe-live-r001\")\n+run = Path(__file__).resolve().parents[1] / \"evidence/agent_story/agent/core-probe-live-r001\"\n rows = [json.loads(x) for x in (run / \"results.jsonl\").read_text(encoding=\"utf-8\").splitlines()]\n groups = defaultdict(lambda: {\"turns\": 0, \"recognized_by_public_checker\": 0,\n                              \"nonstandard_format_turns\": 0, \"citation_occurrences\": 0,\n@@ -29,6 +30,8 @@\n                       \"unknown_ids\": unknown, \"seen_ids\": sorted(seen)})\n result = {\"scope\": \"supplemental nonstandard [片段ID: ID] membership only; not a public-checker pass or semantic-support verdict\",\n           \"groups\": dict(groups), \"turns\": audit}\n-with (Path(__file__).parent / \"citation-format-audit.json\").open(\"x\", encoding=\"utf-8\") as handle:\n+output = Path(sys.argv[1])\n+output.mkdir(parents=True, exist_ok=True)\n+with (output / \"citation-format-audit.json\").open(\"x\", encoding=\"utf-8\") as handle:\n     json.dump(result, handle, ensure_ascii=False, indent=2)\n print(json.dumps({\"groups\": dict(groups)}, indent=2))\n"
+    },
+    {
+      "path": "Benchmarks/reviews/core-probe-20261028/inputs/story-api.json",
+      "source": ".cache/worktrees/core-compare/Benchmarks/outputs/agent_story/inputs/core-probe-live-r001/api.json",
+      "source_sha256": "5e75d3430fc868ab2db5f2656c4ff32b0f577c4a93db2ce7ee4b579aa8d1e0a2",
+      "published_sha256": "5e75d3430fc868ab2db5f2656c4ff32b0f577c4a93db2ce7ee4b579aa8d1e0a2",
+      "bytes": 225,
+      "copy": "byte_exact"
+    }
+  ],
+  "original_story_trace_sha256": "d898a2fb14cf6c4559d7bcfcda5594c4ecd7cbfb1d6baf620684f00f24a0bf09",
+  "omitted": [
+    "performance traces",
+    "standalone Story trace (included per sample in anonymous package)",
+    "duplicate source snapshots",
+    "full corpus",
+    "raw snapshot",
+    "model weights and server binaries",
+    "private config and authentication values",
+    "service lifecycle logs",
+    "development failure run directories"
+  ],
+  "notes": [
+    "Original evidence keeps absolute paths and historical status; it is not a portable config.",
+    "Git blobs and executed Windows files may differ only by CRLF/LF; both hashes are recorded.",
+    "Portable script copies change paths/output destinations only; analyze_story omits the unpublished standalone trace hash.",
+    "Public scenarios are inherited; frozen and retrieved excerpts are review data, not a redistributable full raw snapshot.",
+    "The Story run includes 54 model calls; the reported extra two preflight calls remain historical claims, not republished raw preflight evidence.",
+    "Six historical PowerShell logs are readable UTF-8 copies of UTF-16LE originals; decoded text is preserved, original hashes retained."
+  ],
+  "published_files": {
+    ".agents/notes/README.md": "15bfaa8ef3635bc201a74711d0ad0cbde534180f3b13ad6e628a1cef397ad0b8",
+    ".agents/notes/proposed/2026-10-28-core-probe-review-publication.md": "6e4c0bb00a5bdaf289e4845df6be017df8b3f235fdbf9a3be5d866d533ff254a",
+    ".gitattributes": "249e2a63d6394f14ed640305c6eb987495c756fc4e9ce4a2098afee9a7e3b8a1",
+    "Benchmarks/.gitignore": "fe455bd71f7b9e5aa4bdcbe1bb496321b685cb8d91db8bf151b3b3cfc915b935",
+    "Benchmarks/README.md": "138da87a5f04784695baa44a97ca48453e529b504ddfb5b8689eb19009b13709",
+    "Benchmarks/agent_story/README.md": "3cd8d87d394c25e210d8283ac52c110ab0c8f3bc79c85208a9f29a2e17691619",
+    "Benchmarks/context.md": "1d179e1e6b4f85360fe5423b40c44732bf16e8aff6bcc3283a83921c008370af",
+    "Benchmarks/experiment-contract.md": "c212cbd4b2ab83fa7b1ff1410742427b35a5f01804d529b9946233d02b35e582",
+    "Benchmarks/reviews/core-probe-20261028/.gitignore": "c4536f325181fa3b3f44ae1c57cfba63a09a5e5d6bad9acbbdbe61f0f5911711",
+    "Benchmarks/reviews/core-probe-20261028/README.md": "77b27a6e3c07d091c8ff48599268f5b5bb7c36f1bc681d09be2159ed05a5f62c",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-probe-full-r001/manifest.json": "14897a2f2e5b9bb05ed7a6fddfb9d57d642bbbafeeb3cfad044b83076df53dad",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-probe-full-r001/results.jsonl": "28b8c8702fbe875c49068bc80443bfca25192fe934c034926a22605ea965f06d",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-sdk-full-r002/manifest.json": "4ae7e9e8988037f315ebf340cada4a8b6ac4c6a27b20cb62aa039d9912f086a4",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-sdk-full-r002/results.jsonl": "dd9354188a37e8d7ffc1e969869f7ddf529f90a1b58e9103887c3b079927d90a",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-sdk-smoke-r002/manifest.json": "b36788641ae837b362bfbe657bd6507072e08304f9b89810f4e5ef5cf9ef4ad0",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-sdk-smoke-r002/results.jsonl": "b0433cc7cd829715142121a0ec835f1b1a8396482d51f18858f107c808b337d1",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-self-smoke-r001/manifest.json": "627cfcec9b49af3dc2eeb8fa41aa342d422f3038cf77d4cfebce34cf7435f6e2",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-self-smoke-r001/results.jsonl": "e7c38252ae85659969b5eca29f514ec278d85f1f2894ef3ebfb7e6ed6269c91e",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/perf/core-probe-memory-r001/manifest.json": "21dbb90eb30358cd0fb799d1ca3d07a59873604539f974809a841affd625ca5a",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/perf/core-probe-memory-r001/results.jsonl": "f04e83cec5184b832e8b060502a87633195d70e75134b454a14ddc434285cedf",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/perf/core-probe-timing-r001/manifest.json": "9b8fb432f519aea07ddec041366dfd2e2d751b6aa9e160ed7cf603fc3962aa7d",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/perf/core-probe-timing-r001/results.jsonl": "bca87b890ca88f43b2e08955109ad92f67961adb281ced6f0fcc9b8a8b2685d4",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_story/agent/core-probe-live-r001/manifest.json": "d4f19620f4d0bbdfd42490f32f5aaeca5826bd588dee072b6de0ac0e0f70c8e8",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_story/agent/core-probe-live-r001/materials.json": "a9c8a4c394034f0a067ddf108cb7e04f6b6c7a16fc1ed88c83ccc477da96fea2",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_story/agent/core-probe-live-r001/results.jsonl": "ea6f1be9f4a5d1a77ef59fe56a3b12aeabe9424523224545ac9a8608cf1e47cf",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_story/agent/core-probe-live-r001/summary.json": "07ee1dc01ae0e74daed060b0d46b43cc018f0cfb35c04a28a0a930bc34933775",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_story/review/core-probe-live-r001/binding.json": "5cc56f448bbbac4be0d484fe1d3f0b41a694e9dac8319295751677f8c4c9cf20",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_story/review/core-probe-live-r001/package.json": "ee0b7bb761e7185713795a761a472b27625b849234d42940284cdf66f4120186",
+    "Benchmarks/reviews/core-probe-20261028/evidence/agent_story/review/core-probe-live-r001/scored.json": "3baa6fbb0b66341ed9c0241331235c648eb4481fc7fc3e05bb94cb6402413d48",
+    "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-comparison-r001/comparison.md": "b5652077cf7e9c2ee09383f32097aa278cd3ed511b53380b7f812de5b0aeffbf",
+    "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-comparison-r002/comparison.md": "0010db475d33dd26899c7969eed5e69f97668c116f1bbdcc76b80f6f0749d1f8",
+    "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-comparison-r002/independent-core-review.md": "7544c1e2dc08e2b4ccc5434b3002b9cc44e81c94f7af27bd31c52ed44e42941d",
+    "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-comparison-r002/independent-story-review.md": "f8cfaa200096011f354148e739ff471f02e902e33778cd74a3d0acf27d3f8c5a",
+    "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-evaluation-r001/benchmark-offline.log": "531147f222f0779e07b11213a44dd380e112f3b002898200c1dbe64542ed9afa",
+    "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-evaluation-r001/core-sdk-tests-r003.log": "9ef9e57c427c8749ea277e923d9bb354b577800731a346a841ee1a2efd8a0766",
+    "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-evaluation-r001/core-self-tests.log": "56d67f0b3d43903a1fc32ff5916ddc10f244b785683afcc379573488cc6bf1dd",
+    "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-evaluation-r001/doc-sync-delivery.log": "113057af2805947f6548e786b6f923d363f8ea1f81564b483203cd2350114418",
+    "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-evaluation-r001/environment.json": "9132a4fbe585fd82bd4546e271521b6d6857cc3447b9a36e7918fb78e0be4885",
+    "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-evaluation-r001/project-offline.log": "32d0848776165e2ca417f654cc452a39df8adc2ca0f25c1a691556bd078218a6",
+    "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-evaluation-r001/rag-offline.log": "3844a3cdc9eba257b0b93fe7111fdf5faff8b5bbe3213f08934b319b8d20569b",
+    "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-live-r001/citation-format-audit.json": "257557520a28c0c413c1134e8f1b70cd8cab64b306ccc875840fbf149973e54a",
+    "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-live-r001/execution-analysis.json": "b9c72e32b0ddd08014ef45cfce5fd3e097072821f664316a8d8f636a591913a7",
+    "Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-live-r001/model-identity.json": "8bccfbeb7edc517839fa95b5250e6ba17a4ef8ecf66c292431566f9ba03c7fed",
+    "Benchmarks/reviews/core-probe-20261028/inputs/adapters.json": "aac43267c5f940326ab4abb65637a3fd96048f888c98f7dc6f1b78ad329d87e9",
+    "Benchmarks/reviews/core-probe-20261028/inputs/story-api.json": "5e75d3430fc868ab2db5f2656c4ff32b0f577c4a93db2ce7ee4b579aa8d1e0a2",
+    "Benchmarks/reviews/core-probe-20261028/scripts/analyze_results.py": "3a53d008a4ddb8c4715e885aa2b0ee87a7ee901be19fc0ede0a026598d6b15a6",
+    "Benchmarks/reviews/core-probe-20261028/scripts/analyze_story.py": "32dbb1c3b202899890f3e7ee71556d9ad9aacca6564a7fcfcbd423e33391091a",
+    "Benchmarks/reviews/core-probe-20261028/scripts/audit_citation_format.py": "1ec9e66066d1f42decb100aadf614ead8c8de65d57ef8ab7304b93e15ecf22ec",
+    "Benchmarks/reviews/core-probe-20261028/scripts/verify_publication.py": "90e5d869b127ba397a2892b59e146036c876ff2116957056f6a720d34081589f",
+    "Benchmarks/reviews/core-probe-20261028/verification.json": "e9e70affe0eae371b7677b3e080267bbd179288d9e838e6ec0b890d09e485add",
+    "README.md": "55d91bfa18c8da219d4f1c1c13a17556e5d0a642d0f841d3847a67e694eaef95",
+    "context.md": "fb44b315b0deef120eab2858e3b790cd13dd407cdd53923f82a1662e01aa58fd",
+    "docs/architecture.md": "ed19b400ff70036e08cb4e1c8c86b23b33c7de4d21e7f43e695bdf883d31d757",
+    "probes/README.md": "94d67200d9d1add09204bee9848836e1171f1f7001c7398d615feeb9491ffd09",
+    "probes/core_sdk/README.md": "b7593888c3e549f70f531b4b29a568f511fd35e85a999b5a9772e4bb54bf6af3",
+    "probes/core_sdk/adapters.json": "4bc68421da235abd3c0707f93b745327939eee54ab7e67a07cdcb20ed6cf5982",
+    "probes/core_sdk/agent.py": "0257c43793cccc7b7785235e81249c1ca897dd0dc75f8e156d83ae08a2fd81fc",
+    "probes/core_sdk/tests/test_bridge.py": "635aa18a055c3753572b3f2a1e086935128693d213d02d5cafc898dc58816111",
+    "probes/core_sdk/worker.py": "fe46c17ded22ea55037bf128158f55931c0f0726a2b0a2e1dcc49ac21132982f",
+    "probes/core_self/README.md": "4679574dea4ca3945d7da88988764abb515324c58edd078d1de6413b5bccd9b9",
+    "probes/core_self/adapters.json": "3255b715ce6635f19f566ab9c8853fb2c15416020d38ec63098ae887c4d00ba9",
+    "probes/core_self/tests/test_bridge.py": "e01a5d5ee1ce9ee7cecd5088e9f39bef61baa2ba8213d4646dcc8b7c2cc621af",
+    "probes/core_self/worker.py": "8a44e5fcee9fe75fa531cae10aab24baa8872da1b7e8d7c0703514087a6ba865",
+    "pyproject.toml": "ae7c3aa5536a43eea00f7f07f870cc079921a4ac7f30314747f80db1714bbf66",
+    "scripts/doc-budgets.manifest.json": "1b6fe63afe6b34c599d76bfadb7b29b2225d8e4d6987d1326e5db82d7fced824",
+    "uv.lock": "0b453e917fbbf77941962c3016fed55ab594d7bd60426af498c0a7103c846054"
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "adapters": [
+    {
+      "id": "core_self",
+      "command": [
+        "{python}",
+        "-B",
+        "probes/core_self/worker.py"
+      ],
+      "identity": {
+        "revision": "2de247252c064a40029b04bdcb9d4f8760a78f39",
+        "files": [
+          "probes/core_self/worker.py",
+          "probes/core_self/adapters.json",
+          "probes/core_self/adapters.json",
+          "Benchmarks/experiment-contract.md",
+          "pyproject.toml",
+          "uv.lock"
+        ]
+      },
+      "policies": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "adaptation": {
+        "target": "custom core-self-v1",
+        "ownership": {
+          "loop": "candidate",
+          "history": "candidate",
+          "recovery": "candidate"
+        },
+        "changes": [],
+        "effort_notes": "New standard-library implementation of fixed-history-v0 with a synchronous JSONL broker bridge; no SDK defaults. Implementation status and measured verification are maintained in probes/core_self/README.md."
+      }
+    },
+    {
+      "id": "core_sdk",
+      "command": [
+        "{python}",
+        "-B",
+        "probes/core_sdk/worker.py"
+      ],
+      "identity": {
+        "revision": "6e3e72f5f61954f154a077bf84b8bf2015c25033",
+        "files": [
+          "probes/core_sdk/worker.py",
+          "probes/core_sdk/agent.py",
+          "probes/core_sdk/adapters.json",
+          "Benchmarks/experiment-contract.md",
+          "pyproject.toml",
+          "uv.lock"
+        ]
+      },
+      "policies": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "adaptation": {
+        "target": "LangChain 1.4.7 create_agent; langchain-core 1.7.0; langgraph 1.2.18",
+        "ownership": {
+          "loop": "candidate",
+          "history": "shared",
+          "recovery": "adapter"
+        },
+        "changes": [
+          {
+            "area": "model transport",
+            "default_behavior": "SDK provider model integrations and optional global model cache",
+            "adapted_behavior": "Custom BaseChatModel delegates every request to the parent JSONL broker; cache=False",
+            "reason": "The parent fixes model identity, parameters and tool definitions and observes every model request"
+          },
+          {
+            "area": "message representation",
+            "default_behavior": "SDK AIMessage stores normalized content and parsed tool-call arguments",
+            "adapted_behavior": "Retain raw assistant message in additional_kwargs and restore it for broker history; SDK receives parsed scheduling objects",
+            "reason": "Preserve null content, exact tool IDs and raw argument strings without leaking SDK metadata"
+          },
+          {
+            "area": "history",
+            "default_behavior": "Caller-supplied graph messages; optional checkpointer for persistence",
+            "adapted_behavior": "Adapter stores separate full SDK-message histories per session, including failed turns; reset clears session history and transient state; no checkpointer",
+            "reason": "fixed-history-v0 requires interleaved sessions, complete history and explicit reset"
+          },
+          {
+            "area": "tool execution",
+            "default_behavior": "ToolNode can fan out calls and validate/invoke registered StructuredTools",
+            "adapted_behavior": "graph.invoke(max_concurrency=1); ToolNode wrap_tool_call middleware delegates raw parsed arguments to parent tools, bypassing registered handler and SDK coercion",
+            "reason": "The contract requires serial broker execution with exact original IDs and argument values"
+          },
+          {
+            "area": "recovery",
+            "default_behavior": "ToolNode emits SDK-specific validation and unknown-tool messages; provider tools determine result shape",
+            "adapted_behavior": "Malformed JSON/non-object arguments become invalid_arguments; all parseable requests including unknown tools go to broker; preserve ok/result or ok/error only, detect invalid_result, never retry",
+            "reason": "Return protocol-defined structured errors to the model; create_agent drives the subsequent recovery model request"
+          },
+          {
+            "area": "budgets",
+            "default_behavior": "create_agent graph recursion guard counts graph supersteps",
+            "adapted_behavior": "Before each broker model request enforce per-turn model-call limit and Unicode content context budget; service_managed with null context_limit has no local character limit; exception ends graph",
+            "reason": "Graph supersteps are not model requests and Story context is managed by its service"
+          },
+          {
+            "area": "completion",
+            "default_behavior": "Graph exits when the assistant has no tool calls",
+            "adapted_behavior": "Tool calls proceed only for tool_calls finish_reason; completion requires stop finish_reason and string content; preserve abnormal replies in history, return failed without dispatching tools; budget errors return their protocol status",
+            "reason": "API truncation and model-service failure must not masquerade as successful completion or trigger tools"
+          },
+          {
+            "area": "tracing",
+            "default_behavior": "SDK tracing can be enabled by inherited environment settings",
+            "adapted_behavior": "Disable LANGSMITH_TRACING and LANGCHAIN_TRACING_V2 in the worker before SDK import",
+            "reason": "Keep external I/O within the parent broker and avoid exporting benchmark content"
+          }
+        ],
+        "effort_notes": "Two production Python files implement JSONL transport, BaseChatModel and ToolNode middleware; create_agent graph owns actual model/tool orchestration. Fixed SDK versions and transitive dependencies are in root uv.lock. This probe uses synchronous invocation, one active turn, no checkpointer and only serial/recover/error/0; SDK upgrades require regression checks of raw-message roundtrip, scheduling and middleware behavior. Source size, installed package count and measured wall-clock milestones are in README; no human-hour estimate."
+      }
+    }
+  ]
+}

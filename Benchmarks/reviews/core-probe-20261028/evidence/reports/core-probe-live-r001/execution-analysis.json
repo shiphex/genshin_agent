@@ -1,0 +1,180 @@
+{
+  "groups": {
+    "core_self": {
+      "samples": 9,
+      "completed": 9,
+      "conformance_passed": 9,
+      "turns": 18,
+      "all_turn_status_completed": true,
+      "citations": {
+        "turns_with_citations": 0,
+        "unknown_citation_ids": []
+      },
+      "sample_elapsed_ms": {
+        "n": 9,
+        "median": 9955.468399915844,
+        "min": 7999.152600066736,
+        "max": 31264.629499986768
+      },
+      "turn_elapsed_ms": {
+        "n": 18,
+        "median": 7568.659799988382,
+        "min": 2032.1909000631422,
+        "max": 17111.087600002065
+      },
+      "scenarios": {
+        "a01": {
+          "sample_elapsed_ms": {
+            "n": 3,
+            "median": 8003.758999984711,
+            "min": 7999.152600066736,
+            "max": 8252.975900075398
+          },
+          "model_calls": 6,
+          "tool_calls": 3
+        },
+        "a06": {
+          "sample_elapsed_ms": {
+            "n": 3,
+            "median": 31249.119899934158,
+            "min": 31180.612500058487,
+            "max": 31264.629499986768
+          },
+          "model_calls": 12,
+          "tool_calls": 3
+        },
+        "a12": {
+          "sample_elapsed_ms": {
+            "n": 3,
+            "median": 9955.468399915844,
+            "min": 9916.101800044999,
+            "max": 12449.863699963316
+          },
+          "model_calls": 9,
+          "tool_calls": 3
+        }
+      },
+      "model_calls": 27,
+      "tool_calls": 9,
+      "model_http_responses": 27,
+      "model_api_completed": 27,
+      "model_truncated": 0,
+      "model_failed": 0,
+      "usage_missing_calls": 0,
+      "usage_totals": {
+        "prompt_tokens": 68781,
+        "completion_tokens": 8895,
+        "total_tokens": 77676
+      }
+    },
+    "core_sdk": {
+      "samples": 9,
+      "completed": 9,
+      "conformance_passed": 9,
+      "turns": 18,
+      "all_turn_status_completed": true,
+      "citations": {
+        "turns_with_citations": 0,
+        "unknown_citation_ids": []
+      },
+      "sample_elapsed_ms": {
+        "n": 9,
+        "median": 9887.725799926557,
+        "min": 7976.06190002989,
+        "max": 31347.687599947676
+      },
+      "turn_elapsed_ms": {
+        "n": 18,
+        "median": 7649.673349980731,
+        "min": 2048.9675999851897,
+        "max": 17122.146100038663
+      },
+      "scenarios": {
+        "a01": {
+          "sample_elapsed_ms": {
+            "n": 3,
+            "median": 7983.302899985574,
+            "min": 7976.06190002989,
+            "max": 8352.639499935322
+          },
+          "model_calls": 6,
+          "tool_calls": 3
+        },
+        "a06": {
+          "sample_elapsed_ms": {
+            "n": 3,
+            "median": 31296.408600057475,
+            "min": 31249.37219999265,
+            "max": 31347.687599947676
+          },
+          "model_calls": 12,
+          "tool_calls": 3
+        },
+        "a12": {
+          "sample_elapsed_ms": {
+            "n": 3,
+            "median": 9887.725799926557,
+            "min": 9884.621299919672,
+            "max": 9893.625500029884
+          },
+          "model_calls": 9,
+          "tool_calls": 3
+        }
+      },
+      "model_calls": 27,
+      "tool_calls": 9,
+      "model_http_responses": 27,
+      "model_api_completed": 27,
+      "model_truncated": 0,
+      "model_failed": 0,
+      "usage_missing_calls": 0,
+      "usage_totals": {
+        "prompt_tokens": 68781,
+        "completion_tokens": 8895,
+        "total_tokens": 77676
+      }
+    }
+  },
+  "same_response_check": {
+    "a01": {
+      "samples": 6,
+      "distinct_answer_sequences_with_citations": 1
+    },
+    "a06": {
+      "samples": 6,
+      "distinct_answer_sequences_with_citations": 1
+    },
+    "a12": {
+      "samples": 6,
+      "distinct_answer_sequences_with_citations": 1
+    }
+  },
+  "total_in_run_model_calls": 54,
+  "additional_successful_preflight_calls": 2,
+  "execution_order": [
+    "core_self:a01:1",
+    "core_sdk:a01:1",
+    "core_sdk:a01:2",
+    "core_self:a01:2",
+    "core_sdk:a01:3",
+    "core_self:a01:3",
+    "core_self:a06:1",
+    "core_sdk:a06:1",
+    "core_sdk:a06:2",
+    "core_self:a06:2",
+    "core_sdk:a06:3",
+    "core_self:a06:3",
+    "core_self:a12:1",
+    "core_sdk:a12:1",
+    "core_sdk:a12:2",
+    "core_self:a12:2",
+    "core_sdk:a12:3",
+    "core_self:a12:3"
+  ],
+  "run_sha256": {
+    "manifest.json": "d4f19620f4d0bbdfd42490f32f5aaeca5826bd588dee072b6de0ac0e0f70c8e8",
+    "results.jsonl": "ea6f1be9f4a5d1a77ef59fe56a3b12aeabe9424523224545ac9a8608cf1e47cf",
+    "trace.jsonl": "d898a2fb14cf6c4559d7bcfcda5594c4ecd7cbfb1d6baf620684f00f24a0bf09",
+    "materials.json": "a9c8a4c394034f0a067ddf108cb7e04f6b6c7a16fc1ed88c83ccc477da96fea2"
+  }
+}

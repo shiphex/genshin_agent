@@ -1,0 +1,574 @@
+{
+  "schema_version": 1,
+  "layout_version": 2,
+  "run_id": "core-probe-full-r001",
+  "started_at": "2026-10-28T08:27:53.205231+00:00",
+  "status": "completed",
+  "suite": "core",
+  "protocol_id": "spike-jsonl-v1",
+  "adapters": [
+    {
+      "id": "core_self",
+      "command": [
+        "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-compare\\.venv\\Scripts\\python.exe",
+        "-B",
+        "E:/Workplace/Learn_project/genshin_agent/.cache/worktrees/core-self/probes/core_self/worker.py"
+      ],
+      "identity": {
+        "revision": "2de247252c064a40029b04bdcb9d4f8760a78f39",
+        "files": [
+          "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-self\\probes\\core_self\\worker.py",
+          "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-self\\probes\\core_self\\adapters.json",
+          "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-compare\\Benchmarks\\experiment-contract.md",
+          "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-compare\\pyproject.toml",
+          "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-compare\\uv.lock",
+          "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-self\\probes\\core_self\\README.md",
+          "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-compare\\Benchmarks\\outputs\\agent_core\\inputs\\core-probe-r001\\core-self.json"
+        ]
+      },
+      "policies": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "adaptation": {
+        "target": "custom 2de247252c064a40029b04bdcb9d4f8760a78f39",
+        "ownership": {
+          "loop": "candidate",
+          "history": "candidate",
+          "recovery": "candidate"
+        },
+        "changes": [],
+        "effort_notes": "New standard-library implementation of fixed-history-v0 with a synchronous JSONL broker bridge; no SDK defaults. Implementation status and measured verification are maintained in probes/core_self/README.md."
+      }
+    },
+    {
+      "id": "core_sdk",
+      "command": [
+        "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-compare\\.venv\\Scripts\\python.exe",
+        "-B",
+        "E:/Workplace/Learn_project/genshin_agent/.cache/worktrees/core-sdk/probes/core_sdk/worker.py"
+      ],
+      "identity": {
+        "revision": "6d3a9d55ddba8773a0a4b8aec2cd592aa0ff8716",
+        "files": [
+          "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-sdk\\probes\\core_sdk\\worker.py",
+          "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-sdk\\probes\\core_sdk\\agent.py",
+          "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-compare\\Benchmarks\\experiment-contract.md",
+          "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-compare\\pyproject.toml",
+          "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-compare\\uv.lock",
+          "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-sdk\\probes\\core_sdk\\README.md",
+          "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-compare\\Benchmarks\\outputs\\agent_core\\inputs\\core-probe-r001\\core-sdk.json"
+        ]
+      },
+      "policies": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "adaptation": {
+        "target": "LangChain 1.4.7 create_agent; langchain-core 1.7.0; langgraph 1.2.18",
+        "ownership": {
+          "loop": "candidate",
+          "history": "shared",
+          "recovery": "adapter"
+        },
+        "changes": [
+          {
+            "area": "model transport",
+            "default_behavior": "SDK provider model integrations and optional global model cache",
+            "adapted_behavior": "Custom BaseChatModel delegates every request to the parent JSONL broker; cache=False",
+            "reason": "The parent fixes model identity, parameters and tool definitions and observes every model request"
+          },
+          {
+            "area": "message representation",
+            "default_behavior": "SDK AIMessage stores normalized content and parsed tool-call arguments",
+            "adapted_behavior": "Retain raw assistant message in additional_kwargs and restore it for broker history; SDK receives parsed scheduling objects",
+            "reason": "Preserve null content, exact tool IDs and raw argument strings without leaking SDK metadata"
+          },
+          {
+            "area": "history",
+            "default_behavior": "Caller-supplied graph messages; optional checkpointer for persistence",
+            "adapted_behavior": "Adapter stores separate full SDK-message histories per session, including failed turns; reset clears session history and transient state; no checkpointer",
+            "reason": "fixed-history-v0 requires interleaved sessions, complete history and explicit reset"
+          },
+          {
+            "area": "tool execution",
+            "default_behavior": "ToolNode can fan out calls and validate/invoke registered StructuredTools",
+            "adapted_behavior": "graph.invoke(max_concurrency=1); ToolNode wrap_tool_call middleware delegates raw parsed arguments to parent tools, bypassing registered handler and SDK coercion",
+            "reason": "The contract requires serial broker execution with exact original IDs and argument values"
+          },
+          {
+            "area": "recovery",
+            "default_behavior": "ToolNode emits SDK-specific validation and unknown-tool messages; provider tools determine result shape",
+            "adapted_behavior": "Malformed JSON/non-object arguments become invalid_arguments; all parseable requests including unknown tools go to broker; preserve ok/result or ok/error only, detect invalid_result, never retry",
+            "reason": "Return protocol-defined structured errors to the model; create_agent drives the subsequent recovery model request"
+          },
+          {
+            "area": "budgets",
+            "default_behavior": "create_agent graph recursion guard counts graph supersteps",
+            "adapted_behavior": "Before each broker model request enforce per-turn model-call limit and Unicode content context budget; service_managed with null context_limit has no local character limit; exception ends graph",
+            "reason": "Graph supersteps are not model requests and Story context is managed by its service"
+          },
+          {
+            "area": "completion",
+            "default_behavior": "Graph exits when the assistant has no tool calls",
+            "adapted_behavior": "Only stop finish_reason produces completed; preserve truncated reply history and return failed; budget errors return their protocol status",
+            "reason": "API truncation and model-service failure must not masquerade as successful completion"
+          },
+          {
+            "area": "tracing",
+            "default_behavior": "SDK tracing can be enabled by inherited environment settings",
+            "adapted_behavior": "Disable LANGSMITH_TRACING and LANGCHAIN_TRACING_V2 in the worker before SDK import",
+            "reason": "Keep external I/O within the parent broker and avoid exporting benchmark content"
+          }
+        ],
+        "effort_notes": "Two production Python files implement JSONL transport, BaseChatModel and ToolNode middleware; create_agent graph owns actual model/tool orchestration. Fixed SDK versions and transitive dependencies are in root uv.lock. This probe uses synchronous invocation, one active turn, no checkpointer and only serial/recover/error/0; SDK upgrades require regression checks of raw-message roundtrip, scheduling and middleware behavior. Source size, installed package count and measured wall-clock milestones are in README; no human-hour estimate."
+      }
+    }
+  ],
+  "evaluation_profile": "fixed-history-v0",
+  "planned_samples": [
+    {
+      "sample_id": "core_self:c01",
+      "adapter_id": "core_self",
+      "case_id": "c01",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_sdk:c01",
+      "adapter_id": "core_sdk",
+      "case_id": "c01",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_self:c02",
+      "adapter_id": "core_self",
+      "case_id": "c02",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_sdk:c02",
+      "adapter_id": "core_sdk",
+      "case_id": "c02",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_self:c03",
+      "adapter_id": "core_self",
+      "case_id": "c03",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_sdk:c03",
+      "adapter_id": "core_sdk",
+      "case_id": "c03",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_self:c04",
+      "adapter_id": "core_self",
+      "case_id": "c04",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_sdk:c04",
+      "adapter_id": "core_sdk",
+      "case_id": "c04",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_self:c05",
+      "adapter_id": "core_self",
+      "case_id": "c05",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_sdk:c05",
+      "adapter_id": "core_sdk",
+      "case_id": "c05",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_self:c06",
+      "adapter_id": "core_self",
+      "case_id": "c06",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_sdk:c06",
+      "adapter_id": "core_sdk",
+      "case_id": "c06",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_self:c07",
+      "adapter_id": "core_self",
+      "case_id": "c07",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_sdk:c07",
+      "adapter_id": "core_sdk",
+      "case_id": "c07",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_self:c08",
+      "adapter_id": "core_self",
+      "case_id": "c08",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_sdk:c08",
+      "adapter_id": "core_sdk",
+      "case_id": "c08",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_self:c09",
+      "adapter_id": "core_self",
+      "case_id": "c09",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_sdk:c09",
+      "adapter_id": "core_sdk",
+      "case_id": "c09",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_self:c10",
+      "adapter_id": "core_self",
+      "case_id": "c10",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_sdk:c10",
+      "adapter_id": "core_sdk",
+      "case_id": "c10",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_self:c11",
+      "adapter_id": "core_self",
+      "case_id": "c11",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_sdk:c11",
+      "adapter_id": "core_sdk",
+      "case_id": "c11",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_self:c12",
+      "adapter_id": "core_self",
+      "case_id": "c12",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_sdk:c12",
+      "adapter_id": "core_sdk",
+      "case_id": "c12",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_self:c13",
+      "adapter_id": "core_self",
+      "case_id": "c13",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_sdk:c13",
+      "adapter_id": "core_sdk",
+      "case_id": "c13",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_self:c14",
+      "adapter_id": "core_self",
+      "case_id": "c14",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_sdk:c14",
+      "adapter_id": "core_sdk",
+      "case_id": "c14",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_self:c15",
+      "adapter_id": "core_self",
+      "case_id": "c15",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    },
+    {
+      "sample_id": "core_sdk:c15",
+      "adapter_id": "core_sdk",
+      "case_id": "c15",
+      "fixture_only": false,
+      "policy_group": {
+        "tool_execution": "serial",
+        "tool_error": "recover",
+        "context": "error",
+        "max_tool_retries": 0
+      },
+      "conformance_status": "not_evaluated"
+    }
+  ],
+  "parameters": {
+    "timeout": 10.0
+  },
+  "provenance": {
+    "git_commit": "68b844036d8779c8dbabbcf44c9a8ffd20246739",
+    "git_status": "M Benchmarks/experiment-contract.md",
+    "files": {
+      ".python-version": "ceba8fa5c10f40fbed8feb7eb5238b63dda568908acfd874ee413747b29936c8",
+      "Benchmarks/__init__.py": "54fdfd4446d167eb7bc35777631e10f1505a45cb0b1229b62fb5662da2201565",
+      "Benchmarks/__main__.py": "7983cc99af694f65eae3ccb1eddfcd8daba16d2fae4a548d7106524ea4f9763a",
+      "Benchmarks/agent_core/__init__.py": "6f008fe4ff02f0a363ba0d927c293f6d0b5830fce605d395845a54158bf9f1ff",
+      "Benchmarks/agent_core/cases.py": "44c92f2e0f51ca563c06c0e54980a5af3a761244c39da9b83596bc976c949976",
+      "Benchmarks/agent_core/commands.py": "529e3c50f6fc51cb4b940e1b09e7d87fd5cfcaa292d933f60edc216cee802bfb",
+      "Benchmarks/agent_core/make_replay.py": "c9fb41faa25a996990615eb06cbc49755acd4cba4df559bc323da3e347a1ff12",
+      "Benchmarks/agent_core/reporting.py": "853b4714c2b8c010b7166383ce84556faba7e837af781b8e3c439d9d8386cc17",
+      "Benchmarks/agent_core/runner.py": "e380e698a67a15475e3376250af9ac241c312873fb8169a5126cc797969824f6",
+      "Benchmarks/agent_core/tapes.py": "5569e2a9e7547f79280ce271cacd8c0520ab8a4122757e095c11c36fb022e54d",
+      "Benchmarks/experiment-contract.md": "c212cbd4b2ab83fa7b1ff1410742427b35a5f01804d529b9946233d02b35e582",
+      "Benchmarks/outputs/agent_core/inputs/core-probe-r001/core-sdk.json": "dae16266feb46d77250d289ae6b43d01c5a3cd8156136e79d798765d9cc989e6",
+      "Benchmarks/outputs/agent_core/inputs/core-probe-r001/core-self.json": "68d132f366ebe5859d94ab4557aa36ff61c4aad944b53fa7eb0ea80c228b611d",
+      "Benchmarks/reports.py": "1accc74d4f16b54a74501ae075d08ffa81c4087b16b22b8d9a2201bd80dc1769",
+      "Benchmarks/support/__init__.py": "6f008fe4ff02f0a363ba0d927c293f6d0b5830fce605d395845a54158bf9f1ff",
+      "Benchmarks/support/common.py": "cde07c45116921135926b6af226b5e57165e98f688023d73cd1d970ef765127d",
+      "Benchmarks/support/contracts.py": "b5860a720a666efe65b0ae6bcb9d2f53a29aa5c8d1024d81e0cc2e7b389f1fe9",
+      "Benchmarks/support/execution.py": "c2b9889ca953c7ed3f313c5db3d92036cc52e2b986539b5be49497ce6de08d0b",
+      "Benchmarks/support/metrics.py": "82aa82b96e922722836c061a452ebe3325f49787d22e2a08e9e0adfa959fb668",
+      "Benchmarks/support/protocol.py": "6bd42d4706248c16b71bb885b6837a4f846ae7467b55d361becb732ca2ac3c80",
+      "Benchmarks/support/replay_worker.py": "88387d7f8f94e840afb1bbd61a04418cc71728c72be6e3f05a9503e6dbf190ba",
+      "Benchmarks/support/reporting.py": "0970399c32404a22f61d2d1e21c84a6d407918b554a8cd89ae7b3123cbedd270",
+      "Benchmarks/support/testing.py": "e27e1fdd87713848c259f1572ce24b696102d0d5f8f17ddfe64e70db783a12b9",
+      "pyproject.toml": "ae7c3aa5536a43eea00f7f07f870cc079921a4ac7f30314747f80db1714bbf66",
+      "uv.lock": "0b453e917fbbf77941962c3016fed55ab594d7bd60426af498c0a7103c846054",
+      "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-sdk\\probes\\core_sdk\\agent.py": "f3a06f48d9c71f36a6ada8903763c5187f672de53a2bd8ed83995721ce7a57e7",
+      "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-sdk\\probes\\core_sdk\\README.md": "fe3a9b2a5a30c104e15981a31f8a81cc2adc93981f7f60a3106010e6e5ac4d48",
+      "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-sdk\\probes\\core_sdk\\worker.py": "fe46c17ded22ea55037bf128158f55931c0f0726a2b0a2e1dcc49ac21132982f",
+      "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-self\\probes\\core_self\\adapters.json": "3255b715ce6635f19f566ab9c8853fb2c15416020d38ec63098ae887c4d00ba9",
+      "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-self\\probes\\core_self\\README.md": "4679574dea4ca3945d7da88988764abb515324c58edd078d1de6413b5bccd9b9",
+      "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-self\\probes\\core_self\\worker.py": "8a44e5fcee9fe75fa531cae10aab24baa8872da1b7e8d7c0703514087a6ba865"
+    }
+  },
+  "environment": {
+    "platform": "Windows-10-10.0.26300-SP0",
+    "python": "3.11.7 | packaged by Anaconda, Inc. | (main, Dec 15 2023, 18:05:47) [MSC v.1916 64 bit (AMD64)]",
+    "psutil": "7.2.2",
+    "logical_cpus": 16
+  },
+  "user_acceptance": "not_evaluated",
+  "finished_at": "2026-10-28T08:28:16.317129+00:00",
+  "error": null
+}

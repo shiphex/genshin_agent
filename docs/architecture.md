@@ -26,6 +26,7 @@ description: "说明项目当前模块、证据数据流和扩展位置。"
 | [基线索引](../rag/docs/data.md) | 固定当前资源与指纹，新运行写入独立输出 |
 | [Smoke](../rag/eval/smoke/README.md) | 三题模型链路、完整结果与初审依据 |
 | [Benchmarks](../Benchmarks/README.md) | 按被测任务分类；agent_core测确定性行为与开销，agent_story用Qwen与既有词面检索测多轮任务 |
+| [Core探针](../probes/README.md) | 自建循环与create_agent候选，仅经JSONL broker获取模型和工具结果；依赖与适配成本单列 |
 
 RAG 通过配置连接用户已部署的 chat-completions 服务，不负责下载模型或启动服务。外部爬虫属于独立项目，恢复任务通过既有交接说明传递。
 
@@ -39,7 +40,7 @@ RAG 通过配置连接用户已部署的 chat-completions 服务，不负责下�
 
 ## 边界与扩展
 
-Benchmarks只编排场景、统一provider、收集轨迹和评分，不实现agent core。分类自持用例、runner和判定；support供所有分类共享协议、记录和测量，不导入分类实现，薄入口组合报告。候选adapter内保留工具循环、历史和恢复决策；RAG实现与catalog只读复用。新运行写入Benchmarks/outputs/分类/用途/运行号，跨分类报告写outputs/reports；旧输出原位只读，RAG eval暂留rag。实际候选与真实模型尚未验证。
+Benchmarks只编排场景、统一provider、收集轨迹和评分，不实现agent core。分类自持用例、runner和判定；support供所有分类共享协议、记录和测量，不导入分类实现，薄入口组合报告。候选adapter内保留工具循环、历史和恢复决策；RAG实现与catalog只读复用。新运行写入Benchmarks/outputs/分类/用途/运行号，跨分类报告写outputs/reports；旧输出原位只读，RAG eval暂留rag。本分支按用户批准白名单发布[评审副本](../Benchmarks/reviews/core-probe-20261028/README.md)，已执行范围及未验证事项由其维护，不代表生产Core选型。
 
 当前词面检索和脚本组合是 MVP 选择。以后引入向量检索、数据库、角色 agent 或界面时，先说明新增职责、依赖和兼容影响，再更新本页；不把未实施方案画成现有组件。
 

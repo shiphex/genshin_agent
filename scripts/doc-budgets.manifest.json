@@ -43,5 +43,11 @@
   "Benchmarks/agent_story/evaluation.md": 1500,
   "Benchmarks/support/README.md": 600,
   "Benchmarks/support/protocol.md": 2200,
-  "Benchmarks/support/measurement.md": 1400
+  "Benchmarks/support/measurement.md": 1400,
+  "probes/README.md": 350,
+  "probes/core_self/README.md": 1900,
+  "probes/core_sdk/README.md": 2100,
+  "Benchmarks/experiment-contract.md": 1600,
+  "Benchmarks/reviews/core-probe-20261028/README.md": 2900,
+  ".agents/notes/proposed/2026-10-28-core-probe-review-publication.md": 1300
 }

@@ -1,0 +1,21 @@
+uv : test_context_checked_again_after_tool_content_growth (test_bridge.BridgeTests.test_context_checked_again_after_too
+l_content_growth) ... ok
+所在位置 行:2 字符: 1
++ uv --cache-dir E:/Workplace/Learn_project/genshin_agent/.cache/uv run ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_context_ch..._growth) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_live_provider_unicode_system_evidence_and_multiturn (test_bridge.BridgeTests.test_live_provider_unicode_system_evi
+dence_and_multiturn) ... ok
+test_malformed_arguments_recover_without_dispatch (test_bridge.BridgeTests.test_malformed_arguments_recover_without_dis
+patch) ... ok
+test_model_error_and_truncation_are_failed_without_retry (test_bridge.BridgeTests.test_model_error_and_truncation_are_f
+ailed_without_retry) ... ok
+test_nullable_tool_calls_complete_and_remain_in_history (test_bridge.BridgeTests.test_nullable_tool_calls_complete_and_
+remain_in_history) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.660s
+
+OK

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "adapters": [
+    {
+      "id": "core_self",
+      "command": ["{python}", "-B", "probes/core_self/worker.py"],
+      "identity": {"revision": "core-self-v1", "files": ["probes/core_self/worker.py", "probes/core_self/adapters.json"]},
+      "policies": {"tool_execution": "serial", "tool_error": "recover", "context": "error", "max_tool_retries": 0},
+      "adaptation": {
+        "target": "custom core-self-v1",
+        "ownership": {"loop": "candidate", "history": "candidate", "recovery": "candidate"},
+        "changes": [],
+        "effort_notes": "New standard-library implementation of fixed-history-v0 with a synchronous JSONL broker bridge; no SDK defaults. Implementation status and measured verification are maintained in probes/core_self/README.md."
+      }
+    }
+  ]
+}

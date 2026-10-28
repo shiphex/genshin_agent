@@ -6,6 +6,9 @@ dependencies = []
 
 [dependency-groups]
 benchmark = ["psutil>=5.9,<8"]
+core-sdk = [
+    "langchain==1.4.7",
+]
 
 [tool.uv]
 package = false
