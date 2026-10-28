@@ -12,6 +12,7 @@ from urllib.parse import urlparse
 
 from rag.scripts.evaluate_rag_mvp import LexicalIndex
 from rag.scripts.prepare_eval import resolve_pointer
+from rag.scripts.local_model_config import API_FIELDS, generation_options
 
 from Benchmarks.support.common import encoded, file_hash, read_json
 from Benchmarks.support.contracts import normal_messages, validate_policy
@@ -54,7 +55,7 @@ def freeze_sources(scene, raw_root):
 class QwenClient:
     def __init__(self, config, transport=None):
         self.config = deepcopy(config)
-        allowed = {"base_url", "model", "api_key_env", "timeout", "max_tokens", "temperature", "seed", "top_k"}
+        allowed = API_FIELDS | {"profile"}
         if set(config) - allowed:
             raise ValueError("unsupported model config field; credentials must use api_key_env")
         forbidden = {"api_key", "token", "authorization", "password"} & {k.lower() for k in config}
@@ -66,6 +67,7 @@ class QwenClient:
         self.config.setdefault("seed", 42)
         self.config.setdefault("timeout", 180)
         self.config.setdefault("max_tokens", 1536)
+        generation_options(self.config)
         for key in ("timeout", "temperature"):
             value = self.config[key]
             if type(value) not in {int, float} or not math.isfinite(value) or value < 0 or (key == "timeout" and value == 0):
@@ -98,8 +100,7 @@ class QwenClient:
     def chat(self, messages, tools, remaining, tool_choice=None):
         self.resolve_model()
         payload = {"model": self.config["model"], "messages": messages, "tools": tools,
-                   "stream": False, "temperature": self.config["temperature"], "seed": self.config["seed"],
-                   "max_tokens": self.config["max_tokens"], "chat_template_kwargs": {"enable_thinking": False}}
+                   "stream": False, **generation_options(self.config)}
         if tool_choice:
             payload["tool_choice"] = tool_choice
         raw = self.transport("chat/completions", payload, min(remaining, self.config["timeout"]))
@@ -108,7 +109,7 @@ class QwenClient:
         if message.get("role") != "assistant":
             raise ValueError("model response must be an assistant message")
         calls = message.get("tool_calls") or []
-        if not calls and not isinstance(message.get("content"), str):
+        if not calls and (not isinstance(message.get("content"), str) or not message["content"].strip()):
             raise ValueError("model returned neither content nor native tool calls")
         identities = set()
         for call in calls:

@@ -13,6 +13,7 @@ description: "提供当前 RAG 基线、语料检索、题库准备和 Hugging F
 - [当前入口](#当前入口)
 - [语料与检索](#语料与检索)
 - [问题集与 Smoke](#问题集与-smoke)
+- [本地模型](#本地模型)
 - [110题检索评测](#110题检索评测)
 - [检索 CLI 参考](#检索-cli-参考)
 - [Hugging Face 导出](#hugging-face-导出)
@@ -24,7 +25,7 @@ description: "提供当前 RAG 基线、语料检索、题库准备和 Hugging F
 | 位置 | 用途 |
 | --- | --- |
 | `scripts/`、`tests/` | 语料、检索评测与导出脚本及行为测试 |
-| `config/local_api.json` | 本地 chat-completions 服务连接与生成参数 |
+| `config/local_api.json` | 公共 API、生成档位与 llama.cpp 参数；本机值用忽略的 .local.json |
 | [eval](eval/README.md) | 110题开发集与20题独立事实核验 |
 | [smoke](eval/smoke/README.md) | 三题 Q4 模型完整链路验证 |
 | [数据管理](docs/data.md) | 基线、独立输出、保留与更新规则 |
@@ -65,6 +66,10 @@ uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3
 该工具读取冻结原文、输出带 `sources[].text` 的副本，不评分、不调用模型。JSON题库尚未接通 JSONL 模型 runner。准备副本按需生成，不是基线的重复常驻文件。
 
 [三题 Smoke](eval/smoke/README.md)保留六份完整回答、实际检索上下文、结构化初审与必要依据。再次运行模型对照的命令是 `evaluate_rag_mvp.py`（不加 `--retrieval-only`）；它会真实访问配置的本地服务并产生新输出，不会重现历史回答。脚本不启动服务或下载权重，鉴权从环境变量读取。
+
+## 本地模型
+
+llama.cpp 显式启动、私有路径覆盖和 simple／standard／deep 调用档位见[本地模型配置](docs/local_model.md)。RAG 与 Benchmark 共用读取器；评测不自动启动服务，旧平面配置仍可读取且默认关闭思考。当前公共配置默认 standard，尚未实测显存、延迟或游戏影响。
 
 ## 110题检索评测
 

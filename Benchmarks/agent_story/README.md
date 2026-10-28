@@ -26,7 +26,7 @@ uv --cache-dir .cache/uv run --locked --group benchmark --offline --no-python-do
 
 `candidates.json`由用户按协议准备。`agent`仍登记本次原生function call预检；不支持时明确失败，不改成文本模拟。默认16场景，每场景完整重复3次，每次新worker／干净会话；每轮最多8次模型请求、检索Top5、240秒期限。可重复`--scenario a06`筛选，或用`--repeats`、`--max-steps`、`--top-k`、`--timeout`调整。
 
-配置读取`base_url/model/api_key_env/timeout/max_tokens`，`temperature/seed`默认0／42；所有候选共用。`model=null`仅接受服务恰好公开一个模型。鉴权从环境变量读取，拒绝未知字段，防止把令牌写入manifest。
+所有候选共用[本地模型配置](../../rag/docs/local_model.md)，支持私有覆盖和 `--profile simple|standard|deep`；默认使用配置选中的档位。旧平面配置的 temperature／seed 默认0／42且关闭思考；`model=null`仅接受服务恰好公开一个模型。鉴权从环境变量读取，拒绝未知字段；启动路径不进入客户端配置。HTTP超时仍受剩余任务期限限制，deep 如需更长任务时间应显式设置 `agent --timeout 600`，不自动延长原240秒默认值。
 
 默认语料从只读catalog定位并校验指纹，`--corpus`／`--raw-root`可指定自定义材料并记录真实身份。`--model-service-pid`可单列本机服务资源；未提供记未测。`--measure memory`另跑完整场景，不能与timing混合比较。共享测量范围见[说明](../support/measurement.md)。
 

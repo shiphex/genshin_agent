@@ -27,7 +27,7 @@ description: "说明项目当前模块、证据数据流和扩展位置。"
 | [Smoke](../rag/eval/smoke/README.md) | 三题模型链路、完整结果与初审依据 |
 | [Benchmarks](../Benchmarks/README.md) | 按被测任务分类；agent_core测确定性行为与开销，agent_story用Qwen与既有词面检索测多轮任务 |
 
-RAG 通过配置连接用户已部署的 chat-completions 服务，不负责下载模型或启动服务。外部爬虫属于独立项目，恢复任务通过既有交接说明传递。
+RAG 评测通过配置连接已部署的 chat-completions 服务，不自动下载模型或启动服务；独立的[本地模型入口](../rag/docs/local_model.md)由用户显式启动 llama.cpp，并向 RAG 与 Benchmark 提供剔除私有启动字段后的 API 配置。外部爬虫属于独立项目，恢复任务通过既有交接说明传递。
 
 ## 证据与执行数据流
 

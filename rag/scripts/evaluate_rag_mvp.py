@@ -17,8 +17,10 @@ from urllib.request import Request, urlopen
 
 try:
     from . import artifact_catalog
+    from .local_model_config import generation_options, load_api_config
 except ImportError:
     import artifact_catalog
+    from local_model_config import generation_options, load_api_config
 
 RAG_ROOT = Path(__file__).resolve().parents[1]
 PROJECT = RAG_ROOT.parent
@@ -155,8 +157,7 @@ def chat(config, messages, generation=None):
         raise ValueError("unsupported generation override")
     payload = {
         "model": config["model"], "messages": messages, "stream": False,
-        "temperature": 0, "seed": 42, "max_tokens": config.get("max_tokens", 768),
-        "chat_template_kwargs": {"enable_thinking": False},
+        **generation_options(config),
     }
     payload.update(overrides)
     response = api_request(config, "chat/completions", payload)
@@ -254,7 +255,10 @@ def write_report(output, results, config, retrieval_only):
                "mode": "retrieval_only" if retrieval_only else "model_comparison",
                "model": config.get("model"), "top_k": config.get("top_k", 5),
                "dataset": config.get("dataset"),
-               "max_tokens": config.get("max_tokens", 768), "temperature": 0, "seed": 42,
+               "max_tokens": config.get("max_tokens", 768),
+               "temperature": generation_options(config)["temperature"],
+               "seed": generation_options(config)["seed"],
+               "profile": config.get("profile"), "generation": generation_options(config),
                "questions": len(results), "answerable_questions": len(scored),
                "unscored_questions": len(results) - len(scored),
                "index_build_seconds": results[0].get("index_build_seconds") if results else None,
@@ -299,6 +303,7 @@ def main(argv=None):
     parser.add_argument("--corpus", type=Path)
     parser.add_argument("--questions", type=Path)
     parser.add_argument("--config", type=Path, default=RAG_ROOT / "config/local_api.json")
+    parser.add_argument("--profile", help="explicit generation profile from the model config")
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--retrieval-only", action="store_true", help="do not call or probe any model API")
     parser.add_argument("--limit", type=int, help="smoke-test only the first N questions")
@@ -317,14 +322,15 @@ def main(argv=None):
         output = artifact_catalog.reserve_output(PROJECT, 'retrieval' if args.retrieval_only else 'model', args.output_dir)
         args.output_dir = output
         validate_output_dir(output, input_paths=(args.corpus, args.questions, args.config))
-        config = json.loads(args.config.read_text(encoding="utf-8-sig"))
+        config = load_api_config(args.config, args.profile)
         config["dataset"] = args.dataset
         if config.get("top_k", 5) < 1 or (args.limit is not None and args.limit < 1):
             raise ValueError("top_k and limit must be positive")
-        artifact_catalog.seal_inputs(PROJECT, output, (args.corpus, args.questions, args.config, Path(__file__), Path(artifact_catalog.__file__)),
+        artifact_catalog.seal_inputs(PROJECT, output, (args.corpus, args.questions, args.config, Path(__file__), Path(artifact_catalog.__file__),
+                                     Path(__file__).with_name("local_model_config.py")),
                                      {'dataset': args.dataset, 'retrieval_only': args.retrieval_only, 'limit': args.limit,
                                       'retrieval_top_k': config.get('top_k', 5), 'max_tokens': config.get('max_tokens'),
-                                      'temperature': config.get('temperature', 0), 'seed': config.get('seed', 42)})
+                                      'profile': config.get('profile'), 'generation': generation_options(config)})
         corpus, questions = load_jsonl(args.corpus), load_jsonl(args.questions)
         questions = map_source_evidence(questions, corpus)
         validate_inputs(corpus, questions)

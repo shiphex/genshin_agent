@@ -13,6 +13,9 @@ __pycache__/
 !/rag/config/
 /rag/config/*
 !/rag/config/local_api.json
+!/rag/config/local_api.local.example.json
+# Machine paths, device selection and endpoint overrides stay local.
+/rag/config/*.local.json
 !/rag/scripts/
 /rag/scripts/*
 !/rag/scripts/*.py

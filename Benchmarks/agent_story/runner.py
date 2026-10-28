@@ -26,6 +26,7 @@ def run_agent(adapters, output, suite, corpus, client, raw_root, repeats=3, max_
                     "system": SYSTEM, "tools": [SEARCH_TOOL], "story_cutoff": suite.get("story_cutoff"),
                     "review_status": suite.get("review_status", "pending_review")}, [*input_paths, BENCH / "agent_story/scenarios.json",
                     ROOT / "rag/scripts/evaluate_rag_mvp.py", ROOT / "rag/scripts/prepare_eval.py",
+                    ROOT / "rag/scripts/local_model_config.py",
                     ROOT / "rag/scripts/artifact_catalog.py"], implementation=BENCH / "agent_story",
                     snapshot_paths=[BENCH / "agent_story/scenarios.json"], evaluation_profile="fixed-history-v0")
     try:

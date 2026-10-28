@@ -1,0 +1,44 @@
+# Agent Note: 本地模型启动、分档思考与配置隐私
+
+Status: proposed
+
+## 问题
+
+用户选择以 llama.cpp 启动 Qwen3.5-4B-Q4_K_M，在 4060 8GB 环境中与原神同时运行，模型显存目标约 4GB，允许适度超出。不需要图像识别，需要剧情分析的思考能力。用户接受一般问题几秒、较难问题十几秒、极复杂问题几分钟；暂按完整可用答案理解，尚无速度实测。
+
+现有配置仅连接外部服务，没有启动信息；两个客户端固定关闭思考。静态核对本机 llama-server b9837 / b3fed31b9 的帮助和设备枚举，存在 Vulkan 后端及约 2.55 GiB 的 GGUF；未加载模型。私人绝对路径、设备标识与程序位置不写入本记录。
+
+## 方案
+
+公共配置保留模型别名、单槽位、16K 上下文、全 GPU 层、256/128 批量、自动 Flash Attention、F16 KV 与不加载视觉投影文件的候选值。约 4GB 是目标，不是硬限制；超预算后依次评估 Q8 KV、较短上下文、部分 CPU 卸载，不自动降级或提升基线。
+
+显式选择 simple / standard / deep 三档：思考预算 0 / 1024 / 8192，思考与正文共用的生成上限 1024 / 3072 / 12288。默认 standard；请求超时 30 / 90 / 600 秒只作失败保护，不代表延迟承诺。深度档在 16K 上下文中留给输入的空间较少，调用者必须控制证据和历史。自动分档、任务整体期限和 token 容量管理暂缓。
+
+采样以 Qwen 官方思考模式建议为起点：temperature=1、top_p=0.95、top_k=20、min_p=0、presence_penalty=1.5、repeat_penalty=1；simple 使用非思考采样 temperature=0.7、top_p=0.8。检索 top_k=5 与 generation.top_k 分开。
+
+本次交付公共 JSON、被 Git 忽略的同名 .local.json 覆盖、独立显式启动入口及两个客户端的档位接入。启动信息不进入模型请求或运行参数清单；鉴权仍只存环境变量名。已有平面配置继续按关闭思考读取，历史原件不改。评测不自动启动、下载模型或执行真实模型实验。
+
+## 考虑过的替代方案
+
+单一固定思考预算难以兼顾日常速度和复杂分析；首先降低权重量化精度会影响能力，因此暂不采用。将本机绝对路径放进共享配置后再依靠操作习惯隐藏容易误提交，改为独立忽略文件；不对已跟踪文件使用 assume-unchanged。
+
+## 实施计划
+
+- [x] 配置读取：新增 rag/scripts/local_model_config.py 和合成测试，验证本地覆盖、档位、旧格式、未知字段拒绝以及启动信息不进入 API 配置。
+- [x] 调用接入：RAG 与 Benchmark 读取同一配置并发送真实预算字段；先验证请求与记录的参数一致，再修改实现。档位通过 --profile 显式选择，保留两端原有错误与期限语义。
+- [x] 显式启动：新增 rag/scripts/serve_local_model.py，校验本地模型文件和程序，构造无 shell 的 llama-server 参数；--dry-run 不启动或暴露本机路径。补充忽略规则、公共示例与本机覆盖。
+- [x] 文档与验证：同步 RAG、Benchmark 使用入口、架构与 notes 导航及预算；运行所属离线测试、doc-sync、差异与隐私检查。不提交、推送或启动真实模型。
+
+## 验收要求
+
+离线测试覆盖档位切换、启停思考、检索与采样 top_k 区分、非法预算、未知字段、本地覆盖与启动参数；Git 候选中不含本机路径或鉴权值，本机覆盖实际被忽略。启动 dry-run 可以完成参数检查，不能据此登记模型启动成功。
+
+2026-10-28 配置交付验证：通过 uv 离线执行 RAG 78 项、Benchmark 75 项测试；doc-sync、差异、JSON、Git 忽略和候选文件的本机路径检查通过。显式启动 dry-run 与 CLI 帮助已核对，只读审查无具体问题；未调用真实模型。操作入口见[本地模型配置](../../../rag/docs/local_model.md)。配置层已落地，但资源与响应目标尚未验收，整项设计继续保留 proposed。
+
+后续在游戏运行时分别测量空闲与推理显存峰值、输入处理／思考／正文耗时、帧时间、截断与语义质量，才决定最终参数。三个档位的自动选择与整体调用预算另行实现。
+
+## 风险
+
+同卡推理仍会竞争计算资源，显存低于目标也可能影响游戏流畅度；Vulkan 的实际吞吐、Flash Attention 和缓存精度兼容性未实测。思考可能耗尽输出预算，不能把 reasoning_content 当正文或放回普通对话历史。4B 思考不保证剧情正确，程序完成和语义验收分别记录。
+
+预算请求字段依据[对应版本源码](https://github.com/ggml-org/llama.cpp/blob/b3fed31b9/tools/server/server-common.cpp)：thinking_budget_tokens；不能凭 CLI 名称猜成 reasoning_budget。采样依据[模型卡](https://huggingface.co/Qwen/Qwen3.5-4B#best-practices)，启动参数见[版本文档](https://github.com/ggml-org/llama.cpp/blob/b3fed31b9/tools/server/README.md)。这些是静态依据，尚不证明本机推理有效。

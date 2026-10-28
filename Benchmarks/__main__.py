@@ -26,6 +26,7 @@ def parser():
             command.add_argument("--warmup", type=int, default=2)
         if name == "agent":
             command.add_argument("--config", type=Path, default=ROOT / "rag/config/local_api.json")
+            command.add_argument("--profile", help="Explicit generation profile from the model config")
             command.add_argument("--corpus", type=Path)
             command.add_argument("--raw-root", type=Path)
             command.add_argument("--scenario", action="append", dest="scenarios")
@@ -35,6 +36,7 @@ def parser():
             command.add_argument("--model-service-pid", type=int)
     preflight = commands.add_parser("preflight", help="LIVE Qwen native function-call capability check")
     preflight.add_argument("--config", type=Path, default=ROOT / "rag/config/local_api.json")
+    preflight.add_argument("--profile", help="Explicit generation profile from the model config")
     preflight.add_argument("--output", type=Path)
     review = commands.add_parser("review").add_subparsers(dest="review_command", required=True)
     export = review.add_parser("export", help="Offline: give package.json and template to pi")

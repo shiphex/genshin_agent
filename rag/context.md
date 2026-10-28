@@ -6,7 +6,7 @@ description: "记录当前RAG基线、遗留问题与最近验证边界。"
 
 ## 摘要
 
-更新：2026-10-17。当前资料集合由[catalog](catalog.json)定义；操作入口见[README](README.md)。用户选择以当前状态建立新基线，淘汰旧实验、题库原型、ZIP、Git bundle和过程归档，不再维持旧路径兼容。
+更新：2026-10-28。当前资料集合由[catalog](catalog.json)定义；操作入口见[README](README.md)。用户选择以当前状态建立新基线，淘汰旧实验、题库原型、ZIP、Git bundle和过程归档，不再维持旧路径兼容。
 
 ## 目录
 
@@ -24,6 +24,8 @@ description: "记录当前RAG基线、遗留问题与最近验证边界。"
 用户补充的20题第三方摘要与历史提示词已原样存入 `data/review20/summary.md`，当前基线为current-003；Smoke输入及说明已归入[eval/smoke](eval/smoke/README.md)，14份清单文件内容不变。摘要中的旧路径与输出要求不作为当前指令，现行核验入口见[题库说明](eval/README.md#20题核验)。
 
 ## 最近验证
+
+本地模型已接入私有覆盖、显式 llama.cpp 启动和三档预算，见[配置入口](docs/local_model.md)。合成测试与 dry-run 已执行；真实显存、延迟、游戏影响和自动分档未验证。
 
 2026-10-17检索r002完成110题Top5，来源位置Hit为95/110，Coverage宏平均73.77%、微平均307/445；3条标注未映射到语料，保留分母。与r001排序／指标一致，独立重算及输入／源码／产物哈希检查通过，模型调用0，14份current-003指纹不变。完整记录在本地data/outputs/retrieval/r002，不提升基线或用户验收。
 

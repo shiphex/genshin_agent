@@ -79,6 +79,31 @@ class CurrentEntryTests(unittest.TestCase):
             self.assertEqual(len(results), 1)
             self.assertEqual(results[0]['answers'], {})
 
+    def test_profile_cli_records_effective_sampling_without_private_launch_settings(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.evaluation_fixture(root)
+            path = root / 'rag/config/local_api.json'
+            path.write_text(json.dumps({'top_k': 5, 'profile': 'standard',
+                'generation': {'temperature': 0.7, 'top_k': 20},
+                'profiles': {'standard': {'max_tokens': 64, 'enable_thinking': True,
+                                          'thinking_budget_tokens': 32}}}))
+            path.with_name('local_api.local.json').write_text(json.dumps({
+                'llama_cpp': {'model_path': 'private-model-sentinel.gguf', 'device': 'private-device-sentinel'}}))
+            with patch.object(evaluate, 'PROJECT', root), patch.object(evaluate, 'RAG_ROOT', root / 'rag'), \
+                 patch.object(evaluate, 'api_request', side_effect=AssertionError('must not call API')):
+                self.assertEqual(evaluate.main(['--retrieval-only', '--profile', 'standard']), 0)
+            output = root / 'rag/data/outputs/retrieval/r001'
+            summary = json.loads((output / 'summary.json').read_text())
+            manifest = json.loads((output / 'run_manifest.json').read_text())
+            self.assertEqual(summary['temperature'], 0.7)
+            self.assertEqual(summary['top_k'], 5)
+            self.assertEqual(summary['generation']['top_k'], 20)
+            self.assertEqual(summary['profile'], 'standard')
+            self.assertEqual(summary['generation'], manifest['parameters']['generation'])
+            self.assertNotIn('private-model-sentinel', json.dumps(manifest))
+            self.assertNotIn('private-device-sentinel', json.dumps(summary))
+
     def test_full_preparation_is_default_and_does_not_promote_baseline(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

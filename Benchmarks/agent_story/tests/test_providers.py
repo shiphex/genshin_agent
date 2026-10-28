@@ -15,12 +15,39 @@ class ProviderTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             QwenClient({**self.config(), "access_token": "synthetic-value"})
 
+    def test_selected_generation_reaches_native_tool_request_without_leaking_thought_history(self):
+        received = []
+        def transport(path, payload, timeout):
+            received.append((payload, timeout))
+            return {"choices": [{"message": {"role": "assistant", "content": "answer",
+                                              "reasoning_content": "internal thought"}, "finish_reason": "stop"}]}
+        settings = {**self.config(), "max_tokens": 3072, "enable_thinking": True,
+                    "thinking_budget_tokens": 1024, "profile": "standard", "top_k": 5,
+                    "generation": {"temperature": 1, "top_k": 20}}
+        result = QwenClient(settings, transport=transport).chat([], [SEARCH_TOOL], 0.5)
+        payload, deadline = received[0]
+        self.assertEqual(payload["top_k"], 20)
+        self.assertEqual(payload["temperature"], 1)
+        self.assertEqual(payload["thinking_budget_tokens"], 1024)
+        self.assertTrue(payload["chat_template_kwargs"]["enable_thinking"])
+        self.assertEqual(deadline, 0.5)
+        self.assertNotIn("reasoning_content", result["message"])
+        self.assertEqual(result["raw_response"]["choices"][0]["message"]["reasoning_content"], "internal thought")
+
     def test_preflight_requires_native_function_call(self):
         def transport(path, payload, timeout):
             return {"choices": [{"message": {"role": "assistant", "content": "pretend tool call"}, "finish_reason": "stop"}]}
         client = QwenClient(self.config(), transport=transport)
         with self.assertRaisesRegex(ValueError, "native tool"):
             client.preflight()
+
+    def test_thought_only_response_is_not_a_usable_answer(self):
+        for content in (None, "", "  "):
+            def transport(*args):
+                return {"choices": [{"message": {"role": "assistant", "content": content,
+                                                  "reasoning_content": "still thinking"}, "finish_reason": "length"}]}
+            with self.subTest(content=content), self.assertRaises(ValueError):
+                QwenClient(self.config(), transport=transport).chat([], [], 1)
 
     def test_http_preflight_uses_native_tools_against_only_a_loopback_fake(self):
         from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
