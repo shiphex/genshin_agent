@@ -20,3 +20,6 @@ context.md text eol=lf
 scripts/doc-budgets.manifest.json text eol=lf
 Benchmarks/agent_story/README.md text eol=lf
 docs/architecture.md text eol=lf
+
+# Historical terminal output retains observed spaces; code/doc checks stay enabled.
+Benchmarks/reviews/core-probe-20261028/evidence/reports/core-probe-evaluation-r001/*.log -text whitespace=-blank-at-eol,cr-at-eol

@@ -1,5 +1,5 @@
 {
-  "status": "local_checks_passed_fresh_clone_pending",
+  "status": "local_release_verified",
   "date": "2026-10-28",
   "base_commit": "1b25d92510dcaa0d4ff6e0216e589f2b3a881bb4",
   "checks": [
@@ -72,13 +72,26 @@
       "command": "uv ... python -B .cache/check_review_recalculation.py (local packaging check; not published)",
       "exit_code": 0,
       "observed_summary": "perf and citation JSON identical; Story JSON identical except omitted standalone trace hash; tamper rejected and original restored"
+    },
+    {
+      "name": "fresh-clone",
+      "validated_snapshot_commit": "b27640f",
+      "environment": "Independent local clone, no raw snapshot/corpus/models; fresh uv environment prepared from locked cached packages.",
+      "exit_code": 0,
+      "observed_summary": "publication hash/whitelist check, doc-sync, all three portable computation scripts and relative-adapter Core30/30 passed."
+    },
+    {
+      "name": "final-diff-format",
+      "command": "git diff 1b25d92 --check",
+      "exit_code": 0,
+      "observed_summary": "Only historical terminal logs retain original whitespace via path-specific attributes; source/docs whitespace checks remain active."
     }
   ],
   "independent_publication_review": {
     "status": "no_must_fix",
     "scope": "Source and Git blob hashes, unchanged public code, all 18 anonymous traces vs originals, credential scan, paired performance statistics, denominator and documented limitations.",
     "reviewed_publication_file_count": 65,
-    "later_changes": "Corrected inherited current-status docs; final clone and Note transition follow."
+    "later_changes": "Corrected inherited current-status docs; six historical logs converted UTF-16LE to UTF-8 with decoded text preserved; original terminal spaces retained via narrow attributes; Note transitioned after local verification."
   },
   "not_run": [
     "real Story/model calls during publication",
@@ -86,5 +99,9 @@
     "user semantic acceptance",
     "remote CI"
   ],
-  "remote_publication": "pending"
+  "remote_publication": {
+    "target_branch": "review/core-probe",
+    "status": "not_self_certified",
+    "verification": "After push compare advertised GitHub refs/heads/review/core-probe to local HEAD. Remote CI is not claimed."
+  }
 }

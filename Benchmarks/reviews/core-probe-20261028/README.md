@@ -22,7 +22,7 @@ description: "提供 Core 技术探针的最小评审材料、来源、复算命
 2. 比较[自建候选](../../../probes/core_self/README.md)与[SDK 候选](../../../probes/core_sdk/README.md)的源码、专项测试和适配声明。候选文件按原字节保留，README 的进度属于实现阶段，不代表当前统一评估状态。
 3. 读[Core／性能历史报告](evidence/reports/core-probe-comparison-r001/comparison.md)及[真实 Story 补测报告](evidence/reports/core-probe-comparison-r002/comparison.md)。r001 当时未跑 Story，r002 补充真实结果；原报告的本机路径和历史“不推送”说明原样保留，不能作为本分支的当前操作指令。
 4. 独立审阅 Story 时先只读[完整18样本匿名包](evidence/agent_story/review/core-probe-live-r001/package.json)，自行按冻结标准判断，再查看[既有 AI 评分](evidence/agent_story/review/core-probe-live-r001/scored.json)、[候选映射](evidence/agent_story/review/core-probe-live-r001/binding.json)和[独立语义审阅](evidence/reports/core-probe-comparison-r002/independent-story-review.md)。
-5. 对照[Core 独立审阅与修复复核](evidence/reports/core-probe-comparison-r002/independent-core-review.md)、[来源及文件哈希](provenance.json)和[决策 Note](../../../.agents/notes/proposed/2026-10-28-core-probe-review-publication.md)。
+5. 对照[Core 独立审阅与修复复核](evidence/reports/core-probe-comparison-r002/independent-core-review.md)、[来源及文件哈希](provenance.json)和[决策 Note](../../../.agents/notes/implemented/2026-10-28-core-probe-review-publication.md)。
 
 | 来源 | 身份 |
 | --- | --- |
@@ -31,7 +31,7 @@ description: "提供 Core 技术探针的最小评审材料、来源、复算命
 | SDK 最终交接 | `6e3e72f5f61954f154a077bf84b8bf2015c25033`，源码修复 `c53efa9` |
 | 对比文档交接 | `9892c1d7e5e624c56a1e4329a8d3b063e5d15560` |
 
-这些原 commit 是来源标记，原实验分支不推送，不能保证远端能直接检出它们。`provenance.json` 同时登记原 Git blob 与实际执行文件的 SHA-256；LF／CRLF 可能不同。源码及冻结 JSON 按实际字节发布并关闭自动换行转换。六份历史 PowerShell 日志原为 UTF-16LE，发布副本转 UTF-8 供 GitHub 阅读，解码文本不变，原字节哈希及转换单列登记。此 manifest 证明一致性，不独立证明作者或实验真实性。
+这些原 commit 是来源标记，原实验分支不推送，不能保证远端能直接检出它们。`provenance.json` 同时登记原 Git blob 与实际执行文件的 SHA-256；LF／CRLF 可能不同。源码及冻结 JSON 按实际字节发布并关闭自动换行转换。六份历史 PowerShell 日志原为 UTF-16LE，发布副本转 UTF-8 供 GitHub 阅读，解码文本不变，原字节哈希及转换单列登记；原终端行尾空格保留，只有这些历史日志豁免行尾空格检查，源码和文档不豁免。此 manifest 证明一致性，不独立证明作者或实验真实性。
 
 ## 材料与限制
 

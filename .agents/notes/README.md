@@ -28,7 +28,7 @@ Agent Note 保存实现和普通文档不能充分解释的重要决策原因、
 
 ## 当前记录
 
-- [Core探针最小评审发布](proposed/2026-10-28-core-probe-review-publication.md)：单分支、证据白名单和未发布范围。
+- [Core探针最小评审发布](implemented/2026-10-28-core-probe-review-publication.md)：单分支、证据白名单和未发布范围。
 
 - [严格探针符合性与适配成本](implemented/2026-10-21-fixed-history-conformance.md)：V0结果含义、适配声明和自主历史模式暂缓取舍。
 - [Doc Sync V0](implemented/2026-10-19-doc-sync-v0.md)：单 CLI 生成、链接检查、统一入口及 type-equiv 暂缓取舍。

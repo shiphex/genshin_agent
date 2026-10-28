@@ -468,16 +468,16 @@
     "Six historical PowerShell logs are readable UTF-8 copies of UTF-16LE originals; decoded text is preserved, original hashes retained."
   ],
   "published_files": {
-    ".agents/notes/README.md": "15bfaa8ef3635bc201a74711d0ad0cbde534180f3b13ad6e628a1cef397ad0b8",
-    ".agents/notes/proposed/2026-10-28-core-probe-review-publication.md": "6e4c0bb00a5bdaf289e4845df6be017df8b3f235fdbf9a3be5d866d533ff254a",
-    ".gitattributes": "249e2a63d6394f14ed640305c6eb987495c756fc4e9ce4a2098afee9a7e3b8a1",
+    ".agents/notes/README.md": "14b56cb1c4d9f237682998227a980f6025300a70982e97cb22e3a6bee177f797",
+    ".agents/notes/implemented/2026-10-28-core-probe-review-publication.md": "344f221cbf39eedbb73f8291666e4d7ca090e5872f5ab3f26fd2455fe6854256",
+    ".gitattributes": "3bce969701a4fda39c75fdfff73252780f116bdbd41c44290bc34d6323d8166e",
     "Benchmarks/.gitignore": "fe455bd71f7b9e5aa4bdcbe1bb496321b685cb8d91db8bf151b3b3cfc915b935",
     "Benchmarks/README.md": "138da87a5f04784695baa44a97ca48453e529b504ddfb5b8689eb19009b13709",
     "Benchmarks/agent_story/README.md": "3cd8d87d394c25e210d8283ac52c110ab0c8f3bc79c85208a9f29a2e17691619",
     "Benchmarks/context.md": "1d179e1e6b4f85360fe5423b40c44732bf16e8aff6bcc3283a83921c008370af",
     "Benchmarks/experiment-contract.md": "c212cbd4b2ab83fa7b1ff1410742427b35a5f01804d529b9946233d02b35e582",
     "Benchmarks/reviews/core-probe-20261028/.gitignore": "c4536f325181fa3b3f44ae1c57cfba63a09a5e5d6bad9acbbdbe61f0f5911711",
-    "Benchmarks/reviews/core-probe-20261028/README.md": "77b27a6e3c07d091c8ff48599268f5b5bb7c36f1bc681d09be2159ed05a5f62c",
+    "Benchmarks/reviews/core-probe-20261028/README.md": "4ececea281fa4fa3fc173151cbc928c5c66a158bf486dc9945dd7feb3b2f4d84",
     "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-probe-full-r001/manifest.json": "14897a2f2e5b9bb05ed7a6fddfb9d57d642bbbafeeb3cfad044b83076df53dad",
     "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-probe-full-r001/results.jsonl": "28b8c8702fbe875c49068bc80443bfca25192fe934c034926a22605ea965f06d",
     "Benchmarks/reviews/core-probe-20261028/evidence/agent_core/core/core-sdk-full-r002/manifest.json": "4ae7e9e8988037f315ebf340cada4a8b6ac4c6a27b20cb62aa039d9912f086a4",
@@ -517,7 +517,7 @@
     "Benchmarks/reviews/core-probe-20261028/scripts/analyze_story.py": "32dbb1c3b202899890f3e7ee71556d9ad9aacca6564a7fcfcbd423e33391091a",
     "Benchmarks/reviews/core-probe-20261028/scripts/audit_citation_format.py": "1ec9e66066d1f42decb100aadf614ead8c8de65d57ef8ab7304b93e15ecf22ec",
     "Benchmarks/reviews/core-probe-20261028/scripts/verify_publication.py": "90e5d869b127ba397a2892b59e146036c876ff2116957056f6a720d34081589f",
-    "Benchmarks/reviews/core-probe-20261028/verification.json": "e9e70affe0eae371b7677b3e080267bbd179288d9e838e6ec0b890d09e485add",
+    "Benchmarks/reviews/core-probe-20261028/verification.json": "5bae0e9ccf6506380c23b46db78540c737bed5314345fe0349595172645fcaf4",
     "README.md": "55d91bfa18c8da219d4f1c1c13a17556e5d0a642d0f841d3847a67e694eaef95",
     "context.md": "fb44b315b0deef120eab2858e3b790cd13dd407cdd53923f82a1662e01aa58fd",
     "docs/architecture.md": "ed19b400ff70036e08cb4e1c8c86b23b33c7de4d21e7f43e695bdf883d31d757",
@@ -532,7 +532,7 @@
     "probes/core_self/tests/test_bridge.py": "e01a5d5ee1ce9ee7cecd5088e9f39bef61baa2ba8213d4646dcc8b7c2cc621af",
     "probes/core_self/worker.py": "8a44e5fcee9fe75fa531cae10aab24baa8872da1b7e8d7c0703514087a6ba865",
     "pyproject.toml": "ae7c3aa5536a43eea00f7f07f870cc079921a4ac7f30314747f80db1714bbf66",
-    "scripts/doc-budgets.manifest.json": "1b6fe63afe6b34c599d76bfadb7b29b2225d8e4d6987d1326e5db82d7fced824",
+    "scripts/doc-budgets.manifest.json": "b1453babe3a9be21372193fed97248d1ccc47ff416c8d00c3ccec1448ab58adc",
     "uv.lock": "0b453e917fbbf77941962c3016fed55ab594d7bd60426af498c0a7103c846054"
   }
 }
