@@ -6,7 +6,7 @@ description: "记录benchmark交付范围、验证状态和后续候选接入边
 
 ## 摘要
 
-更新：2026-10-21。agent_core／agent_story保留15个Core用例、16个Agent场景及统一CLI；新运行声明V0固定历史评测口径，协议符合性与执行分列，支持可选人工适配声明。support供各分类复用，Python环境统一到项目根。入口见[索引](README.md)，字段见[协议](support/protocol.md)。这里不实现agent core。
+更新：2026-10-30。agent_core／agent_story保留15个Core用例、16个Agent场景及统一CLI；新运行声明V0固定历史评测口径，协议符合性与执行分列，支持可选人工适配声明。support供各分类复用，Python环境统一到项目根。入口见[索引](README.md)，字段见[协议](support/protocol.md)。这里不实现agent core。
 
 ## 当前状态与边界
 
@@ -24,4 +24,4 @@ CI已接入[离线测试](../docs/development.md#ci-v0)；Windows空环境、空
 
 迁移轮已验证154个历史文件路径及SHA-256、场景字节、current-003基线指纹、计时／内存回放和根配置追溯；项目15项与RAG 68项测试通过。本轮未重跑这些数据核验或RAG测试，RAG eval仍在原处。
 
-2026-10-30 真实 Qwen 预检与工具兼容性通过，见[RAG 验证](../rag/context.md#最近验证)。未执行剧情 Benchmark 或 a06；Linux、候选成本和剧情语义未验证。输出忽略，不自动清理或提升基线。
+2026-10-30 精确a06的 required 前置正文已定位，前缀验证见[RAG](../rag/context.md#最近验证)。H1/C1、Linux、成本与语义未验收。输出忽略，不提升基线或自动清理。

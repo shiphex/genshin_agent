@@ -51,7 +51,7 @@ uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3
 
 RAG 检索使用根 `top_k`；Benchmark 检索仍由其 CLI 的 `--top-k` 控制。
 
-`tool_choice_mode` 允许 `native`（缺省）和 `required_single_tool`（当前公共配置），不作为采样字段发送。Benchmark 的 QwenClient 在后者模式下，将指定函数对象转换为本次仅提供目标工具、`tool_choice: "required"`；目标必须匹配唯一工具，普通请求和字符串策略不转换。两种模式均要求指定调用正常工具结束、名称一致及参数为 JSON 对象，否则失败，不降级或重试。响应的 `request` 保存模式、原始指定值和实际 payload；无工具的 RAG 生成不受影响。
+`tool_choice_mode` 允许 `native`（缺省）、`required_single_tool` 和 `required_single_tool_prefill`（当前公共值），不作为采样字段发送。后两种将指定函数转换为唯一目标工具加 required；目标必须唯一。prefill 仅适用于当前 Qwen3.5 工具模板：请求须以 user/tool 消息结束，附加临时 assistant 内容 `<tool_call>\n` 并设置 `continue_final_message=content`、`add_generation_prompt=false`，直接进入工具格式，显式关闭该次思考并将已有思考预算置0。普通请求和字符串策略不转换，后续恢复原工具、消息和档位。指定调用须正常工具结束、名称一致且参数为 JSON 对象，否则失败，不降级或重试。`request` 保存模式、原始指定及实际 payload；前缀不进入正常历史，无工具 RAG 不受影响。
 
 | 档位 | 思考 | thinking_budget_tokens | max_tokens | timeout（秒） |
 | --- | --- | --- | --- | --- |
@@ -67,7 +67,7 @@ RAG 检索使用根 `top_k`；Benchmark 检索仍由其 CLI 的 `--top-k` 控制
 
 约 4GB 是显存目标，参数没有实现显存硬上限；权重文件大小不等于显存峰值。16K 中 deep 上限会挤压输入空间；调用者负责使输入、思考与正文总量容纳于上下文。超预算后再评估 Q8 KV、缩短上下文或 CPU 卸载，不能仅凭启动成功认定兼容、游戏流畅或剧情正确。
 
-2026-10-30 已真实启动本机 b9837 / b3fed31b9：三档短对话、开关思考各三次指定工具及两次工具往返通过。对象形式在该构建被按字符串读取并退回 auto，已结合日志复现；适配模式通过与用户意图相反的指定工具检查，未出现类型告警。这不证明其他模板兼容、预算精确执行、剧情正确或达到性能目标；Vulkan 吞吐、显存与游戏帧时间仍未验收。预算字段与工具解析依据 [b3fed31b9 源码](https://github.com/ggml-org/llama.cpp/blob/b3fed31b9/tools/server/server-common.cpp)，采样依据 [Qwen 模型卡](https://huggingface.co/Qwen/Qwen3.5-4B#best-practices)。更换版本或模板须重新核对行为。
+2026-10-30 精确 a06 重放确认 required 语法已启用，但允许不限长度的前置正文，仍会耗尽1536 token；旧短输入验证不足以保证该输入完成。前缀模式已在相同系统提示、用户问题与生成上限下验证原生调用；它增加输入前缀、跳过强制步骤的思考，不是原 A 的相同请求，须重建 O/A 对照。不保证其他模板、参数 schema、预算精确执行、剧情或性能。预算与解析见[b3fed31b9 源码](https://github.com/ggml-org/llama.cpp/blob/b3fed31b9/tools/server/server-common.cpp)，采样见[Qwen 模型卡](https://huggingface.co/Qwen/Qwen3.5-4B#best-practices)；更换版本或模板须重新验证。
 
 ## Dev Note
 

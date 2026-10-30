@@ -101,7 +101,9 @@ class QwenClient:
     def chat(self, messages, tools, remaining, tool_choice=None):
         requested = deepcopy(tool_choice)
         tools = deepcopy(tools)
+        messages = deepcopy(messages)
         target = None
+        prefill = False
         if isinstance(tool_choice, dict):
             function = tool_choice.get("function")
             target = function.get("name") if isinstance(function, dict) else None
@@ -111,11 +113,23 @@ class QwenClient:
                        and tool.get("function", {}).get("name") == target]
             if len(matches) != 1:
                 raise ValueError("named tool_choice must match exactly one supplied tool")
-            if self.config["tool_choice_mode"] == "required_single_tool":
+            if self.config["tool_choice_mode"] in {"required_single_tool", "required_single_tool_prefill"}:
                 tools, tool_choice = matches, "required"
+                prefill = self.config["tool_choice_mode"] == "required_single_tool_prefill"
+                if prefill:
+                    if not messages or messages[-1].get("role") not in {"user", "tool"}:
+                        raise ValueError("tool prefill requires a user or tool message tail")
+                    # Qwen3.5's native marker enters the required grammar's tool branch,
+                    # bypassing its unbounded optional prose prefix. This is not history.
+                    messages.append({"role": "assistant", "content": "<tool_call>\n"})
         self.resolve_model()
-        payload = {"model": self.config["model"], "messages": deepcopy(messages), "tools": tools,
+        payload = {"model": self.config["model"], "messages": messages, "tools": tools,
                    "stream": False, **generation_options(self.config)}
+        if prefill:
+            payload.update(continue_final_message="content", add_generation_prompt=False)
+            payload["chat_template_kwargs"]["enable_thinking"] = False
+            if "thinking_budget_tokens" in payload:
+                payload["thinking_budget_tokens"] = 0
         if tool_choice:
             payload["tool_choice"] = deepcopy(tool_choice)
         request = {"tool_choice_mode": self.config["tool_choice_mode"],

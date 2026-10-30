@@ -49,11 +49,63 @@ class ToolChoiceTests(unittest.TestCase):
         self.assertEqual((tools, messages, requested), original)
 
     def test_string_choices_are_not_converted(self):
-        for value in ("auto", "none", "required"):
-            with self.subTest(value=value):
-                self.client(mode="required_single_tool").chat([], [OTHER, SEARCH_TOOL], 1, value)
-                self.assertEqual(self.sent[0]["tool_choice"], value)
-                self.assertEqual(self.sent[0]["tools"], [OTHER, SEARCH_TOOL])
+        for mode in ("required_single_tool", "required_single_tool_prefill"):
+            for value in ("auto", "none", "required"):
+                with self.subTest(mode=mode, value=value):
+                    self.client(mode=mode).chat([], [OTHER, SEARCH_TOOL], 1, value)
+                    self.assertEqual(self.sent[0]["tool_choice"], value)
+                    self.assertEqual(self.sent[0]["tools"], [OTHER, SEARCH_TOOL])
+                    self.assertNotIn("continue_final_message", self.sent[0])
+
+    def test_prefill_named_call_enters_tool_format_without_changing_user_history(self):
+        client = self.client(mode="required_single_tool_prefill")
+        messages = [{"role": "system", "content": "original system"}, {"role": "user", "content": "original question"}]
+        original = deepcopy(messages)
+        result = client.chat(messages, [OTHER, SEARCH_TOOL], 1, FORCED)
+        payload = self.sent[0]
+        self.assertEqual(payload["messages"], original + [{"role": "assistant", "content": "<tool_call>\n"}])
+        self.assertEqual(payload["tool_choice"], "required")
+        self.assertEqual(payload["tools"], [SEARCH_TOOL])
+        self.assertFalse(payload["add_generation_prompt"])
+        self.assertEqual(payload["continue_final_message"], "content")
+        self.assertEqual(result["request"]["payload"], payload)
+        self.assertEqual(messages, original)
+        client.chat(messages, [OTHER, SEARCH_TOOL], 1)
+        self.assertEqual(self.sent[1]["messages"], original)
+        self.assertEqual(self.sent[1]["tools"], [OTHER, SEARCH_TOOL])
+        self.assertNotIn("continue_final_message", self.sent[1])
+
+    def test_prefilled_forced_request_explicitly_skips_thinking_but_followup_uses_profile(self):
+        client = self.client(mode="required_single_tool_prefill")
+        client.config.update(enable_thinking=True, thinking_budget_tokens=32, max_tokens=100)
+        messages = [{"role": "user", "content": "question"}]
+        client.chat(messages, [SEARCH_TOOL], 1, FORCED)
+        client.chat(messages, [SEARCH_TOOL], 1)
+        self.assertFalse(self.sent[0]["chat_template_kwargs"]["enable_thinking"])
+        self.assertEqual(self.sent[0]["thinking_budget_tokens"], 0)
+        self.assertEqual(self.sent[0]["max_tokens"], 100)
+        self.assertTrue(self.sent[1]["chat_template_kwargs"]["enable_thinking"])
+        self.assertEqual(self.sent[1]["thinking_budget_tokens"], 32)
+        self.assertTrue(client.config["enable_thinking"])
+        self.assertEqual(client.config["thinking_budget_tokens"], 32)
+
+    def test_prefill_requires_a_user_or_tool_tail_before_any_request(self):
+        for messages in ([], [{"role": "assistant", "content": "existing partial"}], [{"role": "system", "content": "system"}]):
+            with self.subTest(messages=messages):
+                client = self.client(mode="required_single_tool_prefill")
+                with self.assertRaises(ValueError):
+                    client.chat(messages, [SEARCH_TOOL], 1, FORCED)
+                self.assertEqual(self.sent, [])
+
+    def test_prefill_accepts_tool_result_tail_and_rejects_ignored_response(self):
+        messages = [{"role": "tool", "tool_call_id": "previous", "content": "result"}]
+        self.client(mode="required_single_tool_prefill").chat(messages, [SEARCH_TOOL], 1, FORCED)
+        self.assertEqual(self.sent[0]["messages"][-2], messages[0])
+        reply = {"choices": [{"finish_reason": "length", "message": {"role": "assistant", "content": "prose"}}]}
+        client = self.client(reply, "required_single_tool_prefill")
+        with self.assertRaises(ValueError):
+            client.chat(messages, [SEARCH_TOOL], 1, FORCED)
+        self.assertEqual(len(self.sent), 1)
 
     def test_transport_and_caller_mutations_cannot_change_inputs_or_request_snapshot(self):
         def transport(endpoint, payload, timeout):
@@ -85,13 +137,13 @@ class ToolChoiceTests(unittest.TestCase):
 
     def test_ignored_wrong_or_unfinished_named_calls_fail_without_retry(self):
         prose = {"choices": [{"finish_reason": "stop", "message": {"role": "assistant", "content": "hello"}}]}
-        for mode in (None, "required_single_tool"):
+        for mode in (None, "required_single_tool", "required_single_tool_prefill"):
             for reply in (prose, response(name="other_tool"), response(finish="length"),
                           response(arguments="[]"), response(arguments="invalid json")):
                 with self.subTest(mode=mode, reply=reply):
                     client = self.client(reply, mode)
                     with self.assertRaises(ValueError):
-                        client.chat([], [SEARCH_TOOL, OTHER], 1, FORCED)
+                        client.chat([{"role": "user", "content": "question"}], [SEARCH_TOOL, OTHER], 1, FORCED)
                     self.assertEqual(len(self.sent), 1)
 
     def test_invalid_mode_is_rejected_before_transport(self):

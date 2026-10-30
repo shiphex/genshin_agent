@@ -24,6 +24,12 @@ class LocalModelConfigTests(unittest.TestCase):
             with self.subTest(mode=mode), self.assertRaises(ValueError):
                 config.api_config({**self.settings(), "tool_choice_mode": mode})
 
+    def test_prefill_mode_survives_profile_selection_without_becoming_generation_option(self):
+        api = config.api_config({**self.settings(), "tool_choice_mode": "required_single_tool_prefill"}, "standard")
+        self.assertEqual(api["tool_choice_mode"], "required_single_tool_prefill")
+        self.assertTrue(api["enable_thinking"])
+        self.assertNotIn("tool_choice_mode", config.generation_options(api))
+
     def settings(self):
         return {"base_url": "http://127.0.0.1:8000/v1", "model": "story-model", "top_k": 5,
                 "generation": {"temperature": 1.0, "top_k": 20, "top_p": 0.95, "min_p": 0},

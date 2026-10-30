@@ -93,7 +93,7 @@ def _number(value, minimum, maximum=None, exclusive=False):
 
 def generation_options(config):
     """Build llama.cpp request fields; root top_k always means retrieval."""
-    if config.get("tool_choice_mode", "native") not in ("native", "required_single_tool"):
+    if config.get("tool_choice_mode", "native") not in ("native", "required_single_tool", "required_single_tool_prefill"):
         raise ValueError("invalid tool_choice_mode")
     generation = config.get("generation", {})
     _object(generation, GENERATION_FIELDS)

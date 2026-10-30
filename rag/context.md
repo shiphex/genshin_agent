@@ -6,7 +6,7 @@ description: "记录当前RAG基线、遗留问题与最近验证边界。"
 
 ## 摘要
 
-更新：2026-10-28。当前资料集合由[catalog](catalog.json)定义；操作入口见[README](README.md)。用户选择以当前状态建立新基线，淘汰旧实验、题库原型、ZIP、Git bundle和过程归档，不再维持旧路径兼容。
+更新：2026-10-30。当前资料集合由[catalog](catalog.json)定义；操作入口见[README](README.md)。用户选择以当前状态建立新基线，淘汰旧实验、题库原型、ZIP、Git bundle和过程归档，不再维持旧路径兼容。
 
 ## 目录
 
@@ -25,7 +25,7 @@ description: "记录当前RAG基线、遗留问题与最近验证边界。"
 
 ## 最近验证
 
-2026-10-30 llama.cpp 真实启动、三档短对话、六次指定工具、两次工具往返及 Benchmark 预检通过。已复现对象 tool_choice 被忽略，公共配置显式启用[兼容适配](docs/local_model.md)。13次请求保留在本地 outputs/local_api_validation/r001，服务已停止；未重跑 a06，剧情、显存、游戏影响与自动分档未验收。
+2026-10-30 精确a06重放确认 required 已应用，但语法允许不限长度的前置正文，仍耗尽1536 token；短输入通过不能外推。已新增[显式前缀模式](docs/local_model.md)，三次均以32 token完成原生调用，真实检索往返通过。证据在本地 outputs/local_api_validation/r002，服务已停止；H1/C1未重跑，剧情和性能未验收。
 
 2026-10-17检索r002完成110题Top5，来源位置Hit为95/110，Coverage宏平均73.77%、微平均307/445；3条标注未映射到语料，保留分母。与r001排序／指标一致，独立重算及输入／源码／产物哈希检查通过，模型调用0，14份current-003指纹不变。完整记录在本地data/outputs/retrieval/r002，不提升基线或用户验收。
 
