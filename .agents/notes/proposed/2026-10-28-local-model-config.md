@@ -39,6 +39,8 @@ Status: proposed
 
 ## 风险
 
+2026-10-30 补充：本机服务已成功启动，故障为 b9837 将对象 tool_choice 按字符串读取并退回 auto。用户选择显式客户端单工具 required 适配，保留原生模式；相比自编译服务，它保留二进制和权重，但会改变该请求的工具列表，须记录实际 payload，旧实验不能直接视作同条件对照。三档短对话、开关思考各三次指定工具、两次工具往返与预检通过；未重跑 a06。行为与限制由[配置说明](../../../rag/docs/local_model.md)维护，资源目标仍未验收。
+
 同卡推理仍会竞争计算资源，显存低于目标也可能影响游戏流畅度；Vulkan 的实际吞吐、Flash Attention 和缓存精度兼容性未实测。思考可能耗尽输出预算，不能把 reasoning_content 当正文或放回普通对话历史。4B 思考不保证剧情正确，程序完成和语义验收分别记录。
 
-预算请求字段依据[对应版本源码](https://github.com/ggml-org/llama.cpp/blob/b3fed31b9/tools/server/server-common.cpp)：thinking_budget_tokens；不能凭 CLI 名称猜成 reasoning_budget。采样依据[模型卡](https://huggingface.co/Qwen/Qwen3.5-4B#best-practices)，启动参数见[版本文档](https://github.com/ggml-org/llama.cpp/blob/b3fed31b9/tools/server/README.md)。这些是静态依据，尚不证明本机推理有效。
+预算请求字段依据[对应版本源码](https://github.com/ggml-org/llama.cpp/blob/b3fed31b9/tools/server/server-common.cpp)：thinking_budget_tokens；不能凭 CLI 名称猜成 reasoning_budget。采样依据[模型卡](https://huggingface.co/Qwen/Qwen3.5-4B#best-practices)，启动参数见[版本文档](https://github.com/ggml-org/llama.cpp/blob/b3fed31b9/tools/server/README.md)。基本接口验证不证明预算精确执行或资源目标达成。

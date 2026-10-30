@@ -67,6 +67,7 @@ class QwenClient:
         self.config.setdefault("seed", 42)
         self.config.setdefault("timeout", 180)
         self.config.setdefault("max_tokens", 1536)
+        self.config.setdefault("tool_choice_mode", "native")
         generation_options(self.config)
         for key in ("timeout", "temperature"):
             value = self.config[key]
@@ -98,17 +99,36 @@ class QwenClient:
             self.config["model"] = models[0]["id"]
 
     def chat(self, messages, tools, remaining, tool_choice=None):
+        requested = deepcopy(tool_choice)
+        tools = deepcopy(tools)
+        target = None
+        if isinstance(tool_choice, dict):
+            function = tool_choice.get("function")
+            target = function.get("name") if isinstance(function, dict) else None
+            if tool_choice.get("type") != "function" or not isinstance(target, str) or not target.strip():
+                raise ValueError("invalid named tool_choice")
+            matches = [tool for tool in tools if tool.get("type") == "function"
+                       and tool.get("function", {}).get("name") == target]
+            if len(matches) != 1:
+                raise ValueError("named tool_choice must match exactly one supplied tool")
+            if self.config["tool_choice_mode"] == "required_single_tool":
+                tools, tool_choice = matches, "required"
         self.resolve_model()
-        payload = {"model": self.config["model"], "messages": messages, "tools": tools,
+        payload = {"model": self.config["model"], "messages": deepcopy(messages), "tools": tools,
                    "stream": False, **generation_options(self.config)}
         if tool_choice:
-            payload["tool_choice"] = tool_choice
+            payload["tool_choice"] = deepcopy(tool_choice)
+        request = {"tool_choice_mode": self.config["tool_choice_mode"],
+                   "requested_tool_choice": requested, "payload": deepcopy(payload)}
         raw = self.transport("chat/completions", payload, min(remaining, self.config["timeout"]))
         choice = raw["choices"][0]
         message = choice["message"]
         if message.get("role") != "assistant":
             raise ValueError("model response must be an assistant message")
         calls = message.get("tool_calls") or []
+        if target and (choice.get("finish_reason") != "tool_calls" or not calls
+                       or any(call.get("function", {}).get("name") != target for call in calls)):
+            raise ValueError("specified native tool call was not honored")
         if not calls and (not isinstance(message.get("content"), str) or not message["content"].strip()):
             raise ValueError("model returned neither content nor native tool calls")
         identities = set()
@@ -116,7 +136,11 @@ class QwenClient:
             if not isinstance(call.get("id"), str) or call["id"] in identities or call.get("type") != "function":
                 raise ValueError("invalid native tool call ID")
             identities.add(call["id"])
-            if not isinstance(json.loads(call["function"]["arguments"]), dict):
+            try:
+                arguments = json.loads(call["function"]["arguments"])
+            except (TypeError, KeyError, ValueError) as exc:
+                raise ValueError("invalid native tool arguments JSON") from exc
+            if not isinstance(arguments, dict):
                 raise ValueError("tool arguments must encode an object")
         usage = raw.get("usage")
         if usage is not None:
@@ -124,7 +148,7 @@ class QwenClient:
                      and type(v) is int and v >= 0}
         normalized = {k: deepcopy(message[k]) for k in ("role", "content", "tool_calls") if k in message}
         return {"message": normalized, "finish_reason": choice.get("finish_reason"), "usage": usage,
-                "raw_response": raw}
+                "raw_response": raw, "request": request}
 
     def preflight(self):
         started = time.perf_counter()

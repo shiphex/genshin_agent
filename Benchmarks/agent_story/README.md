@@ -28,6 +28,8 @@ uv --cache-dir .cache/uv run --locked --group benchmark --offline --no-python-do
 
 所有候选共用[本地模型配置](../../rag/docs/local_model.md)，支持私有覆盖和 `--profile simple|standard|deep`；默认使用配置选中的档位。旧平面配置的 temperature／seed 默认0／42且关闭思考；`model=null`仅接受服务恰好公开一个模型。鉴权从环境变量读取，拒绝未知字段；启动路径不进入客户端配置。HTTP超时仍受剩余任务期限限制，deep 如需更长任务时间应显式设置 `agent --timeout 600`，不自动延长原240秒默认值。
 
+指定函数使用配置的 `tool_choice_mode`；当前公共值 `required_single_tool` 只对本次指定请求筛选目标工具并发送 required，普通请求保留原工具列表。预检返回原生工具调用只证明该次接口结果；特别是 native 模式下，模型自愿调用不能证明服务应用了指定策略，须结合服务日志及反向意图检查。模型结果的 `request` 记录模式、原始 `requested_tool_choice` 和实际 `payload`，不含私有启动字段；指定调用被忽略、调用错误工具、参数不是有效 JSON 对象或未正常结束时明确失败，不自动重试。兼容模式或服务改变后，旧运行不得直接视作同条件对照。
+
 默认语料从只读catalog定位并校验指纹，`--corpus`／`--raw-root`可指定自定义材料并记录真实身份。`--model-service-pid`可单列本机服务资源；未提供记未测。`--measure memory`另跑完整场景，不能与timing混合比较。共享测量范围见[说明](../support/measurement.md)。
 
 ## pi与人工评审

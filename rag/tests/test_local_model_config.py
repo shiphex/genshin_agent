@@ -10,6 +10,20 @@ from rag.scripts import evaluate_rag_mvp as evaluate
 
 
 class LocalModelConfigTests(unittest.TestCase):
+    def test_tool_choice_mode_merges_but_is_not_a_wire_generation_parameter(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "api.json"
+            path.write_text(json.dumps({**self.settings(), "tool_choice_mode": "native"}))
+            path.with_name("api.local.json").write_text(json.dumps({"tool_choice_mode": "required_single_tool",
+                "llama_cpp": {"model_path": "private.gguf", "device": "private-device"}}))
+            api = config.load_api_config(path)
+            self.assertEqual(api["tool_choice_mode"], "required_single_tool")
+            self.assertNotIn("tool_choice_mode", config.generation_options(api))
+            self.assertNotIn("private", json.dumps(api))
+        for mode in ("unknown", None, [], 0):
+            with self.subTest(mode=mode), self.assertRaises(ValueError):
+                config.api_config({**self.settings(), "tool_choice_mode": mode})
+
     def settings(self):
         return {"base_url": "http://127.0.0.1:8000/v1", "model": "story-model", "top_k": 5,
                 "generation": {"temperature": 1.0, "top_k": 20, "top_p": 0.95, "min_p": 0},

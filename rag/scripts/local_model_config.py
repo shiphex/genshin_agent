@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 API_FIELDS = {"base_url", "model", "api_key_env", "timeout", "max_tokens", "top_k", "temperature",
-              "seed", "generation", "enable_thinking", "thinking_budget_tokens"}
+              "seed", "generation", "enable_thinking", "thinking_budget_tokens", "tool_choice_mode"}
 PROFILE_FIELDS = {"timeout", "max_tokens", "enable_thinking", "thinking_budget_tokens", "generation"}
 GENERATION_FIELDS = {"temperature", "seed", "top_p", "top_k", "min_p", "presence_penalty",
                      "frequency_penalty", "repeat_penalty"}
@@ -93,6 +93,8 @@ def _number(value, minimum, maximum=None, exclusive=False):
 
 def generation_options(config):
     """Build llama.cpp request fields; root top_k always means retrieval."""
+    if config.get("tool_choice_mode", "native") not in ("native", "required_single_tool"):
+        raise ValueError("invalid tool_choice_mode")
     generation = config.get("generation", {})
     _object(generation, GENERATION_FIELDS)
     options = {"temperature": config.get("temperature", 0), "seed": config.get("seed", 42),
