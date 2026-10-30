@@ -6,7 +6,7 @@ description: "记录项目当前阶段、模块入口及后续工作边界。"
 
 ## 摘要
 
-更新：2026-10-28。项目目标是以主角／派蒙身份参与剧情讨论的agent；本review/core-probe分支从dev/v0.2共同基线发布两个Core探针快照和最小评审证据，不代表生产Core完成或合并选型。v0.1建立了基础RAG和项目AI-native文档流程；角色对话、界面、玩家进度和防剧透尚未实现。当前语料、110题、20题核验和三题Smoke保持既有基线，旧实验不再维护。
+更新：2026-10-30。项目目标是以主角／派蒙身份参与剧情讨论的agent；本exp/a06-diagnosis分支从review/core-probe的aa57d98开展独立故障诊断，倾向core-self但不宣布生产选型。v0.1建立了基础RAG和项目AI-native文档流程；角色对话、界面、玩家进度和防剧透尚未实现。当前语料、110题、20题核验和三题Smoke保持既有基线，旧实验不再维护。
 
 ## 目录
 
@@ -16,6 +16,7 @@ description: "记录项目当前阶段、模块入口及后续工作边界。"
 ## 当前入口
 
 - [Core探针评审](Benchmarks/reviews/core-probe-20261028/README.md)：本分支阅读、核验与复现入口。
+- [a06诊断](probes/a06_diagnosis/README.md)：受控实验、证据记录与模型API限制；最近结果见Benchmark context。
 - [Benchmarks分类索引](Benchmarks/README.md)、[模块context](Benchmarks/context.md)：按任务分类的Core与剧情评测、共享support及根uv环境。
 - [RAG说明](rag/README.md)、[模块context](rag/context.md)：操作、当前问题和最近验证。
 - [catalog](rag/catalog.json)、[基线规则](rag/docs/data.md)：当前资源、来源与新输出。
