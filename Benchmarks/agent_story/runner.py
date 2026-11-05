@@ -6,6 +6,7 @@ from Benchmarks.support.metrics import ProcessMeter, paired_order
 from Benchmarks.support.protocol import ProtocolError, ProviderDeadlineError
 import os
 from rag.scripts.evaluate_rag_mvp import LexicalIndex
+from rag.scripts.corpus_schema import assert_snapshot_match
 from .providers import LiveProvider, SEARCH_TOOL, SYSTEM, citation_check, freeze_sources
 from .scenarios import public_turns
 
@@ -16,6 +17,7 @@ def run_agent(adapters, output, suite, corpus, client, raw_root, repeats=3, max_
     if measure not in {"timing", "memory"}:
         raise ValueError("measure must be timing or memory")
     scenes = suite["scenarios"]
+    assert_snapshot_match(corpus, suite.get('source_snapshot'))
     planned = [{"sample_id": f"{a['id']}:{s['id']}:{repeat}", "adapter_id": a["id"], "scenario_id": s["id"],
                 "repeat": repeat, "group": s["group"], "measure": measure, "fixture_only": a.get("fixture_only", False),
                 "policy_group": a["policies"], "conformance_status": "not_evaluated"}
@@ -27,6 +29,7 @@ def run_agent(adapters, output, suite, corpus, client, raw_root, repeats=3, max_
                     "review_status": suite.get("review_status", "pending_review")}, [*input_paths, BENCH / "agent_story/scenarios.json",
                     ROOT / "rag/scripts/evaluate_rag_mvp.py", ROOT / "rag/scripts/prepare_eval.py",
                     ROOT / "rag/scripts/local_model_config.py",
+                    ROOT / "rag/scripts/corpus_schema.py",
                     ROOT / "rag/scripts/artifact_catalog.py"], implementation=BENCH / "agent_story",
                     snapshot_paths=[BENCH / "agent_story/scenarios.json"], evaluation_profile="fixed-history-v0")
     try:

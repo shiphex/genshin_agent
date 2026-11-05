@@ -61,6 +61,49 @@ class HuggingFaceDatasetExportTests(unittest.TestCase):
             self.assertNotIn("not-for-release", "\n".join(str(path) for path in output.rglob("*")))
             self.assertEqual(hf.verify_release(output, expected_rows=2), manifest)
 
+    def test_structured_candidate_has_separate_identity_and_loadable_nested_contract(self):
+        from rag.scripts.full_corpus import Extractor
+        ex = Extractor({'名称': '剑', '故事': '往事。'}, 'parsed/weapons/test.json', 'weapons', '剑', 800,
+                       snapshot='new-snapshot')
+        ex.run()
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = self.make_source(root, ex.records)
+            manifest = hf.build_release(source, root / 'release', input_snapshot='new-snapshot',
+                                        baseline_id=None, source_run_id='corpus/r001', origin_baseline_id='current-003')
+            self.assertEqual(manifest['corpus_schema_version'], 2)
+            self.assertIsNone(manifest['baseline_id'])
+            self.assertEqual(manifest['origin_baseline_id'], 'current-003')
+            self.assertEqual(hf.verify_release(root / 'release'), manifest)
+            self.assertIn('content.turns', (root / 'release/README.md').read_text(encoding='utf-8'))
+
+    def test_source_run_must_be_completed_and_hash_bound(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = self.make_source(root)
+            write_json(source / 'run_manifest.json', {'execution_status': 'failed'})
+            with self.assertRaises(ValueError):
+                hf.source_run_details(source)
+
+    def test_default_package_loader_uses_declared_types_after_empty_first_batches(self):
+        try:
+            from datasets import load_dataset
+        except ImportError:
+            self.skipTest('optional hf dependency group')
+        from rag.scripts.full_corpus import Extractor
+        a = Extractor({'名称': '剑', '故事': '往事。'}, 'parsed/weapons/a.json', 'weapons', '剑', 800, snapshot='new')
+        b = Extractor({'名称': '信', '相关任务': '调查', '内容': '信件。'}, 'parsed/quest-items/b.json', 'quest-items', '信', 800, snapshot='new')
+        a.run(); b.run()
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = self.make_source(root, a.records + b.records)
+            hf.build_release(source, root / 'release', input_snapshot='new', baseline_id=None,
+                             source_run_id='corpus/test', origin_baseline_id='test')
+            dataset = load_dataset(str(root / 'release'), name='story', split='train', chunksize=100,
+                                   cache_dir=str(root / 'cache'))
+            self.assertEqual(dataset[1]['metadata']['context']['related_quests'], ['调查'])
+            self.assertEqual(dataset[0]['content']['turns'], [])
+
     def test_rejects_existing_output(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

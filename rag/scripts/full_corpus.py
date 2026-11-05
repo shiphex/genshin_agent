@@ -10,8 +10,10 @@ import time
 
 if __package__:
     from .prepare_rag_mvp import GAMEPLAY, read_json, resolve_pointer
+    from . import corpus_schema as schema
 else:
     from prepare_rag_mvp import GAMEPLAY, read_json, resolve_pointer
+    import corpus_schema as schema
 
 METADATA_TYPES = {"archon-quest-index", "character-quest-index"}
 COMPILATIONS = {"chronicles", "north-library"}
@@ -132,6 +134,20 @@ def render_ref(source, pointer, span):
 
 
 def reconstruct_record(source, record):
+    if schema.version(record) == 2:
+        body = json.loads(json.dumps(record['content']))
+        for unit in list(body['sections']) + [t for t in body['turns'] if t['kind'] != 'choice'] + [o for t in body['turns'] for o in t['options']]:
+            raw = resolve_pointer(source, unit['pointer'])
+            span = unit['span']
+            if not isinstance(raw, str) or not 0 <= span['start'] < span['end'] <= len(raw):
+                raise ValueError('invalid_source_span')
+            unit['text'] = clean_markup(raw[span['start']:span['end']])
+        for turn in body['turns']:
+            original = resolve_pointer(source, turn['row_pointer'])
+            speaker = original.get('说话者')
+            if (clean_markup(speaker) if isinstance(speaker, str) else speaker) != turn['speaker'] or original.get('类型') != turn['source_type']:
+                raise ValueError('source role differs from structured turn')
+        return schema.render_text(body)
     if len(record["source_pointer"]) != len(record["source_spans"]):
         raise ValueError("source pointer/span counts differ")
     return "\n\n".join(render_ref(source, pointer, span)
@@ -139,10 +155,80 @@ def reconstruct_record(source, record):
 
 
 class Extractor:
-    def __init__(self, source, relative, family, title, max_chars):
+    def __init__(self, source, relative, family, title, max_chars, *, snapshot='unspecified', source_sha256=None, source_review=None):
         self.source, self.relative, self.family = source, relative, family
         self.title, self.max_chars = title, max_chars
+        self.snapshot = snapshot
+        self.source_sha256 = source_sha256 or hashlib.sha256(schema.canonical(source).encode('utf-8')).hexdigest()
+        self.source_review = source_review or {}
         self.records, self.issues = [], []
+
+    def structured(self, label, pieces, dialogue):
+        value, family = self.source, self.family
+        body = {'turns': [], 'sections': []}
+        for pointer, start, end, _ in pieces:
+            raw = resolve_pointer(value, pointer)
+            unit = {'text': clean_markup(raw[start:end]), 'pointer': pointer, 'span': {'start': start, 'end': end}}
+            if dialogue:
+                row_pointer = re.fullmatch(r'(.*/对话/\d+)/(?:内容|选项/\d+)', pointer)[1]
+                row = resolve_pointer(value, row_pointer)
+                original_type = row.get('类型')
+                kind = ('choice' if original_type in ('option', '选项') else
+                        'narration' if original_type in ('narration', '旁白') else
+                        'speech' if original_type in ('character', 'traveler', '角色/NPC', '旅行者') else 'unknown')
+                if body['turns'] and body['turns'][-1]['row_pointer'] == row_pointer and kind == 'choice':
+                    body['turns'][-1]['options'].append(unit)
+                    continue
+                speaker = row.get('说话者')
+                speaker = clean_markup(speaker) if isinstance(speaker, str) else None
+                flags = list(self.source_review.get(row_pointer, []))
+                if kind == 'unknown':
+                    flags.append('unknown_source_type')
+                if kind == 'speech' and not speaker:
+                    flags.append('missing_speaker')
+                if kind == 'narration' and not speaker and re.match(r'[^\n:：]+[:：]', unit['text']):
+                    flags.append('possible_speaker_in_text')
+                turn = {'kind': kind, 'source_type': original_type, 'speaker': speaker,
+                        'row_pointer': row_pointer, 'options': [], 'quality_flags': sorted(set(flags)), **unit}
+                if kind == 'choice':
+                    turn.update(text=None, pointer=None, span=None, options=[unit])
+                body['turns'].append(turn)
+            else:
+                field = pointer.rsplit('/', 1)[-1].replace('~1', '/').replace('~0', '~')
+                body['sections'].append({'field': field, 'heading_path': label.split(' / '), **unit})
+        path = label.split(' / ')
+        kind = ('dialogue' if dialogue else 'character_profile' if family == 'characters' and pieces[0][0].startswith('/角色/') else
+                'character_voice' if family == 'characters' and pieces[0][0].startswith('/角色语音/') else
+                'character_story' if family == 'characters' else 'book_text' if family == 'books' else
+                'quest_description' if family.endswith('-quests') else
+                'wiki_compilation' if family in COMPILATIONS else 'entity_lore')
+        profile, quest = value.get('角色', {}), value.get('任务标题', {})
+        entity_name = value.get('名称') or value.get('title') or value.get('任务名称')
+        entity_name = entity_name or (profile.get('名称') if isinstance(profile, dict) else None)
+        entity_name = entity_name or (quest.get('中文') if isinstance(quest, dict) else None) or self.title.split(' / ')[-1]
+        entity_type = {'characters': 'character', 'weapons': 'weapon', 'artifacts': 'artifact_set', 'books': 'book',
+                       'quest-items': 'quest_item'}.get(family, 'quest' if family.endswith('-quests') else family)
+        related = value.get('相关任务')
+        related = [related] if isinstance(related, str) and related.strip() else related if isinstance(related, list) else []
+        def hierarchy(*keys):
+            return ' / '.join(value[k] for k in keys if isinstance(value.get(k), str) and value[k]) or None
+        version = value.get('所属版本')
+        if version is not None and not isinstance(version, str):
+            self.issue('invalid_source_version', '/所属版本')
+            version = None
+        record = {'schema_version': 2, 'id': '', 'title': self.title + ' / ' + label,
+                  'knowledge_type': kind,
+                  'metadata': {'source_family': family, 'entity': {'type': entity_type, 'name': clean_markup(entity_name)},
+                      'source_version': version, 'context': {'chapter': hierarchy('章节', '章节名称', '所属章'),
+                      'act': hierarchy('幕', '幕名称', '所属幕', '所属幕名称'),
+                      'task_step': label if dialogue and label != '流程未标明' else None,
+                      'path': path, 'related_quests': [x for x in related if isinstance(x, str)]}},
+                  'source': {'snapshot': self.snapshot, 'file': self.relative, 'file_sha256': self.source_sha256,
+                             'kind': 'wiki_compilation' if family in COMPILATIONS else 'wiki_excerpt'},
+                  'content': body, 'text': schema.render_text(body)}
+        record['id'] = schema.record_id(record)
+        schema.validate_record(record)
+        return record
 
     def issue(self, reason, pointer=None, span=None):
         issue = {"source_file": self.relative, "type": self.family, "reason": reason,
@@ -162,14 +248,7 @@ class Extractor:
             nonlocal pieces, size
             if not pieces:
                 return
-            positions = [{"start": a, "end": b} for _, a, b, _ in pieces]
-            paths = [p for p, _, _, _ in pieces]
-            identity = json.dumps([self.relative, paths, positions], ensure_ascii=False, separators=(",", ":"))
-            self.records.append({"id": "f" + hashlib.sha256(identity.encode("utf-8")).hexdigest()[:24],
-                "title": self.title + " / " + label, "type": self.family, "parent_id": self.relative,
-                "text": "\n\n".join(t for _, _, _, t in pieces), "source_file": self.relative,
-                "source_pointer": paths, "source_spans": positions,
-                "source_kind": "wiki_compilation" if self.family in COMPILATIONS else "wiki_excerpt"})
+            self.records.append(self.structured(label, pieces, dialogue))
             pieces, size = [], 0
         for pointer in pointers:
             try:
@@ -212,7 +291,9 @@ class Extractor:
                         self.issue("empty_display_fragment", pointer, {"start": start, "end": end})
                         continue
                     addition = len(text) + (2 if pieces else 0)
-                    if pieces and size + addition > self.max_chars:
+                    same_choice = (dialogue and '/选项/' in pointer and pieces and
+                                   pieces[-1][0].rsplit('/选项/', 1)[0] == pointer.rsplit('/选项/', 1)[0])
+                    if pieces and size + addition > self.max_chars and not same_choice:
                         flush()
                         addition = len(text)
                     pieces.append((pointer, start, end, text))
@@ -275,8 +356,9 @@ class Extractor:
                 self.issue("missing_dialogue_stage", pointer)
             kind = row.get("类型")
             if kind not in ("character", "traveler", "option", "narration", "角色/NPC", "旅行者", "选项", "旁白"):
-                flush(); pointers = []
                 self.issue("unknown_dialogue_type", pointer)
+                if isinstance(row.get('内容'), str):
+                    pointers.append(pointer + '/内容')
             elif kind == "选项":
                 options = row.get("选项")
                 if not isinstance(options, list) or not options:
@@ -349,7 +431,8 @@ class Extractor:
                 for i, volume in enumerate(volumes):
                     if not isinstance(volume, dict):
                         self.issue("invalid_volume", "/volumes/" + str(i)); continue
-                    self.block(str(volume.get("name") or f"卷 {i + 1}"), [f"/volumes/{i}/content"])
+                    self.block(str(volume.get("name") or f"卷 {i + 1}"),
+                               [f"/volumes/{i}/{key}" for key in ('description', 'content') if volume.get(key)])
         elif family == "foods":
             intro = value.get("介绍")
             if isinstance(intro, dict):
@@ -406,7 +489,7 @@ def source_page(root, file, family):
     return page
 
 
-def build_full(root, max_chars=800):
+def build_full(root, max_chars=800, source_review=None):
     root = Path(root).resolve()
     if max_chars < 1:
         raise ValueError("max_chars must be positive")
@@ -443,7 +526,9 @@ def build_full(root, max_chars=800):
                     raise ValueError("missing_title")
                 hierarchy = [value.get(k) for k in ("章节", "章节名称", "幕", "幕名称", "所属章", "所属幕", "所属幕名称")]
                 title = " / ".join([str(v).strip() for v in hierarchy if isinstance(v, str) and v.strip()] + [title])
-                extractor = Extractor(value, relative, family, title, max_chars)
+                extractor = Extractor(value, relative, family, title, max_chars, snapshot=root.name,
+                                      source_sha256=hashlib.sha256(file.read_bytes()).hexdigest(),
+                                      source_review=(source_review or {}).get(relative, {}))
                 extractor.run()
                 if not extractor.records:
                     extractor.issue("no_usable_narrative")
@@ -497,7 +582,8 @@ def build_full(root, max_chars=800):
     audit = {"snapshot": root.name, "max_chars": max_chars, "files_scanned": len(files),
              "chunks": len(records), "text_characters": sum(len(r["text"]) for r in records),
              "file_statuses": dict(Counter(r["status"] for r in ledger)), "by_type": by_type,
-             "source_kinds": dict(Counter(r["source_kind"] for r in records)),
+             "schema_version": 2, "source_kinds": dict(Counter(schema.source_info(r)['kind'] for r in records)),
+             "quality_flags": dict(Counter(flag for r in records for t in r['content']['turns'] for flag in t['quality_flags'])),
              "issue_counts": dict(Counter(r["reason"] for r in issues)), "files": ledger,
              "unparsed_pages": unparsed, "categories": categories,
              "semantic_review": "pending_human_review", "elapsed_seconds": round(time.monotonic() - started, 3)}
@@ -540,13 +626,13 @@ def write_full(output, records, issues, audit):
                          f"{len(category['unmatched_titles'])} 个未匹配。完整标题列表见 audit.json。")
     lines.extend(["", "## 各类型抽检", ""])
     for kind in audit["by_type"]:
-        samples = [r for r in records if r["type"] == kind][:2]
+        samples = [r for r in records if r['metadata']['source_family'] == kind][:2]
         if not samples:
             continue
         lines.extend(["### " + kind, ""])
         for row in samples:
-            lines.extend([f"- [{row['id']}] {row['title']} · {row['source_kind']}",
-                          f"  - 来源 `{row['source_file']}`，Pointer `{row['source_pointer']}`，范围 `{row['source_spans']}`",
+            lines.extend([f"- [{row['id']}] {row['title']} · {schema.source_info(row)['kind']}",
+                          f"  - 来源 `{schema.source_info(row)['file']}`，定位 `{list(schema.iter_locations(row))}`",
                           "", row["text"], ""])
     lines.extend(["## 典型问题", ""])
     seen = set()

@@ -24,6 +24,8 @@ sources 只维护冻结快照中的相对 POSIX file 和 RFC 6901 pointer，不�
 
 `prepare_eval.py` 先读取全部来源，再写出附加 `sources[].text` 的副本，透传其他字段，不调用模型或评分。默认分配独立 prepared 输出；显式输出须是 `rag/data/outputs/prepared/` 下新目录中的文件，拒绝覆盖及写入原始数据。命令由[模块说明](../README.md#问题集与-smoke)维护。
 
+新版出处使用[迁移入口](../docs/structured_corpus.md#构建和迁移)生成独立候选，正式0.5题库与20题历史输入保持原字节。有未决时标candidate_incomplete；sources中migration_status=unresolved表示Pointer仍属原快照。原文准备拒绝将它用于新raw，检索保留分母且不允许位置误命中。原文准备同时核对已知题库／raw快照。
+
 ## 20题核验
 
 完整第三方结果在本地 `rag/data/review20/result.json`；[原摘要与提示词记录](../data/review20/summary.md)与它同目录保存，输入、结果及摘要均由[catalog](../catalog.json)绑定。第三方报告四组20题初判正确、55条criteria无原文矛盾、86/86指针一致；这些是第三方历史结论，本次未重新进行剧情语义核验，也不是用户逐题通过。
@@ -38,7 +40,7 @@ sources 只维护冻结快照中的相对 POSIX file 和 RFC 6901 pointer，不�
 
 ## 检索评测协议 V0
 
-`retrieval-source-location-v0` 使用原题库顺序、只以 question 查询；入口和参数见[模块说明](../README.md#110题检索评测)。题库保持原字节，不生成第二份常驻题库。results.jsonl 的 source_location 按每题唯一 `(file,pointer)` 精确匹配返回片段的 source_file／source_pointer；一个片段可包含多个 Pointer，重复片段不重复计数。
+`retrieval-source-location-v0` 使用题库顺序、只以 question 查询；入口见[模块说明](../README.md#110题检索评测)。正式题库保持原字节。source_location按每题唯一 `(file,pointer)` 匹配；来源访问器读取旧平面字段或V2正文定位，一个片段可含多个Pointer，重复片段不重复计数。已知快照错配拒绝执行；迁移未决位置固定为未映射。
 
 | 指标 | 定义 |
 | --- | --- |

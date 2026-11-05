@@ -14,6 +14,29 @@ import hashlib
 
 
 class CurrentEntryTests(unittest.TestCase):
+    def test_structured_custom_corpus_runs_source_mapping_and_markdown_report(self):
+        from rag.scripts.full_corpus import Extractor
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.evaluation_fixture(root)
+            extractor = Extractor({'名称': '剑', '故事': '往事。'}, 'parsed/weapons/a.json',
+                                  'weapons', '剑', 800, snapshot='new')
+            extractor.run()
+            corpus, questions = root / 'new.jsonl', root / 'questions.jsonl'
+            corpus.write_text(json.dumps(extractor.records[0], ensure_ascii=False) + '\n', encoding='utf-8')
+            questions.write_text(json.dumps({'id': 'q', 'question': '往事', 'category': 'fact',
+                'reference_answer': '答', 'source_snapshot': 'new', 'expected_source_evidence': [[{
+                    'source_file': 'parsed/weapons/a.json', 'source_pointer': '/故事', 'start': 0, 'end': 3}]]},
+                    ensure_ascii=False) + '\n', encoding='utf-8')
+            with patch.object(evaluate, 'PROJECT', root), patch.object(evaluate, 'RAG_ROOT', root / 'rag'), \
+                 patch.object(evaluate, 'api_request', side_effect=AssertionError('no API')):
+                self.assertEqual(evaluate.main(['--corpus', str(corpus), '--questions', str(questions), '--retrieval-only']), 0)
+            output = root / 'rag/data/outputs/retrieval/r001'
+            self.assertIn('parsed/weapons/a.json', (output / 'review.md').read_text(encoding='utf-8'))
+            result = evaluate.load_jsonl(output / 'results.jsonl')[0]
+            self.assertEqual(result['evidence_coverage']['recall'], 1.0)
+            self.assertEqual(result['retrieved'][0]['schema_version'], 2)
+
     def evaluation_fixture(self, root):
         (root / 'rag/data/corpus').mkdir(parents=True)
         (root / 'rag/eval/smoke').mkdir(parents=True)
@@ -122,7 +145,7 @@ class CurrentEntryTests(unittest.TestCase):
                 self.assertEqual(prepare.main(['--raw-root', str(raw)]), 0)
             records = evaluate.load_jsonl(root / 'rag/data/outputs/corpus/r001/corpus.jsonl')
             self.assertTrue(any(r['text'] == '他曾击败魔兽。' for r in records))
-            self.assertTrue(all('source_spans' in r and 'source_kind' in r for r in records))
+            self.assertTrue(all(r['schema_version'] == 2 and r['source']['kind'] == 'wiki_excerpt' for r in records))
             self.assertEqual(((root / 'rag/catalog.json').read_bytes(), parsed.read_bytes()), before)
     def test_preparation_help_describes_full_default_and_has_no_sample_selection(self):
         result = subprocess.run([sys.executable, '-B', 'rag/scripts/prepare_rag_mvp.py', '--help'],

@@ -191,6 +191,23 @@ class RunTests(unittest.TestCase):
         self.assertFalse(identity['baseline_verified'])
         self.assertIsNone(identity['source_snapshot'])
 
+    def test_new_questions_cannot_use_known_catalog_legacy_corpus(self):
+        document = copy.deepcopy(self.document)
+        document['source_snapshot'] = 'data/raw/new-snapshot'
+        custom = self.root / 'new_questions.json'
+        custom.write_text(json.dumps(document), encoding='utf-8')
+        with patch.object(evaluate.artifact_catalog, 'reserve_output', side_effect=AssertionError('must reject before output')) as reserve:
+            self.assertEqual(self.run_main(['--questions', str(custom)]), 1)
+            self.assertEqual(self.run_main(['--questions', str(custom), '--corpus', str(self.corpus)]), 1)
+            reserve.assert_not_called()
+        self.assertFalse((self.root / 'rag/data/outputs').exists())
+
+    def test_matching_default_legacy_snapshot_remains_usable(self):
+        self.assertEqual(self.run_main(), 0)
+        _, manifest = self.load_run()
+        self.assertEqual(manifest['execution_status'], 'completed')
+        self.assertEqual(manifest['parameters']['identity']['corpus']['source_snapshot'], 'test')
+
     def test_input_changing_while_loaded_cannot_complete_with_a_misleading_hash(self):
         custom = self.root / 'changing.jsonl'
         custom.write_bytes(self.corpus.read_bytes())

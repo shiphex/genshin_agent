@@ -8,8 +8,10 @@ import sys
 
 try:
     from . import artifact_catalog
+    from . import corpus_schema
 except ImportError:
     import artifact_catalog
+    import corpus_schema
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_FILES = {
@@ -37,6 +39,9 @@ def read_json(path):
 
 
 def validate_record(row, line_number):
+    if isinstance(row, dict) and corpus_schema.version(row) == 2:
+        corpus_schema.validate_record(row)
+        return
     if not isinstance(row, dict) or not REQUIRED_RECORD_FIELDS <= row.keys():
         raise ValueError(f"Corpus row {line_number} is missing required fields")
     for field in REQUIRED_RECORD_FIELDS - {"source_pointer", "source_spans"}:
@@ -63,17 +68,27 @@ def validate_corpus(path, expected_rows=None):
         raise ValueError("Cannot read corpus: " + str(path)) from error
     if expected_rows is not None and len(lines) != expected_rows:
         raise ValueError(f"Corpus row count {len(lines)} does not match expected {expected_rows}")
+    ids, versions, snapshots = set(), set(), set()
     for line_number, line in enumerate(lines, start=1):
         try:
             row = json.loads(line)
         except json.JSONDecodeError as error:
             raise ValueError(f"Corpus row {line_number} is not JSON") from error
         validate_record(row, line_number)
+        if row['id'] in ids:
+            raise ValueError('Duplicate corpus ID')
+        ids.add(row['id'])
+        versions.add(corpus_schema.version(row))
+        snapshot = corpus_schema.source_info(row).get('snapshot')
+        if snapshot:
+            snapshots.add(snapshot)
+    if len(versions) > 1 or len(snapshots) > 1:
+        raise ValueError('Mixed corpus schemas or snapshots')
     return len(lines)
 
 
 def dataset_card(manifest):
-    return f"""---
+    card = f"""---
 license: other
 language:
 - zh
@@ -161,6 +176,96 @@ Hugging Face 元数据中的 `license: other` 不授予语料文本开放数据�
 
 文件完整性校验只能确认下载内容与该发布清单一致，不代表语义质量、覆盖完整性或逐条事实正确性已经获得验收。
 """
+    if manifest.get('corpus_schema_version') == 2:
+        card = card.replace('license: other\n', 'license: other\ndataset_info: ' + json.dumps(
+            {'config_name': 'story', 'features': card_features()}, ensure_ascii=False, separators=(',', ':')) + '\n', 1)
+        start = card.index('| `id` |')
+        end = card.index('\n\nWiki 摘录', start)
+        card = card[:start] + '''| `schema_version` | 语料格式版本2；与发布包manifest版本分别管理 |
+| `id`、`title` | 绑定快照与来源范围的片段ID、标题 |
+| `knowledge_type` | 对话、人物资料／故事／语音、实体设定、书籍、任务描述或Wiki编纂 |
+| `metadata` | source_family、entity、source_version及context；缺失标量为null，不适用列表为空 |
+| `source` | snapshot、file、file_sha256、kind；来源性质不等于事实核验结论 |
+| `content.turns` | 按原序的对象列表；kind、source_type、speaker、text、row_pointer、pointer、span、options、quality_flags |
+| `content.sections` | field、heading_path、text、pointer及span；保留章节、部件或分卷关系 |
+| `text` | 自动生成的检索文本；模型证据不会与结构化正文重复发送 |
+''' + card[end:]
+        card = card.replace('`source_file` 和 `source_pointer`', '`source.file` 和正文的 `pointer`')
+        card = card.replace('| 基线 | `None` |', '| 身份 | 独立候选，尚未提升基线 |')
+        card += '''
+## 嵌套类型与质量限制
+
+`turns`、`sections`、`options`保持对象列表。选项组不代表已知分支；choice的text、pointer、span为null，正文与定位在options内。
+普通正文的span使用解码后原字段的零基半开字符范围。speaker为空或类型为narration时，不从正文推断角色归属。
+quality_flags包含上游待修或疑似异常；结构完整与原文可定位不表示角色归属及语义已经通过。
+
+数据卡内声明完整features，默认按发布目录或Hub的story配置加载时使用这些类型。
+本地直接读取JSONL时须传项目导出模块的`hf_features()`；它以`Features`和`List(struct)`定义全部字段。
+跳过数据卡且不传features的自动推断可能把首批全空字段推断为null，不能用作本格式的可靠加载入口。
+已发布状态及远端Viewer需要单独验证，本地导出不代表已经上传。
+'''
+    return card
+
+
+def feature_definition():
+    """One stdlib type definition drives both the data card and optional HF Features."""
+    string = 'string'
+    span = {'start': 'int64', 'end': 'int64'}
+    unit = {'text': string, 'pointer': string, 'span': span}
+    def array(item):
+        return {'_list': item}
+    return {
+        'schema_version': 'int64', 'id': string, 'title': string, 'knowledge_type': string,
+        'metadata': {'source_family': string, 'entity': {'type': string, 'name': string},
+                     'source_version': string, 'context': {'chapter': string, 'act': string, 'task_step': string,
+                                                         'path': array(string), 'related_quests': array(string)}},
+        'source': {'snapshot': string, 'file': string, 'file_sha256': string, 'kind': string},
+        'content': {'turns': array({'kind': string, 'source_type': string, 'speaker': string,
+                                  'row_pointer': string, **unit, 'options': array(unit), 'quality_flags': array(string)}),
+                    'sections': array({'field': string, 'heading_path': array(string), **unit})},
+        'text': string}
+
+
+def card_features(definition=None):
+    definition = feature_definition() if definition is None else definition
+    fields = []
+    for name, value in definition.items():
+        if isinstance(value, str):
+            field = {'dtype': value}
+        elif '_list' in value:
+            item = value['_list']
+            field = {'list': item if isinstance(item, str) else card_features(item)}
+        else:
+            field = {'struct': card_features(value)}
+        fields.append({'name': name, **field})
+    return fields
+
+
+def hf_features():
+    """Optional integration dependency; never imported by ordinary corpus tooling."""
+    from datasets import Features, List, Value
+    def convert(value):
+        if isinstance(value, str):
+            return Value(value)
+        if '_list' in value:
+            return List(convert(value['_list']))
+        return {k: convert(v) for k, v in value.items()}
+    return Features(convert(feature_definition()))
+
+
+def source_run_details(source):
+    source = Path(source)
+    manifest = read_json(source / 'run_manifest.json')
+    if manifest.get('purpose') != 'corpus' or manifest.get('execution_status') != 'completed':
+        raise ValueError('Source must be a completed corpus build')
+    meta = manifest.get('metadata', {})
+    for name in DATA_FILES:
+        path = source / name
+        if not path.is_file() or path.is_symlink() or sha256(path.read_bytes()) != meta.get('artifact_sha256', {}).get(name):
+            raise ValueError('Source build artifact hash mismatch: ' + name)
+    if not isinstance(meta.get('chunks'), int) or not meta.get('source_snapshot'):
+        raise ValueError('Source build lacks candidate identity')
+    return manifest
 
 
 def release_file_paths():
@@ -168,7 +273,7 @@ def release_file_paths():
 
 
 def build_release(source, output, *, expected_rows=None, input_snapshot='genshin_wiki_data_20260605',
-                  release_version='rag-full-20260605-v2', baseline_id='current-001'):
+                  release_version='rag-full-20260605-v2', baseline_id='current-001', source_run_id=None, origin_baseline_id=None):
     source, output = Path(source).resolve(), Path(output).resolve()
     if output.exists():
         raise ValueError('Release output must be a new directory')
@@ -179,11 +284,18 @@ def build_release(source, output, *, expected_rows=None, input_snapshot='genshin
     rows = validate_corpus(source / 'corpus.jsonl', expected_rows)
     if not rows:
         raise ValueError('Corpus must not be empty')
+    first = json.loads((source / 'corpus.jsonl').read_text(encoding='utf-8').splitlines()[0])
+    corpus_version = corpus_schema.version(first)
+    if corpus_version == 2:
+        corpus_schema.assert_snapshot_match([first], input_snapshot)
     manifest = {'schema_version': 2, 'release_version': release_version, 'baseline_id': baseline_id,
                 'input_snapshot': input_snapshot, 'rows': rows,
                 'files': {relative: {'bytes': (source / name).stat().st_size,
                                      'sha256': sha256((source / name).read_bytes())}
                           for name, relative in DATA_FILES.items()}}
+    if corpus_version == 2:
+        manifest.update(schema_version=3, corpus_schema_version=2, source_run_id=source_run_id,
+                        origin_baseline_id=origin_baseline_id, publication_status='not_published')
     output.mkdir(parents=True, exist_ok=False)
     for name, relative in DATA_FILES.items():
         target = output / relative
@@ -205,13 +317,19 @@ def verify_release(output, *, expected_rows=None):
     if actual != release_file_paths():
         raise ValueError('Release contains unapproved or missing files')
     manifest = read_json(output / 'manifest.json')
-    if (manifest.get('schema_version') != 2 or set(manifest.get('files', {})) != set(DATA_FILES.values())
+    if (manifest.get('schema_version') not in (2, 3) or set(manifest.get('files', {})) != set(DATA_FILES.values())
             or not isinstance(manifest.get('rows'), int) or manifest['rows'] < 1
-            or not all(isinstance(manifest.get(k), str) and manifest[k] for k in ('release_version', 'baseline_id', 'input_snapshot'))):
+            or not all(isinstance(manifest.get(k), str) and manifest[k] for k in ('release_version', 'input_snapshot'))
+            or (manifest.get('schema_version') == 2 and not manifest.get('baseline_id'))):
         raise ValueError('Invalid release manifest')
     if expected_rows is not None and manifest['rows'] != expected_rows:
         raise ValueError('Release row count differs from expected baseline')
     validate_corpus(output / 'data/corpus.jsonl', manifest['rows'])
+    first = json.loads((output / 'data/corpus.jsonl').read_text(encoding='utf-8').splitlines()[0])
+    if manifest['schema_version'] == 3:
+        if manifest.get('corpus_schema_version') != 2 or corpus_schema.version(first) != 2:
+            raise ValueError('Release/corpus schema mismatch')
+        corpus_schema.assert_snapshot_match([first], manifest['input_snapshot'])
     for relative, info in manifest['files'].items():
         data = (output / relative).read_bytes()
         if len(data) != info.get('bytes') or sha256(data) != info.get('sha256'):
@@ -230,19 +348,29 @@ def main(argv=None):
     commands = parser.add_subparsers(dest='command', required=True)
     build = commands.add_parser('build')
     build.add_argument('--output', type=Path, required=True)
+    build.add_argument('--source-run', type=Path, help='completed candidate corpus run; default remains catalog baseline')
     verify = commands.add_parser('verify')
     verify.add_argument('release', type=Path)
     args = parser.parse_args(argv)
     try:
         if args.command == 'build':
             doc = artifact_catalog.load_catalog(ROOT)
-            artifact_catalog.check_catalog(ROOT)
+            if args.source_run is None:
+                artifact_catalog.check_catalog(ROOT)
             artifact_catalog.assert_writable_output(ROOT, args.output)
             if not args.output.resolve().is_relative_to(ROOT / 'rag/data/outputs/hf'):
                 raise ValueError('HF output must be under rag/data/outputs/hf')
-            result = build_release(artifact_catalog.dataset_path(ROOT, 'full_corpus').parent, args.output,
-                                   expected_rows=doc['datasets']['full_corpus']['rows'], input_snapshot=doc['source_snapshot'],
-                                   release_version=doc['hf']['release_version'], baseline_id=doc['baseline_id'])
+            if args.source_run is None:
+                result = build_release(artifact_catalog.dataset_path(ROOT, 'full_corpus').parent, args.output,
+                                       expected_rows=doc['datasets']['full_corpus']['rows'], input_snapshot=doc['source_snapshot'],
+                                       release_version=doc['hf']['release_version'], baseline_id=doc['baseline_id'])
+            else:
+                run = source_run_details(args.source_run)
+                meta = run['metadata']
+                result = build_release(args.source_run, args.output, expected_rows=meta['chunks'],
+                                       input_snapshot=meta['source_snapshot'], release_version='rag-structured-' + meta['source_snapshot'] + '-v1',
+                                       baseline_id=None, source_run_id='corpus/' + args.source_run.name,
+                                       origin_baseline_id=run['baseline_id'])
         else:
             result = verify_release(args.release)
         print(json.dumps(result, ensure_ascii=False))

@@ -32,6 +32,8 @@ uv --cache-dir .cache/uv run --locked --group benchmark --offline --no-python-do
 
 默认语料从只读catalog定位并校验指纹，`--corpus`／`--raw-root`可指定自定义材料并记录真实身份。`--model-service-pid`可单列本机服务资源；未提供记未测。`--measure memory`另跑完整场景，不能与timing混合比较。共享测量范围见[说明](../support/measurement.md)。
 
+provider复用RAG的[统一证据转换](../../rag/docs/structured_corpus.md#模型证据)：V2返回逐句／逐段结构及质量提示，本地保留完整hit，旧格式继续读取。场景仍绑定原题库快照；已知语料、场景或raw错配时失败，不通过更换原料沿用旧Pointer。
+
 ## pi与人工评审
 
 脚本不启动pi、不管理第三方API。将导出的package.json与模板交给已配置pi，填评分后导入。以下目录／评分须先生成，显式输出目录须不存在：

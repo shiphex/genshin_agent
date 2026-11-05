@@ -17,6 +17,7 @@ except ImportError:
     import evaluate_rag_mvp
 
 LexicalIndex = evaluate_rag_mvp.LexicalIndex
+schema = evaluate_rag_mvp.schema
 PROJECT = Path(__file__).resolve().parents[2]
 PROTOCOL_ID = 'retrieval-source-location-v0'
 SCHEMA_VERSION = 1
@@ -80,24 +81,30 @@ def validate_inputs(document, corpus):
         if row['id'] in ids:
             raise ValueError('duplicate corpus ID')
         ids.add(row['id'])
-        pointers = row.get('source_pointer')
-        if not isinstance(pointers, list) or not pointers:
+        if schema.version(row) == 2:
+            schema.validate_record(row)
+        locations = list(schema.iter_locations(row))
+        if not locations:
             raise ValueError('corpus source_pointer must be a nonempty list')
-        for pointer in pointers:
-            _location(row.get('source_file'), pointer)
+        for file, pointer, _ in locations:
+            _location(file, pointer)
+    schema.assert_snapshot_match(corpus, document['source_snapshot'])
 
 
 def corpus_locations(corpus):
-    return {(row['source_file'], pointer) for row in corpus for pointer in row['source_pointer']}
+    return {(file, pointer) for row in corpus for file, pointer, _ in schema.iter_locations(row)}
 
 
 def score_locations(sources, retrieved, available):
     """Exact annotated field locations only; no character-span or semantic verdict."""
     ranks = {}
     for rank, row in enumerate(retrieved, 1):
-        for pointer in row['source_pointer']:
-            ranks.setdefault((row['source_file'], pointer), []).append({'id': row['id'], 'rank': rank})
+        for file, pointer, _ in schema.iter_locations(row):
+            ranks.setdefault((file, pointer), []).append({'id': row['id'], 'rank': rank})
     expected = list(dict.fromkeys((source['file'], source['pointer']) for source in sources))
+    unresolved = {(s['file'], s['pointer']) for s in sources if s.get('migration_status') == 'unresolved'}
+    ranks = {k: v for k, v in ranks.items() if k not in unresolved}
+    available = available - unresolved
     matched = sum(location in ranks for location in expected)
     return {'annotated_locations': len(expected), 'matched_locations': matched,
             'unmapped_locations': sum(location not in available for location in expected),
@@ -255,6 +262,8 @@ def main(argv=None):
         if any(_fingerprint(path) != info for path, info in fingerprints.items()):
             raise ValueError('input changed while being loaded')
         validate_inputs(document, corpus)
+        schema.assert_snapshot_match(corpus, document['source_snapshot'],
+            known_snapshot=doc['source_snapshot'] if corpus_path == artifact_catalog.dataset_path(PROJECT, 'full_corpus') else None)
         expected = len(document['questions'])
         if questions_path == artifact_catalog.dataset_path(PROJECT, 'story_dev'):
             meta = doc['datasets']['story_dev']
@@ -263,14 +272,14 @@ def main(argv=None):
                 raise ValueError('question metadata differs from catalog')
         if corpus_path == artifact_catalog.dataset_path(PROJECT, 'full_corpus') and len(corpus) != doc['datasets']['full_corpus']['rows']:
             raise ValueError('corpus row count differs from catalog')
-        sources = [Path(__file__).resolve(), Path(evaluate_rag_mvp.__file__).resolve(), Path(artifact_catalog.__file__).resolve()]
+        sources = [Path(__file__).resolve(), Path(evaluate_rag_mvp.__file__).resolve(), Path(artifact_catalog.__file__).resolve(), Path(schema.__file__).resolve()]
         identity = {'questions': {**fingerprints[questions_path], 'path': str(questions_path),
                                  'dataset': document['dataset'], 'version': document['version'],
                                  'source_snapshot': document['source_snapshot'], 'rows': expected,
                                  'baseline_verified': verified[questions_path]},
                     'corpus': {**fingerprints[corpus_path], 'path': str(corpus_path), 'rows': len(corpus),
                                'baseline_verified': verified[corpus_path],
-                               'source_snapshot': doc['source_snapshot'] if corpus_path == artifact_catalog.dataset_path(PROJECT, 'full_corpus') else None},
+                               'source_snapshot': doc['source_snapshot'] if corpus_path == artifact_catalog.dataset_path(PROJECT, 'full_corpus') else schema.source_info(corpus[0]).get('snapshot')},
                     'retriever': {'class': 'evaluate_rag_mvp.LexicalIndex', **_fingerprint(sources[1])}}
         parameters = {'protocol_id': PROTOCOL_ID, 'schema_version': SCHEMA_VERSION, 'top_k': args.top_k,
                       'query_field': 'question', 'question_order': 'input', 'index_builds': 1,

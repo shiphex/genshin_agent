@@ -13,6 +13,7 @@
   "rag/context.md": 1200,
   "rag/docs/README.md": 600,
   "rag/docs/data.md": 1600,
+  "rag/docs/structured_corpus.md": 2200,
   "rag/docs/local_model.md": 1800,
   "rag/eval/README.md": 1600,
   ".agents/skills/doc/SKILL.md": 1800,

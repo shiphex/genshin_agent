@@ -7,6 +7,7 @@ from unittest.mock import patch
 from rag.scripts import full_corpus as full
 from rag.scripts import evaluate_rag_mvp as evaluate
 from rag.scripts import prepare_rag_mvp as prepare
+from rag.scripts import corpus_schema as schema
 
 
 class FullCorpusTests(unittest.TestCase):
@@ -47,7 +48,7 @@ class FullCorpusTests(unittest.TestCase):
         for family, value in fixtures:
             self.add(family, family, value)
         records, issues, audit = full.build_full(self.root)
-        self.assertEqual({r["type"] for r in records}, {f for f, _ in fixtures})
+        self.assertEqual({r['metadata']['source_family'] for r in records}, {f for f, _ in fixtures})
         text = "\n".join(r["text"] for r in records)
         for excluded in ["伤害提高20%", "武器突破", "秘密掉落", "秘密鱼饵", "秘密任务", "秘密攻略", "秘密配方"]:
             self.assertNotIn(excluded, text)
@@ -71,13 +72,13 @@ class FullCorpusTests(unittest.TestCase):
         value = {"名称": "书卷", "故事": story, "介绍": "背景。"}
         self.add("weapons", "长文", value)
         records, issues, audit = full.build_full(self.root, max_chars=45)
-        story_records = [r for r in records if "/故事" in r["source_pointer"]]
+        story_records = [r for r in records if any(p == '/故事' for _, p, _ in schema.iter_locations(r))]
         self.assertGreater(len(story_records), 1)
         spans = []
         for record in story_records:
             self.assertEqual(record["text"], full.reconstruct_record(value, record))
             self.assertLessEqual(len(record["text"]), 45)
-            for span in record["source_spans"]:
+            for _, _, span in schema.iter_locations(record):
                 spans.append((span["start"], span["end"]))
         actual = "".join(story[start:end].strip() for start, end in spans)
         self.assertEqual(actual, story.replace("\n\n", ""))
@@ -90,7 +91,7 @@ class FullCorpusTests(unittest.TestCase):
         value = {"任务名称": "任务", "对话": rows, "任务描述": "背景"}
         self.add("character-quests", "任务", value)
         records, issues, audit = full.build_full(self.root, max_chars=30)
-        dialogue = [r for r in records if any(p.startswith("/对话/") for p in r["source_pointer"])]
+        dialogue = [r for r in records if r['knowledge_type'] == 'dialogue']
         self.assertEqual(len(dialogue), 3)
         self.assertIn("？？？：" + "力量" * 30, dialogue[0]["text"])
         self.assertIn("分支关系未知", dialogue[1]["text"])
@@ -106,7 +107,7 @@ class FullCorpusTests(unittest.TestCase):
         text = "\n".join(r["text"] for r in records)
         self.assertIn("[玩家选项；分支关系未知] 问候。", text)
         self.assertIn("[旁白] 暮色降临。", text)
-        self.assertTrue(any("/剧情对话/0/对话/0/选项/1" in r["source_pointer"] for r in records))
+        self.assertTrue(any(p == '/剧情对话/0/对话/0/选项/1' for r in records for _, p, _ in schema.iter_locations(r)))
         for record in records:
             self.assertEqual(record["text"], full.reconstruct_record(value, record))
 
@@ -115,7 +116,7 @@ class FullCorpusTests(unittest.TestCase):
                  "subsections": [{"title": "事件", "content": "也许发生过此事。", "items": [], "subsections": []}]}]})
         self.add("north-library", "图书馆", {"title": "图书馆", "nodes": [{"title": "概念", "text": "这是推测。", "children": []}]})
         records, issues, audit = full.build_full(self.root)
-        self.assertEqual({r["source_kind"] for r in records}, {"wiki_compilation"})
+        self.assertEqual({schema.source_info(r)['kind'] for r in records}, {'wiki_compilation'})
         self.assertTrue(any("古代 / 事件" in r["title"] for r in records))
         self.assertIn("也许发生过此事。", "\n".join(r["text"] for r in records))
 
@@ -231,8 +232,8 @@ class FullCorpusTests(unittest.TestCase):
         self.assertEqual(a, b)
         self.assertEqual(issues_a, issues_b)
         self.assertEqual(len({r["id"] for r in a}), len(a))
-        self.assertTrue(all(set(r) == {"id", "title", "type", "parent_id", "text", "source_file",
-                                      "source_pointer", "source_spans", "source_kind"} for r in a))
+        for record in a:
+            schema.validate_record(record)
 
 
 class FullRetrievalTests(unittest.TestCase):

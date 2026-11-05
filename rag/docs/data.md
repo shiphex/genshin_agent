@@ -28,7 +28,7 @@ description: "维护当前基线文件、独立输出和后续更新规则。"
 
 `data/` 共11个原件；现行说明在模块 README、eval 与 smoke 文档中维护，第三方历史摘要作为核验记录随结果保留。语料、题库及模型原件迁移时字节不变，管理信息重新登记。Smoke provenance 区分旧12题输入哈希与新三题文件；不声称新文件曾作为当时的输入。旧运行ID仅为原件内的历史身份，不提供路径兼容。
 
-catalog 的 `source_snapshot`、`raw_root` 继续标识现有语料的历史来源；`raw_input` 单独登记当前可用原料的路径、ZIP身份与导入状态，不由现有工具自动选用或校验。2026-11-05按用户要求用新版ZIP替换项目层 `data/raw/`，旧快照未备份。当前原料包含 pages、parsed 及上游报告，没有 README 所述 recovery 目录；不能将外部报告路径当成本包文件。
+catalog 的 `source_snapshot`、`raw_root` 标识默认语料的历史来源；`raw_input` 登记当前可用原料、ZIP身份与导入状态，V2构建默认选用并封存输入指纹，检索默认仍用旧基线。新版ZIP已替换项目层 `data/raw/`，旧快照未备份。原料包含pages、parsed及上游报告，没有recovery目录，不能将外部报告路径当成本包文件。
 
 新版插入对话后，旧题库与语料的 Pointer 不保证指向原内容。110题445条出处的旧新取值比较为131条不变、310条变化、4条无法解析；20题87条为24条不变、63条变化。这不是题目语义评分。现有语料、题库与回答不变；新版需独立构建、重新定位出处后再验收，不能据文件名相同继承旧核验或基线身份。
 
@@ -42,7 +42,9 @@ catalog 的 `source_snapshot`、`raw_root` 继续标识现有语料的历史来�
 
 review用于新的题库核验记录，沿用 `artifact_catalog.reserve_output(root, 'review')` 的目录分配、`seal_inputs` 的输入封存和 `finish_output` 的执行登记；当前没有自动核验runner。用户要求落盘时才生成，执行完成仍保持review_status=not_reviewed，不把外部模型初审登记为用户验收。
 
-构建、原文准备和评测的 run_manifest.json 记录执行状态、实际参数、输入文件哈希、Git commit、source_dirty和执行源码副本；配置只记指纹，不复制鉴权。新全量构建的原始目录目前仅记路径与快照名，未保存逐文件输入指纹。原文准备被手动中断时可能留下running状态，需人工核对，编号不复用。HF 导出由包内 manifest.json 维护固定白名单与发布信息，显式指定新目录。已发布的 `rag-full-20260605-v2` revision、状态与远端入口以 catalog 的 `hf` 字段为准。
+构建、原文准备和评测的 run_manifest.json 记录状态、参数、输入哈希、Git commit、source_dirty和执行源码；配置只记指纹，不复制鉴权。V2构建封存parsed、pages、分类名单及来源异常清单的逐文件指纹，完整记录与模型证据分别维护。出处迁移候选写prepared，不更新正式题库；未决项的旧位置不能用于新快照匹配，规则见[结构化说明](structured_corpus.md)。原文准备被手动中断时可能留下running，需人工核对，编号不复用。
+
+HF候选从完成构建导出，包内manifest明确candidate与origin_baseline_id，baseline_id=null；数据卡声明嵌套类型。新导出不改变catalog的hf记录；已发布版本与远端入口仍以该记录为准。
 
 基线更新是独立操作：明确替换集合，在新输出验证通过后再更新 catalog 的基线身份、路径、哈希及题库版本，完成所有引用核对。失败保持当前基线不变；现有工具没有自动提升基线的接口。不默认保留每次可重建副本，也不在生成成功时升级用户验收状态。
 

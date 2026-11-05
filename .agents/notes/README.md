@@ -28,7 +28,7 @@ Agent Note 保存实现和普通文档不能充分解释的重要决策原因、
 
 ## 当前记录
 
-- [RAG结构化内容、元数据与证据传递](proposed/2026-11-05-structured-rag-corpus.md)：已同意内嵌结构方向，记录原料替换、token样本及待实施验收。
+- [RAG结构化内容、元数据与证据传递](proposed/2026-11-05-structured-rag-corpus.md)：V2候选已实现，记录出处未决、上游归属待修、HF加载及实际token开销。
 - [本地模型启动、分档思考与配置隐私](proposed/2026-10-28-local-model-config.md)：llama.cpp 配置已接入，显存、游戏影响和自动分档仍待验证。
 - [严格探针符合性与适配成本](implemented/2026-10-21-fixed-history-conformance.md)：V0结果含义、适配声明和自主历史模式暂缓取舍。
 - [Doc Sync V0](implemented/2026-10-19-doc-sync-v0.md)：单 CLI 生成、链接检查、统一入口及 type-equiv 暂缓取舍。

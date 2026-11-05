@@ -10,11 +10,13 @@ def load_scenarios(root, path=None):
     if file_hash(questions_path) != suite["question_bank_sha256"]:
         raise ValueError("question bank fingerprint mismatch; revise the scenario binding explicitly")
     document = read_json(questions_path)
+    suite['source_snapshot'] = document.get('source_snapshot')
     questions = {q["id"]: q for q in document["questions"]}
     scenes = suite["scenarios"]
     if len({s["id"] for s in scenes}) != len(scenes):
         raise ValueError("duplicate scenario ID")
     for scene in scenes:
+        scene['source_snapshot'] = document.get('source_snapshot')
         if scene["group"] not in {"tools", "memory", "boundary"} or not scene["turns"]:
             raise ValueError("invalid scenario group or empty turns")
         scene["reference_material"] = [deepcopy(questions[qid]) for qid in scene["question_ids"]]

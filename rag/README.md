@@ -29,15 +29,16 @@ description: "提供当前 RAG 基线、语料检索、题库准备和 Hugging F
 | [eval](eval/README.md) | 110题开发集与20题独立事实核验 |
 | [smoke](eval/smoke/README.md) | 三题 Q4 模型完整链路验证 |
 | [数据管理](docs/data.md) | 基线、独立输出、保留与更新规则 |
+| [结构化语料V2](docs/structured_corpus.md) | 逐句内容、精简模型证据、候选出处迁移与HF加载 |
 | [开发文档](docs/README.md) | 当前规则与爬虫恢复交接 |
 
 `data/` 仅保留 corpus、review20、smoke 三组原件；说明留在上述文档中。旧实验、题库原型、审阅包和兼容映射已按用户决定淘汰，不再是恢复入口。
 
 ## 语料与检索
 
-可用原始快照由 catalog 的 `raw_input` 登记；旧快照已删除，当前语料仍为旧快照生成的22,822条片段，未重建。两者的身份及出处迁移限制见[数据管理](docs/data.md#基线内容)。来源包含原文件、RFC 6901 Pointer、解码后字符串的零基半开字符范围 `[start,end)` 和来源性质。`wiki_excerpt` 与 `wiki_compilation` 分别表示 Wiki 摘录和编纂，均不自动等于官方事实；保留人物说法、传说、未知分支与不确定性。
+原始快照由 catalog.raw_input 登记；旧快照已删除，默认基线仍为旧来源的22,822条，新版候选见[context](context.md)。身份及迁移限制见[数据管理](docs/data.md#基线内容)。来源保留原文件、RFC 6901 Pointer、解码后字符串的零基半开范围 `[start,end)` 和来源性质。`wiki_excerpt` 与 `wiki_compilation` 分别表示Wiki摘录和编纂，均不自动等于官方事实；保留人物说法、传说、未知分支与不确定性。
 
-构建默认扫描全量；`--all` 保留为兼容参数。脚本默认路径仍指向已删除的旧快照，使用新版须显式传入 `--raw-root`。新构建写入独立输出，不自动替换基线：
+构建默认扫描 catalog.raw_input 的全量原料并生成结构化V2；`--all` 保留为兼容参数，`--raw-root` 可覆盖。已确认异常通过 `--source-review` 加入，迁移步骤与字段见[结构化说明](docs/structured_corpus.md)。新构建写入独立输出，不自动替换基线：
 
 ```powershell
 uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/prepare_rag_mvp.py --raw-root data/raw/genshin_wiki_data_20260605_261104
@@ -109,14 +110,14 @@ uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3
 
 ## Hugging Face 导出
 
-只发布剧情语料；导出工具读取当前 catalog，明确配置 `story/train` 仅加载 `data/corpus.jsonl`。审计、排除和覆盖资料放入 metadata 附件；不上传题库、回答或原始快照。新输出路径必须尚不存在：
+只发布剧情语料；导出默认读取当前 catalog，`--source-run` 可读取独立完成的构建。`story/train` 仅加载 `data/corpus.jsonl`；审计、排除和覆盖资料放入 metadata 附件，不上传题库、回答或原始快照。新输出路径必须尚不存在：
 
 ```powershell
 uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/export_hf_dataset.py build --output rag/data/outputs/hf/release-v2
 uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/export_hf_dataset.py verify rag/data/outputs/hf/release-v2
 ```
 
-发布格式版本为 `rag-full-20260605-v2`，沿用相同语料内容；`train` 是加载分区名，数据卡保留来源与 `license: other` 声明。工具验证白名单、JSONL字段、动态行数和哈希，不上传。配置参考 [Hugging Face 官方文档](https://huggingface.co/docs/hub/datasets-manual-configuration)。
+当前已发布格式仍为 `rag-full-20260605-v2`。结构化候选使用发布包manifest版本3、语料版本2；本地加载须读取数据卡类型或显式Features，见[加载说明](docs/structured_corpus.md#hf加载)。工具验证白名单、字段、行数和哈希，不上传；数据卡保留来源与 `license: other` 声明。
 
 ## 数据获取与验证
 

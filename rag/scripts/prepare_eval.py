@@ -50,12 +50,17 @@ def main(argv=None):
         if output is not None and output.exists():
             raise ValueError("output already exists; choose a new file")
         document = json.loads(source_input.read_text(encoding="utf-8-sig"))
+        snapshot = document.get('source_snapshot')
+        if snapshot and str(snapshot).replace('\\', '/').rstrip('/').rsplit('/', 1)[-1] != raw_root.name:
+            raise ValueError('question/raw source snapshot mismatch')
         cache = {}
         count = 0
         for question in document["questions"]:
             for source in question["sources"]:
                 name, pointer = source["file"], source["pointer"]
                 try:
+                    if source.get('migration_status') == 'unresolved':
+                        raise ValueError('unresolved migration source cannot be read against the new snapshot')
                     if "text" in source:
                         raise ValueError("remove manually maintained text from the input")
                     parts = PurePosixPath(name).parts
