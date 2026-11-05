@@ -6,7 +6,7 @@ description: "记录当前RAG基线、遗留问题与最近验证边界。"
 
 ## 摘要
 
-更新：2026-11-06。261106包已替换261104目录并重建结构化V2候选，但包内文件完全相同，未包含所反馈修复；默认基线不变。身份由[catalog](catalog.json)登记，字段与命令见[结构化说明](docs/structured_corpus.md)。旧实验不维持路径兼容。
+更新：2026-11-06。261106包已替换261104目录，内容完全相同，未包含所反馈修复。结构化V2已合并HF PR #5，公开全量加载通过，Viewer仍处理中；本地默认基线不变。身份由[catalog](catalog.json)登记，字段与命令见[结构化说明](docs/structured_corpus.md)。旧实验不维持路径兼容。
 
 ## 目录
 
@@ -21,7 +21,7 @@ description: "记录当前RAG基线、遗留问题与最近验证边界。"
 
 词面检索、过滤与生成仍可能遗漏或误读证据。三题初审发现无检索错误及RAG的主体错置、无依据扩写和引用问题；旧模型表现“极其多”错误是用户总体反馈，不作为逐题评分。候选检索或模型改进尚未实施，未证明4B永久能力上限。
 
-110题和两类初审继续待用户确认；程序、API、检索、引用与语义验证分开。HF 新格式已合并到 `main`，旧布局仍可由旧 revision 访问；地址与 commit 由 catalog 登记。新克隆需独立提供本地基线原件及原始快照，Git不能恢复被淘汰的资料。
+110题和两类初审继续待用户确认；程序、API、检索、引用与语义验证分开。HF版本独立于本地基线，旧revision仍可访问；地址与commit由catalog登记。新克隆需独立提供本地基线原件及原始快照，Git不能恢复被淘汰的资料。
 
 用户补充的20题第三方摘要与历史提示词已原样存入 `data/review20/summary.md`，当前基线为current-003；Smoke输入及说明已归入[eval/smoke](eval/smoke/README.md)，14份清单文件内容不变。摘要中的旧路径与输出要求不作为当前指令，现行核验入口见[题库说明](eval/README.md#20题核验)。
 
@@ -31,7 +31,7 @@ description: "记录当前RAG基线、遗留问题与最近验证边界。"
 
 retrieval/r006完成110题Top5：位置Hit为93/110、Coverage宏72.71%、微298/445，与旧候选r004一致；书籍genre未纳入及迁移未决保留分母。11-05的r005计数记录三种Top5工具JSON增加20.28%–26.82%、固定三轮输入增加21.90%；未套服务模板，不是实际prompt_tokens。模型调用0，语义未测。
 
-11-06的HF待发包为outputs/hf/structured-261106-r001；review/r005验证白名单、哈希及23,254条显式Features／数据卡默认加载，均逐条一致。数据卡披露已知缺陷及V2字段／ID兼容变化。裸JSON无Features推断仍不可靠。未上传HF，远端Viewer未验证。
+11-06发布outputs/hf/structured-261106-r001。review/r005验证本地加载；review/r006记录PR #5及合并后7文件哈希、23,254条公开加载逐条一致，旧revision可访问；Viewer返回ResponseNotReady，暂登记published_pending_viewer。数据卡披露缺陷及字段／ID变化，裸JSON无Features推断仍不可靠。
 
 2026-10-30 精确a06重放确认 required 已应用，但语法允许不限长度的前置正文，仍耗尽1536 token；短输入通过不能外推。已新增[显式前缀模式](docs/local_model.md)，三次均以32 token完成原生调用，真实检索往返通过。证据在本地 outputs/local_api_validation/r002，服务已停止；H1/C1未重跑，剧情和性能未验收。
 

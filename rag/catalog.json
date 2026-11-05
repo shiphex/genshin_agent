@@ -147,12 +147,18 @@
   },
   "hf": {
     "release_version": "rag-full-20260605-v2",
-    "publication_status": "available",
-    "previous_revision": "592d198a9cde390005323a9f849c0d3981fb5a33",
+    "publication_status": "published_pending_viewer",
+    "previous_revision": "bd7862b586956c41b35cd4ce95edd8236318d1ea",
     "repository": "shiphex/genshin_agent_RAG",
-    "published_revision": "bd7862b586956c41b35cd4ce95edd8236318d1ea",
-    "publication_url": "https://huggingface.co/datasets/shiphex/genshin_agent_RAG/tree/bd7862b586956c41b35cd4ce95edd8236318d1ea",
-    "merged_pull_request": 3
+    "published_revision": "ca45490898c75befd9640322c5aaf5c1032b71fd",
+    "publication_url": "https://huggingface.co/datasets/shiphex/genshin_agent_RAG/tree/ca45490898c75befd9640322c5aaf5c1032b71fd",
+    "merged_pull_request": 5,
+    "published_release_version": "rag-structured-genshin_wiki_data_20260605_261106-v1",
+    "published_corpus_schema_version": 2,
+    "published_rows": 23254,
+    "published_source_snapshot": "genshin_wiki_data_20260605_261106",
+    "viewer_status": "pending",
+    "published_on": "2026-11-06"
   },
   "supersedes": "current-002"
 }

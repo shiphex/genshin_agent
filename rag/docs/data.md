@@ -44,7 +44,7 @@ review用于新的题库核验记录，沿用 `artifact_catalog.reserve_output(r
 
 构建、原文准备和评测的 run_manifest.json 记录状态、参数、输入哈希、Git commit、source_dirty和执行源码；配置只记指纹，不复制鉴权。V2构建封存parsed、pages、分类名单及来源异常清单的逐文件指纹，完整记录与模型证据分别维护。出处迁移候选写prepared，不更新正式题库；未决项的旧位置不能用于新快照匹配，规则见[结构化说明](structured_corpus.md)。原文准备被手动中断时可能留下running，需人工核对，编号不复用。
 
-HF候选从完成构建导出，包内manifest明确candidate与origin_baseline_id，baseline_id=null；数据卡声明嵌套类型。新导出不改变catalog的hf记录；已发布版本与远端入口仍以该记录为准。
+HF候选从完成构建导出，manifest的baseline_id=null，origin_baseline_id标原基线；数据卡声明嵌套类型。导出不修改catalog。hf.release_version用于默认基线导出，published_release_version与published_revision登记远端发布，两者可不同。
 
 基线更新是独立操作：明确替换集合，在新输出验证通过后再更新 catalog 的基线身份、路径、哈希及题库版本，完成所有引用核对。失败保持当前基线不变；现有工具没有自动提升基线的接口。不默认保留每次可重建副本，也不在生成成功时升级用户验收状态。
 

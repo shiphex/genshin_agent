@@ -59,22 +59,25 @@ search_story仍接收query，保留ok/result/evidence和原失败外层。统一
 ## HF加载
 
 ```powershell
-uv run --locked --python 3.11 python -B rag/scripts/export_hf_dataset.py build --source-run rag/data/outputs/corpus/r001 --output rag/data/outputs/hf/structured-new
+uv run --locked --python 3.11 python -B rag/scripts/export_hf_dataset.py build --source-run rag/data/outputs/corpus/r002 --output rag/data/outputs/hf/structured-new
 uv sync --locked --group hf --group benchmark --python 3.11
 ```
 
 候选导出校验completed构建及四个附件哈希；默认仍取catalog基线。包内manifest版本3、corpus_schema_version=2，候选baseline_id=null，origin_baseline_id只标原基线。story/train仅加载剧情语料；题库、迁移报告和原料不导出，不自动上传。
 
 ```python
+import json
+from pathlib import Path
 from datasets import load_dataset
 from rag.scripts.export_hf_dataset import hf_features
 
-ds = load_dataset("rag/data/outputs/hf/structured-r002", name="story", split="train")
-explicit = load_dataset("json", data_files="rag/data/outputs/corpus/r001/corpus.jsonl",
+hf = json.loads(Path("rag/catalog.json").read_text(encoding="utf-8"))["hf"]
+ds = load_dataset(hf["repository"], name="story", split="train", revision=hf["published_revision"])
+explicit = load_dataset("json", data_files="rag/data/outputs/corpus/r002/corpus.jsonl",
                         split="train", features=hf_features())
 ```
 
-数据卡声明嵌套类型；Features使用List(struct)，保持对象列表。跳过数据卡且不传features的裸JSON自动推断可能把首批全空列表推断为null，后续遇到字符串失败，不作为可靠入口。本地加载不代表远端Viewer或发布通过；来源与许可声明继续保留。
+数据卡声明嵌套类型；Features使用List(struct)，保持对象列表。跳过数据卡且不传features的裸JSON自动推断可能把首批全空列表推断为null，后续遇到字符串失败，不作为可靠入口。HF版本与本地默认基线独立；旧字段和ID的调用方需适配V2，复现旧结果固定catalog.hf.previous_revision。实际远端加载、Viewer与发布状态分别登记，来源与许可声明继续保留。
 
 ## Dev Note
 
