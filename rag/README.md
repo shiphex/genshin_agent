@@ -35,12 +35,12 @@ description: "提供当前 RAG 基线、语料检索、题库准备和 Hugging F
 
 ## 语料与检索
 
-原始快照在共享 `data/raw/genshin_wiki_data_20260605/`；当前全量语料在 `rag/data/corpus/`，22,822条片段，附审计、排除记录和覆盖说明。来源包含原文件、RFC 6901 Pointer、解码后字符串的零基半开字符范围 `[start,end)` 和来源性质。`wiki_excerpt` 与 `wiki_compilation` 分别表示 Wiki 摘录和编纂，均不自动等于官方事实；保留人物说法、传说、未知分支与不确定性。
+可用原始快照由 catalog 的 `raw_input` 登记；旧快照已删除，当前语料仍为旧快照生成的22,822条片段，未重建。两者的身份及出处迁移限制见[数据管理](docs/data.md#基线内容)。来源包含原文件、RFC 6901 Pointer、解码后字符串的零基半开字符范围 `[start,end)` 和来源性质。`wiki_excerpt` 与 `wiki_compilation` 分别表示 Wiki 摘录和编纂，均不自动等于官方事实；保留人物说法、传说、未知分支与不确定性。
 
-构建默认扫描全量；`--all` 保留为兼容参数。新构建写入独立输出，不自动替换基线：
+构建默认扫描全量；`--all` 保留为兼容参数。脚本默认路径仍指向已删除的旧快照，使用新版须显式传入 `--raw-root`。新构建写入独立输出，不自动替换基线：
 
 ```powershell
-uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/prepare_rag_mvp.py
+uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/prepare_rag_mvp.py --raw-root data/raw/genshin_wiki_data_20260605_261104
 uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/evaluate_rag_mvp.py --retrieval-only
 ```
 
@@ -57,7 +57,7 @@ hits = index.search("钟离如何看待契约与公平？", top_k=5)
 
 ## 问题集与 Smoke
 
-[110题](eval/questions.json)是唯一正式开发题库，0.5版；[20题输入](eval/review20.json)及其本地完整结果用于核验题目事实，不是模型作答记录。原文准备命令：
+[110题](eval/questions.json)是唯一正式开发题库，0.5版；[20题输入](eval/review20.json)及其本地完整结果用于核验题目事实，不是模型作答记录。以下原文准备入口仍依赖旧快照；旧原料已移除，出处重新定位前不能将旧 Pointer 直接用于新版：
 
 ```powershell
 uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/prepare_eval.py
