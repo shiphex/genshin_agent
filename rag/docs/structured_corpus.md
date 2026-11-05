@@ -41,7 +41,7 @@ section保存field、heading_path、text、pointer和span，区分角色章节�
 
 ```powershell
 uv run --locked --python 3.11 python -B rag/scripts/migrate_sources.py --old-archive E:/Workplace/Learn_project/genshin_wiki_data/genshin_wiki_data_20260605.zip
-uv run --locked --python 3.11 python -B rag/scripts/prepare_rag_mvp.py --source-review rag/data/outputs/prepared/r003/source_issues.json
+uv run --locked --python 3.11 python -B rag/scripts/prepare_rag_mvp.py --source-review rag/data/outputs/prepared/r004/source_issues.json
 ```
 
 旧ZIP只读，不恢复旧raw目录；兼容其未标UTF-8文件名。迁移按原文、角色、类型与流程匹配，显示变化仅用于比对，实际写入新版原字段。输出110题0.6候选、原batches结构的20题候选、逐项报告及异常清单；不改正式题目、答案、criteria或历史核验。

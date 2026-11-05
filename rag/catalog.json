@@ -5,12 +5,12 @@
   "source_snapshot": "genshin_wiki_data_20260605",
   "raw_root": "data/raw/genshin_wiki_data_20260605",
   "raw_input": {
-    "snapshot": "genshin_wiki_data_20260605_261104",
-    "path": "data/raw/genshin_wiki_data_20260605_261104",
-    "archive": "genshin_wiki_data_20260605_261104.zip",
-    "archive_sha256": "13b71711bde300d5f1833e64d29381a1c32cb7e70da106d76bf1126f9c862ed1",
-    "upstream_release": "https://github.com/shiphex/get_genshin_wiki/releases/tag/release%2FV2.3.0",
-    "imported_on": "2026-11-05",
+    "snapshot": "genshin_wiki_data_20260605_261106",
+    "path": "data/raw/genshin_wiki_data_20260605_261106",
+    "archive": "genshin_wiki_data_20260605_261106.zip",
+    "archive_sha256": "c84766c22fa862345e46bfc11385bfcb372b2064359ac077f07a09affaf76ad0",
+    "upstream_release": null,
+    "imported_on": "2026-11-06",
     "file_count": 11451,
     "status": "imported_not_integrated"
   },

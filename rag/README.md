@@ -36,12 +36,12 @@ description: "提供当前 RAG 基线、语料检索、题库准备和 Hugging F
 
 ## 语料与检索
 
-原始快照由 catalog.raw_input 登记；旧快照已删除，默认基线仍为旧来源的22,822条，新版候选见[context](context.md)。身份及迁移限制见[数据管理](docs/data.md#基线内容)。来源保留原文件、RFC 6901 Pointer、解码后字符串的零基半开范围 `[start,end)` 和来源性质。`wiki_excerpt` 与 `wiki_compilation` 分别表示Wiki摘录和编纂，均不自动等于官方事实；保留人物说法、传说、未知分支与不确定性。
+原始快照由 catalog.raw_input 登记；当前已替换为261106包，默认基线仍为旧来源的22,822条。包内内容与261104相同，修复未落入本包，新候选及未决项见[context](context.md)。身份及迁移限制见[数据管理](docs/data.md#基线内容)。来源保留原文件、RFC 6901 Pointer、解码后字符串的零基半开范围 `[start,end)` 和来源性质。`wiki_excerpt` 与 `wiki_compilation` 分别表示Wiki摘录和编纂，均不自动等于官方事实；保留人物说法、传说、未知分支与不确定性。
 
 构建默认扫描 catalog.raw_input 的全量原料并生成结构化V2；`--all` 保留为兼容参数，`--raw-root` 可覆盖。已确认异常通过 `--source-review` 加入，迁移步骤与字段见[结构化说明](docs/structured_corpus.md)。新构建写入独立输出，不自动替换基线：
 
 ```powershell
-uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/prepare_rag_mvp.py --raw-root data/raw/genshin_wiki_data_20260605_261104
+uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/prepare_rag_mvp.py --raw-root data/raw/genshin_wiki_data_20260605_261106
 uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/evaluate_rag_mvp.py --retrieval-only
 ```
 
