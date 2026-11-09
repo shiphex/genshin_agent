@@ -1,2 +1,6 @@
 /outputs/
 /.work/
+
+# Only this approved review bundle is eligible for publication.
+/reviews/*
+!/reviews/core-probe-20261028/

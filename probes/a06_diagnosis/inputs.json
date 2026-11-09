@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "scenario_id": "a06",
+  "oracle_assisted_diagnostic": true,
+  "oracle_queries": ["温迪 神之心 女士 夺走", "女士 愚人众 十一执行官 第八席", "女士 执行官 冰之女皇 效忠 温迪"],
+  "necessary_dialogue_indices": [[46, 47], [47], [47, 50]],
+  "known_correct_chunk": "fe665dfd7f6417b1aa8a9c5f9",
+  "max_steps": 8,
+  "retrieval_top_k": 5,
+  "timeout": 240,
+  "repeat_total_when_triggered": 3,
+  "direct_corpus_selection_allowed": true
+}

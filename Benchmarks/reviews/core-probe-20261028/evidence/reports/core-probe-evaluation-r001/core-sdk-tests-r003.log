@@ -1,0 +1,23 @@
+uv : test_abnormal_model_finish_keeps_raw_reply_without_tool_dispatch (test_bridge.BridgeTests.test_abnormal_model_fini
+sh_keeps_raw_reply_without_tool_dispatch) ... ok
+所在位置 行:2 字符: 1
++ uv --cache-dir E:/Workplace/Learn_project/genshin_agent/.cache/uv run ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_abnormal_m...ispatch) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_malformed_arguments_recover_inside_sdk_without_provider_tool (test_bridge.BridgeTests.test_malformed_arguments_rec
+over_inside_sdk_without_provider_tool) ... ok
+test_provider_failure_ends_turn_and_reset_clears_failed_history (test_bridge.BridgeTests.test_provider_failure_ends_tur
+n_and_reset_clears_failed_history) ... ok
+test_roundtrip_keeps_null_content_and_raw_arguments (test_bridge.BridgeTests.test_roundtrip_keeps_null_content_and_raw_
+arguments) ... ok
+test_story_service_managed_context_uses_existing_provider_checks (test_bridge.BridgeTests.test_story_service_managed_co
+ntext_uses_existing_provider_checks) ... ok
+test_truncated_model_reply_is_retained_without_claiming_completion (test_bridge.BridgeTests.test_truncated_model_reply_
+is_retained_without_claiming_completion) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.039s
+
+OK

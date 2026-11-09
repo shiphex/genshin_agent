@@ -21,6 +21,7 @@ description: "提供剧情agent项目、当前RAG基线及开发文档入口。"
 - [问题集](rag/eval/README.md)：110题及20题独立事实核验。
 - [三题Smoke](rag/eval/smoke/README.md)：模型链路结果、依据与已知问题。
 - [当前数据规则](rag/docs/data.md)：基线与独立生成内容。
+- [Core 技术探针评审](Benchmarks/reviews/core-probe-20261028/README.md)：双候选源码、精选证据与复算入口。
 - [Benchmarks分类索引](Benchmarks/README.md)：按agent_core／agent_story分类评测，support供未来各类复用。
 
 ## 开发入口
@@ -29,7 +30,7 @@ description: "提供剧情agent项目、当前RAG基线及开发文档入口。"
 
 ## 数据与限制
 
-当前基线由[统一清单](rag/catalog.json)维护，旧实验与审阅包已按用户决定淘汰。Git不包含原始快照、语料、模型回答和核验原件；新克隆须独立取得本地数据，获取与验证见RAG说明。重跑不能恢复历史回答。
+当前基线由[统一清单](rag/catalog.json)维护，旧实验与审阅包已按用户决定淘汰。除本次明确白名单内的Core评审材料外，Git不包含原始快照、语料、模型回答和核验原件；新克隆须独立取得本地数据，获取与验证见RAG说明。重跑不能恢复历史回答。
 
 [爬虫恢复交接](rag/docs/recovery/crawler_handoff.md)属于独立爬虫项目任务，本项目此次不修改爬虫或接入新版数据。
 

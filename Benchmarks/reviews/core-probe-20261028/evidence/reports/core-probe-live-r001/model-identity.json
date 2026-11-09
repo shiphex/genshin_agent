@@ -1,0 +1,17 @@
+{
+  "model_file_name": "Qwen3.5-4B-Q4_K_M.gguf",
+  "model_bytes": 2740937888,
+  "model_sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+  "server_sha256": "28713f013309fc1ad213232b429547e046d8928d6352ef006f47cb4e6515b388",
+  "launch_config_commit": "18153d2",
+  "public_config_sha256": "6865e657567e88d3c4cb802955d044400321ec943115601cae07a6772dbba815",
+  "private_config_sha256": "4592077c76cf1559a1ec7c63c25035c051f166d65cf1af4e31d8eab978df829d",
+  "server_ctx_size": 16384,
+  "server_parallel": 1,
+  "server_gpu_layers": "all",
+  "server_batch": 256,
+  "server_ubatch": 128,
+  "server_kv": "f16/f16",
+  "client_conditions": "fixed-history-v0; temperature0 seed42 max_tokens1536 enable_thinking=false",
+  "server_version": "9837 b3fed31b9, Clang20.1.8 Windows x86_64"
+}

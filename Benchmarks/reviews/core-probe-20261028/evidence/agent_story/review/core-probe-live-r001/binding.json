@@ -1,0 +1,25 @@
+{
+  "run_path": "E:\\Workplace\\Learn_project\\genshin_agent\\.cache\\worktrees\\core-compare\\Benchmarks\\outputs\\agent_story\\agent\\core-probe-live-r001",
+  "run_identity": "80c1fdd870957da09f16bcc5eeffdfaf27111c95af28e8e650b433a00f9c201f",
+  "package_sha256": "ee0b7bb761e7185713795a761a472b27625b849234d42940284cdf66f4120186",
+  "mapping": {
+    "sample-0001": "core_self:a01:1",
+    "sample-0002": "core_sdk:a01:1",
+    "sample-0003": "core_sdk:a01:2",
+    "sample-0004": "core_self:a01:2",
+    "sample-0005": "core_sdk:a01:3",
+    "sample-0006": "core_self:a01:3",
+    "sample-0007": "core_self:a06:1",
+    "sample-0008": "core_sdk:a06:1",
+    "sample-0009": "core_sdk:a06:2",
+    "sample-0010": "core_self:a06:2",
+    "sample-0011": "core_sdk:a06:3",
+    "sample-0012": "core_self:a06:3",
+    "sample-0013": "core_self:a12:1",
+    "sample-0014": "core_sdk:a12:1",
+    "sample-0015": "core_sdk:a12:2",
+    "sample-0016": "core_self:a12:2",
+    "sample-0017": "core_sdk:a12:3",
+    "sample-0018": "core_self:a12:3"
+  }
+}

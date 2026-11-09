@@ -1,0 +1,22 @@
+{
+  "total": 18,
+  "completed": 18,
+  "correct": 0,
+  "incorrect": 0,
+  "unjudged": 18,
+  "conformance": {
+    "total": 18,
+    "passed": 18,
+    "failed": 0,
+    "not_evaluated": 0,
+    "not_recorded": 0
+  },
+  "elapsed_ms": {
+    "n": 18,
+    "median": 9904.863650037441,
+    "min": 7976.06190002989,
+    "max": 31347.687599947676
+  },
+  "semantic_status": "not_evaluated",
+  "user_acceptance": "not_evaluated"
+}

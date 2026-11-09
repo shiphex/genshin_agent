@@ -1,0 +1,54 @@
+ͨ��  1571 / 1800  ���� 229  AGENTS.md
+ͨ��  425 / 1200  ���� 775  README.md
+ͨ��  476 / 700  ���� 224  context.md
+ͨ��  452 / 700  ���� 248  Benchmarks/AGENTS.md
+ͨ��  473 / 850  ���� 377  Benchmarks/README.md
+ͨ��  515 / 700  ���� 185  Benchmarks/context.md
+ͨ��  1243 / 2000  ���� 757  Benchmarks/experiment-contract.md
+ͨ��  1348 / 1600  ���� 252  Benchmarks/core-probe-plan.md
+ͨ��  1627 / 2200  ���� 573  docs/AGENTS.md
+ͨ��  1004 / 2000  ���� 996  docs/architecture.md
+ͨ��  2165 / 2200  ���� 35  docs/development.md
+ͨ��  426 / 800  ���� 374  docs/terminology.md
+ͨ��  2061 / 2600  ���� 539  rag/README.md
+ͨ��  1090 / 1200  ���� 110  rag/context.md
+ͨ��  121 / 600  ���� 479  rag/docs/README.md
+ͨ��  1298 / 1600  ���� 302  rag/docs/data.md
+ͨ��  1282 / 1600  ���� 318  rag/eval/README.md
+ͨ��  876 / 1800  ���� 924  .agents/skills/doc/SKILL.md
+ͨ��  619 / 1200  ���� 581  .agents/skills/prose-standard/SKILL.md
+ͨ��  545 / 900  ���� 355  .agents/skills/agent-experience/SKILL.md
+ͨ��  568 / 1000  ���� 432  .agents/notes/README.md
+ͨ��  554 / 1000  ���� 446  .agents/notes/implemented/2026-10-21-fixed-history-conformance.md
+ͨ��  1504 / 1600  ���� 96  .agents/notes/implemented/2026-10-16-ai-native-documentation.md
+ͨ��  239 / 1000  ���� 761  .agents/skills/doc/templates/overview.md
+ͨ��  247 / 1000  ���� 753  .agents/skills/doc/templates/architecture.md
+ͨ��  272 / 1000  ���� 728  .agents/skills/doc/templates/workflow.md
+ͨ��  294 / 1000  ���� 706  .agents/skills/doc/templates/reference.md
+ͨ��  200 / 1000  ���� 800  .agents/skills/doc/templates/index.md
+ͨ��  241 / 1000  ���� 759  .agents/skills/doc/templates/context.md
+ͨ��  286 / 1000  ���� 714  .agents/skills/doc/templates/agent-note.md
+ͨ��  1128 / 1600  ���� 472  .agents/skills/doc/references/upstream.md
+ͨ��  610 / 1600  ���� 990  rag/eval/smoke/README.md
+ͨ��  1035 / 1800  ���� 765  .agents/notes/implemented/2026-10-16-rag-current-baseline.md
+ͨ��  1015 / 1800  ���� 785  .agents/skills/genshin-dev-questions/SKILL.md
+ͨ��  1298 / 2000  ���� 702  .agents/skills/genshin-question-review/SKILL.md
+ͨ��  776 / 1400  ���� 624  .agents/skills/speed-up-perf/SKILL.md
+ͨ��  868 / 1400  ���� 532  .agents/skills/ci-test-reliability/SKILL.md
+ͨ��  1013 / 1400  ���� 387  .agents/skills/pre-push-checks/SKILL.md
+ͨ��  1231 / 2200  ���� 969  .agents/notes/implemented/2026-10-17-retrieval-evaluation-v0.md
+ͨ��  786 / 1600  ���� 814  .agents/notes/implemented/2026-10-19-doc-sync-v0.md
+ͨ��  641 / 1400  ���� 759  Benchmarks/agent_core/README.md
+ͨ��  824 / 1000  ���� 176  Benchmarks/agent_core/evaluation.md
+ͨ��  949 / 1800  ���� 851  Benchmarks/agent_story/README.md
+ͨ��  1306 / 1500  ���� 194  Benchmarks/agent_story/evaluation.md
+ͨ��  274 / 600  ���� 326  Benchmarks/support/README.md
+ͨ��  1825 / 2200  ���� 375  Benchmarks/support/protocol.md
+ͨ��  1062 / 1400  ���� 338  Benchmarks/support/measurement.md
+PASS doc-budgets
+FROZEN rag/docs/recovery/crawler_handoff.md: frozen crawler recovery handoff (source excluded; inbound links checked)
+rag/eval/README.md:29: ../data/review20/summary.md: LOCAL not supplied by Git; not validated
+Markdown links: 48 sources, 0 errors, 2 explicit exclusions
+PASS markdown-links
+rag/README.md: retrieval-cli verified
+PASS retrieval-cli

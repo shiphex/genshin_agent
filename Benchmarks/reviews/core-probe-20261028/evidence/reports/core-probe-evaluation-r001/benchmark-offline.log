@@ -1,0 +1,157 @@
+uv : test_all_cases_pass_under_declared_profile (Benchmarks.agent_core.tests.test_conformance.ConformanceTests.test_all
+_cases_pass_under_declared_profile) ... ok
+所在位置 行:2 字符: 1
++ uv --cache-dir E:/Workplace/Learn_project/genshin_agent/.cache/uv run ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_all_cases_...profile) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_cleanup_wrapper_preserves_protocol_evidence_and_stops_run (Benchmarks.agent_core.tests.test_conformance.Conformanc
+eTests.test_cleanup_wrapper_preserves_protocol_evidence_and_stops_run) ... ok
+test_interrupt_and_unstarted_samples_keep_full_denominator (Benchmarks.agent_core.tests.test_conformance.ConformanceTes
+ts.test_interrupt_and_unstarted_samples_keep_full_denominator) ... ok
+test_observed_violation_remains_failed_after_interrupt (Benchmarks.agent_core.tests.test_conformance.ConformanceTests.t
+est_observed_violation_remains_failed_after_interrupt) ... ok
+test_perf_declares_profile_and_retains_success_filter (Benchmarks.agent_core.tests.test_conformance.ConformanceTests.te
+st_perf_declares_profile_and_retains_success_filter) ... ok
+test_perf_protocol_and_runtime_errors_have_different_verdicts (Benchmarks.agent_core.tests.test_conformance.Conformance
+Tests.test_perf_protocol_and_runtime_errors_have_different_verdicts) ... ok
+test_summarized_or_cropped_history_remains_a_failure (Benchmarks.agent_core.tests.test_conformance.ConformanceTests.tes
+t_summarized_or_cropped_history_remains_a_failure) ... ok
+test_transport_errors_and_unobserved_failures_are_distinct (Benchmarks.agent_core.tests.test_conformance.ConformanceTes
+ts.test_transport_errors_and_unobserved_failures_are_distinct) ... ok
+test_all_fifteen_cases_have_observable_success (Benchmarks.agent_core.tests.test_oracle.OracleTests.test_all_fifteen_ca
+ses_have_observable_success) ... ok
+test_declared_termination_and_context_strategies (Benchmarks.agent_core.tests.test_oracle.OracleTests.test_declared_ter
+mination_and_context_strategies) ... ok
+test_extra_model_request_after_step_limit_is_detected (Benchmarks.agent_core.tests.test_oracle.OracleTests.test_extra_m
+odel_request_after_step_limit_is_detected) ... ok
+test_swapped_tool_results_and_session_pollution_are_detected (Benchmarks.agent_core.tests.test_oracle.OracleTests.test_
+swapped_tool_results_and_session_pollution_are_detected) ... ok
+test_failed_perf_batch_keeps_completed_iterations_and_resources (Benchmarks.agent_core.tests.test_perf_failure.PerfFail
+ureTests.test_failed_perf_batch_keeps_completed_iterations_and_resources) ... ok
+test_core_run_saves_all_cases_and_trace (Benchmarks.agent_core.tests.test_runner.RunnerTests.test_core_run_saves_all_ca
+ses_and_trace) ... ok
+test_performance_records_alternation_baseline_and_all_rounds (Benchmarks.agent_core.tests.test_runner.RunnerTests.test_
+performance_records_alternation_baseline_and_all_rounds) ... ok
+test_all_constraints_pass_requires_completed_execution (Benchmarks.agent_story.tests.test_forbidden.ForbiddenTests.test
+_all_constraints_pass_requires_completed_execution) ... ok
+test_all_constraints_pass_with_completed_execution (Benchmarks.agent_story.tests.test_forbidden.ForbiddenTests.test_all
+_constraints_pass_with_completed_execution) ... ok
+test_each_forbidden_constraint_is_required_without_renumbering_existing_criteria (Benchmarks.agent_story.tests.test_for
+bidden.ForbiddenTests.test_each_forbidden_constraint_is_required_without_renumbering_existing_criteria) ... ok
+test_empty_forbidden_adds_no_criteria (Benchmarks.agent_story.tests.test_forbidden.ForbiddenTests.test_empty_forbidden_
+adds_no_criteria) ... ok
+test_existing_frozen_rubric_is_not_augmented_or_rewritten (Benchmarks.agent_story.tests.test_forbidden.ForbiddenTests.t
+est_existing_frozen_rubric_is_not_augmented_or_rewritten) ... ok
+test_export_includes_all_forbidden_verdicts (Benchmarks.agent_story.tests.test_forbidden.ForbiddenTests.test_export_inc
+ludes_all_forbidden_verdicts) ... ok
+test_forbidden_fail_blocks_semantic_pass (Benchmarks.agent_story.tests.test_forbidden.ForbiddenTests.test_forbidden_fai
+l_blocks_semantic_pass) ... ok
+test_forbidden_uncertain_blocks_semantic_pass (Benchmarks.agent_story.tests.test_forbidden.ForbiddenTests.test_forbidde
+n_uncertain_blocks_semantic_pass) ... ok
+test_import_rejects_an_omitted_forbidden_verdict (Benchmarks.agent_story.tests.test_forbidden.ForbiddenTests.test_impor
+t_rejects_an_omitted_forbidden_verdict) ... ok
+test_frozen_sources_are_read_only_and_bound_to_file_hashes (Benchmarks.agent_story.tests.test_providers.ProviderTests.t
+est_frozen_sources_are_read_only_and_bound_to_file_hashes) ... ok
+test_http_preflight_uses_native_tools_against_only_a_loopback_fake (Benchmarks.agent_story.tests.test_providers.Provide
+rTests.test_http_preflight_uses_native_tools_against_only_a_loopback_fake) ... ok
+test_live_rag_roundtrip_preserves_tool_ids_evidence_and_native_history (Benchmarks.agent_story.tests.test_providers.Pro
+viderTests.test_live_rag_roundtrip_preserves_tool_ids_evidence_and_native_history) ... ok
+test_preflight_requires_native_function_call (Benchmarks.agent_story.tests.test_providers.ProviderTests.test_preflight_
+requires_native_function_call) ... ok
+test_provider_checks_issued_ids_and_step_budget_and_retains_usage_absence (Benchmarks.agent_story.tests.test_providers.
+ProviderTests.test_provider_checks_issued_ids_and_step_budget_and_retains_usage_absence) ... ok
+test_tool_calls_and_missing_usage_survive_client_normalization (Benchmarks.agent_story.tests.test_providers.ProviderTes
+ts.test_tool_calls_and_missing_usage_survive_client_normalization) ... ok
+test_truncated_response_is_separate_from_api_completion (Benchmarks.agent_story.tests.test_providers.ProviderTests.test
+_truncated_response_is_separate_from_api_completion) ... ok
+test_unknown_credential_fields_cannot_enter_a_run_manifest (Benchmarks.agent_story.tests.test_providers.ProviderTests.t
+est_unknown_credential_fields_cannot_enter_a_run_manifest) ... ok
+test_failed_tool_may_retry_within_declared_budget (Benchmarks.agent_story.tests.test_review_regressions.LivePolicyTests
+.test_failed_tool_may_retry_within_declared_budget) ... ok
+test_http_slow_stream_has_an_absolute_deadline (Benchmarks.agent_story.tests.test_review_regressions.LivePolicyTests.te
+st_http_slow_stream_has_an_absolute_deadline) ... ok
+test_parallel_declared_tools_are_not_serialized_by_provider (Benchmarks.agent_story.tests.test_review_regressions.LiveP
+olicyTests.test_parallel_declared_tools_are_not_serialized_by_provider) ... ok
+test_terminate_policy_cannot_continue_model_recovery (Benchmarks.agent_story.tests.test_review_regressions.LivePolicyTe
+sts.test_terminate_policy_cannot_continue_model_recovery) ... ok
+test_agent_interrupt_keeps_partial_sample_and_phase_denominators (Benchmarks.agent_story.tests.test_review_regressions.
+ReviewRegressions.test_agent_interrupt_keeps_partial_sample_and_phase_denominators) ... ok
+test_disputes_are_limited_to_the_requested_group (Benchmarks.agent_story.tests.test_review_regressions.ReviewRegression
+s.test_disputes_are_limited_to_the_requested_group) ... ok
+test_edited_private_mapping_cannot_redirect_scores (Benchmarks.agent_story.tests.test_review_regressions.ReviewRegressi
+ons.test_edited_private_mapping_cannot_redirect_scores) ... ok
+test_package_rubric_must_match_frozen_run_even_if_local_hash_is_edited (Benchmarks.agent_story.tests.test_review_regres
+sions.ReviewRegressions.test_package_rubric_must_match_frozen_run_even_if_local_hash_is_edited) ... ok
+test_agent_repeats_are_clean_and_usage_is_not_fabricated (Benchmarks.agent_story.tests.test_runner_review.RunnerTests.t
+est_agent_repeats_are_clean_and_usage_is_not_fabricated) ... ok
+test_cleanup_wrapper_preserves_protocol_evidence_and_stops_story_run (Benchmarks.agent_story.tests.test_runner_review.R
+unnerTests.test_cleanup_wrapper_preserves_protocol_evidence_and_stops_story_run) ... ok
+test_legacy_run_review_import_is_read_only (Benchmarks.agent_story.tests.test_runner_review.RunnerTests.test_legacy_run
+_review_import_is_read_only) ... ok
+test_model_service_failure_is_not_a_conformance_failure (Benchmarks.agent_story.tests.test_runner_review.RunnerTests.te
+st_model_service_failure_is_not_a_conformance_failure) ... ok
+test_pi_export_import_preserves_ai_and_human_and_validates_binding (Benchmarks.agent_story.tests.test_runner_review.Run
+nerTests.test_pi_export_import_preserves_ai_and_human_and_validates_binding) ... ok
+test_profile_and_adaptation_survive_run_without_entering_review_package (Benchmarks.agent_story.tests.test_runner_revie
+w.RunnerTests.test_profile_and_adaptation_survive_run_without_entering_review_package) ... ok
+test_review_rejects_unknown_criterion_and_evidence (Benchmarks.agent_story.tests.test_runner_review.RunnerTests.test_re
+view_rejects_unknown_criterion_and_evidence) ... ok
+test_story_protocol_error_is_distinct_from_timeout (Benchmarks.agent_story.tests.test_runner_review.RunnerTests.test_st
+ory_protocol_error_is_distinct_from_timeout) ... ok
+test_story_still_rejects_summarized_history (Benchmarks.agent_story.tests.test_runner_review.RunnerTests.test_story_sti
+ll_rejects_summarized_history) ... ok
+test_changed_question_fingerprint_is_rejected (Benchmarks.agent_story.tests.test_scenarios.ScenarioTests.test_changed_q
+uestion_fingerprint_is_rejected) ... ok
+test_frozen_scene_quotas_and_reference_material_never_leak (Benchmarks.agent_story.tests.test_scenarios.ScenarioTests.t
+est_frozen_scene_quotas_and_reference_material_never_leak) ... ok
+test_invalid_records_identify_adapter_and_field (Benchmarks.support.tests.test_adaptation.AdaptationTests.test_invalid_
+records_identify_adapter_and_field) ... ok
+test_optional_record_and_explicit_no_changes_are_preserved (Benchmarks.support.tests.test_adaptation.AdaptationTests.te
+st_optional_record_and_explicit_no_changes_are_preserved) ... ok
+test_interrupted_schedule_keeps_unstarted_samples (Benchmarks.support.tests.test_artifacts.ArtifactTests.test_interrupt
+ed_schedule_keeps_unstarted_samples) ... ok
+test_runs_are_exclusive_and_completed_records_survive_failure (Benchmarks.support.tests.test_artifacts.ArtifactTests.te
+st_runs_are_exclusive_and_completed_records_survive_failure) ... ok
+test_summary_keeps_failures_and_unjudged_in_denominator (Benchmarks.support.tests.test_artifacts.ArtifactTests.test_sum
+mary_keeps_failures_and_unjudged_in_denominator) ... ok
+test_process_identity_cpu_and_sampled_memory_scope (Benchmarks.support.tests.test_metrics.MetricTests.test_process_iden
+tity_cpu_and_sampled_memory_scope) ... ok
+test_unavailable_process_metrics_remain_missing (Benchmarks.support.tests.test_metrics.MetricTests.test_unavailable_pro
+cess_metrics_remain_missing) ... ok
+test_deadline_also_bounds_a_worker_that_stops_reading_stdin (Benchmarks.support.tests.test_protocol.WorkerTests.test_de
+adline_also_bounds_a_worker_that_stops_reading_stdin) ... ok
+test_deadline_kills_and_reaps_worker_and_child (Benchmarks.support.tests.test_protocol.WorkerTests.test_deadline_kills_
+and_reaps_worker_and_child) ... ok
+test_duplicate_provider_ids_fail (Benchmarks.support.tests.test_protocol.WorkerTests.test_duplicate_provider_ids_fail) 
+... ok
+test_provider_requests_can_complete_out_of_order (Benchmarks.support.tests.test_protocol.WorkerTests.test_provider_requ
+ests_can_complete_out_of_order) ... ok
+test_roundtrip_and_shutdown_release_handles (Benchmarks.support.tests.test_protocol.WorkerTests.test_roundtrip_and_shut
+down_release_handles) ... ok
+test_wrong_session_and_malformed_messages_are_not_results (Benchmarks.support.tests.test_protocol.WorkerTests.test_wron
+g_session_and_malformed_messages_are_not_results) ... ok
+test_blocked_provider_cannot_hold_turn_cleanup_past_deadline (Benchmarks.support.tests.test_provider_deadline.ProviderD
+eadlineTests.test_blocked_provider_cannot_hold_turn_cleanup_past_deadline) ... ok
+test_missing_conformance_is_not_inferred_from_legacy_correctness (Benchmarks.support.tests.test_reports.ReportTests.tes
+t_missing_conformance_is_not_inferred_from_legacy_correctness) ... ok
+test_new_and_legacy_reports_preserve_sources_and_separate_declarations (Benchmarks.support.tests.test_reports.ReportTes
+ts.test_new_and_legacy_reports_preserve_sources_and_separate_declarations) ... ok
+test_core_rejects_output_outside_outputs_before_launch (Benchmarks.tests.test_cli.CliTests.test_core_rejects_output_out
+side_outputs_before_launch) ... ok
+test_dispatch_writes_new_layout_and_root_config_snapshots (Benchmarks.tests.test_cli.CliTests.test_dispatch_writes_new_
+layout_and_root_config_snapshots) ... ok
+test_list_exposes_all_cases_without_reading_model_config (Benchmarks.tests.test_cli.CliTests.test_list_exposes_all_case
+s_without_reading_model_config) ... ok
+test_default_outputs_have_category_and_purpose (Benchmarks.tests.test_layout.LayoutTests.test_default_outputs_have_cate
+gory_and_purpose) ... ok
+test_provenance_records_owner_shared_and_root_configuration (Benchmarks.tests.test_layout.LayoutTests.test_provenance_r
+ecords_owner_shared_and_root_configuration) ... ok
+test_support_has_no_category_imports (Benchmarks.tests.test_layout.LayoutTests.test_support_has_no_category_imports) ..
+. ok
+
+----------------------------------------------------------------------
+Ran 73 tests in 21.598s
+
+OK
