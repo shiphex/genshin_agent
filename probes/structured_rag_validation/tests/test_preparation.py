@@ -4,10 +4,28 @@ import unittest
 
 from Benchmarks.support.common import ROOT, read_json, write_json, encoded, file_hash
 from rag.scripts.full_corpus import Extractor
-from probes.structured_rag_validation.preparation import prepare, load_run
+from probes.structured_rag_validation.preparation import prepare, load_run, execution_sources
+from probes.structured_rag_validation.artifacts import new_store, seal
 
 
 class PreparationTests(unittest.TestCase):
+    def test_postprocessing_uses_archived_execution_code_without_relaxing_live_source_gate(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / 'execution.py'; source.write_text('original', encoding='utf-8')
+            store = new_store(root / 'run', 'inputs', paths=[source])
+            store.finish('completed'); seal(store.path)
+            source.write_text('postprocessing revision', encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'execution source changed'):
+                execution_sources(store.path, require_current=True)
+            status = execution_sources(store.path, require_current=False)
+            self.assertIn(str(source), status['changed_sources'])
+            archived = store.path / 'sources' / (next(
+                sha for name, sha in store.manifest['provenance']['files'].items() if name == str(source)) + '-execution.py')
+            archived.write_text('tampered', encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'archive'):
+                execution_sources(store.path, require_current=False)
+
     def test_prepared_suite_loads_and_changed_private_endpoint_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             project = Path(directory)

@@ -55,6 +55,8 @@ git diff --check
 
 独立审阅每个场景的criteria与forbidden，并说明已送达证据是否支持断言；B的位置指标不代替充分性。评估项使用pass/fail/uncertain、理由和可回查定位。C2和呈现对照单列诊断，固定seed的有限重复不支持统计显著性。结果保留实际payload、原始响应、完整hit、来源和日志；计数仅使用API实际usage，缺失不冒充token统计。执行前后核对当前基线14文件，输出及评估不纳入Git。
 
+模型阶段要求当前源码与prepare时一致；verify/report允许使用已核验的执行源码封存，另记当前后处理源码、原执行commit及变化文件。它们仍核对全部输入、场景与封存哈希，不用放宽输入校验来适配新报告。r001模型执行于0ec0c09，后处理修正provider的tool_calls计数；原请求、回答、评分和来源均不改。
+
 ## Dev Note
 
 无。

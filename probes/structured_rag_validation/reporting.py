@@ -5,7 +5,7 @@ from collections import Counter
 from Benchmarks.support.common import read_json, read_rows, write_json, file_hash
 from probes.a06_diagnosis.evidence import audit_transfers, audit_injected_history
 from .artifacts import new_store, seal, assert_sealed, assessment
-from .preparation import load_run
+from .preparation import load_run, execution_sources
 from .validation import validate_request, assert_presentation_pair
 
 D_CRITERIA = [
@@ -19,6 +19,22 @@ def validate_query_audit(expected, rows):
         return query.get('origin_stage'), query['turn'], query['query']
     if Counter(map(key, expected)) != Counter(key(r) for r in rows if r.get('kind') == 'actual'):
         raise ValueError('final actual query audit is incomplete or bound to another origin')
+
+
+def presentation_groups(rows, judgments):
+    if len(rows) != len(judgments):
+        raise ValueError('presentation judgments must cover every sample')
+    groups = []
+    for turn, arm in sorted({(row['turn'], row['arm']) for row in rows}):
+        pairs = [(row, status) for row, status in zip(rows, judgments) if row['turn'] == turn and row['arm'] == arm]
+        group = {'turn': turn, 'arm': arm, 'total': len(pairs),
+                 **{key: sum(status == key for _, status in pairs)
+                    for key in ('pass', 'fail', 'uncertain', 'unreviewed', 'incomplete')}}
+        for key in ('prompt_tokens', 'completion_tokens'):
+            values = [row.get('result', {}).get('usage') or {} for row, _ in pairs]
+            group[key] = [v[key] for v in values] if all(key in v for v in values) else None
+        groups.append(group)
+    return groups
 
 
 def semantic_status(row, criteria, review, source_ids=()):
@@ -84,13 +100,14 @@ def import_assessment(stage, source):
 
 
 def verify(run, output):
-    binding, scenes, materials = load_run(run)
+    binding, scenes, materials = load_run(run, require_current_sources=False)
     store = new_store(output, 'verification')
     findings = []
     required = ['preflight', 'O-r001', 'B-r001', 'B-final-r001', 'D-r001']
     required += [f'A-r{i:03}' for i in (1, 2, 3)]
     required += [f'R-{s}-r{i:03}' for s in ('a07', 'a10', 'a11') for i in (1, 2, 3)]
     try:
+        store.manifest['execution_sources'] = execution_sources(run, require_current=False)
         for name, sha in binding['baseline'].items():
             if file_hash(Path(binding['project']) / name) != sha:
                 findings.append(f'baseline changed: {name}')
@@ -131,7 +148,11 @@ def verify(run, output):
                             findings.append(f'{stage.name}: gated C2 missing')
                 except (ValueError, KeyError):
                     findings.append(f'{stage.name}: first-turn assessment missing')
-            for reference in manifest.get('parameters', {}).get('assessment_binding', {}).values():
+            parameters = manifest.get('parameters', {})
+            references = list(parameters.get('assessment_binding', {}).values())
+            if parameters.get('b_assessment'):
+                references.append(parameters['b_assessment'])
+            for reference in references:
                 if file_hash(reference['path']) != reference['sha256']:
                     findings.append(f'{stage.name}: bound assessment changed')
             if condition in ('O', 'A', 'C2', 'R'):
@@ -154,6 +175,20 @@ def verify(run, output):
             for review_path in (stage / 'assessments').glob('r*.json'):
                 if read_json(review_path)['stage_hashes_sha256'] != file_hash(stage / 'hashes.json'):
                     findings.append(f'{stage.name}: assessment bound to wrong stage')
+            if condition in ('O', 'A', 'C2', 'R', 'D', 'B'):
+                try:
+                    review, _ = assessment(stage)
+                    if condition == 'B':
+                        if set(review.get('queries', {})) != {r['sample_id'] for r in rows}:
+                            findings.append(f'{stage.name}: incomplete query review')
+                    else:
+                        for row in rows:
+                            material = materials[row.get('scenario_id', 'a06')]
+                            criteria = D_CRITERIA if condition == 'D' else material['scenario']['criteria']
+                            if semantic_status(row, criteria, review, [s['id'] for s in material['frozen_sources']]) == 'unreviewed':
+                                findings.append(f'{stage.name}: missing semantic review {row["sample_id"]}')
+                except ValueError as exc:
+                    findings.append(f'{stage.name}: invalid or missing review: {exc}')
         write_json(store.path / 'verification.json', {'findings': findings,
             'baseline_files': len(binding['baseline']), 'semantic_verification': 'independent_review',
             'user_acceptance': 'not_evaluated'}, exclusive=True)
@@ -167,10 +202,11 @@ def verify(run, output):
 
 
 def report(run, output):
-    binding, scenes, materials = load_run(run)
+    binding, scenes, materials = load_run(run, require_current_sources=False)
     store = new_store(output, 'report')
     assessments, summary = {}, []
     try:
+        store.manifest['execution_sources'] = execution_sources(run, require_current=False)
         lines = ['# 结构化 RAG 探针验证', '',
             '执行、API、证据覆盖、引用及语义分开；独立AI审阅不代表用户验收。', '',
             '| 阶段 | 计划样本 | 完成 | API响应/正常结束 | 工具请求 | AI语义pass/fail/uncertain/未评 |',
@@ -201,13 +237,37 @@ def report(run, output):
             result = {'stage': stage.name, 'condition': condition, 'planned': len(manifest['planned_samples']),
                 'completed': sum(r['execution_status'] == 'completed' for r in rows),
                 'api_responses': len(responses), 'api_normal_finish': normal,
-                'tool_requests': sum(r.get('tool_requests', 0) for r in rows), 'ai_semantic': counts,
+                'tool_requests': sum(r.get('tool_calls', 0) for r in rows), 'ai_semantic': counts,
                 'end_to_end_score': 'not_applicable' if condition in ('C2', 'D', 'B', 'preflight') else 'separate_from_diagnostics'}
+            if condition == 'D':
+                result['presentation_groups'] = presentation_groups(rows, judgments)
+            if condition == 'B':
+                result['query_audit'] = [{'sample_id': r['sample_id'], 'turn': r['turn'], 'kind': r['kind'],
+                    'origin_stage': r.get('origin_stage'), 'necessary_location_proxy': r.get('necessary'),
+                    'semantic_review': review.get('queries', {}).get(r['sample_id'], {'semantic_sufficiency': 'unreviewed'})}
+                    for r in rows]
+            for key in ('prompt_tokens', 'completion_tokens', 'total_tokens'):
+                usages = [r['raw_response'].get('usage') or {} for r in responses]
+                result.setdefault('usage_totals', {})[key] = sum(u[key] for u in usages) if usages and all(key in u for u in usages) else None
             summary.append(result)
             values = '/'.join(str(counts[k]) for k in ('pass', 'fail', 'uncertain', 'unreviewed'))
             lines.append(f'| {stage.name} | {result["planned"]} | {result["completed"]} | {len(responses)}/{normal} | {result["tool_requests"]} | {values} |')
+        lines += ['', '## 固定证据呈现', '',
+            '| 问题／表示 | 样本 | AI语义pass/fail/uncertain | 各次prompt token | 各次completion token |',
+            '| --- | ---: | --- | --- | --- |']
+        for stage_result in summary:
+            for group in stage_result.get('presentation_groups', []):
+                status = '/'.join(str(group[key]) for key in ('pass', 'fail', 'uncertain'))
+                lines.append(f'| t{group["turn"]}/{group["arm"]} | {group["total"]} | {status} | {group["prompt_tokens"]} | {group["completion_tokens"]} |')
+        lines += ['', '## 查询审阅', '', '| 阶段 | 充分 | 不足 | 存疑 | 未评 |', '| --- | ---: | ---: | ---: | ---: |']
+        for stage_result in summary:
+            if 'query_audit' in stage_result:
+                statuses = [q['semantic_review']['semantic_sufficiency'] for q in stage_result['query_audit']]
+                values = ' | '.join(str(statuses.count(key)) for key in ('sufficient', 'insufficient', 'uncertain', 'unreviewed'))
+                lines.append(f'| {stage_result["stage"]} | {values} |')
         lines += ['', '## 判定与限制', '',
             'A的C1资格由各次完整首答评估决定，不能将错误首答延续计入C1。C2与D为受控诊断，不计端到端。',
+            'A与C2的查询及Top5不同，差异不能单独归因正确历史。C2未真实执行首轮，涉及完整三轮或首轮的标准保留存疑。',
             '旧r003/report-r002只作历史参照；语料、提示词与工具说明均有变化，不宣称同条件提升。',
             '固定seed与有限重复不支持统计显著性；未送达证据不能被判定为模型忽略，引用ID合法不等于支持断言。']
         conclusion = Path(run) / 'conclusions.json'

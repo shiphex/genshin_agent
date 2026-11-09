@@ -28,6 +28,7 @@ Agent Note 保存实现和普通文档不能充分解释的重要决策原因、
 
 ## 当前记录
 
+- [结构化RAG受控验证](implemented/2026-11-09-structured-rag-validation.md)：独立实验、同证据呈现对照及执行／后处理源码封存。
 - [RAG结构化内容、元数据与证据传递](proposed/2026-11-05-structured-rag-corpus.md)：V2候选已实现，记录出处未决、上游归属待修、HF加载及实际token开销。
 - [本地模型启动、分档思考与配置隐私](proposed/2026-10-28-local-model-config.md)：llama.cpp 配置已接入，显存、游戏影响和自动分档仍待验证。
 - [Core探针最小评审发布](implemented/2026-10-28-core-probe-review-publication.md)：单分支、证据白名单和未发布范围。

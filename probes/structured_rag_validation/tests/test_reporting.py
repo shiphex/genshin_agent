@@ -1,13 +1,39 @@
 import unittest
 from pathlib import Path
 import tempfile
+from unittest.mock import patch
 from Benchmarks.support.common import write_json
 
 from probes.structured_rag_validation.reporting import semantic_status, import_assessment, validate_query_audit
 from probes.structured_rag_validation.artifacts import new_store, seal
+from probes.structured_rag_validation.reporting import report, presentation_groups
 
 
 class ReportingTests(unittest.TestCase):
+    def test_presentation_report_keeps_question_and_arm_separate_and_missing_usage_unknown(self):
+        rows = [{'turn': 1, 'arm': 'structured', 'result': {'usage': {'prompt_tokens': 10, 'completion_tokens': 2}}},
+                {'turn': 3, 'arm': 'structured', 'result': {}}]
+        groups = presentation_groups(rows, ['pass', 'fail'])
+        self.assertEqual(len(groups), 2)
+        self.assertEqual(groups[0]['pass'], 1)
+        self.assertEqual(groups[1]['fail'], 1)
+        self.assertIsNone(groups[1]['prompt_tokens'])
+
+    def test_report_counts_provider_tool_calls_instead_of_a_nonexistent_field(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            stage = new_store(root / 'O-r001', 'O')
+            stage.manifest['planned_samples'] = [{'sample_id': 's'}]
+            stage.result({'sample_id': 's', 'scenario_id': 'a06', 'execution_status': 'completed',
+                          'tool_calls': 2, 'turns': [], 'correct': None})
+            stage.finish('completed'); seal(stage.path)
+            with patch('probes.structured_rag_validation.reporting.load_run',
+                       return_value=({}, {'a06': {'criteria': []}}, {'a06': {'frozen_sources': []}})), \
+                 patch('probes.structured_rag_validation.reporting.execution_sources', return_value={}):
+                output = report(root, root / 'report')
+            from Benchmarks.support.common import read_json
+            self.assertEqual(read_json(output / 'comparison.json')['stages'][0]['tool_requests'], 2)
+
     def test_final_query_audit_cannot_omit_an_actual_call_or_its_origin(self):
         expected = [{'origin_stage': 'A-r001', 'turn': 3, 'query': '女士'}]
         with self.assertRaisesRegex(ValueError, 'actual query'):

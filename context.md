@@ -6,7 +6,7 @@ description: "记录项目当前阶段、模块入口及后续工作边界。"
 
 ## 摘要
 
-更新：2026-10-30。项目目标是以主角／派蒙身份参与剧情讨论的agent；本exp/a06-diagnosis分支从review/core-probe的aa57d98开展独立故障诊断，倾向core-self但不宣布生产选型。v0.1建立了基础RAG和项目AI-native文档流程；角色对话、界面、玩家进度和防剧透尚未实现。当前语料、110题、20题核验和三题Smoke保持既有基线，旧实验不再维护。
+更新：2026-11-09。项目目标是以主角／派蒙身份参与剧情讨论的agent；当前dev/v0.2阶段使用候选agent core的Spike benchmarks，生产Core尚未确定。本exp/rag-structured-validation分支组合结构化RAG与core-self并完成A06及定向场景验证，结果和限制见Benchmark模块context。v0.1建立了基础RAG和项目AI-native文档流程；角色对话、界面、玩家进度和防剧透尚未实现。当前默认语料、110题、20题核验和三题Smoke保持既有基线。
 
 ## 目录
 

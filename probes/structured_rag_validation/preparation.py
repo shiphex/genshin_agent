@@ -94,7 +94,27 @@ def prepare(project, output, *, config=None, corpus=None, questions=None, raw_ro
     return store.path
 
 
-def load_run(run):
+def execution_sources(run, *, require_current):
+    run = Path(run)
+    metadata = read_json(run / 'manifest.json')['provenance']
+    changed = []
+    for name, sha in metadata['files'].items():
+        target = Path(name) if Path(name).is_absolute() else ROOT / name
+        if target.suffix == '.py' or target.name in ('pyproject.toml', 'uv.lock', '.python-version'):
+            archived = run / 'sources' / (sha + '-' + target.name)
+            if not archived.is_file() or file_hash(archived) != sha:
+                raise ValueError(f'execution source archive changed: {name}')
+            if not target.is_file() or file_hash(target) != sha:
+                changed.append(name)
+        elif require_current and (not target.is_file() or file_hash(target) != sha):
+            changed.append(name)
+    if require_current and changed:
+        raise ValueError(f'execution source changed: {changed}')
+    return {'execution_git_commit': metadata['git_commit'], 'changed_sources': changed,
+            'policy': 'current_required' if require_current else 'verified_execution_archive'}
+
+
+def load_run(run, *, require_current_sources=True):
     run = Path(run)
     assert_sealed(run)
     binding = read_json(run / 'binding.json')
@@ -111,8 +131,5 @@ def load_run(run):
     materials = read_json(run / 'materials.json')
     if any(materials[s['id']]['scenario'] != s for s in suite['scenarios']):
         raise ValueError('materials/effective scenario mismatch')
-    for name, sha in read_json(run / 'manifest.json')['provenance']['files'].items():
-        target = Path(name) if Path(name).is_absolute() else ROOT / name
-        if file_hash(target) != sha:
-            raise ValueError(f'execution source changed: {name}')
+    execution_sources(run, require_current=require_current_sources)
     return binding, {s['id']: s for s in suite['scenarios']}, materials
