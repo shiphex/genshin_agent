@@ -18,6 +18,14 @@ description: "配置 llama.cpp 显式启动、本机私有覆盖及三档模型�
 
 ## 本机信息与隐私
 
+`rag/config` 的三个文件职责如下；实际启动只合并前两个文件，示例不作为第三层覆盖。
+
+| 文件 | 职责 |
+| --- | --- |
+| `local_api.json` | Git 跟踪的公共 API、生成档位及启动参数 |
+| `local_api.local.json` | Git 忽略的本机程序、GGUF 路径及设备覆盖；已有文件直接复用 |
+| `local_api.local.example.json` | 新机器配置模板，不参与运行时读取 |
+
 复制 `rag/config/local_api.local.example.json` 为同目录 `local_api.local.json`，填写 `llama_cpp.model_path`（实际 GGUF 文件，不能只写缓存目录）、`executable`（命令名或绝对路径）和 `device`（通过 `llama-server --list-devices` 核对）。公共配置不含个人目录和设备选择；示例中的路径仅为占位。
 
 `rag/config/*.local.json` 已由 Git 忽略；自定义 `name.json` 会读取相邻 `name.local.json`，也须位于该忽略范围或自行补忽略规则。不对已跟踪文件使用 assume-unchanged，不把真实路径填回公共 JSON。Git 忽略不加密文件，也不阻止 `git add -f`；提交前用 `git check-ignore -v -- rag/config/local_api.local.json` 和暂存清单核对。鉴权值只放环境变量，配置仅写 `api_key_env` 名称，未知字段拒绝。
@@ -34,6 +42,12 @@ uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3
 ```
 
 第一条校验配置、本地程序与 GGUF 是否存在，只输出隐藏路径和设备值的参数列表，不加载权重。第二条实际以前台进程启动服务，Ctrl+C 停止；不会后台常驻、下载模型或停止已有服务。地址、端口、模型别名从公共 API 配置取得；启动仅接受本地 HTTP `/v1`，文件缺失或参数非法时非零退出。若端口已占用，由 llama-server 报错，不接管占用进程。
+
+就绪检查在另一终端运行 `Invoke-RestMethod http://127.0.0.1:8000/health`，随后检查 `Invoke-RestMethod http://127.0.0.1:8000/v1/models` 的模型别名是否与有效配置一致；覆盖过地址或端口时使用覆盖值。dry-run 成功仅证明配置和文件检查通过，不表示服务已就绪或模型生成成功。需要原生工具调用时再运行 Benchmark preflight，命令见[Story 入口](../../Benchmarks/agent_story/README.md#真实执行)。
+
+独立 worktree 不自带忽略的私有覆盖。需要复用主工作区配置时，给启动器传入 `--config <主工作区绝对路径>/rag/config/local_api.json`，它会读取相邻的 `.local.json`；不要把机器路径复制进公共配置。任务已授权后台启动时，隐藏进程窗口、将日志写入新目录，并记录本次进程身份；结束时只停止本次拥有的进程。
+
+实验可在同一服务上使用独立冻结的请求参数，例如 A06 的 1536 token、temperature=0、seed=42 和关闭思考。不要为了启动服务而把实验请求套入默认 standard 档位，也不要把服务启动成功登记为实验通过。
 
 服务就绪后，以下命令会真实请求模型并写入新的模型评测输出；不重现旧回答：
 

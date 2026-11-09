@@ -4,9 +4,9 @@ from copy import deepcopy
 from Benchmarks.support.common import BENCH, file_hash, read_json
 
 
-def load_scenarios(root, path=None):
+def load_scenarios(root, path=None, *, questions_path=None):
     suite = read_json(path or BENCH / "agent_story/scenarios.json")
-    questions_path = root / "rag/eval/questions.json"
+    questions_path = questions_path or root / "rag/eval/questions.json"
     if file_hash(questions_path) != suite["question_bank_sha256"]:
         raise ValueError("question bank fingerprint mismatch; revise the scenario binding explicitly")
     document = read_json(questions_path)

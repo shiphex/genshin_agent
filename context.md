@@ -19,6 +19,7 @@ description: "记录项目当前阶段、模块入口及后续工作边界。"
 - [a06诊断](probes/a06_diagnosis/README.md)：受控实验、证据记录与模型API限制；最近结果见Benchmark context。
 - [Benchmarks分类索引](Benchmarks/README.md)、[模块context](Benchmarks/context.md)：按任务分类的Core与剧情评测、共享support及根uv环境。
 - [RAG说明](rag/README.md)、[模块context](rag/context.md)：操作、当前问题和最近验证。
+- [本地模型启动](rag/docs/local_model.md#启动与调用)：配置文件职责、dry-run、启动、就绪检查与停止；实验请求参数另按实验协议固定。
 - [catalog](rag/catalog.json)、[基线规则](rag/docs/data.md)：当前资源、来源与新输出。
 - [110题与20题核验](rag/eval/README.md)、[三题Smoke](rag/eval/smoke/README.md)：用途和独立验收状态。
 - [架构](docs/architecture.md)、[开发流程](docs/development.md)、[文档规范](docs/AGENTS.md)、[术语](docs/terminology.md)与[Agent Notes](.agents/notes/README.md)：按任务阅读。

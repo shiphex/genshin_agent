@@ -13,6 +13,7 @@
 
 ## 按任务阅读
 
+- 启动、检查或使用本地大模型时，先读[本地模型配置](rag/docs/local_model.md#启动与调用)。复用现有启动器与 `rag/config` 的公共配置、私有覆盖；示例仅作模板，评测脚本本身不启动服务。
 - 改变模块关系、依赖或数据流前读[架构](docs/architecture.md)；RAG 接口和命令由模块 README 维护，具体实验只读相应定义和结果。
 - 创建或同步文档时读[文档规范](docs/AGENTS.md)、[术语](docs/terminology.md)和 [doc skill](.agents/skills/doc/SKILL.md)；精简文字按需用 [prose-standard](.agents/skills/prose-standard/SKILL.md)。
 - 设计 skill 或上下文加载时用 [agent-experience](.agents/skills/agent-experience/SKILL.md)。编写／修订开发题用 [genshin-dev-questions](.agents/skills/genshin-dev-questions/SKILL.md)，独立核验题目事实与证据用 [genshin-question-review](.agents/skills/genshin-question-review/SKILL.md)；不将编题自评或模型作答评分混为独立核验。
