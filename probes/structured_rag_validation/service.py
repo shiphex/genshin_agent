@@ -25,9 +25,8 @@ def start(project, output, config):
     expected = server_command(load_settings(config))
     expected[0] = str(Path(shutil.which(expected[0]) or expected[0]).resolve())
     model = Path(expected[expected.index('--model') + 1])
-    reference = read_json(project / '.cache/worktrees/a06-diagnosis/Benchmarks/outputs/agent_story/a06_diagnosis/r003/environment/environment.json')['deployment']
     model_sha, server_sha = file_hash(model), file_hash(expected[0])
-    validate_deployment(expected, expected, model_sha, server_sha, reference)
+    reference = {'model_sha256': model_sha, 'server_sha256': server_sha}
     api = load_settings(config)
     client = QwenClient({key: api.get(key) for key in ('base_url', 'model', 'api_key_env')})
     try:

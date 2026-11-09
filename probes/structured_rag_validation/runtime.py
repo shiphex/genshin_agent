@@ -25,7 +25,7 @@ def observed_client(config, store, transport=None):
     return ObservedClient(config, emit, transport)
 
 
-def run_sample(store, scene, corpus, client, *, condition, fixture=None, server_log=None):
+def run_sample(store, scene, corpus, client, *, condition, fixture=None, server_log=None, worker_timeout=240):
     provider = LiveProvider(client, corpus, 5, 8, SYSTEM, policies=POLICIES)
     command = [sys.executable, '-B', str(ROOT / 'probes/core_self/worker.py')]
     if fixture is not None:
@@ -56,7 +56,7 @@ def run_sample(store, scene, corpus, client, *, condition, fixture=None, server_
         client.choice_guard = choice_guard
     started = time.perf_counter()
     try:
-        with Worker(command, store.path / 'worker.stderr.txt', timeout=240,
+        with Worker(command, store.path / 'worker.stderr.txt', timeout=worker_timeout,
                     trace=lambda direction, message: store.append('trace.jsonl',
                         {'direction': direction, 'message': message})) as worker:
             worker.request('init', 'control', {'protocol_version': 1, 'suite': 'agent',

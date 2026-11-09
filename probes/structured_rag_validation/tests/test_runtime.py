@@ -34,10 +34,8 @@ class RuntimeTests(unittest.TestCase):
             child.exe.return_value = str(binary); child.cmdline.return_value = list(command)
             owner.children.return_value = [child]
             process = Mock(pid=123); process.poll.return_value = None
-            reference = {'deployment': {'model_sha256': file_hash(model), 'server_sha256': file_hash(binary)}}
             settings = {'base_url': 'http://127.0.0.1/v1', 'model': 'm', 'api_key_env': None}
-            with patch.object(service, 'read_json', return_value=reference), \
-                 patch.object(service, 'load_settings', return_value=settings), \
+            with patch.object(service, 'load_settings', return_value=settings), \
                  patch.object(service, 'server_command', return_value=command), \
                  patch.object(service.subprocess, 'Popen', return_value=process), \
                  patch.object(service.psutil, 'Process', return_value=owner), \
@@ -46,6 +44,8 @@ class RuntimeTests(unittest.TestCase):
                 result = service.start(project, project / 'service', config)
             self.assertEqual(result['status'], 'ready')
             self.assertIsNone(result['private_config_sha256'])
+            self.assertEqual(result['model_sha256'], file_hash(model))
+            self.assertEqual(result['server_sha256'], file_hash(binary))
 
     def test_required_anchors_are_relocated_by_migration_not_old_indices(self):
         anchors = [{'source_file': 'f', 'source_pointer': '/对话/86/内容', 'ids': ['s2-new']}]
@@ -63,6 +63,8 @@ class RuntimeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'deployment'):
             service.validate_deployment(['server', '--ctx-size', '8192'],
                 ['server', '--ctx-size', '16384'], 'm', 's', reference)
+        with self.assertRaisesRegex(ValueError, 'deployment'):
+            service.validate_deployment(['server'], ['server'], 'other-model', 's', reference)
 
     def test_actual_suite_binding_is_frozen_and_tampering_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -87,8 +89,21 @@ class RuntimeTests(unittest.TestCase):
         self.assertNotIn('generation', config)
         self.assertNotIn('profile', config)
 
+    def test_diagnostic_api_timeout_preserves_generation_and_rejects_invalid_limits(self):
+        public = {'base_url': 'http://localhost/v1', 'model': 'm'}
+        default = artifacts.experimental_config(public)
+        diagnostic = artifacts.experimental_config(public, api_timeout=600)
+        self.assertEqual(default['timeout'], 180)
+        self.assertEqual(diagnostic.pop('timeout'), 600)
+        default.pop('timeout')
+        self.assertEqual(diagnostic, default)
+        for invalid in (0, -1, True):
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                artifacts.experimental_config(public, api_timeout=invalid)
+
     def test_real_worker_retains_tool_results_and_records_unexecuted_turns(self):
-        config = artifacts.experimental_config({'base_url': 'http://localhost/v1', 'model': 'm', 'api_key_env': None})
+        config = artifacts.experimental_config({'base_url': 'http://localhost/v1', 'model': 'm', 'api_key_env': None},
+                                               api_timeout=600)
         responses = iter([
             {'role': 'assistant', 'content': None, 'tool_calls': [{'id': 'one', 'type': 'function',
               'function': {'name': 'search_story', 'arguments': json.dumps({'query': '女士'})}}]},
@@ -96,6 +111,7 @@ class RuntimeTests(unittest.TestCase):
             {'role': 'assistant', 'content': '身份未确认。'},
             {'role': 'assistant', 'content': '来源未确认。'}])
         def transport(endpoint, payload, timeout):
+            self.assertEqual(timeout, 600)
             message = next(responses)
             return {'choices': [{'message': message, 'finish_reason': 'tool_calls' if message.get('tool_calls') else 'stop'}]}
         scene = {'id': 'a06', 'reference_material': [], 'turns': [
@@ -105,7 +121,7 @@ class RuntimeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             store = artifacts.new_store(Path(directory) / 'A', 'A')
             client = ObservedClient(config, lambda event: store.append('api.jsonl', event), transport)
-            row = runtime.run_sample(store, scene, corpus, client, condition='A')
+            row = runtime.run_sample(store, scene, corpus, client, condition='A', worker_timeout=1800)
             self.assertEqual(row['execution_status'], 'completed')
             self.assertEqual(row['unexecuted_turns'], [])
             self.assertTrue(all(t['exact_match'] for t in row['transfers']))

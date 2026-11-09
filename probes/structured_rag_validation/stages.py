@@ -121,12 +121,13 @@ def live(run, condition, repeat, scenario='a06'):
     store = new_store(Path(run) / name, condition, paths=[Path(run) / 'binding.json',
         Path(run) / 'effective-suite.json', Path(run) / 'materials.json'], parameters={
         'model': binding['model_config'], 'system': SYSTEM, 'tools': [SEARCH_TOOL],
-        'max_steps': 8, 'top_k': 5, 'timeout': 240, 'assessment_binding': review_binding,
+        'max_steps': 8, 'top_k': 5, 'timeout': binding.get('worker_timeout', 240), 'assessment_binding': review_binding,
         'service_identity_sha256': file_hash(Path(run) / 'service/service.json'),
         'end_to_end_score': 'not_applicable' if condition == 'C2' else 'pending_review'})
     row = run_sample(store, scenes[scenario], read_rows(binding['corpus']),
                      observed_client(binding['model_config'], store), condition=condition,
-                     fixture=fixture, server_log=deployment['server_log'])
+                     fixture=fixture, server_log=deployment['server_log'],
+                     worker_timeout=binding.get('worker_timeout', 240))
     if condition == 'A' and row['force_status'] != 'succeeded':
         raise ValueError('forced tool call failed; do not broaden budget or retry strategy')
     return store.path
@@ -201,7 +202,7 @@ def presentation(run):
                     seen = first if turn == 1 else first + third
                     row['observed_evidence'] = deepcopy(seen)
                     try:
-                        result = client.chat(messages, [SEARCH_TOOL], 180, tool_choice='none')
+                        result = client.chat(messages, [SEARCH_TOOL], binding['model_config']['timeout'], tool_choice='none')
                         row.update(result=result, execution_status='completed' if result['finish_reason'] == 'stop'
                             and not result['message'].get('tool_calls') else 'incomplete', correct=None,
                             citations=citation_check(result['message'].get('content') or '', {h['id']: h for h in seen}))

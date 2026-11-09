@@ -12,6 +12,8 @@ def main():
                                          'presentation', 'assess', 'verify', 'report'])
     parser.add_argument('--run', type=Path, required=True)
     parser.add_argument('--project', type=Path)
+    parser.add_argument('--api-timeout', type=int, default=180)
+    parser.add_argument('--worker-timeout', type=int, default=240)
     for name in ('config', 'corpus', 'questions', 'raw-root', 'input', 'stage'):
         parser.add_argument('--' + name, type=Path)
     parser.add_argument('--condition', choices=['O', 'A', 'C2', 'R'])
@@ -29,7 +31,8 @@ def main():
         if args.project is None:
             parser.error('prepare requires --project')
         output = preparation.prepare(args.project, run, config=args.config, corpus=args.corpus,
-            questions=args.questions, raw_root=args.raw_root)
+            questions=args.questions, raw_root=args.raw_root,
+            api_timeout=args.api_timeout, worker_timeout=args.worker_timeout)
     elif args.action == 'start':
         binding, _, _ = preparation.load_run(run)
         service.start(binding['project'], run / 'service', binding['config_path'])

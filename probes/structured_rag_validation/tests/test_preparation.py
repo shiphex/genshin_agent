@@ -59,8 +59,11 @@ class PreparationTests(unittest.TestCase):
             private = project / 'config.local.json'
             write_json(private, {'base_url': 'http://127.0.0.1:8001/v1'})
             output = project / 'run'
-            prepare(project, output, config=config, corpus=corpus, questions=questions, raw_root=raw)
+            prepare(project, output, config=config, corpus=corpus, questions=questions, raw_root=raw,
+                    api_timeout=600, worker_timeout=1800)
             binding, scenes, materials = load_run(output)
+            self.assertEqual(binding['model_config']['timeout'], 600)
+            self.assertEqual(binding['worker_timeout'], 1800)
             self.assertEqual(set(scenes), {'a06', 'a07', 'a10', 'a11'})
             self.assertEqual(binding['model_config']['base_url'], 'http://127.0.0.1:8001/v1')
             self.assertIn(str(private.resolve()), binding['input_hashes'])

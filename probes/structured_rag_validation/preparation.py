@@ -33,7 +33,10 @@ def relocate_required(anchors, entries, old_groups):
     return groups
 
 
-def prepare(project, output, *, config=None, corpus=None, questions=None, raw_root=None):
+def prepare(project, output, *, config=None, corpus=None, questions=None, raw_root=None,
+            api_timeout=180, worker_timeout=240):
+    if type(worker_timeout) is not int or worker_timeout < 1:
+        raise ValueError('worker_timeout must be a positive integer')
     project = Path(project).resolve()
     config = Path(config or project / 'rag/config/local_api.json').resolve()
     private = config.with_name(config.stem + '.local.json')
@@ -79,7 +82,8 @@ def prepare(project, output, *, config=None, corpus=None, questions=None, raw_ro
             'questions': str(questions), 'raw_root': str(raw_root),
             'input_hashes': {str(p): file_hash(p) for p in files}, 'baseline': baseline,
             'private_overlay': {'path': str(private), 'present': private.is_file()},
-            'model_config': experimental_config(load_api_config(config)), 'selected_scenarios': SELECTED,
+            'model_config': experimental_config(load_api_config(config), api_timeout=api_timeout),
+            'worker_timeout': worker_timeout, 'selected_scenarios': SELECTED,
             'necessary_anchors': necessary, 'oracle_queries': old_inputs['oracle_queries'],
             'system': SYSTEM, 'tools': [SEARCH_TOOL], 'policies': POLICIES,
             'historical_reference_only': 'exp/a06-diagnosis:r003/report-r002',

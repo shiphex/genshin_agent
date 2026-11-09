@@ -7,9 +7,11 @@ from Benchmarks.support.common import ROOT, RunStore, file_hash, provenance, rea
 HERE = Path(__file__).resolve().parent
 
 
-def experimental_config(public):
+def experimental_config(public, *, api_timeout=180):
+    if type(api_timeout) is not int or api_timeout < 1:
+        raise ValueError('api_timeout must be a positive integer')
     return {**{key: public.get(key) for key in ('base_url', 'model', 'api_key_env')},
-            'timeout': 180, 'max_tokens': 1536, 'temperature': 0, 'seed': 42, 'top_k': 5,
+            'timeout': api_timeout, 'max_tokens': 1536, 'temperature': 0, 'seed': 42, 'top_k': 5,
             'tool_choice_mode': 'required_single_tool_prefill'}
 
 
