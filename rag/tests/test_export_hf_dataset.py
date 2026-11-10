@@ -147,6 +147,20 @@ class HuggingFaceDatasetExportTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'configuration|card'):
                 hf.verify_release(output)
 
+    def test_previous_card_metadata_remains_verifiable(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = self.make_source(root)
+            output = root / 'release'
+            hf.build_release(source, output)
+            card = output / 'README.md'
+            original = card.read_text(encoding='utf-8')
+            updated = original.replace('pretty_name: 原神剧情 RAG 语料库｜Genshin Impact Story Corpus\n', '')
+            updated = updated.replace('task_categories:\n- text-retrieval\n', '')
+            updated = updated.replace('- nlp\n- text-generation\n- conversational\n- roleplay\n- multi-turn\n- chinese-corpus\n', '')
+            card.write_text(updated, encoding='utf-8')
+            self.assertEqual(hf.verify_release(output)['rows'], 2)
+
 
 if __name__ == "__main__":
     unittest.main()

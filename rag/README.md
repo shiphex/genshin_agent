@@ -117,7 +117,7 @@ uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3
 uv --cache-dir .cache/uv run --locked --offline --no-python-downloads --python 3.11 python -B rag/scripts/export_hf_dataset.py verify rag/data/outputs/hf/release-v2
 ```
 
-HF已合并结构化V2：发布包manifest版本3、语料版本2；本地默认基线仍为旧格式。catalog.hf的 `release_version` 用于默认基线导出，`published_release_version` 记录当前远端版本，两者可不同。加载须读取数据卡类型或显式Features，见[加载说明](docs/structured_corpus.md#hf加载)。工具验证白名单、字段、行数和哈希，不上传；数据卡保留来源与 `license: other` 声明。
+HF已合并结构化V2：发布包manifest版本3、语料版本2；本地默认基线仍为旧格式。catalog.hf的 `release_version` 用于默认基线导出，`published_release_version` 记录当前远端版本，两者可不同。加载须读取数据卡类型或显式Features，见[加载说明](docs/structured_corpus.md#hf加载)。工具验证白名单、字段、行数和哈希，不上传；数据卡保留来源与 `license: other` 声明。原创RAG脚本与schema说明的许可范围见[MIT声明](LICENSE-MIT.txt)，不涵盖剧情语料。
 
 ## 数据获取与验证
 

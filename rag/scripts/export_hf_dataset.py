@@ -90,12 +90,21 @@ def validate_corpus(path, expected_rows=None):
 def dataset_card(manifest):
     card = f"""---
 license: other
+pretty_name: 原神剧情 RAG 语料库｜Genshin Impact Story Corpus
 language:
 - zh
+task_categories:
+- text-retrieval
 tags:
 - rag
 - retrieval
 - genshin-impact
+- nlp
+- text-generation
+- conversational
+- roleplay
+- multi-turn
+- chinese-corpus
 configs:
 - config_name: story
   default: true
@@ -104,9 +113,9 @@ configs:
     path: data/corpus.jsonl
 ---
 
-# Genshin Agent RAG corpus
+# 原神剧情 RAG 语料库｜Genshin Impact Story Corpus
 
-这是为原神剧情讨论与 RAG 检索准备的中文语料，当前发布包含 **{manifest['rows']:,} 条记录**。
+这是从冻结的原神 Wiki 快照派生的中文剧情语料（Genshin Impact story/lore corpus），面向剧情检索与 Agent/RAG 的证据回查，当前发布包含 **{manifest['rows']:,} 条结构化记录**。对话保留逐句说话者与正文；`text-generation` 和 `roleplay` 表示可结合检索使用的下游场景，`multi-turn` 指剧情中的多轮对话。本数据集不提供助手对话或监督微调（SFT）的指令与标准回答。
 
 | 属性 | 值 |
 | --- | --- |
@@ -122,11 +131,7 @@ configs:
 ```python
 from datasets import load_dataset
 
-corpus = load_dataset(
-    "shiphex/genshin_agent_RAG",
-    name="story",
-    split="train",
-)
+corpus = load_dataset("shiphex/genshin_agent_RAG", name="story", split="train")
 print(len(corpus))
 print(corpus[0])
 ```
@@ -168,7 +173,9 @@ Wiki 摘录与 Wiki 编纂都不能自动视作官方确认事实。引用人物
 
 ## 许可与使用边界
 
-Hugging Face 元数据中的 `license: other` 不授予语料文本开放数据许可。原神及 Wiki 来源文本没有通过本仓库获得再许可；相关权利与使用限制仍由相应权利人和来源条款决定。发布者原创的脚本、清单及说明可按 MIT 许可使用，该声明不扩展到语料文本。使用者应自行确认其使用方式符合适用的来源条款和法律要求。
+Hugging Face 元数据中的 `license: other` 不授予语料文本开放数据许可。原神及 Wiki 来源文本没有通过本仓库获得再许可；相关权利与使用限制仍由相应权利人和来源条款决定。本项目原创的 RAG 脚本和 schema 说明按 [MIT 许可及适用范围](https://github.com/shiphex/genshin_agent/blob/feat/rag-structured-corpus/rag/LICENSE-MIT.txt)提供；该许可不扩展到语料文本或第三方材料。使用者应自行确认其使用方式符合适用的来源条款和法律要求。
+
+The text data belongs to HoYoVerse/Wiki community. The structure, schema, and scripts are under MIT License. This MIT license applies only to original project contributions and does not license the story text or third-party material.
 
 ## 完整性校验
 
@@ -192,6 +199,21 @@ Hugging Face 元数据中的 `license: other` 不授予语料文本开放数据�
 ''' + card[end:]
         card = card.replace('`source_file` 和 `source_pointer`', '`source.file` 和正文的 `pointer`')
         card = card.replace('| 基线 | `None` |', '| 身份 | 独立候选，尚未提升基线 |')
+        card = card.replace('## 发布文件', '''## 读取对话与章节
+
+```python
+row = next(row for row in corpus if row["content"]["turns"])
+chapter = row["metadata"]["context"]["chapter"]
+act = row["metadata"]["context"]["act"]
+turns = row["content"]["turns"]
+print(chapter, act)
+for turn in turns:
+    print(turn["speaker"], turn["text"])
+```
+
+`turns` 可能为空；旁白、玩家选项和未知说话者须按 `kind`、`options` 与 `quality_flags` 判断。`text` 由逐句内容或段落生成，章节、幕次和任务步骤另存于 `metadata.context` 与 `title`，不直接写入 `text`。
+
+## 发布文件''', 1)
         card += '''
 ## 嵌套类型与质量限制
 
@@ -202,7 +224,7 @@ quality_flags包含上游待修或疑似异常；结构完整与原文可定位�
 数据卡内声明完整features，默认按发布目录或Hub的story配置加载时使用这些类型。
 本地直接读取JSONL时须传项目导出模块的`hf_features()`；它以`Features`和`List(struct)`定义全部字段。
 跳过数据卡且不传features的自动推断可能把首批全空字段推断为null，不能用作本格式的可靠加载入口。
-已发布状态及远端Viewer需要单独验证，本地导出不代表已经上传。
+本地导出不代表已经上传；发布状态以公开数据集页面及项目 catalog 的实际核验记录为准。
 '''
     return card
 
@@ -334,9 +356,18 @@ def verify_release(output, *, expected_rows=None):
         data = (output / relative).read_bytes()
         if len(data) != info.get('bytes') or sha256(data) != info.get('sha256'):
             raise ValueError('Release hash mismatch: ' + relative)
-    # Exact generated frontmatter prevents audit/exclusion files entering the Viewer configuration.
+    # Keep the loading contract exact while allowing historical card metadata.
     card = (output / 'README.md').read_text(encoding='utf-8')
-    if card.split('---', 2)[:2] != dataset_card(manifest).split('---', 2)[:2]:
+    parts = card.split('---', 2)
+    expected_parts = dataset_card(manifest).split('---', 2)
+    if len(parts) != 3 or parts[0].strip() or parts[1].count('\nconfigs:\n') != 1:
+        raise ValueError('Invalid dataset card configuration')
+    header, expected_header = parts[1], expected_parts[1]
+    license_lines = [line for line in header.splitlines() if line.startswith('license:')]
+    feature_lines = [line for line in header.splitlines() if line.startswith('dataset_info:')]
+    expected_features = [line for line in expected_header.splitlines() if line.startswith('dataset_info:')]
+    if (license_lines != ['license: other'] or feature_lines != expected_features
+            or header.split('\nconfigs:\n', 1)[1] != expected_header.split('\nconfigs:\n', 1)[1]):
         raise ValueError('Invalid dataset card configuration')
     if (output / '.gitattributes').read_text(encoding='ascii') != 'data/corpus.jsonl filter=lfs diff=lfs merge=lfs -text\n':
         raise ValueError('Corpus must use Git LFS')

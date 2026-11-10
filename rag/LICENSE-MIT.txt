@@ -1,0 +1,30 @@
+MIT License for original RAG tooling and schema documentation
+
+This license applies to original code in rag/scripts/ and original schema
+documentation in rag/docs/structured_corpus.md. It does not apply to the
+published story corpus, raw or derived Wiki/game text, third-party material,
+or files carrying their own license notices.
+
+本许可仅适用于 rag/scripts/ 中的原创代码及
+rag/docs/structured_corpus.md 中的原创 schema 说明；不适用于发布的剧情语料、
+原始或派生的 Wiki／游戏文本、第三方材料，以及附有独立许可声明的文件。
+
+Copyright (c) 2026 shiphex
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

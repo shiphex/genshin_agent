@@ -10,6 +10,7 @@ __pycache__/
 !/rag/README.md
 !/rag/context.md
 !/rag/catalog.json
+!/rag/LICENSE-MIT.txt
 !/rag/config/
 /rag/config/*
 !/rag/config/local_api.json
