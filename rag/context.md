@@ -31,7 +31,7 @@ description: "记录当前RAG基线、遗留问题与最近验证边界。"
 
 retrieval/r006完成110题Top5：位置Hit为93/110、Coverage宏72.71%、微298/445，与旧候选r004一致；书籍genre未纳入及迁移未决保留分母。11-05的r005计数记录三种Top5工具JSON增加20.28%–26.82%、固定三轮输入增加21.90%；未套服务模板，不是实际prompt_tokens。模型调用0，语义未测。
 
-11-06发布outputs/hf/structured-261106-r001，review/r006核对PR #5的7文件及23,254条。11-10仅改数据卡的HF PR #6已合并；新revision公开加载23,254条、7文件哈希一致，Viewer返回忙碌500，暂登记published_pending_viewer。缺陷披露、旧revision及裸JSON推断限制保留。
+11-06发布outputs/hf/structured-261106-r001，review/r006核对PR #5的7文件及23,254条。11-10仅改数据卡的HF PR #6已合并；新revision公开加载23,254条、7文件哈希一致，HF全文检索三词均列出本集；Viewer返回忙碌500，暂登记published_pending_viewer。缺陷披露、旧revision及裸JSON推断限制保留。
 
 2026-10-30 精确a06重放确认 required 已应用，但语法允许不限长度的前置正文，仍耗尽1536 token；短输入通过不能外推。已新增[显式前缀模式](docs/local_model.md)，三次均以32 token完成原生调用，真实检索往返通过。证据在本地 outputs/local_api_validation/r002，服务已停止；H1/C1未重跑，剧情和性能未验收。
 
