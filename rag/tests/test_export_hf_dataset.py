@@ -161,6 +161,17 @@ class HuggingFaceDatasetExportTests(unittest.TestCase):
             card.write_text(updated, encoding='utf-8')
             self.assertEqual(hf.verify_release(output)['rows'], 2)
 
+    def test_rejects_malformed_card_metadata(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            output = root / 'release'
+            hf.build_release(self.make_source(root), output)
+            card = output / 'README.md'
+            card.write_text(card.read_text(encoding='utf-8').replace('language:\n- zh', 'language: [zh'),
+                            encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'card configuration'):
+                hf.verify_release(output)
+
 
 if __name__ == "__main__":
     unittest.main()

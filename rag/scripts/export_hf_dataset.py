@@ -356,18 +356,18 @@ def verify_release(output, *, expected_rows=None):
         data = (output / relative).read_bytes()
         if len(data) != info.get('bytes') or sha256(data) != info.get('sha256'):
             raise ValueError('Release hash mismatch: ' + relative)
-    # Keep the loading contract exact while allowing historical card metadata.
+    # Accept only the current header and the published header predating discovery metadata.
     card = (output / 'README.md').read_text(encoding='utf-8')
     parts = card.split('---', 2)
     expected_parts = dataset_card(manifest).split('---', 2)
-    if len(parts) != 3 or parts[0].strip() or parts[1].count('\nconfigs:\n') != 1:
+    if len(parts) != 3 or parts[0].strip():
         raise ValueError('Invalid dataset card configuration')
     header, expected_header = parts[1], expected_parts[1]
-    license_lines = [line for line in header.splitlines() if line.startswith('license:')]
-    feature_lines = [line for line in header.splitlines() if line.startswith('dataset_info:')]
-    expected_features = [line for line in expected_header.splitlines() if line.startswith('dataset_info:')]
-    if (license_lines != ['license: other'] or feature_lines != expected_features
-            or header.split('\nconfigs:\n', 1)[1] != expected_header.split('\nconfigs:\n', 1)[1]):
+    legacy_header = expected_header.replace('pretty_name: 原神剧情 RAG 语料库｜Genshin Impact Story Corpus\n', '')
+    legacy_header = legacy_header.replace('task_categories:\n- text-retrieval\n', '')
+    legacy_header = legacy_header.replace(
+        '- nlp\n- text-generation\n- conversational\n- roleplay\n- multi-turn\n- chinese-corpus\n', '')
+    if header not in (expected_header, legacy_header):
         raise ValueError('Invalid dataset card configuration')
     if (output / '.gitattributes').read_text(encoding='ascii') != 'data/corpus.jsonl filter=lfs diff=lfs merge=lfs -text\n':
         raise ValueError('Corpus must use Git LFS')
