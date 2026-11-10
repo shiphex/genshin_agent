@@ -173,7 +173,7 @@ Wiki 摘录与 Wiki 编纂都不能自动视作官方确认事实。引用人物
 
 ## 许可与使用边界
 
-Hugging Face 元数据中的 `license: other` 不授予语料文本开放数据许可。原神及 Wiki 来源文本没有通过本仓库获得再许可；相关权利与使用限制仍由相应权利人和来源条款决定。本项目原创的 RAG 脚本和 schema 说明按 [MIT 许可及适用范围](https://github.com/shiphex/genshin_agent/blob/feat/rag-structured-corpus/rag/LICENSE-MIT.txt)提供；该许可不扩展到语料文本或第三方材料。使用者应自行确认其使用方式符合适用的来源条款和法律要求。
+Hugging Face 元数据中的 `license: other` 不授予语料文本开放数据许可。原神及 Wiki 来源文本没有通过本仓库获得再许可；相关权利与使用限制仍由相应权利人和来源条款决定。本项目原创的 RAG 脚本和 schema 说明按 [MIT 许可及适用范围](https://github.com/shiphex/genshin_agent/blob/7b70fff9e576585ea50800e9560b3a67855fb53a/rag/LICENSE-MIT.txt)提供；该许可不扩展到语料文本或第三方材料。使用者应自行确认其使用方式符合适用的来源条款和法律要求。
 
 The text data belongs to HoYoVerse/Wiki community. The structure, schema, and scripts are under MIT License. This MIT license applies only to original project contributions and does not license the story text or third-party material.
 
